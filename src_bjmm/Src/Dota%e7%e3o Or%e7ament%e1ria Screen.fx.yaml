@@ -1,0 +1,3074 @@
+"'Dotação Orçamentária Screen' As screen":
+
+    app_cpn_bonin_4 As app_cpn_bonin:
+        OnSelect: =
+
+    Container1_1 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X - 10
+        X: =230
+        Y: =110
+        ZIndex: =2
+
+        Container14 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =10
+            PaddingLeft: =5
+            PaddingRight: =5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =2
+
+            Container12 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =80
+                LayoutGap: =10
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Button3_3 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Color: =If(cDotUnidade, Color.White, RGBA(45, 65, 93, 1))
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    Fill: =If(cDotUnidade, RGBA(45, 65, 93, 1), RGBA(255, 255, 255, 1))
+                    Font: =Font.Arial
+                    OnSelect: |+
+                        =Set(cDotRecurso, false);
+                        Set(cDotDespesa, false);
+                        Set(cDotOrgao, false);
+                        Set(cDotUnidade, true);
+                        Set(cDotProgramatica, false);
+                        Set(cDotCredito, false);
+                        NewForm(Form_DotUnidade);
+                        
+                    Size: =11
+                    Text: ="CONTROLE || DOTAÇÃO ORÇAMENTÁRIA - UNIDADE"
+                    Width: =270
+                    ZIndex: =1
+
+                Button3_2 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Color: =If(cDotOrgao, Color.White, RGBA(45, 65, 93, 1))
+                    Fill: =If(cDotOrgao, RGBA(45, 65, 93, 1), RGBA(255, 255, 255, 1))
+                    Font: =Font.Arial
+                    OnSelect: |+
+                        =Set(cDotRecurso, false);
+                        Set(cDotDespesa, false);
+                        Set(cDotOrgao, true);
+                        Set(cDotUnidade, false);
+                        Set(cDotProgramatica, false);
+                        Set(cDotCredito, false);
+                        
+                        
+                    Size: =11
+                    Text: ="CONTROLE || DOTAÇÃO ORÇAMENTÁRIA - ÓRGÃO"
+                    Width: =270
+                    ZIndex: =2
+
+                Button3_4 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Color: =If(cDotProgramatica, Color.White, RGBA(45, 65, 93, 1))
+                    Fill: =If(cDotProgramatica, RGBA(45, 65, 93, 1), RGBA(255, 255, 255, 1))
+                    Font: =Font.Arial
+                    OnSelect: |+
+                        =Set(cDotRecurso, false);
+                        Set(cDotDespesa, false);
+                        Set(cDotOrgao, false);
+                        Set(cDotUnidade, false);
+                        Set(cDotProgramatica, true);
+                        Set(cDotCredito, false);
+                        
+                        
+                    Size: =11
+                    Text: ="CONTROLE || DOTAÇÃO ORÇAMENTÁRIA - PROGRAMÁTICA"
+                    Width: =270
+                    ZIndex: =3
+
+                Button3 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Color: =If(cDotDespesa, Color.White, RGBA(45, 65, 93, 1))
+                    Fill: =If(cDotDespesa, RGBA(45, 65, 93, 1), RGBA(255, 255, 255, 1))
+                    Font: =Font.Arial
+                    OnSelect: |+
+                        =Set(cDotRecurso, false);
+                        Set(cDotDespesa, true);
+                        Set(cDotOrgao, false);
+                        Set(cDotUnidade, false);
+                        Set(cDotProgramatica, false);
+                        Set(cDotCredito, false);
+                        
+                        
+                    Size: =11
+                    Text: ="CONTROLE || DOTAÇÃO ORÇAMENTÁRIA - DESPESA"
+                    Width: =270
+                    ZIndex: =4
+
+                Button3_5 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Color: =If(cDotRecurso, Color.White, RGBA(45, 65, 93, 1))
+                    Fill: =If(cDotRecurso, RGBA(45, 65, 93, 1), RGBA(255, 255, 255, 1))
+                    Font: =Font.Arial
+                    OnSelect: |+
+                        =Set(cDotRecurso, true);
+                        Set(cDotDespesa, false);
+                        Set(cDotOrgao, false);
+                        Set(cDotUnidade, false);
+                        Set(cDotProgramatica, false);
+                        Set(cDotCredito, false);
+                        
+                        
+                    Size: =11
+                    Text: ="CONTROLE || DOTAÇÃO ORÇAMENTÁRIA - RECURSO"
+                    Width: =270
+                    ZIndex: =5
+
+                Button3_6 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Color: =If(cDotCredito, Color.White, RGBA(45, 65, 93, 1))
+                    Fill: =If(cDotCredito, RGBA(45, 65, 93, 1), RGBA(255, 255, 255, 1))
+                    Font: =Font.Arial
+                    OnSelect: |
+                        =Set(cDotRecurso, false);
+                        Set(cDotDespesa, false);
+                        Set(cDotOrgao, false);
+                        Set(cDotUnidade, false);
+                        Set(cDotProgramatica, false);
+                        Set(cDotCredito, true);
+                    Size: =11
+                    Text: ="CONTROLE || DOTAÇÃO ORÇAMENTÁRIA - CRÉDITO"
+                    Width: =270
+                    ZIndex: =6
+
+            cControleDotDespesa As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =cDotDespesa
+                ZIndex: =2
+
+                Container17 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    Container8_2 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                        ZIndex: =1
+
+                        Container7_5 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutGap: =10
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_47 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ID"
+                                Width: =100
+                                ZIndex: =1
+
+                            Label1_55 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="DESPESA"
+                                Width: =200
+                                ZIndex: =2
+
+                            Label1_56 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="CONFIGURAÇÕES"
+                                Width: =300
+                                ZIndex: =3
+
+                            Container16_2 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                Width: =100
+                                ZIndex: =4
+
+                                Icon2 As icon.Add:
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Icon: =Icon.Add
+                                    OnSelect: |-
+                                        =Set(criar_lancamento, true);
+                                        NewForm(Form_DotDespesa);
+                                    ZIndex: =1
+
+                        galContratos_2 As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            DelayItemLoading: =true
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =Parent.Height - Self.X
+                            Items: =db_cont_despesa
+                            Layout: =Layout.Vertical
+                            LayoutMinHeight: =287
+                            LayoutMinWidth: =320
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =60
+                            Width: =Parent.Width - Self.X * 2
+                            ZIndex: =2
+
+                            Container6_2 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.TemplateHeight
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - Parent.X - 10
+                                ZIndex: =1
+
+                                Container7_6 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =10
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Label1_10 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.dot_despesa_id
+                                        Width: =100
+                                        ZIndex: =1
+
+                                    Label1_61 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.despesa
+                                        Width: =200
+                                        ZIndex: =2
+
+                                    Container16 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutGap: =50
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =70
+                                        PaddingRight: =70
+                                        PaddingTop: =5
+                                        Width: =300
+                                        ZIndex: =3
+
+                                        Icon1 As icon.Edit:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Edit
+                                            OnSelect: |-
+                                                =UpdateContext({locPP_DotDespesaSelect: ThisItem});
+                                            Tooltip: ="EDITAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =1
+
+                                        Icon1_1 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Erase
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                ClearCollect(colDotDespesaSelect, Filter(db_cont_despesa, ID = ThisItem.ID));
+                                                UpdateContext({locPP_DotDespesaSelect: First(colDotDespesaSelect)});
+                                            Tooltip: ="APAGAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =2
+
+                                    Container16_1 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =10
+                                        PaddingLeft: =10
+                                        PaddingRight: =10
+                                        PaddingTop: =10
+                                        Width: =100
+                                        ZIndex: =4
+
+                    Container9_4 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container10_3 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_11 As label:
+                                Align: =Align.Center
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =12
+                                Text: |-
+                                    =If(IsBlank(locPP_DotDespesaSelect), "CRIANDO NOVA DESPESA PARA DOTAÇÃO ORÇAMENTÁRIA",
+                                    "EDITANDO DOTAÇÃO ORÇAMENTÁRIA - DESPESA || " & locPP_DotDespesaSelect.despesa)
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                        Container11_3 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =450
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Form_DotDespesa As form:
+                                AcceptsFocus: =false
+                                DataSource: =db_cont_despesa
+                                DefaultMode: =If(IsBlank(locPP_DotDespesaSelect), FormMode.New, FormMode.Edit)
+                                Height: =Parent.Height
+                                Item: =locPP_DotDespesaSelect
+                                NumberOfColumns: =2
+                                OnReset: =true
+                                OnSuccess: |-
+                                    =Set(criar_lancamento, false);
+                                    ResetForm(Form_DotDespesa);
+                                    UpdateContext({locPP_DotDespesaSelect: Blank()});
+                                Width: =Parent.Width
+                                X: =0   
+                                ZIndex: =1
+
+                                dot_despesa_id_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="dot_despesa_id"
+                                    Default: =ThisItem.dot_despesa_id
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_despesa],DataSourceInfo.DisplayName,dot_despesa_id)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_despesa], DataSourceInfo.MaxLength, dot_despesa_id)
+                                    Required: =true
+                                    Update: =DataCardValue3.Text
+                                    Width: =405
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =2
+
+                                    DataCardKey3 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ID"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue3 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage3 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue3.Y + DataCardValue3.Height
+                                        ZIndex: =3
+
+                                    StarVisible3 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey3.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey3.Y
+                                        ZIndex: =4
+
+                                despesa_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="despesa"
+                                    Default: =ThisItem.despesa
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_despesa],DataSourceInfo.DisplayName,despesa)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_despesa], DataSourceInfo.MaxLength, despesa)
+                                    Required: =true
+                                    Update: =DataCardValue10.Text
+                                    Width: =405
+                                    X: =1
+                                    Y: =0
+                                    ZIndex: =2
+
+                                    DataCardKey10 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="DESPESA"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue10 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage10 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue10.Y + DataCardValue10.Height
+                                        ZIndex: =3
+
+                                    StarVisible10 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey10.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey10.Y
+                                        ZIndex: =4
+
+                        Container10_4 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =3
+
+                            Button2_8 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_DotDespesaSelect: Blank()});
+                                Size: =12
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =2
+
+                            Button2_9 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |
+                                    =SubmitForm(Form_DotDespesa)
+                                Size: =12
+                                Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =3
+
+            cControleDotOrgao As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =cDotOrgao
+                ZIndex: =3
+
+                Container17_1 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Container8_3 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                        ZIndex: =1
+
+                        Container7_7 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutGap: =10
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_54 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ID"
+                                Width: =100
+                                ZIndex: =1
+
+                            Label1_57 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ÓRGÃO"
+                                Width: =200
+                                ZIndex: =2
+
+                            Label1_58 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="CONFIGURAÇÕES"
+                                Width: =300
+                                ZIndex: =3
+
+                            Container16_3 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                Width: =100
+                                ZIndex: =4
+
+                                Icon2_1 As icon:
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Icon: =Icon.Add
+                                    OnSelect: |-
+                                        =Set(criar_lancamento, true);
+                                        NewForm(Form_DotOrgao);
+                                    ZIndex: =1
+
+                        galContratos_3 As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            DelayItemLoading: =true
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =Parent.Height - Self.X
+                            Items: =db_cont_orgao
+                            Layout: =Layout.Vertical
+                            LayoutMinHeight: =287
+                            LayoutMinWidth: =320
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =60
+                            Width: =Parent.Width - Self.X * 2
+                            ZIndex: =2
+
+                            Container6_3 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.TemplateHeight
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - Parent.X - 10
+                                ZIndex: =1
+
+                                Container7_8 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =10
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Label1_38 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.dot_orgao_id
+                                        Width: =100
+                                        ZIndex: =1
+
+                                    Label1_62 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.orgao
+                                        Width: =200
+                                        ZIndex: =2
+
+                                    Container16_4 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutGap: =50
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =70
+                                        PaddingRight: =70
+                                        PaddingTop: =5
+                                        Width: =300
+                                        ZIndex: =3
+
+                                        Icon1_2 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Edit
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                UpdateContext({locPP_DotOrgaoSelect: ThisItem});
+                                                
+                                                //First(colDotOrgaoSelect
+                                            Tooltip: ="EDITAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =1
+
+                                        Icon1_3 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Erase
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                ClearCollect(colDotDespesaSelect, Filter(db_cont_despesa, ID = ThisItem.ID));
+                                                UpdateContext({locPP_DotDespesaSelect: First(colDotDespesaSelect)});
+                                            Tooltip: ="APAGAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =2
+
+                                    Container16_5 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =10
+                                        PaddingLeft: =10
+                                        PaddingRight: =10
+                                        PaddingTop: =10
+                                        Width: =100
+                                        ZIndex: =4
+
+                    Container9_5 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container10_5 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_59 As label:
+                                Align: =Align.Center
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =12
+                                Text: |-
+                                    =If(IsBlank(locPP_DotOrgaoSelect), "CRIANDO NOVO ÓRGÃO PARA DOTAÇÃO ORÇAMENTÁRIA",
+                                    "EDITANDO DOTAÇÃO ORÇAMENTÁRIA - ÓRGÃO || " & locPP_DotOrgaoSelect.orgao)
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                        Container11_4 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =450
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Form_DotOrgao As form:
+                                AcceptsFocus: =false
+                                DataSource: =db_cont_orgao
+                                DefaultMode: =If(IsBlank(locPP_DotOrgaoSelect), FormMode.New, FormMode.Edit)
+                                Height: =Parent.Height
+                                Item: =locPP_DotOrgaoSelect
+                                NumberOfColumns: =2
+                                OnReset: =true
+                                OnSuccess: |-
+                                    =ResetForm(Form_DotOrgao);
+                                    UpdateContext({locPP_DotOrgaoSelect: Blank()});
+                                Width: =Parent.Width
+                                X: =0   
+                                ZIndex: =1
+
+                                dot_orgao_id_DataCard2 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="dot_orgao_id"
+                                    Default: =ThisItem.dot_orgao_id
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_orgao],DataSourceInfo.DisplayName,dot_orgao_id)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_orgao], DataSourceInfo.MaxLength, dot_orgao_id)
+                                    Required: =true
+                                    Update: =DataCardValue29.Text
+                                    Visible: =true
+                                    Width: =405
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey29 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ID"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue29 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey29.Y + DataCardKey29.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage29 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue29.Y + DataCardValue29.Height
+                                        ZIndex: =3
+
+                                    StarVisible29 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey29.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey29.Y
+                                        ZIndex: =4
+
+                                orgao_DataCard2 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="orgao"
+                                    Default: =ThisItem.orgao
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_orgao],DataSourceInfo.DisplayName,orgao)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_orgao], DataSourceInfo.MaxLength, orgao)
+                                    Required: =true
+                                    Update: =DataCardValue30.Text
+                                    Width: =405
+                                    X: =1
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey30 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ÓRGÃO"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue30 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey30.Y + DataCardKey30.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage30 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue30.Y + DataCardValue30.Height
+                                        ZIndex: =3
+
+                                    StarVisible30 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey30.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey30.Y
+                                        ZIndex: =4
+
+                        Container10_6 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =3
+
+                            Button2_10 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_DotOrgaoSelect: Blank()});
+                                Size: =12
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =1
+
+                            Button2_11 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |
+                                    =SubmitForm(Form_DotOrgao)
+                                Size: =12
+                                Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =2
+
+            cControleDotUnidade As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =cDotUnidade
+                ZIndex: =4
+
+                Container17_2 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Container8_4 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                        ZIndex: =1
+
+                        Container7_9 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutGap: =10
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_60 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ID"
+                                Width: =100
+                                ZIndex: =1
+
+                            Label1_63 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="UNIDADE"
+                                Width: =200
+                                ZIndex: =2
+
+                            Label1_64 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="CONFIGURAÇÕES"
+                                Width: =300
+                                ZIndex: =3
+
+                            Container16_6 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                Width: =100
+                                ZIndex: =4
+
+                                Icon2_2 As icon:
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Icon: =Icon.Add
+                                    OnSelect: |-
+                                        =Set(criar_lancamento, true);
+                                        NewForm(Form_DotUnidade);
+                                    ZIndex: =1
+
+                        galContratos_4 As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            DelayItemLoading: =true
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =Parent.Height - Self.X
+                            Items: =db_cont_unidade
+                            Layout: =Layout.Vertical
+                            LayoutMinHeight: =287
+                            LayoutMinWidth: =320
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =60
+                            Width: =Parent.Width - Self.X * 2
+                            ZIndex: =2
+
+                            Container6_4 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.TemplateHeight
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - Parent.X - 10
+                                ZIndex: =1
+
+                                Container7_10 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =10
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Label1_65 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.dot_unidade_id
+                                        Width: =100
+                                        ZIndex: =1
+
+                                    Label1_66 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.unidade
+                                        Width: =200
+                                        ZIndex: =2
+
+                                    Container16_7 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutGap: =50
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =70
+                                        PaddingRight: =70
+                                        PaddingTop: =5
+                                        Width: =300
+                                        ZIndex: =3
+
+                                        Icon1_4 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Edit
+                                            OnSelect: |-
+                                                =UpdateContext({locPP_DotUnidadeSelect: ThisItem});
+                                            Tooltip: ="EDITAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =1
+
+                                        Icon1_5 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Erase
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                ClearCollect(colDotDespesaSelect, Filter(db_cont_despesa, ID = ThisItem.ID));
+                                                UpdateContext({locPP_DotDespesaSelect: First(colDotDespesaSelect)});
+                                            Tooltip: ="APAGAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =2
+
+                                    Container16_8 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =10
+                                        PaddingLeft: =10
+                                        PaddingRight: =10
+                                        PaddingTop: =10
+                                        Width: =100
+                                        ZIndex: =4
+
+                    Container9_6 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container10_7 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_67 As label:
+                                Align: =Align.Center
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =12
+                                Text: |-
+                                    =If(IsBlank(locPP_DotUnidadeSelect), "CRIANDO NOVA UNIDADE PARA DOTAÇÃO ORÇAMENTÁRIA",
+                                    "EDITANDO DOTAÇÃO ORÇAMENTÁRIA - UNIDADE || " & locPP_DotUnidadeSelect.unidade)
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                        Container11_5 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =450
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Form_DotUnidade As form:
+                                AcceptsFocus: =false
+                                DataSource: =db_cont_unidade
+                                DefaultMode: =If(IsBlank(locPP_DotUnidadeSelect), FormMode.New, FormMode.Edit)
+                                Height: =Parent.Height
+                                Item: =locPP_DotUnidadeSelect
+                                NumberOfColumns: =2
+                                OnSuccess: |-
+                                    =ResetForm(Form_DotUnidade);
+                                    UpdateContext({locPP_DotUnidadeSelect: Blank()});
+                                Width: =Parent.Width
+                                X: =0   
+                                ZIndex: =1
+
+                                dot_unidade_id_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="dot_unidade_id"
+                                    Default: =ThisItem.dot_unidade_id
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_unidade],DataSourceInfo.DisplayName,dot_unidade_id)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_unidade], DataSourceInfo.MaxLength, dot_unidade_id)
+                                    Required: =true
+                                    Update: =DataCardValue33.Text
+                                    Width: =405
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey33 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ID"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue33 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey33.Y + DataCardKey33.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage33 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue33.Y + DataCardValue33.Height
+                                        ZIndex: =3
+
+                                    StarVisible33 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey33.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey33.Y
+                                        ZIndex: =4
+
+                                unidade_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="unidade"
+                                    Default: =ThisItem.unidade
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_unidade],DataSourceInfo.DisplayName,unidade)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_unidade], DataSourceInfo.MaxLength, unidade)
+                                    Required: =true
+                                    Update: =DataCardValue32.Text
+                                    Width: =405
+                                    X: =1
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey32 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="UNIDADE"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue32 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey32.Y + DataCardKey32.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage32 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue32.Y + DataCardValue32.Height
+                                        ZIndex: =3
+
+                                    StarVisible32 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey32.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey32.Y
+                                        ZIndex: =4
+
+                        Container10_8 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =3
+
+                            Button2_12 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_DotUnidadeSelect: Blank()});
+                                Size: =12
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =1
+
+                            Button2_13 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: =SubmitForm(Form_DotUnidade);
+                                Size: =12
+                                Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =2
+
+            cControleDotProgramatica As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =cDotProgramatica
+                ZIndex: =5
+
+                Container17_3 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Container8_5 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                        ZIndex: =1
+
+                        Container7_11 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutGap: =10
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_68 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ID"
+                                Width: =100
+                                ZIndex: =1
+
+                            Label1_69 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="PROGRAMÁTICA"
+                                Width: =200
+                                ZIndex: =2
+
+                            Label1_70 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="CONFIGURAÇÕES"
+                                Width: =300
+                                ZIndex: =3
+
+                            Container16_9 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                Width: =100
+                                ZIndex: =4
+
+                                Icon2_3 As icon:
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Icon: =Icon.Add
+                                    OnSelect: |-
+                                        =Set(criar_lancamento, true);
+                                        NewForm(Form_DotProgramatica);
+                                    ZIndex: =1
+
+                        galContratos_5 As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            DelayItemLoading: =true
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =Parent.Height - Self.X
+                            Items: =db_cont_programatica
+                            Layout: =Layout.Vertical
+                            LayoutMinHeight: =287
+                            LayoutMinWidth: =320
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =60
+                            Width: =Parent.Width - Self.X * 2
+                            ZIndex: =2
+
+                            Container6_5 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.TemplateHeight
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - Parent.X - 10
+                                ZIndex: =1
+
+                                Container7_12 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =10
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Label1_71 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.dot_programatica_id
+                                        Width: =100
+                                        ZIndex: =1
+
+                                    Label1_72 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.programatica
+                                        Width: =200
+                                        ZIndex: =2
+
+                                    Container16_10 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutGap: =50
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =70
+                                        PaddingRight: =70
+                                        PaddingTop: =5
+                                        Width: =300
+                                        ZIndex: =3
+
+                                        Icon1_6 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Edit
+                                            OnSelect: |-
+                                                =UpdateContext({locPP_DotProgramaticaSelect: ThisItem});
+                                            Tooltip: ="EDITAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =1
+
+                                        Icon1_7 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Erase
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                ClearCollect(colDotDespesaSelect, Filter(db_cont_despesa, ID = ThisItem.ID));
+                                                UpdateContext({locPP_DotDespesaSelect: First(colDotDespesaSelect)});
+                                            Tooltip: ="APAGAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =2
+
+                                    Container16_11 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =10
+                                        PaddingLeft: =10
+                                        PaddingRight: =10
+                                        PaddingTop: =10
+                                        Width: =100
+                                        ZIndex: =4
+
+                    Container9_7 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container10_9 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_73 As label:
+                                Align: =Align.Center
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =12
+                                Text: |-
+                                    =If(IsBlank(locPP_DotProgramaticaSelect), "CRIANDO NOVA PROGRÁMATICA PARA DOTAÇÃO ORÇAMENTÁRIA",
+                                    "EDITANDO DOTAÇÃO ORÇAMENTÁRIA - PROGRÁMATICA || " & locPP_DotProgramaticaSelect.programatica)
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                        Container11_6 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =450
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Form_DotProgramatica As form:
+                                AcceptsFocus: =false
+                                DataSource: =db_cont_programatica
+                                DefaultMode: =If(IsBlank(locPP_DotProgramaticaSelect), FormMode.New, FormMode.Edit)
+                                Height: =Parent.Height
+                                Item: =locPP_DotProgramaticaSelect
+                                NumberOfColumns: =2
+                                OnSuccess: |-
+                                    =ResetForm(Form_DotProgramatica);
+                                    UpdateContext({locPP_DotProgramaticaSelect: Blank()});
+                                Width: =Parent.Width
+                                X: =0   
+                                ZIndex: =1
+
+                                dot_unidade_id_DataCard1_1 As typedDataCard.textualEditCard:
+                                    AutoHeight: =true
+                                    BorderStyle: =BorderStyle.Solid
+                                    BorderThickness: =0
+                                    ContentLanguage: =""
+                                    DataField: ="dot_programatica_id"
+                                    Default: =ThisItem.dot_programatica_id
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_programatica],DataSourceInfo.DisplayName,dot_programatica_id)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    LayoutHeight: =0
+                                    LayoutWidth: =0
+                                    LayoutX: =0
+                                    LayoutY: =0
+                                    maximumHeight: =7680
+                                    maximumWidth: =1366
+                                    MaxLength: =DataSourceInfo([@db_cont_unidade], DataSourceInfo.MaxLength, dot_unidade_id)
+                                    minimumHeight: =20
+                                    minimumWidth: =20
+                                    Required: =true
+                                    Update: =DataCardValue33_1.Text
+                                    Visible: =true
+                                    Width: =405
+                                    WidthFit: =false
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey33_1 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(0, 18, 107, 1)
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ID"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue33_1 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        HintText: =""
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey33_1.Y + DataCardKey33_1.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage33_1 As label:
+                                        AutoHeight: =true
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(168, 0, 0, 1)
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =14
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue33_1.Y + DataCardValue33_1.Height
+                                        ZIndex: =3
+
+                                    StarVisible33_1 As label:
+                                        Align: =Align.Center
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(0, 18, 107, 1)
+                                        Height: =DataCardKey33_1.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey33_1.Y
+                                        ZIndex: =4
+
+                                unidade_DataCard1_1 As typedDataCard.textualEditCard:
+                                    AutoHeight: =true
+                                    BorderStyle: =BorderStyle.Solid
+                                    BorderThickness: =0
+                                    ContentLanguage: =""
+                                    DataField: ="programatica"
+                                    Default: =ThisItem.programatica
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_programatica],DataSourceInfo.DisplayName,programatica)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    LayoutHeight: =0
+                                    LayoutWidth: =0
+                                    LayoutX: =0
+                                    LayoutY: =0
+                                    maximumHeight: =7680
+                                    maximumWidth: =1366
+                                    MaxLength: =DataSourceInfo([@db_cont_unidade], DataSourceInfo.MaxLength, unidade)
+                                    minimumHeight: =20
+                                    minimumWidth: =20
+                                    Required: =true
+                                    Update: =DataCardValue32_1.Text
+                                    Visible: =true
+                                    Width: =405
+                                    WidthFit: =false
+                                    X: =1
+                                    Y: =0
+                                    ZIndex: =2
+
+                                    DataCardKey32_1 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(0, 18, 107, 1)
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="PROGRAMÁTICA"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue32_1 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        HintText: =""
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey32_1.Y + DataCardKey32_1.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage32_1 As label:
+                                        AutoHeight: =true
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(168, 0, 0, 1)
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =14
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue32_1.Y + DataCardValue32_1.Height
+                                        ZIndex: =3
+
+                                    StarVisible32_1 As label:
+                                        Align: =Align.Center
+                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                        Color: =RGBA(0, 18, 107, 1)
+                                        Height: =DataCardKey32_1.Height
+                                        Text: ="*"
+                                        Visible: =false
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey32_1.Y
+                                        ZIndex: =4
+
+                        Container10_10 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =3
+
+                            Button2_14 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_DotProgramaticaSelect: Blank()});
+                                Size: =12
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =1
+
+                            Button2_15 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: =SubmitForm(Form_DotProgramatica);
+                                Size: =12
+                                Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =2
+
+            cControleDotRecurso As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =cDotRecurso
+                ZIndex: =6
+
+                Container17_4 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Container8_6 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                        ZIndex: =1
+
+                        Container7_13 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutGap: =10
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_74 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ID"
+                                Width: =100
+                                ZIndex: =1
+
+                            Label1_75 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="FONTE DE RECURSO"
+                                Width: =200
+                                ZIndex: =2
+
+                            Label1_76 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="CONFIGURAÇÕES"
+                                Width: =300
+                                ZIndex: =3
+
+                            Container16_12 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                Width: =100
+                                ZIndex: =4
+
+                                Icon2_4 As icon:
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Icon: =Icon.Add
+                                    OnSelect: |-
+                                        =Set(criar_lancamento, true);
+                                        NewForm(Form_DotRecurso);
+                                    ZIndex: =1
+
+                        galContratos_6 As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            DelayItemLoading: =true
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =Parent.Height - Self.X
+                            Items: =db_cont_fonte_recurso
+                            Layout: =Layout.Vertical
+                            LayoutMinHeight: =287
+                            LayoutMinWidth: =320
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =60
+                            Width: =Parent.Width - Self.X * 2
+                            ZIndex: =2
+
+                            Container6_6 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.TemplateHeight
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - Parent.X - 10
+                                ZIndex: =1
+
+                                Container7_14 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =10
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Label1_77 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.dot_fonte_recurso_id
+                                        Width: =100
+                                        ZIndex: =1
+
+                                    Label1_78 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.fonte_recurso
+                                        Width: =200
+                                        ZIndex: =2
+
+                                    Container16_13 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutGap: =50
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =70
+                                        PaddingRight: =70
+                                        PaddingTop: =5
+                                        Width: =300
+                                        ZIndex: =3
+
+                                        Icon1_8 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Edit
+                                            OnSelect: |-
+                                                =UpdateContext({locPP_DotRecursoSelect: ThisItem});
+                                            Tooltip: ="EDITAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =1
+
+                                        Icon1_9 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Erase
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                ClearCollect(colDotDespesaSelect, Filter(db_cont_despesa, ID = ThisItem.ID));
+                                                UpdateContext({locPP_DotDespesaSelect: First(colDotDespesaSelect)});
+                                            Tooltip: ="APAGAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =2
+
+                                    Container16_14 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =10
+                                        PaddingLeft: =10
+                                        PaddingRight: =10
+                                        PaddingTop: =10
+                                        Width: =100
+                                        ZIndex: =4
+
+                    Container9_8 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container10_11 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_79 As label:
+                                Align: =Align.Center
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =12
+                                Text: |-
+                                    =If(IsBlank(locPP_DotRecursoSelect), "CRIANDO NOVA FONTE DE RECURSO PARA DOTAÇÃO ORÇAMENTÁRIA",
+                                    "EDITANDO DOTAÇÃO ORÇAMENTÁRIA - FONTE DE RECURSO || " & locPP_DotRecursoSelect.fonte_recurso)
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                        Container11_7 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =450
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Form_DotRecurso As form:
+                                AcceptsFocus: =false
+                                DataSource: =db_cont_fonte_recurso
+                                DefaultMode: =If(IsBlank(locPP_DotRecursoSelect), FormMode.New, FormMode.Edit)
+                                Height: =Parent.Height
+                                Item: =locPP_DotRecursoSelect
+                                NumberOfColumns: =2
+                                OnSuccess: |-
+                                    =ResetForm(Form_DotRecurso);
+                                    UpdateContext({locPP_DotRecursoSelect: Blank()});
+                                Width: =Parent.Width
+                                X: =0   
+                                ZIndex: =1
+
+                                dot_fonte_recurso_id_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="dot_fonte_recurso_id"
+                                    Default: =ThisItem.dot_fonte_recurso_id
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_fonte_recurso],DataSourceInfo.DisplayName,dot_fonte_recurso_id)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_fonte_recurso], DataSourceInfo.MaxLength, dot_fonte_recurso_id)
+                                    Required: =false
+                                    Update: =DataCardValue19.Text
+                                    Width: =407
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey19 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ID"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue19 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage19 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue19.Y + DataCardValue19.Height
+                                        ZIndex: =3
+
+                                    StarVisible19 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey19.Height
+                                        Text: ="*"
+                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey19.Y
+                                        ZIndex: =4
+
+                                fonte_recurso_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="fonte_recurso"
+                                    Default: =ThisItem.fonte_recurso
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_fonte_recurso],DataSourceInfo.DisplayName,fonte_recurso)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_fonte_recurso], DataSourceInfo.MaxLength, fonte_recurso)
+                                    Required: =false
+                                    Update: =DataCardValue1.Text
+                                    Width: =407
+                                    X: =1
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey1 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="FONTE DE RECURSOS"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue1 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage1 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue1.Y + DataCardValue1.Height
+                                        ZIndex: =3
+
+                                    StarVisible1 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey1.Height
+                                        Text: ="*"
+                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey1.Y
+                                        ZIndex: =4
+
+                        Container10_12 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =3
+
+                            Button2_16 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_DotRecursoSelect: Blank()});
+                                Size: =12
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =1
+
+                            Button2_17 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: =SubmitForm(Form_DotRecurso);
+                                Size: =12
+                                Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =2
+
+            cControleDotCredito As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =cDotCredito
+                ZIndex: =7
+
+                Container17_5 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Container8_9 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                        ZIndex: =1
+
+                        Container7_15 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutGap: =10
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_80 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="ID"
+                                Width: =100
+                                ZIndex: =1
+
+                            Label1_81 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="PROGRAMÁTICA"
+                                Width: =200
+                                ZIndex: =2
+
+                            Label1_82 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Font: =Font.Arial
+                                Size: =11
+                                Text: ="CONFIGURAÇÕES"
+                                Width: =300
+                                ZIndex: =3
+
+                            Container16_15 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                Width: =100
+                                ZIndex: =4
+
+                                Icon2_5 As icon:
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Icon: =Icon.Add
+                                    OnSelect: |-
+                                        =Set(criar_lancamento, true);
+                                        NewForm(Form_DotCredito);
+                                    ZIndex: =1
+
+                        galContratos_7 As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            DelayItemLoading: =true
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =Parent.Height - Self.X
+                            Items: =db_cont_tipo_credito_orcamentario
+                            Layout: =Layout.Vertical
+                            LayoutMinHeight: =287
+                            LayoutMinWidth: =320
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =60
+                            Width: =Parent.Width - Self.X * 2
+                            ZIndex: =2
+
+                            Container6_7 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.TemplateHeight
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - Parent.X - 10
+                                ZIndex: =1
+
+                                Container7_16 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =10
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Label1_83 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.dot_tipo_credito_orcamentario_id
+                                        Width: =100
+                                        ZIndex: =1
+
+                                    Label1_84 As label:
+                                        Align: =Align.Center
+                                        Font: =Font.Arial
+                                        Size: =10
+                                        Text: =ThisItem.tipo_credito_orcamentario
+                                        Width: =200
+                                        ZIndex: =2
+
+                                    Container16_16 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutGap: =50
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =70
+                                        PaddingRight: =70
+                                        PaddingTop: =5
+                                        Width: =300
+                                        ZIndex: =3
+
+                                        Icon1_10 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Edit
+                                            OnSelect: |-
+                                                =UpdateContext({locPP_DotCreditoSelect: ThisItem});
+                                            Tooltip: ="EDITAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =1
+
+                                        Icon1_11 As icon:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Height: =64 - Parent.PaddingTop * 2
+                                            Icon: =Icon.Erase
+                                            OnSelect: |-
+                                                =Set(criar_lancamento, false);
+                                                ClearCollect(colDotDespesaSelect, Filter(db_cont_despesa, ID = ThisItem.ID));
+                                                UpdateContext({locPP_DotDespesaSelect: First(colDotDespesaSelect)});
+                                            Tooltip: ="APAGAR"
+                                            Width: =64 - Parent.PaddingTop * 2
+                                            ZIndex: =2
+
+                                    Container16_17 As groupContainer.horizontalAutoLayoutContainer:
+                                        DropShadow: =DropShadow.None
+                                        FillPortions: =0
+                                        LayoutMinHeight: =0
+                                        LayoutMinWidth: =0
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =10
+                                        PaddingLeft: =10
+                                        PaddingRight: =10
+                                        PaddingTop: =10
+                                        Width: =100
+                                        ZIndex: =4
+
+                    Container9_9 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container10_13 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_85 As label:
+                                Align: =Align.Center
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =12
+                                Text: |-
+                                    =If(IsBlank(locPP_DotProgramaticaSelect), "CRIANDO NOVA PROGRÁMATICA PARA DOTAÇÃO ORÇAMENTÁRIA",
+                                    "EDITANDO DOTAÇÃO ORÇAMENTÁRIA - PROGRÁMATICA || " & locPP_DotProgramaticaSelect.programatica)
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                        Container11_8 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =450
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Form_DotCredito As form:
+                                AcceptsFocus: =false
+                                DataSource: =db_cont_tipo_credito_orcamentario
+                                DefaultMode: =If(IsBlank(locPP_DotProgramaticaSelect), FormMode.New, FormMode.Edit)
+                                Height: =Parent.Height
+                                Item: =locPP_DotCreditoSelect
+                                NumberOfColumns: =2
+                                OnSuccess: |-
+                                    =ResetForm(Form_DotCredito);
+                                    UpdateContext({locPP_DotProgramaticaSelect: Blank()});
+                                Width: =Parent.Width
+                                X: =0   
+                                ZIndex: =1
+
+                                dot_programatica_id_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="dot_tipo_credito_orcamentario_id"
+                                    Default: =ThisItem.dot_tipo_credito_orcamentario_id
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_tipo_credito_orcamentario],DataSourceInfo.DisplayName,dot_tipo_credito_orcamentario_id)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_programatica], DataSourceInfo.MaxLength, dot_programatica_id)
+                                    Required: =false
+                                    Update: =DataCardValue27.Text
+                                    Width: =407
+                                    X: =0
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey27 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="ID"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue27 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey27.Y + DataCardKey27.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage27 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue27.Y + DataCardValue27.Height
+                                        ZIndex: =3
+
+                                    StarVisible27 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey27.Height
+                                        Text: ="*"
+                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey27.Y
+                                        ZIndex: =4
+
+                                programatica_DataCard1 As typedDataCard.textualEditCard:
+                                    BorderStyle: =BorderStyle.Solid
+                                    DataField: ="tipo_credito_orcamentario"
+                                    Default: =ThisItem.tipo_credito_orcamentario
+                                    DisplayMode: =Parent.DisplayMode
+                                    DisplayName: =DataSourceInfo([@db_cont_tipo_credito_orcamentario],DataSourceInfo.DisplayName,tipo_credito_orcamentario)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    Height: =50
+                                    MaxLength: =DataSourceInfo([@db_cont_programatica], DataSourceInfo.MaxLength, programatica)
+                                    Required: =false
+                                    Update: =DataCardValue28.Text
+                                    Width: =407
+                                    X: =1
+                                    Y: =0
+                                    ZIndex: =1
+
+                                    DataCardKey28 As label:
+                                        Align: =Align.Center
+                                        AutoHeight: =true
+                                        Font: =Font.Arial
+                                        FontWeight: =FontWeight.Semibold
+                                        Height: =34
+                                        Size: =11
+                                        Text: ="PROGRAMÁTICA"
+                                        Width: =Parent.Width - 60
+                                        Wrap: =false
+                                        X: =30
+                                        Y: =10
+                                        ZIndex: =1
+
+                                    DataCardValue28 As text:
+                                        Align: =Align.Center
+                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                        Default: =Parent.Default
+                                        DelayOutput: =true
+                                        DisplayMode: =Parent.DisplayMode
+                                        MaxLength: =Parent.MaxLength
+                                        PaddingLeft: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Tooltip: =Parent.DisplayName
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardKey28.Y + DataCardKey28.Height + 5
+                                        ZIndex: =2
+
+                                    ErrorMessage28 As label:
+                                        AutoHeight: =true
+                                        Height: =10
+                                        Live: =Live.Assertive
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Text: =Parent.Error
+                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                        Width: =Parent.Width - 60
+                                        X: =30
+                                        Y: =DataCardValue28.Y + DataCardValue28.Height
+                                        ZIndex: =3
+
+                                    StarVisible28 As label:
+                                        Align: =Align.Center
+                                        Height: =DataCardKey28.Height
+                                        Text: ="*"
+                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                        Width: =30
+                                        Wrap: =false
+                                        Y: =DataCardKey28.Y
+                                        ZIndex: =4
+
+                        Container10_14 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =3
+
+                            Button2_18 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_DotProgramaticaSelect: Blank()});
+                                Size: =12
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =1
+
+                            Button2_19 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: =SubmitForm(Form_DotCredito);
+                                Size: =12
+                                Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =2
+
+    Label1_36 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =100
+        Size: =18
+        Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - CONFIGURAÇÕES E CADASTROS DE DOTAÇÃO ORÇAMENTÁRIA"
+        Width: =Parent.Width - Self.X - 10
+        Wrap: =false
+        X: =230
+        ZIndex: =3
+

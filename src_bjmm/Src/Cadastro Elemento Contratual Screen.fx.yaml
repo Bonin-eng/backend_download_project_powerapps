@@ -1,0 +1,775 @@
+"'Cadastro Elemento Contratual Screen' As screen":
+
+    app_cpn_bonin_11 As app_cpn_bonin:
+        OnSelect: =
+
+    Label1_130 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =100
+        Size: =18
+        Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - CADASTRO DE NOVO ELEMENTO CONTRATUAL"
+        Width: =Parent.Width - Self.X - 10
+        Wrap: =false
+        X: =230
+        ZIndex: =2
+
+    Container1_9 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X - 10
+        X: =230
+        Y: =110
+        ZIndex: =3
+
+        Container9_14 As groupContainer.horizontalAutoLayoutContainer:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(175, 191, 224, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =5
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container10_19 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(219, 219, 219, 1)
+                FillPortions: =0
+                Height: =40
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =1
+
+                Label1_131 As label:
+                    Align: =Align.Center
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =Parent.Height
+                    Size: =15
+                    Text: ="CADASTRO DE ELEMENTO CONTRATUAL"
+                    Width: =Parent.Width - Self.X
+                    Wrap: =false
+                    ZIndex: =1
+
+                Button2_26 As button:
+                    Color: =RGBA(0, 0, 0, 1)
+                    Fill: =RGBA(237, 237, 237, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Normal
+                    Height: =Parent.Height - Self.Y * 2
+                    HoverFill: =RGBA(45, 65, 93, 1)
+                    OnSelect: |
+                        =Navigate('Elemento Contratual Screen')
+                    Size: =12
+                    Text: ="VOLTAR"
+                    X: =5
+                    Y: =5
+                    ZIndex: =2
+
+                Button2_27 As button:
+                    Color: =RGBA(0, 0, 0, 1)
+                    Fill: =RGBA(237, 237, 237, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Normal
+                    Height: =Parent.Height - Self.Y * 2
+                    HoverFill: =RGBA(45, 65, 93, 1)
+                    OnSelect: =SubmitForm(Form_ElementoContratualNew)
+                    Size: =12
+                    Text: ="CADASTRAR"
+                    X: =Parent.Width - Self.Width - 5
+                    Y: =5
+                    ZIndex: =3
+
+            Container11_13 As groupContainer.manualLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(219, 219, 219, 1)
+                FillPortions: =0
+                Height: =450
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =2
+
+                Form_ElementoContratualNew As form:
+                    AcceptsFocus: =false
+                    DataSource: =db_cont_econtratual
+                    DefaultMode: =FormMode.New
+                    Height: =Parent.Height
+                    NumberOfColumns: =12
+                    OnReset: =true
+                    OnSuccess: |-
+                        =ResetForm(Form_ElementoContratualNew);
+                        Navigate('Elemento Contratual Screen');
+                    Width: =Parent.Width
+                    X: =0   
+                    ZIndex: =1
+
+                    n_contrato_DataCard1_1 As typedDataCard.textualEditCard:
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="n_contrato"
+                        Default: =ThisItem.n_contrato
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,n_contrato)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        MaxLength: =DataSourceInfo([@db_cont_econtratual], DataSourceInfo.MaxLength, n_contrato)
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =true
+                        Update: =DataCardValue4_1.Selected.Value
+                        Visible: =true
+                        Width: =274
+                        WidthFit: =false
+                        X: =0
+                        Y: =0
+                        ZIndex: =1
+
+                        DataCardKey4_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="NÚMERO DE CONTRATO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        ErrorMessage4_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue4_1.Y + DataCardValue4_1.Height
+                            ZIndex: =3
+
+                        StarVisible4_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey4_1.Height
+                            Text: ="*"
+                            Visible: =false
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey4_1.Y
+                            ZIndex: =4
+
+                        DataCardValue4_1 As combobox:
+                            InputTextPlaceholder: ="Localizar itens"
+                            IsSearchable: =false
+                            Items: =Distinct(db_cont_contrato, n_contrato)
+                            SearchFields: =[""]
+                            SelectMultiple: =false
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey4_1.Y + DataCardKey4_1.Height + 5
+                            ZIndex: =5
+
+                    id_tipo_ec_DataCard6_1 As typedDataCard.allowedValuesStringEditCard:
+                        AllowedValues: =DataSourceInfo([@db_cont_econtratual], DataSourceInfo.AllowedValues, id_tipo_ec)
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="id_tipo_ec"
+                        Default: =ThisItem.id_tipo_ec
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,id_tipo_ec)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =true
+                        Update: =DataCardValue31_1.Selected.id_tipo_ec
+                        Visible: =true
+                        Width: =274
+                        WidthFit: =false
+                        X: =2
+                        Y: =0
+                        ZIndex: =2
+
+                        DataCardKey31_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="ELEMENTO CONTRATUAL"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue31_1 As combobox:
+                            DefaultSelectedItems: =[ LookUp(db_cont_tipo_ec, id_tipo_ec = Parent.Default, tipo_ec)]
+                            DisplayFields: =["tipo_ec"]
+                            Font: =Font.Arial
+                            InputTextPlaceholder: ="Localizar itens"
+                            Items: =ShowColumns(db_cont_tipo_ec, id_tipo_ec, tipo_ec)
+                            SearchFields: =["id_tipo_ec"]
+                            SearchItems: =Search(ShowColumns(db_cont_tipo_ec,id_tipo_ec,tipo_ec),DataCardValue31_1.SearchText,id_tipo_ec)
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey31_1.Y + DataCardKey31_1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage31_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue31_1.Y + DataCardValue31_1.Height
+                            ZIndex: =3
+
+                        StarVisible31_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey31_1.Height
+                            Text: ="*"
+                            Visible: =false
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey31_1.Y
+                            ZIndex: =4
+
+                    descricao_DataCard1_1 As typedDataCard.textualEditCard:
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="descricao"
+                        Default: =ThisItem.descricao
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,descricao)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        MaxLength: =DataSourceInfo([@db_cont_econtratual], DataSourceInfo.MaxLength, descricao)
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =false
+                        Update: =DataCardValue9_1.Text
+                        Visible: =true
+                        Width: =685
+                        WidthFit: =false
+                        X: =4
+                        Y: =0
+                        ZIndex: =3
+
+                        DataCardKey9_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="DESCRIÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue9_1 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            HintText: =""
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey9_1.Y + DataCardKey9_1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage9_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue9_1.Y + DataCardValue9_1.Height
+                            ZIndex: =3
+
+                        StarVisible9_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey9_1.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey9_1.Y
+                            ZIndex: =4
+
+                    data_assinatura_DataCard1_1 As typedDataCard.dateEditCard:
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="data_assinatura"
+                        Default: =ThisItem.data_assinatura
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,data_assinatura)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =false
+                        Update: =DataCardValue6_1.SelectedDate
+                        Visible: =true
+                        Width: =411
+                        WidthFit: =false
+                        X: =9
+                        Y: =0
+                        ZIndex: =4
+
+                        DataCardKey6_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="DATA DE ASSINATURA"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue6_1 As datepicker:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            CalendarHeaderFill: =App.Theme.Colors.Primary
+                            DefaultDate: =Parent.Default
+                            DisplayMode: =Parent.DisplayMode
+                            EndYear: =Year(Today())+100
+                            HoverDateFill: =App.Theme.Colors.Lighter70
+                            IsEditable: =true
+                            PaddingBottom: =0
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            SelectedDateFill: =App.Theme.Colors.Primary
+                            StartYear: =1899
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey6_1.Y + DataCardKey6_1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage6_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue6_1.Y + DataCardValue6_1.Height
+                            ZIndex: =3
+
+                        StarVisible6_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey6_1.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey6_1.Y
+                            ZIndex: =4
+
+                    prazo_ec_mes_DataCard1_1 As typedDataCard.numberEditCard:
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="prazo_ec_mes"
+                        Default: =ThisItem.prazo_ec_mes
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,prazo_ec_mes)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =false
+                        Update: =Value(DataCardValue7_1.Text)
+                        Visible: =true
+                        Width: =548
+                        WidthFit: =false
+                        X: =0
+                        Y: =1
+                        ZIndex: =5
+
+                        DataCardKey7_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="PRAZO EM MESES"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue7_1 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Format: =TextFormat.Number
+                            HintText: =""
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey7_1.Y + DataCardKey7_1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage7_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue7_1.Y + DataCardValue7_1.Height
+                            ZIndex: =3
+
+                        StarVisible7_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey7_1.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey7_1.Y
+                            ZIndex: =4
+
+                    prazo_ec_dia_DataCard1_1 As typedDataCard.numberEditCard:
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="prazo_ec_dia"
+                        Default: =ThisItem.prazo_ec_dia
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,prazo_ec_dia)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =false
+                        Update: =Value(DataCardValue8_1.Text)
+                        Visible: =true
+                        Width: =548
+                        WidthFit: =false
+                        X: =4
+                        Y: =1
+                        ZIndex: =6
+
+                        DataCardKey8_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="PRAZO EM DIAS"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue8_1 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Format: =TextFormat.Number
+                            HintText: =""
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey8_1.Y + DataCardKey8_1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage8_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue8_1.Y + DataCardValue8_1.Height
+                            ZIndex: =3
+
+                        StarVisible8_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey8_1.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey8_1.Y
+                            ZIndex: =4
+
+                    valor_elemento_contratual_DataCard1_1 As typedDataCard.numberEditCard:
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =0
+                        ContentLanguage: =""
+                        DataField: ="valor_elemento_contratual"
+                        Default: =ThisItem.valor_elemento_contratual
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_cont_econtratual],DataSourceInfo.DisplayName,valor_elemento_contratual)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        LayoutHeight: =0
+                        LayoutWidth: =0
+                        LayoutX: =0
+                        LayoutY: =0
+                        maximumHeight: =7680
+                        maximumWidth: =1366
+                        minimumHeight: =20
+                        minimumWidth: =20
+                        Required: =false
+                        Update: =Value(DataCardValue5_1.Text)
+                        Visible: =true
+                        Width: =548
+                        WidthFit: =false
+                        X: =8
+                        Y: =1
+                        ZIndex: =7
+
+                        DataCardKey5_1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =11
+                            Text: ="VALOR E.C."
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue5_1 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Format: =TextFormat.Number
+                            HintText: =""
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey5_1.Y + DataCardKey5_1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage5_1 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(168, 0, 0, 1)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue5_1.Y + DataCardValue5_1.Height
+                            ZIndex: =3
+
+                        StarVisible5_1 As label:
+                            Align: =Align.Center
+                            BorderColor: =RGBA(0, 0, 0, 1)
+                            Color: =RGBA(0, 18, 107, 1)
+                            Height: =DataCardKey5_1.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey5_1.Y
+                            ZIndex: =4
+

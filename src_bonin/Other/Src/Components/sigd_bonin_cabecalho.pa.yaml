@@ -1,0 +1,128 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  sigd_bonin_cabecalho:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      AlturaCabeçalho:
+        PropertyKind: Input
+        DisplayName: Altura Cabeçalho
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =50
+      EixoX:
+        PropertyKind: Input
+        DisplayName: Eixo X
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =VarEixoXSideBar + VarLarguraSidebar
+      EixoY:
+        PropertyKind: Input
+        DisplayName: Eixo Y
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =VarEixoYSideBar
+      EsquemaDeCores:
+        PropertyKind: Input
+        DisplayName: Esquema de Cores
+        Description: Uma propriedade personalizada
+        DataType: Record
+        Default: =EsquemaDeCores
+      ListaDasTelas:
+        PropertyKind: Input
+        DisplayName: Lista das Telas
+        Description: Uma propriedade personalizada
+        DataType: Table
+        Default: =colTelas
+      Medidas:
+        PropertyKind: Input
+        DisplayName: Medidas
+        Description: Uma propriedade personalizada
+        DataType: Record
+        Default: =Medidas
+      RaioDaBorda:
+        PropertyKind: Input
+        DisplayName: Raio da Borda
+        Description: Uma propriedade personalizada
+        DataType: Text
+        Default: ="10px 10px 10px 10px"
+      ReferênciaContêiner:
+        PropertyKind: Output
+        DisplayName: Referência Contêiner
+        Description: Uma propriedade personalizada
+        DataType: Record
+    Properties:
+      Height: =sigd_bonin_cabecalho.AlturaCabeçalho + 5
+      ReferênciaContêiner: |-
+        ={X: Self.X, Y: Self.Y + Self.Height, Height: App.Height - Self.Y - Self.Height - Self.Medidas.Espacamento, Width: Self.Width - Self.Medidas.Espacamento, Raio: Self.Medidas.Raio}
+      Width: =App.Width - VarLarguraSidebar
+    Children:
+      - html_texto_cabecalho:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            Height: =50
+            HtmlText: |
+              =With(
+                {
+                  background: sigd_bonin_cabecalho.EsquemaDeCores.AzulEscuroBonin.Texto,
+                  altura: Parent.Height - sigd_bonin_cabecalho.Medidas.Espacamento*3,
+                  raio: sigd_bonin_cabecalho.RaioDaBorda,
+                  espacamento: sigd_bonin_cabecalho.Medidas.Espacamento,
+                  margem: sigd_bonin_cabecalho.RaioDaBorda,
+                  sombra: sigd_bonin_cabecalho.EsquemaDeCores.SombraEscura.Texto,
+                  titulo: Upper(
+                    If(
+                      !IsBlank(
+                        LookUp(
+                          sigd_bonin_cabecalho.ListaDasTelas,
+                          Tela.Name = App.ActiveScreen.Name,
+                          NomeTela
+                        )
+                      ),
+                      LookUp(
+                        sigd_bonin_cabecalho.ListaDasTelas,
+                        Tela.Name = App.ActiveScreen.Name,
+                        NomeTela
+                      ),
+                      LookUp(
+                        sigd_bonin_cabecalho.ListaDasTelas,
+                        !IsBlank(
+                          LookUp(SubMenu, Tela.Name = App.ActiveScreen.Name)
+                        ),
+                        LookUp(SubMenu, Tela.Name = App.ActiveScreen.Name, NomeTela)
+                      )
+                    )
+                  )
+                },
+                "
+                <div style='
+                  background: " & background & ";
+                  height: " & altura & "px;
+                  border-radius: " & raio & ";
+                  margin: " & espacamento & "px " & espacamento & "px " & espacamento*2 & "px 0px;
+                  box-shadow: 2px 2px 2px 0px " & sombra & ";
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  font-family: " & App.Theme.Font & ";
+                  font-weight: bold;
+                  font-size: 24px;
+                  color: white;
+                  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+                '>
+                  " & titulo & "
+                </div>"
+              )
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =Parent.Width

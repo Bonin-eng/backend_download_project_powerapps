@@ -1,0 +1,524 @@
+"'Base Orçamentária Screen' As screen":
+
+    app_cpn_bonin_12 As app_cpn_bonin:
+        OnSelect: =
+
+    Label1_132 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =100
+        Size: =18
+        Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - BASE ORÇAMENTÁRIA"
+        Width: =Parent.Width - Self.X - 10
+        Wrap: =false
+        X: =230
+        ZIndex: =2
+
+    Container1_10 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X - 10
+        X: =230
+        Y: =110
+        ZIndex: =3
+
+        Container2_6 As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container3_5 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                FillPortions: =0
+                Height: =70
+                LayoutGap: =10
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingTop: =5
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =1
+
+                Container5_12 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: |
+                        =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =200
+                    ZIndex: =1
+
+                    Label1_137 As label:
+                        Align: =Align.Justify
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        Size: =10
+                        Text: ="🔎 CONTRATO "
+                        Width: =100
+                        ZIndex: =1
+
+                    Container20 As groupContainer.manualLayoutContainer:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        BorderThickness: =2
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =0
+                        ZIndex: =2
+
+                        TextInput1_12 As combobox:
+                            DisplayFields: =["n_contrato"]
+                            Height: =Parent.Height
+                            InputTextPlaceholder: ="Localizar itens"
+                            Items: =db_cont_contrato
+                            OnChange: |-
+                                =ClearCollect(
+                                    colEmpreendimentoContratOrcamento,
+                                    AddColumns(
+                                        GroupBy(
+                                            Filter(
+                                                db_fin_base_orcamentaria,
+                                                id_contrato = TextInput1_12.Selected.n_contrato && 
+                                                orcamento_ativo = "Ativo"
+                                            ),
+                                            Id_empreendimento_frente,
+                                            ItensPorOrigem
+                                        ),
+                                        Soma_valor_previsto,
+                                        Sum(ItensPorOrigem, valor_previsto),
+                                        Soma_valor_bdi,
+                                        Sum(ItensPorOrigem, valor_bdi),
+                                        id_empreendimento,
+                                        First(ItensPorOrigem).id_contrato_empreendimento,
+                                        Descricao,
+                                        First(ItensPorOrigem).descricao,
+                                        Item_Grupo,
+                                        First(ItensPorOrigem).item_grupo
+                                    )
+                                );
+                                
+                                ClearCollect(
+                                    colEmpreendimentoOrcamento_Detalhado,
+                                    AddColumns(
+                                        GroupBy(
+                                            Filter(
+                                                db_fin_base_orcamentaria,
+                                                id_contrato = TextInput1_12.Selected.n_contrato && 
+                                                orcamento_ativo = "Ativo"
+                                            ),
+                                            nivel_1,
+                                            ItensPorOrigem
+                                        ),
+                                        Soma_valor_previsto,
+                                        Sum(ItensPorOrigem, valor_previsto),
+                                        Soma_valor_bdi,
+                                        Sum(ItensPorOrigem, valor_bdi),
+                                        id_contrato_empreendimento,
+                                        LookUp(ItensPorOrigem, !IsBlank(id_contrato_empreendimento), id_contrato_empreendimento), 
+                                        Descricao,
+                                        First(ItensPorOrigem).descricao,
+                                        Item_Grupo,
+                                        First(ItensPorOrigem).item_grupo
+                                    )
+                                );
+                            OnSelect: |-
+                                =ClearCollect(
+                                    colEmpreendimentoOrcamento_Detalhado,
+                                    AddColumns(
+                                        GroupBy(
+                                            Filter(
+                                                db_fin_base_orcamentaria,
+                                                id_contrato = TextInput1_12.Selected.n_contrato && 
+                                                orcamento_ativo = "Ativo"
+                                            ),
+                                            nivel_1,
+                                            ItensPorOrigem
+                                        ),
+                                        Soma_valor_previsto,
+                                        Sum(ItensPorOrigem, valor_previsto),
+                                        Soma_valor_bdi,
+                                        Sum(ItensPorOrigem, valor_bdi),
+                                        id_contrato_empreendimento,
+                                        LookUp(ItensPorOrigem, !IsBlank(id_contrato_empreendimento), id_contrato_empreendimento), 
+                                        Descricao,
+                                        First(ItensPorOrigem).descricao,
+                                        Item_Grupo,
+                                        First(ItensPorOrigem).item_grupo
+                                    )
+                                );
+                            SearchFields: =["ComplianceAssetId"]
+                            SearchItems: =Search(db_cont_contrato,TextInput1_12.SearchText,'ID de Ativo de Conformidade')
+                            SelectMultiple: =false
+                            Size: =11
+                            Width: =Parent.Width
+                            ZIndex: =2
+
+                Container5_15 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: |
+                        =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =250
+                    X: =40
+                    Y: =40
+                    ZIndex: =2
+
+                    Label1_140 As label:
+                        Align: =Align.Justify
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        Size: =10
+                        Text: ="🔎 ITEM ORIGINAL "
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_15 As text:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        Default: =
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        HintText: =""
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Width: =0
+                        ZIndex: =2
+
+            Container4_6 As groupContainer.manualLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =2
+
+                Container8_13 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(45, 65, 93, 1)
+                    Height: =Parent.Height
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Visible: =If(varContratoSelect, false, true)
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Gallery3_4 As gallery.variableTemplateHeightGallery:
+                        '#CopilotOverlayLabel': ="Filtrada"
+                        BorderColor: =
+                        DelayItemLoading: =true
+                        Height: =Parent.Height
+                        Items: |-
+                            =Filter(
+                                db_cont_empreendimento,
+                                n_contrato = TextInput1_12.Selected.n_contrato
+                            )
+                        Layout: =Layout.Vertical
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =320
+                        LoadingSpinner: =LoadingSpinner.Data
+                        ShowScrollbar: =false
+                        TemplateSize: =90
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        "Gallery2 As gallery.'BrowseLayout_Flexible_NewsFeed_ver5.0'":
+                            DelayItemLoading: =true
+                            Height: |-
+                                =If(varQuantidadeItensDetalhado = 0,
+                                Self.AllItemsCount * 30 * 2 + (35 * varQuantidadeItensDetalhado),
+                                Self.AllItemsCount * 20 * 2 + (35 * varQuantidadeItensDetalhado))
+                            Items: |-
+                                =Filter(
+                                    SortByColumns(
+                                                colEmpreendimentoOrcamento_Detalhado,
+                                                "Item_Grupo",
+                                                SortOrder.Ascending,
+                                                "nivel_1",
+                                                SortOrder.Ascending
+                                                ), 
+                                    (IsBlank(TextInput1_15.Text) || StartsWith(nivel_1, TextInput1_15.Text)))
+                            Layout: =Layout.Vertical
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplatePadding: =0
+                            TemplateSize: =Min(220, Self.Height - 60)
+                            Visible: =varExpandido = ThisItem.ID
+                            Width: =Parent.TemplateWidth-Self.X
+                            X: =10
+                            Y: =Container34_4.Height+Container34_4.Y
+                            ZIndex: =2
+
+                            Container7_3 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.Semilight
+                                Height: =htmltxt_historico_1.Height + If(htmltxt_historico_viajantes_1.Visible, htmltxt_historico_viajantes_1.Height, 0)
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width - 10
+                                X: =10
+                                ZIndex: =3
+
+                                htmltxt_historico_viajantes_1 As htmlViewer:
+                                    AutoHeight: =true
+                                    Fill: =RGBA(214, 223, 238, 1)
+                                    Height: =50
+                                    HtmlText: |-
+                                        ="<div style='background-color: #2d415d; padding: 10px; color: white; border-radius: 10px;'>" &
+                                            "<h2 style= 'font-size:13px; '>RESUMO - PLANILHA ORÇAMENTÁRIA</h2>" &
+                                            "<table border='1' style='width:100%; border-color: white; border-style: solid ;border-collapse: collapse;'>" &
+                                                "<thead>" &
+                                                    "<tr style='height: 10px; font-size:13px'>" &
+                                                        "<th style='padding: 6px;  text-align: left; color: white;'>ITEM ORIGINAL</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>ITEM PADRÃO</th>" &
+                                                        "<th style='padding: 6px; text-align: left; color: white; width: 700px;'>DESCRIÇÃO</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>UNIDADE</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>QUANTIDADE</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>PREÇO UNITÁRIO</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>VALOR TOTAL</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>(%) B.I.D.</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>VALOR TOTAL c/ BID</th>" &
+                                                    "</tr>" &
+                                                "</thead>" &
+                                                "<tbody>" &
+                                                    Concat(
+                                                        SortByColumns(
+                                                            colBaseOrcamentoDetalhado,
+                                                            "item_grupo",
+                                                            SortOrder.Ascending,
+                                                            "nivel_1",
+                                                            SortOrder.Ascending
+                                                        ),
+                                                    "<tr>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: left;'>" & item_origem & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & num_item & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: left; width: 700px;'>" & Upper(descricao) & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Upper(unidade_item) & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(qtd_prevista, "[$-pt-BR] #.##0,00") & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(preco_unitario_item, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(valor_previsto, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text((bdi_percent * 100), "[$-pt-BR] #.##0,00%") & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(valor_bdi, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                    "</tr>"
+                                                    ) &
+                                                "</tbody>" &
+                                            "</table>" &
+                                        "</div>"
+                                    OnSelect: =
+                                    Visible: =varHistoricoExpandidoDetalhado = ThisItem.nivel_1
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                htmltxt_historico_1 As htmlViewer:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(214, 223, 238, 1)
+                                    Height: =50
+                                    HtmlText: |-
+                                        ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                                         <!-- Nome -->
+                                         <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                          " & Concatenate(ThisItem.nivel_1, " - ", ThisItem.Descricao) & "
+                                         </div>
+                                        
+                                        <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                         <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                        
+                                          <div style='flex:1'><strong>SEI:</strong> " & ThisItem.Item_Grupo & "</div>
+                                        
+                                          <div style='flex:1'><strong>Data Assinatura:</strong> " & ThisItem.Soma_valor_previsto & "</div>
+                                        
+                                          <div style='flex:1'><strong>Data Término Prevista:</strong> " &
+                                        
+                                            ThisItem.Soma_valor_bdi
+                                        
+                                          & "</div>
+                                        
+                                          <div style='flex:1'><strong>Valor Contrato:</strong> " & ThisItem.Soma_valor_bdi & "</div>
+                                        
+                                         </div>
+                                        
+                                        </div>"
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Width: =Parent.Width
+                                    ZIndex: =2
+
+                                icn_expandir_1 As icon:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    Color: =App.Theme.Colors.Darker30
+                                    Height: =htmltxt_historico_1.Height - Self.Y * 2
+                                    Icon: =If(varHistoricoExpandidoDetalhado = ThisItem.nivel_1, Icon.ChevronUp, Icon.ChevronDown)
+                                    OnSelect: |
+                                        =UpdateContext(
+                                            {
+                                                varHistoricoExpandidoDetalhado: If(
+                                                    varHistoricoExpandidoDetalhado = ThisItem.nivel_1,
+                                                    Blank(),
+                                                    ThisItem.nivel_1
+                                                )
+                                            }
+                                        );
+                                        
+                                        ClearCollect(
+                                            colTmp,
+                                            Filter(
+                                                db_fin_base_orcamentaria,
+                                                id_contrato_empreendimento = ThisItem.id_contrato_empreendimento &&
+                                                nivel_1 = ThisItem.nivel_1 &&
+                                                orcamento_ativo = "Ativo"
+                                            )
+                                        );
+                                        
+                                        ClearCollect(
+                                            colBaseOrcamentoDetalhado,
+                                            Filter(colTmp, nivel_2 <> "00")
+                                        );
+                                        
+                                        If(
+                                            Self.Icon = Icon.ChevronDown,
+                                            Set(
+                                                varQuantidadeItensDetalhado,
+                                                0
+                                            ),
+                                            Set(
+                                                varQuantidadeItensDetalhado,
+                                                CountRows(colBaseOrcamentoDetalhado)
+                                            )
+                                        );
+                                    Width: =40
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =15
+                                    ZIndex: =3
+
+                        Container34_4 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.Semilight
+                            Height: =Parent.TemplateHeight
+                            PaddingLeft: =20
+                            PaddingRight: =20
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - 10
+                            ZIndex: =4
+
+                            HtmlText1_3 As htmlViewer:
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.Height
+                                HtmlText: |-
+                                    ="<div style='width:100%; height:auto; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:10px;'>
+                                    
+                                      <!-- Nome -->
+                                      <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                        " & Concatenate(LookUp(db_cont_empreendimento, n_contrato = ThisItem.n_contrato, id_contrato_empreendimento), " - ", LookUp(db_cont_empreendimento, n_contrato = ThisItem.n_contrato, empreendimento)) & "
+                                      </div>
+                                    
+                                    <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                      <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                        <div style='flex:1'><strong>Construtora:</strong> " & ThisItem.construtora & "</div>
+                                        <div style='flex:1'><strong>Empreendimento:</strong> " & ThisItem.empreendimento & "</div>
+                                        <div style='flex:1'><strong>Unidades Habitacionais:</strong> " & ThisItem.n_unidade_habitacional & "</div>
+                                        <div style='flex:1'><strong>Endereço:</strong> " & ThisItem.endereco & "</div>
+                                        <div style='flex:1'><strong>Valor Empreendimento:</strong> " & 
+                                        Text(Sum(Filter(colEmpreendimentoContratOrcamento, id_empreendimento = ThisItem.id_contrato_empreendimento), Coalesce(Soma_valor_bdi, 0)), "[$-pt-BR]R$ #.##0,00")
+                                        & "</div>
+                                      </div>
+                                    </div>"
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            icoSeta_4 As icon:
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledBorderColor: =
+                                DisabledColor: =
+                                DisabledFill: =
+                                FocusedBorderThickness: =0
+                                Height: =60
+                                HoverColor: =ColorFade(Self.Color, 10%)
+                                HoverFill: =
+                                Icon: =If(varExpandido = ThisItem.ID, Icon.ChevronDown, Icon.ChevronRight)
+                                OnSelect: |-
+                                    =UpdateContext({varExpandido: If(varExpandido = ThisItem.ID, Blank(), ThisItem.ID)});
+                                    Set(varQuantidadeItensDetalhado, 0);
+                                    UpdateContext({varHistoricoExpandidoDetalhado: Blank()});
+                                    
+                                    If(Self.Icon = Icon.ChevronRight, 
+                                        Set(varBordaOrcamento, true), Set(varBordaOrcamento, false))
+                                PaddingBottom: =10
+                                PaddingRight: =Self.Width-Self.Height
+                                PaddingTop: =10
+                                Width: =60
+                                X: =Parent.Width - Self.Width
+                                Y: =15
+                                ZIndex: =2
+

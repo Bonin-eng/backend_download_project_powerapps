@@ -1,0 +1,82 @@
+sigd_bonin_cabecalho As CanvasComponent:
+    AlturaCabeçalho: =50
+    EixoX: =VarEixoXSideBar + VarLarguraSidebar
+    EixoY: =VarEixoYSideBar
+    EsquemaDeCores: =EsquemaDeCores
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =sigd_bonin_cabecalho.AlturaCabeçalho + 5
+    ListaDasTelas: =colTelas
+    Medidas: =Medidas
+    RaioDaBorda: ="10px 10px 10px 10px"
+    ReferênciaContêiner: |-
+        ={X: Self.X, Y: Self.Y + Self.Height, Height: App.Height - Self.Y - Self.Height - Self.Medidas.Espacamento, Width: Self.Width - Self.Medidas.Espacamento, Raio: Self.Medidas.Raio}
+    Width: =App.Width - VarLarguraSidebar
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    html_texto_cabecalho As htmlViewer:
+        AutoHeight: =true
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        Font: =App.Theme.Font
+        Height: =50
+        HtmlText: |
+            =With(
+              {
+                background: sigd_bonin_cabecalho.EsquemaDeCores.AzulEscuroBonin.Texto,
+                altura: Parent.Height - sigd_bonin_cabecalho.Medidas.Espacamento*3,
+                raio: sigd_bonin_cabecalho.RaioDaBorda,
+                espacamento: sigd_bonin_cabecalho.Medidas.Espacamento,
+                margem: sigd_bonin_cabecalho.RaioDaBorda,
+                sombra: sigd_bonin_cabecalho.EsquemaDeCores.SombraEscura.Texto,
+                titulo: Upper(
+                  If(
+                    !IsBlank(
+                      LookUp(
+                        sigd_bonin_cabecalho.ListaDasTelas,
+                        Tela.Name = App.ActiveScreen.Name,
+                        NomeTela
+                      )
+                    ),
+                    LookUp(
+                      sigd_bonin_cabecalho.ListaDasTelas,
+                      Tela.Name = App.ActiveScreen.Name,
+                      NomeTela
+                    ),
+                    LookUp(
+                      sigd_bonin_cabecalho.ListaDasTelas,
+                      !IsBlank(
+                        LookUp(SubMenu, Tela.Name = App.ActiveScreen.Name)
+                      ),
+                      LookUp(SubMenu, Tela.Name = App.ActiveScreen.Name, NomeTela)
+                    )
+                  )
+                )
+              },
+              "
+              <div style='
+                background: " & background & ";
+                height: " & altura & "px;
+                border-radius: " & raio & ";
+                margin: " & espacamento & "px " & espacamento & "px " & espacamento*2 & "px 0px;
+                box-shadow: 2px 2px 2px 0px " & sombra & ";
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: " & App.Theme.Font & ";
+                font-weight: bold;
+                font-size: 24px;
+                color: white;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+              '>
+                " & titulo & "
+              </div>"
+            )
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =13
+        Width: =Parent.Width
+        ZIndex: =2
+

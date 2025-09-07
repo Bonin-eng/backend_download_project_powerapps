@@ -1,0 +1,1870 @@
+"'Controle Agendamentos Screen' As screen":
+
+    Container2_4 As groupContainer.verticalAutoLayoutContainer:
+        Height: =Parent.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =1
+
+        Container3_4 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(112, 111, 111, 1)
+            FillPortions: =0
+            Height: =75
+            LayoutMinHeight: =100
+            LayoutMinWidth: =
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Image5_8 As image:
+                Height: =Parent.Height - Self.Y * 2
+                Image: ='aplicação fundo escuro'
+                Width: =180
+                X: =Image13_8.X - Self.Width
+                Y: =10
+                ZIndex: =1
+
+            Image13_8 As image:
+                Height: =Parent.Height - Self.Y * 2
+                Image: =HABITAÇÃO_CENTRALIZADO_FUNDO_ESCURO
+                Width: =150
+                X: =Parent.Width - Self.Width
+                Y: =10
+                ZIndex: =2
+
+            Label1_9 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: |
+                    =Parent.Height - Self.Y * 2
+                Size: =18
+                Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO URBHIS - CONTROLE DE AGENDAMENTOS"
+                Width: =1263
+                X: =20
+                Y: =5
+                ZIndex: =3
+
+        Container6_4 As groupContainer.horizontalAutoLayoutContainer:
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =2
+
+            cMenuLateral_5 As cmpMenuLateral:
+                AlignInContainer: =AlignInContainer.Stretch
+                LayoutMinHeight: =640
+                LayoutMinWidth: =640
+                Visible: =true
+                Width: =If(cMenuLateral_5.FecharMenu = true, 95, 250)
+
+            Container1_5 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =2
+
+                html_Fundo_gal_5 As htmlViewer:
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Font: =Font.'Segoe UI'
+                    Height: =Parent.Height
+                    HtmlText: |-
+                        ="<div style='
+                            background-color: #ffffff;
+                            height: "&Self.Height-1&"px;
+                            border-radius: 10px 5px 5px 5px;
+                            margin: 0px 0px 0px 10px;
+                            box-shadow: 5px 5px 5px gray;'
+                        ></div>"
+                    OnSelect: =
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Container7_4 As groupContainer.manualLayoutContainer:
+                    Height: =Parent.Height
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    cControleAgendamentos As groupContainer.horizontalAutoLayoutContainer:
+                        BorderColor: =RGBA(122, 111, 150, 1)
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height - Self.Y * 2
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width - Self.X * 2
+                        X: =10
+                        Y: =10
+                        ZIndex: =1
+
+                        Container25 As groupContainer.horizontalAutoLayoutContainer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =50
+                            LayoutGap: =20
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            ZIndex: =1
+
+                            ButtonCad_Funcionario_3 As button:
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Fill: =RGBA(122, 111, 150, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =Parent.Height - 20
+                                OnSelect: |+
+                                    =UpdateContext({locPP_AgendamentosTotais:true});
+                                    UpdateContext({locPP_AgendamentosAbertos:false});
+                                    
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                Text: ="TODOS OS AGENDAMENTOS"
+                                ZIndex: =1
+
+                            ButtonCad_Funcionario_4 As button:
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Fill: =RGBA(122, 111, 150, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =Parent.Height - 20
+                                OnSelect: |-
+                                    =UpdateContext({locPP_AgendamentosTotais:false});
+                                    UpdateContext({locPP_AgendamentosAbertos:true});
+                                    
+                                    ClearCollect(colAgendamentoAberto,
+                                    Filter(dbAtendimentos, OSComplementar = Blank() &&
+                                            (Encaminhamento = "Visita Domiciliar com Relatório Social" || 
+                                             Encaminhamento = "Vistoria Física com Relatório")))
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                Text: ="AGENDAMENTOS EM ABERTO (SEM ORDEM)"
+                                ZIndex: =2
+
+                        cAgendamentosTotais As groupContainer.horizontalAutoLayoutContainer:
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            Visible: =locPP_AgendamentosTotais
+                            ZIndex: =2
+
+                            Container27_1 As groupContainer.verticalAutoLayoutContainer:
+                                BorderColor: =RGBA(129, 193, 127, 1)
+                                BorderThickness: =1
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                ZIndex: =3
+
+                                Label5_17 As label:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(129, 193, 127, 1)
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="SELECIONE UM NÚCLEO"
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                Container28_2 As groupContainer.manualLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =10
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =250
+                                    ZIndex: =2
+
+                                ComboBox1_1 As combobox:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    DisplayFields: =["Nucleo"]
+                                    Font: =Font.Arial
+                                    Items: =bdNucleos.Nucleo
+                                    OnChange: |
+                                        =ClearCollect(
+                                            colAgendamentoNucleo,
+                                            Filter(
+                                                dbAtendimentos,
+                                                Nucleo = ComboBox1_1.Selected.Nucleo &&
+                                                (Encaminhamento = "Visita Domiciliar com Relatório Social" || 
+                                                 Encaminhamento = "Vistoria Física com Relatório")
+                                            )
+                                        );
+                                    OnSelect: |-
+                                        =ClearCollect(colAgendamentoNucleo, 
+                                        Filter(dbAtendimentos, 
+                                            Nucleo = ComboBox1_1.Selected.Nucleo, 
+                                            Encaminhamento = "Visita Domiciliar com Relatório Social" || Encaminhamento = "Vistoria Física com Relatório"))
+                                    SearchFields: =["Nucleo"]
+                                    SearchItems: =Search(bdNucleos.Nucleo,ComboBox1_1.SearchText,Nucleo)
+                                    SelectMultiple: =false
+                                    ZIndex: =3
+
+                                Container28_3 As groupContainer.manualLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =10
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =250
+                                    ZIndex: =4
+
+                                Label5_18 As label:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(129, 193, 127, 1)
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="DETALHE DO ANTENDIMENTO"
+                                    Width: =Parent.Width
+                                    ZIndex: =5
+
+                                Form_AtualizarAgendamento_2 As form:
+                                    DataSource: =dbAtendimentos
+                                    Item: =locPP_EditAgendamento
+                                    LayoutMinHeight: =250
+                                    LayoutMinWidth: =400
+                                    OnReset: =true
+                                    OnSuccess: =ResetForm(Form_AtualizarAgendamento_2);
+                                    SnapToColumns: =false
+                                    ZIndex: =6
+
+                                    Encaminhamento_DataCard1_2 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="Encaminhamento"
+                                        Default: =ThisItem.Encaminhamento
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,Encaminhamento)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, Encaminhamento)
+                                        Required: =false
+                                        Update: =DataCardValue118_2.Text
+                                        Width: =492
+                                        X: =0
+                                        Y: =0
+                                        ZIndex: =1
+
+                                        DataCardKey118_2 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="ENCAMINHAMENTO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue118_2 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey118_2.Y + DataCardKey118_2.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage118_2 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue118_2.Y + DataCardValue118_2.Height
+                                            ZIndex: =3
+
+                                        StarVisible118_2 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey118_2.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey118_2.Y
+                                            ZIndex: =4
+
+                                    Plantao_DataCard3_2 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="Plantao"
+                                        Default: =ThisItem.Plantao
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,Plantao)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =96
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, Plantao)
+                                        Required: =false
+                                        Update: =DataCardValue107_2.Text
+                                        Width: =246
+                                        X: =1
+                                        Y: =0
+                                        ZIndex: =1
+
+                                        DataCardKey107_2 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="PLANTÃO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue107_2 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey107_2.Y + DataCardKey107_2.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage107_2 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue107_2.Y + DataCardValue107_2.Height
+                                            ZIndex: =3
+
+                                        StarVisible107_2 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey107_2.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey107_2.Y
+                                            ZIndex: =4
+
+                                    OSComplementar_DataCard1_2 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="OSComplementar"
+                                        Default: =ThisItem.OSComplementar
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,OSComplementar)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, OSComplementar)
+                                        Required: =false
+                                        Update: =DataCardValue111_2.Text
+                                        Width: =492
+                                        X: =1
+                                        Y: =1
+                                        ZIndex: =1
+
+                                        DataCardKey111_2 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="ORDEM COMPLEMENTAR"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue111_2 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey111_2.Y + DataCardKey111_2.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage111_2 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue111_2.Y + DataCardValue111_2.Height
+                                            ZIndex: =3
+
+                                        StarVisible111_2 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey111_2.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey111_2.Y
+                                            ZIndex: =4
+
+                                    DataAgendamento_DataCard2_1 As typedDataCard.dateEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="DataAgendamento"
+                                        Default: =ThisItem.DataAgendamento
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,DataAgendamento)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        Required: =false
+                                        Update: =DataCardValue85_1.SelectedDate
+                                        Width: =500
+                                        X: =0
+                                        Y: =2
+                                        ZIndex: =1
+
+                                        DataCardKey85_1 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="DATA DE AGENDAMENTO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue85_1 As datepicker:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            DefaultDate: =Parent.Default
+                                            DisplayMode: =Parent.DisplayMode
+                                            EndYear: =Year(Today())+100
+                                            IsEditable: =true
+                                            PaddingBottom: =0
+                                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                            StartYear: =1899
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey85_1.Y + DataCardKey85_1.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage85_1 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue85_1.Y + DataCardValue85_1.Height
+                                            ZIndex: =3
+
+                                        StarVisible85_1 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey85_1.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey85_1.Y
+                                            ZIndex: =4
+
+                                    CPF_DataCard2_4 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="CPF"
+                                        Default: =ThisItem.CPF
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,CPF)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, CPF)
+                                        Required: =false
+                                        Update: =DataCardValue70_4.Text
+                                        Width: =246
+                                        X: =2
+                                        Y: =0
+                                        ZIndex: =2
+
+                                        DataCardKey70_4 As label:
+                                            AutoHeight: =true
+                                            Height: =34
+                                            Text: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue70_4 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey70_4.Y + DataCardKey70_4.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage71_2 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue70_4.Y + DataCardValue70_4.Height
+                                            ZIndex: =3
+
+                                        StarVisible71_2 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey70_4.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey70_4.Y
+                                            ZIndex: =4
+
+                                    NomeCompleto_DataCard2_4 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="NomeCompleto"
+                                        Default: =ThisItem.NomeCompleto
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,NomeCompleto)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, NomeCompleto)
+                                        Required: =false
+                                        Update: =DataCardValue81_2.Text
+                                        Width: =492
+                                        X: =-1
+                                        Y: =1
+                                        ZIndex: =2
+
+                                        DataCardKey81_2 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="NOME COMPLETO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue81_2 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey81_2.Y + DataCardKey81_2.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage81_2 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue81_2.Y + DataCardValue81_2.Height
+                                            ZIndex: =3
+
+                                        StarVisible81_2 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey81_2.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey81_2.Y
+                                            ZIndex: =4
+
+                                Container23 As groupContainer.manualLayoutContainer:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutMinHeight: =100
+                                    LayoutMinWidth: =250
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    ZIndex: =8
+
+                                    Button5_1 As button:
+                                        Fill: =RGBA(122, 111, 150, 1)
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        OnSelect: |-
+                                            =Patch(dbAtendimentos, LookUp(dbAtendimentos, ID = locPP_EditAgendamento.ID),
+                                            Form_AtualizarAgendamento_2.Updates,
+                                            {StatusAtendimento: "Planejado"});
+                                            
+                                            Patch(
+                                                dbOS,
+                                                Defaults(dbOS),
+                                                {
+                                                    TipoOS: "OIEPC",
+                                                    OSNumero: Text(locPP_EditAgendamento.OSComplementar),
+                                                    DataInicial: Value(locPP_EditAgendamento.DataAgendamento),
+                                                    IdNucleo: LookUp(bdNucleos, Nucleo = locPP_EditAgendamento.Nucleo, idNucleo),
+                                                    Produto: locPP_EditAgendamento.Encaminhamento,
+                                                    IdProduto: LookUp(dbProdutos, Produto = locPP_EditAgendamento.Encaminhamento, idProduto),
+                                                    StatusOS:"Planejado"
+                                                }
+                                            );
+                                            
+                                            
+                                            
+                                            Clear(colAgendamentoUnidade);
+                                            UpdateContext({locPP_EditAgendamento: First(colAgendamentoUnidade)});
+                                            
+                                            ClearCollect(colAgendamentoAberto,
+                                            Filter(dbAtendimentos, OSComplementar = Blank() &&
+                                                    (Encaminhamento = "Visita Domiciliar com Relatório Social" || 
+                                                     Encaminhamento = "Vistoria Física com Relatório")))
+                                        Text: ="LANÇAR ORDEM COMPLEMENTAR"
+                                        Width: =Parent.Width - Self.X * 2
+                                        X: =10
+                                        ZIndex: =1
+
+                                Container28_5 As groupContainer.manualLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =10
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =250
+                                    ZIndex: =9
+
+                            cAtendimentoHistorico_13 As groupContainer.verticalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Height: =Parent.Height
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingLeft: =10
+                                Width: =Parent.Width
+                                ZIndex: =4
+
+                                Label5_19 As label:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(129, 193, 127, 1)
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="HISTÓRICO DE ATENDIMENTOS DA UNIDADE FAMILIAR"
+                                    Width: |
+                                        =Parent.Width - 20
+                                    ZIndex: =114
+
+                                Container11_17 As groupContainer.horizontalAutoLayoutContainer:
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    FillPortions: =0
+                                    Height: =50
+                                    LayoutGap: =1
+                                    LayoutMinHeight: =100
+                                    LayoutMinWidth: =250
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =265
+                                    ZIndex: =115
+
+                                    Label6_272 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =10
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Tipo Atendimento"
+                                        Width: =100
+                                        ZIndex: =116
+
+                                    Label6_273 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Data do Atendimento"
+                                        Width: =100
+                                        ZIndex: =118
+
+                                    Label6_274 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Encaminhamento"
+                                        Width: =200
+                                        ZIndex: =119
+
+                                    Label6_275 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Familiar"
+                                        ZIndex: =120
+
+                                    Label6_276 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Telefone / Contato"
+                                        ZIndex: =121
+
+                                    Label6_277 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Data do Agendamento"
+                                        Width: =100
+                                        ZIndex: =122
+
+                                    Label6_278 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Ordem de Serviço Complementar"
+                                        ZIndex: =123
+
+                                    Label6_376 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        FillPortions: =1
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Detalhes"
+                                        ZIndex: =124
+
+                                Gallery1_11 As gallery.variableTemplateHeightGallery:
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    DelayItemLoading: =true
+                                    FillPortions: =0
+                                    Height: =Parent.Height - Self.Y 
+                                    Items: |-
+                                        =SortByColumns(
+                                            colAgendamentoNucleo,
+                                            "DataAtendimento",
+                                            SortOrder.Descending
+                                        )
+                                    Layout: =Layout.Vertical
+                                    LayoutMinHeight: =287
+                                    LayoutMinWidth: =320
+                                    LoadingSpinner: =LoadingSpinner.Data
+                                    TemplatePadding: =0
+                                    TemplateSize: =60
+                                    Width: =Parent.Width - Self.X*2
+                                    X: =10
+                                    Y: =593
+                                    ZIndex: =120
+
+                                    Container13_27 As groupContainer.horizontalAutoLayoutContainer:
+                                        Height: =Parent.TemplateHeight
+                                        LayoutGap: =1
+                                        LayoutMode: =LayoutMode.Auto
+                                        RadiusBottomLeft: =0
+                                        RadiusBottomRight: =0
+                                        RadiusTopLeft: =0
+                                        RadiusTopRight: =0
+                                        Width: =Parent.TemplateWidth
+                                        ZIndex: =121
+
+                                        Label6_279 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.TipoAtendimento.Value
+                                            Width: =100
+                                            ZIndex: =122
+
+                                        Label6_280 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.DataAtendimento
+                                            Width: =100
+                                            ZIndex: =124
+
+                                        Label6_281 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.Encaminhamento
+                                            Width: =200
+                                            ZIndex: =125
+
+                                        Label6_282 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.NomeCompleto
+                                            ZIndex: =126
+
+                                        Label6_283 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.TelefoneContato
+                                            ZIndex: =127
+
+                                        Label6_284 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.DataAgendamento
+                                            Width: =100
+                                            ZIndex: =128
+
+                                        Label6_285 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.OSComplementar
+                                            ZIndex: =129
+
+                                        Container21_2 As groupContainer.manualLayoutContainer:
+                                            DropShadow: =DropShadow.None
+                                            LayoutMinHeight: =10
+                                            LayoutMinWidth: =10
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            ZIndex: =130
+
+                                            Icon1_2 As icon.OpenInNewWindow:
+                                                Height: =36
+                                                Icon: =Icon.OpenInNewWindow
+                                                OnSelect: |-
+                                                    =Clear(colEditAgendamento);
+                                                    ClearCollect(colAgendamentoUnidade, Filter(colAgendamentoNucleo, ID = ThisItem.ID));
+                                                    UpdateContext({locPP_EditAgendamento: First(colAgendamentoUnidade)});
+                                                Width: =Parent.Width
+                                                Y: =10
+                                                ZIndex: =1
+
+                        cAgendamentosAbertos As groupContainer.horizontalAutoLayoutContainer:
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            Visible: =locPP_AgendamentosAbertos
+                            ZIndex: =3
+
+                            Container27 As groupContainer.verticalAutoLayoutContainer:
+                                BorderColor: =RGBA(129, 193, 127, 1)
+                                BorderThickness: =1
+                                DropShadow: =DropShadow.None
+                                FillPortions: =0
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                ZIndex: =1
+
+                                Label5_20 As label:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(129, 193, 127, 1)
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="CRIAR ORDEM COMPLEMENTAR"
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                Container28_4 As groupContainer.manualLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =10
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =250
+                                    ZIndex: =2
+
+                                Form_AtualizarAgendamento_1 As form:
+                                    DataSource: =dbAtendimentos
+                                    Item: =locPP_EditAgendamento
+                                    LayoutMinHeight: =250
+                                    LayoutMinWidth: =400
+                                    OnReset: =true
+                                    OnSuccess: =ResetForm(Form_AtualizarAgendamento_1);
+                                    SnapToColumns: =false
+                                    ZIndex: =3
+
+                                    Encaminhamento_DataCard1_1 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="Encaminhamento"
+                                        Default: =ThisItem.Encaminhamento
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,Encaminhamento)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, Encaminhamento)
+                                        Required: =false
+                                        Update: =DataCardValue118_1.Text
+                                        Width: =492
+                                        X: =0
+                                        Y: =0
+                                        ZIndex: =1
+
+                                        DataCardKey118_1 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="ENCAMINHAMENTO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue118_1 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey118_1.Y + DataCardKey118_1.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage118_1 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue118_1.Y + DataCardValue118_1.Height
+                                            ZIndex: =3
+
+                                        StarVisible118_1 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey118_1.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey118_1.Y
+                                            ZIndex: =4
+
+                                    Plantao_DataCard3_1 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="Plantao"
+                                        Default: =ThisItem.Plantao
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,Plantao)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =96
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, Plantao)
+                                        Required: =false
+                                        Update: =DataCardValue107_1.Text
+                                        Width: =246
+                                        X: =1
+                                        Y: =0
+                                        ZIndex: =1
+
+                                        DataCardKey107_1 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="PLANTÃO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue107_1 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey107_1.Y + DataCardKey107_1.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage107_1 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue107_1.Y + DataCardValue107_1.Height
+                                            ZIndex: =3
+
+                                        StarVisible107_1 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey107_1.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey107_1.Y
+                                            ZIndex: =4
+
+                                    OSComplementar_DataCard1_1 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="OSComplementar"
+                                        Default: =ThisItem.OSComplementar
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,OSComplementar)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, OSComplementar)
+                                        Required: =false
+                                        Update: =DataCardValue111_1.Text
+                                        Width: =492
+                                        X: =1
+                                        Y: =1
+                                        ZIndex: =1
+
+                                        DataCardKey111_1 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="ORDEM COMPLEMENTAR"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue111_1 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey111_1.Y + DataCardKey111_1.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage111_1 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue111_1.Y + DataCardValue111_1.Height
+                                            ZIndex: =3
+
+                                        StarVisible111_1 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey111_1.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey111_1.Y
+                                            ZIndex: =4
+
+                                    DataAgendamento_DataCard2 As typedDataCard.dateEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="DataAgendamento"
+                                        Default: =ThisItem.DataAgendamento
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,DataAgendamento)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        Required: =false
+                                        Update: =DataCardValue85.SelectedDate
+                                        Width: =500
+                                        X: =0
+                                        Y: =2
+                                        ZIndex: =1
+
+                                        DataCardKey85 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="DATA DE AGENDAMENTO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue85 As datepicker:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            DefaultDate: =Parent.Default
+                                            DisplayMode: =Parent.DisplayMode
+                                            EndYear: =Year(Today())+100
+                                            IsEditable: =true
+                                            PaddingBottom: =0
+                                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                            StartYear: =1899
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey85.Y + DataCardKey85.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage85 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue85.Y + DataCardValue85.Height
+                                            ZIndex: =3
+
+                                        StarVisible85 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey85.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey85.Y
+                                            ZIndex: =4
+
+                                    CPF_DataCard2_3 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="CPF"
+                                        Default: =ThisItem.CPF
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,CPF)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, CPF)
+                                        Required: =false
+                                        Update: =DataCardValue70_3.Text
+                                        Width: =246
+                                        X: =2
+                                        Y: =0
+                                        ZIndex: =2
+
+                                        DataCardKey70_3 As label:
+                                            AutoHeight: =true
+                                            Height: =34
+                                            Text: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue70_3 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey70_3.Y + DataCardKey70_3.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage71_1 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue70_3.Y + DataCardValue70_3.Height
+                                            ZIndex: =3
+
+                                        StarVisible71_1 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey70_3.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey70_3.Y
+                                            ZIndex: =4
+
+                                    NomeCompleto_DataCard2_3 As typedDataCard.textualEditCard:
+                                        BorderStyle: =BorderStyle.Solid
+                                        DataField: ="NomeCompleto"
+                                        Default: =ThisItem.NomeCompleto
+                                        DisplayMode: =Parent.DisplayMode
+                                        DisplayName: =DataSourceInfo([@dbAtendimentos],DataSourceInfo.DisplayName,NomeCompleto)
+                                        Fill: =RGBA(0, 0, 0, 0)
+                                        Height: =50
+                                        MaxLength: =DataSourceInfo([@dbAtendimentos], DataSourceInfo.MaxLength, NomeCompleto)
+                                        Required: =false
+                                        Update: =DataCardValue81_1.Text
+                                        Width: =492
+                                        X: =-1
+                                        Y: =1
+                                        ZIndex: =2
+
+                                        DataCardKey81_1 As label:
+                                            AutoHeight: =true
+                                            Font: =Font.Arial
+                                            Height: =34
+                                            Text: ="NOME COMPLETO"
+                                            Width: =Parent.Width - 60
+                                            Wrap: =false
+                                            X: =30
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        DataCardValue81_1 As text:
+                                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                            Default: =Parent.Default
+                                            DelayOutput: =true
+                                            DisplayMode: =Parent.DisplayMode
+                                            MaxLength: =Parent.MaxLength
+                                            PaddingLeft: =5
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Tooltip: =Parent.DisplayName
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardKey81_1.Y + DataCardKey81_1.Height + 5
+                                            ZIndex: =2
+
+                                        ErrorMessage81_1 As label:
+                                            AutoHeight: =true
+                                            Height: =10
+                                            Live: =Live.Assertive
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Text: =Parent.Error
+                                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                            Width: =Parent.Width - 60
+                                            X: =30
+                                            Y: =DataCardValue81_1.Y + DataCardValue81_1.Height
+                                            ZIndex: =3
+
+                                        StarVisible81_1 As label:
+                                            Align: =Align.Center
+                                            Height: =DataCardKey81_1.Height
+                                            Text: ="*"
+                                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                            Width: =30
+                                            Wrap: =false
+                                            Y: =DataCardKey81_1.Y
+                                            ZIndex: =4
+
+                                Container22 As groupContainer.manualLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =100
+                                    LayoutMinHeight: =100
+                                    LayoutMinWidth: =250
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    ZIndex: =7
+
+                                    Button5 As button:
+                                        Fill: =RGBA(122, 111, 150, 1)
+                                        Font: =Font.Arial
+                                        Height: =30
+                                        OnSelect: |-
+                                            =ResetForm(Form_AtualizarAgendamento_1);
+                                            Clear(colAgendamentoUnidade);
+                                            UpdateContext({locPP_EditAgendamento: First(colAgendamentoUnidade)});
+                                        Text: ="FECHAR"
+                                        Width: =Parent.Width - Self.X * 2
+                                        X: =10
+                                        ZIndex: =1
+
+                                    Button5_2 As button:
+                                        Fill: =RGBA(122, 111, 150, 1)
+                                        Font: =Font.Arial
+                                        Height: =36
+                                        OnSelect: |-
+                                            =SubmitForm(Form_AtualizarAgendamento_1);
+                                            Patch(
+                                                dbOS,
+                                                Defaults(dbOS),
+                                                {
+                                                    TipoOS: "OIEPC",
+                                                    OSNumero: Value(locPP_EditAgendamento.OSComplementar),
+                                                    DataInicial: Value(locPP_EditAgendamento.DataAgendamento),
+                                                    IdNucleo: LookUp(bdNucleos, Nucleo = locPP_EditAgendamento.Nucleo, idNucleo),
+                                                    Produto: locPP_EditAgendamento.Encaminhamento,
+                                                    IdProduto: LookUp(dbProdutos, Produto = locPP_EditAgendamento.Encaminhamento, idProduto),
+                                                    StatusOS:"Planejado"
+                                                }
+                                            );
+                                            
+                                            Clear(colAgendamentoUnidade);
+                                            UpdateContext({locPP_EditAgendamento: First(colAgendamentoUnidade)});
+                                            
+                                            ClearCollect(colAgendamentoAberto,
+                                            Filter(dbAtendimentos, OSComplementar = Blank() &&
+                                                    (Encaminhamento = "Visita Domiciliar com Relatório Social" || 
+                                                     Encaminhamento = "Vistoria Física com Relatório")))
+                                        Text: ="LANÇAR ORDEM COMPLEMENTAR"
+                                        Width: =Parent.Width - Self.X * 2
+                                        X: =10
+                                        Y: =54
+                                        ZIndex: =3
+
+                            cAtendimentoHistorico_10 As groupContainer.verticalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Height: =Parent.Height
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingLeft: =10
+                                Width: =Parent.Width
+                                ZIndex: =2
+
+                                Label5_12 As label:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(129, 193, 127, 1)
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="HISTÓRICO DE ATENDIMENTOS DA UNIDADE FAMILIAR"
+                                    Width: |
+                                        =Parent.Width - 20
+                                    ZIndex: =114
+
+                                Container11_14 As groupContainer.horizontalAutoLayoutContainer:
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    FillPortions: =0
+                                    Height: =50
+                                    LayoutGap: =1
+                                    LayoutMinHeight: =100
+                                    LayoutMinWidth: =250
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =265
+                                    ZIndex: =115
+
+                                    Label6_28 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =10
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Tipo Atendimento"
+                                        Width: =100
+                                        ZIndex: =116
+
+                                    Label6_32 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Data do Atendimento"
+                                        Width: =100
+                                        ZIndex: =118
+
+                                    Label6_69 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Encaminhamento"
+                                        Width: =200
+                                        ZIndex: =119
+
+                                    Label6_246 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Familiar"
+                                        ZIndex: =120
+
+                                    Label6_263 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Telefone / Contato"
+                                        ZIndex: =121
+
+                                    Label6_268 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Data do Agendamento"
+                                        Width: =100
+                                        ZIndex: =122
+
+                                    Label6_270 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Ordem de Serviço Complementar"
+                                        ZIndex: =123
+
+                                    Label6_375 As label:
+                                        Align: =Align.Center
+                                        AlignInContainer: =AlignInContainer.Stretch
+                                        FillPortions: =1
+                                        Font: =Font.Arial
+                                        Height: =Parent.Height
+                                        PaddingBottom: =0
+                                        PaddingLeft: =0
+                                        PaddingRight: =0
+                                        PaddingTop: =0
+                                        Size: =11
+                                        Text: ="Detalhes"
+                                        ZIndex: =124
+
+                                Gallery1_9 As gallery.variableTemplateHeightGallery:
+                                    BorderColor: =RGBA(129, 193, 127, 1)
+                                    BorderThickness: =1
+                                    DelayItemLoading: =true
+                                    FillPortions: =0
+                                    Height: =Parent.Height - Self.Y 
+                                    Items: |-
+                                        =SortByColumns(
+                                            colAgendamentoAberto,
+                                            "DataAtendimento",
+                                            SortOrder.Descending
+                                        )
+                                    Layout: =Layout.Vertical
+                                    LayoutMinHeight: =287
+                                    LayoutMinWidth: =320
+                                    LoadingSpinner: =LoadingSpinner.Data
+                                    TemplatePadding: =0
+                                    TemplateSize: =60
+                                    Width: =Parent.Width - Self.X*2
+                                    X: =10
+                                    Y: =593
+                                    ZIndex: =120
+
+                                    Container13_12 As groupContainer.horizontalAutoLayoutContainer:
+                                        Height: =Parent.TemplateHeight
+                                        LayoutGap: =1
+                                        LayoutMode: =LayoutMode.Auto
+                                        RadiusBottomLeft: =0
+                                        RadiusBottomRight: =0
+                                        RadiusTopLeft: =0
+                                        RadiusTopRight: =0
+                                        Width: =Parent.TemplateWidth
+                                        ZIndex: =121
+
+                                        Label6_70 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.TipoAtendimento.Value
+                                            Width: =100
+                                            ZIndex: =122
+
+                                        Label6_264 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.DataAtendimento
+                                            Width: =100
+                                            ZIndex: =124
+
+                                        Label6_265 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.Encaminhamento
+                                            Width: =200
+                                            ZIndex: =125
+
+                                        Label6_266 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.NomeCompleto
+                                            ZIndex: =126
+
+                                        Label6_267 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.TelefoneContato
+                                            ZIndex: =127
+
+                                        Label6_269 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.DataAgendamento
+                                            Width: =100
+                                            ZIndex: =128
+
+                                        Label6_271 As label:
+                                            Align: =Align.Center
+                                            AlignInContainer: =AlignInContainer.Stretch
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =10
+                                            Text: =ThisItem.OSComplementar
+                                            ZIndex: =129
+
+                                        Container21_1 As groupContainer.manualLayoutContainer:
+                                            DropShadow: =DropShadow.None
+                                            LayoutMinHeight: =10
+                                            LayoutMinWidth: =10
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            ZIndex: =130
+
+                                            Icon1_1 As icon.OpenInNewWindow:
+                                                Height: =36
+                                                Icon: =Icon.OpenInNewWindow
+                                                OnSelect: |-
+                                                    =Clear(colEditAgendamento);
+                                                    ClearCollect(colAgendamentoUnidade, Filter(colAgendamentoAberto, ID = ThisItem.ID));
+                                                    UpdateContext({locPP_EditAgendamento: First(colAgendamentoUnidade)});
+                                                Width: =Parent.Width
+                                                Y: =10
+                                                ZIndex: =1
+

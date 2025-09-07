@@ -1,0 +1,794 @@
+"'Resumo Orçamentário Screen' As screen":
+    OnVisible: |+
+        =Set(varBordaOrcamento, true);
+        ClearCollect(
+            colMacroItensTest,
+            Filter(
+                db_fin_base_orcamentaria,
+                nivel_2 = "00" && nivel_3 = "00" && nivel_4 = "00" &&
+                // Para testes, COMENTE temporariamente a linha abaixo ou use um ID fixo
+                // id_contrato_empreendimento = ThisItem.id_contrato_empreendimento 
+                id_contrato_empreendimento = "PPE nº 024/2023-1" // Substitua por um ID real que você sabe que tem dados.
+            )
+        );
+        
+        ClearCollect(
+            colPrazoVigenciaDias,
+            AddColumns(
+                GroupBy(
+                    db_cont_econtratual,
+                    n_contrato,
+                    DadosVigenciaDoContrato
+                ),
+                SomaPrazosMeses,
+                Sum(DadosVigenciaDoContrato,Coalesce(prazo_ec_mes,0)
+                ),
+                SomaPrazosDias,
+                Sum(DadosVigenciaDoContrato,Coalesce(prazo_ec_dia,0)
+                ),
+                id_contrato_empreendimento,
+                LookUp(DadosVigenciaDoContrato, !IsBlank(DadosVigenciaDoContrato), data_assinatura)
+            )
+        );
+        
+
+    app_cpn_bonin_15 As app_cpn_bonin:
+        OnSelect: =
+
+    Label1_135 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =100
+        Size: =18
+        Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - RESUMO ORÇAMENTÁRIO"
+        Width: =Parent.Width - Self.X - 10
+        Wrap: =false
+        X: =230
+        ZIndex: =2
+
+    Container1_13 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X - 10
+        X: =230
+        Y: =110
+        ZIndex: =3
+
+        Container2_4 As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container3_4 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                FillPortions: =0
+                Height: =70
+                LayoutGap: =10
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingTop: =5
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =1
+
+                Container5_11 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: |
+                        =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =200
+                    ZIndex: =1
+
+                    Label1_136 As label:
+                        Align: =Align.Justify
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        Size: =10
+                        Text: ="🔎 CONTRATO "
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_11 As text:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        Default: =
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        HintText: =""
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Width: =0
+                        ZIndex: =2
+
+                Container5_13 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: |
+                        =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =250
+                    X: =40
+                    Y: =40
+                    ZIndex: =3
+
+                    Label1_138 As label:
+                        Align: =Align.Justify
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        Size: =10
+                        Text: ="🔎 OBJETO REDUZIDO "
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_13 As text:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        Default: =
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        HintText: =""
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Width: =0
+                        ZIndex: =2
+
+                Container5_14 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: |
+                        =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =250
+                    X: =40
+                    Y: =40
+                    ZIndex: =4
+
+                    Label1_139 As label:
+                        Align: =Align.Justify
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        Size: =10
+                        Text: ="🔎 CONTRATADA "
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_14 As text:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        Default: =
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        HintText: =""
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Width: =0
+                        ZIndex: =2
+
+            Container4_5 As groupContainer.manualLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =2
+
+                Container8_12 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(45, 65, 93, 1)
+                    Height: =Parent.Height
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Visible: =If(varContratoSelect, false, true)
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Gallery3_3 As gallery.variableTemplateHeightGallery:
+                        '#CopilotOverlayLabel': ="Filtrada"
+                        BorderColor: =
+                        DelayItemLoading: =true
+                        Height: =Parent.Height
+                        Items: |-
+                            =Filter(
+                                db_cont_contrato,
+                                IsBlank(TextInput1_11.Text) || StartsWith(n_contrato, TextInput1_11.Text),
+                                IsBlank(TextInput1_13.Text) || StartsWith(objeto_reduzido, TextInput1_13.Text),
+                                IsBlank(TextInput1_14.Text) || StartsWith(contratada, TextInput1_14.Text))
+                        Layout: =Layout.Vertical
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =320
+                        LoadingSpinner: =LoadingSpinner.Data
+                        ShowScrollbar: =false
+                        TemplateSize: =60
+                        Width: =Parent.Width
+                        ZIndex: =3
+
+                        Gallery1 As gallery.variableTemplateHeightGallery:
+                            DelayItemLoading: =true
+                            Height: |-
+                                =If(varQuantidadeItens = 0,
+                                Self.AllItemsCount * 30 * 2 + (35 * varQuantidadeItens),
+                                Self.AllItemsCount * 35 * 2 + (35 * varQuantidadeItens + 20))
+                            Items: =Filter(db_cont_empreendimento, n_contrato = ThisItem.n_contrato)
+                            Layout: =Layout.Vertical
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplatePadding: =0
+                            TemplateSize: =50
+                            Visible: =varExpandido = ThisItem.ID
+                            Width: =Parent.TemplateWidth-Self.X
+                            X: =10
+                            Y: =Container34_3.Height+Container34_3.Y
+                            ZIndex: =3
+
+                            Container7 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.Semilight
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.Height
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width
+                                ZIndex: =3
+
+                                htmltxt_historico_viajantes As htmlViewer:
+                                    AutoHeight: =true
+                                    Fill: =RGBA(214, 223, 238, 1)
+                                    Height: =10
+                                    HtmlText: |-
+                                        ="<div style='background-color: #2d415d; padding: 10px; color: white; border-radius: 10px;'>" &
+                                            "<h2 style= 'font-size:13px; '>RESUMO - PLANILHA ORÇAMENTÁRIA</h2>" &
+                                            "<table border='1' style='width:100%; border-color: white; border-style: solid ;border-collapse: collapse;'>" &
+                                                "<thead>" &
+                                                    "<tr style='height: 10px; font-size:13px'>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>ITEM</th>" &
+                                                        "<th style='padding: 6px; text-align: left; color: white;'>DESCRIÇÃO</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>VALOR TOTAL</th>" &
+                                                        "<th style='padding: 6px; text-align: center; color: white;'>VALOR TOTAL c/ BID</th>" &
+                                                    "</tr>" &
+                                                "</thead>" &
+                                                "<tbody>" &
+                                                    Concat(
+                                                        SortByColumns(
+                                                            colEmpreendimentoOrcamento,
+                                                            "Item_Grupo",
+                                                            SortOrder.Ascending,
+                                                            "nivel_1",
+                                                            SortOrder.Ascending
+                                                        ),
+                                                    "<tr>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & nivel_1 & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: left;'>" & Descricao & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(Soma_valor_previsto, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(Soma_valor_bdi, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                    "</tr>"
+                                                    ) &
+                                                "</tbody>" &
+                                            "</table>" &
+                                        "</div>"
+                                    OnSelect: =
+                                    Visible: =varHistoricoExpandido = ThisItem.id_contrato_empreendimento
+                                    Width: =Parent.Width
+                                    Y: =htmltxt_historico.Y + htmltxt_historico.Height
+                                    ZIndex: =1
+
+                                Container33 As groupContainer.manualLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Height: =110
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =varVisualizarEdicaoOrcamento
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =110
+                                    ZIndex: =2
+
+                                    cConfirmacao_Alteracao As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Height: =Parent.Height - Self.Y - 20
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Visible: =If(varPopupConfirmacaoAcao, true, false)
+                                        Width: =Parent.Width - Self.X * 2
+                                        X: =10
+                                        Y: =20
+                                        ZIndex: =1
+
+                                        Button4_2 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(209, 232, 178, 1)
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |-
+                                                =Set(VarInicialDesativarOrcamento,true);
+                                                ForAll(
+                                                    VarLancamentosAutomacao, // Itera sobre cada registro na sua coleção filtrada
+                                                    Patch(
+                                                        db_fin_base_orcamentaria, // Sua fonte de dados real
+                                                        ThisRecord, // <--- AQUI! Usa o próprio registro da iteração ForAll como base
+                                                        {orcamento_ativo: "Desativado"} // Define o novo valor
+                                                    )
+                                                );
+                                                Set(VarInicialDesativarOrcamento,false);
+                                                Set(varPopupConfirmacaoAcao, false);
+                                                Set(varVisualizarEdicaoOrcamento, false);
+                                                UpdateContext({varExpandido: If(varExpandido = ThisItem.ID, Blank(), ThisItem.ID)});
+                                                Set(varQuantidadeItens, 0);
+                                                UpdateContext({varHistoricoExpandido: Blank()});
+                                            Size: =10
+                                            Text: ="DESATIVAR ORÇAMENTO"
+                                            Width: =220
+                                            X: =Parent.Width - Self.Width - 10
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        Button4_1 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(220, 153, 153, 1)
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |
+                                                =Set(varPopupConfirmacaoAcao,false);
+                                            Size: =10
+                                            Text: ="CANCELAR AÇÃO"
+                                            Width: =220
+                                            X: =10
+                                            Y: =10
+                                            ZIndex: =2
+
+                                    cConfirmacao_Exclusao As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Height: =Parent.Height - Self.Y - 20
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Visible: =If(varPopupConfirmacaoExclusao, true, false)
+                                        Width: =Parent.Width - Self.X * 2
+                                        X: =10
+                                        Y: =20
+                                        ZIndex: =2
+
+                                        Button4_5 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(209, 232, 178, 1)
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |-
+                                                =Set(VarInicialDesativarOrcamento,true);
+                                                ForAll(
+                                                    VarLancamentosAutomacao, // Itera sobre cada registro na sua coleção de itens a serem excluídos
+                                                    Remove(
+                                                        db_fin_base_orcamentaria, // Sua fonte de dados real
+                                                        ThisRecord // <--- AQUI! Usa o próprio registro da iteração ForAll como base para identificar o item a ser removido
+                                                    )
+                                                );
+                                                Set(VarInicialDesativarOrcamento,false);
+                                                Set(varPopupConfirmacaoExclusao, false);
+                                                Set(varVisualizarEdicaoOrcamento, false);
+                                                UpdateContext({varExpandido: If(varExpandido = ThisItem.ID, Blank(), ThisItem.ID)});
+                                                Set(varQuantidadeItens, 0);
+                                                UpdateContext({varHistoricoExpandido: Blank()});
+                                            Size: =10
+                                            Text: ="DESATIVAR ORÇAMENTO"
+                                            Width: =220
+                                            X: =Parent.Width - Self.Width - 10
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        Button4_6 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(220, 153, 153, 1)
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |
+                                                =Set(varPopupConfirmacaoExclusao,false);
+                                            Size: =10
+                                            Text: ="CANCELAR AÇÃO"
+                                            Width: =220
+                                            X: =10
+                                            Y: =10
+                                            ZIndex: =2
+
+                                    Container34_2 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Height: =Parent.Height - Self.Y - 5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Visible: =If(varPopupConfirmacaoAcao || varPopupConfirmacaoExclusao, false, true)
+                                        Width: =Parent.Width - Self.X * 2
+                                        X: =10
+                                        Y: =50
+                                        ZIndex: =3
+
+                                        Button4_3 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: =Set(varPopupConfirmacaoExclusao, true)
+                                            Size: =10
+                                            Text: ="APAGAR ORÇAMENTO"
+                                            Width: =220
+                                            X: =Parent.Width - Self.Width - 10
+                                            Y: =10
+                                            ZIndex: =1
+
+                                        Button4_4 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |-
+                                                =ClearCollect(VarLancamentosAutomacao, 
+                                                    Filter(
+                                                                db_fin_base_orcamentaria,
+                                                                id_contrato_empreendimento = ThisItem.id_contrato_empreendimento && 
+                                                                orcamento_ativo = "Ativo"
+                                                            ));
+                                                
+                                                Set(varPopupConfirmacaoAcao, true)
+                                            Size: =10
+                                            Text: ="DESATIVAR ORÇAMENTO"
+                                            Width: =220
+                                            X: =10
+                                            Y: =10
+                                            ZIndex: =2
+
+                                    Button4 As button:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Font: =Font.Arial
+                                        Height: =30
+                                        OnSelect: =Set(varVisualizarEdicaoOrcamento, false)
+                                        RadiusBottomLeft: =6
+                                        RadiusBottomRight: =6
+                                        RadiusTopLeft: =6
+                                        RadiusTopRight: =6
+                                        Size: =12
+                                        Text: ="Fechar"
+                                        Visible: =If(varPopupConfirmacaoAcao || varPopupConfirmacaoExclusao, false, true)
+                                        Width: =150
+                                        X: =Parent.Width - Self.Width - 10
+                                        Y: =10
+                                        ZIndex: =4
+
+                                htmltxt_historico As htmlViewer:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(214, 223, 238, 1)
+                                    Height: =60
+                                    HtmlText: |-
+                                        ="<div style='width:100%; height:auto; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:10px;'>
+                                        
+                                          <!-- Nome -->
+                                          <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                            " & Concatenate(LookUp(db_cont_empreendimento, n_contrato = ThisItem.n_contrato, id_contrato_empreendimento), " - ", LookUp(db_cont_empreendimento, n_contrato = ThisItem.n_contrato, empreendimento)) & "
+                                          </div>
+                                        
+                                        <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                          <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                            <div style='flex:1'><strong>Construtora:</strong> " & ThisItem.construtora & "</div>
+                                            <div style='flex:1'><strong>Empreendimento:</strong> " & ThisItem.empreendimento & "</div>
+                                            <div style='flex:1'><strong>Unidades Habitacionais:</strong> " & ThisItem.n_unidade_habitacional & "</div>
+                                            <div style='flex:1'><strong>Valor Empreendimento:</strong> " & 
+                                            Text(Sum(Filter(colEmpreendimentoContratOrcamento, id_empreendimento = ThisItem.id_contrato_empreendimento), Coalesce(Soma_valor_bdi, 0)), "[$-pt-BR]R$ #.##0,00")
+                                            & "</div>
+                                          </div>
+                                        </div>"
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Width: =Parent.Width
+                                    ZIndex: =3
+
+                                icn_expandir_4 As icon:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    Color: =Color.White
+                                    Height: =30
+                                    Icon: =Icon.Settings
+                                    OnSelect: =Set(varVisualizarEdicaoOrcamento, true);
+                                    Visible: =varHistoricoExpandido = ThisItem.id_contrato_empreendimento
+                                    Width: =40
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =75
+                                    ZIndex: =4
+
+                                icn_expandir As icon:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    Color: =App.Theme.Colors.Darker30
+                                    Height: =htmltxt_historico.Height - Self.Y * 2
+                                    Icon: |
+                                        =If(varHistoricoExpandido = ThisItem.id_contrato_empreendimento, Icon.ChevronUp, Icon.ChevronDown)
+                                    OnSelect: |+
+                                        =Set(varVisualizarEdicaoOrcamento, false);
+                                        Set(varPopupConfirmacaoExclusao,false);
+                                        Set(varPopupConfirmacaoAcao,false);
+                                        
+                                        UpdateContext({
+                                            varHistoricoExpandido: If(varHistoricoExpandido = ThisItem.id_contrato_empreendimento, Blank(), ThisItem.id_contrato_empreendimento)
+                                        });
+                                        
+                                        ClearCollect(
+                                            colEmpreendimentoOrcamento,
+                                            AddColumns(
+                                                GroupBy(
+                                                    Filter(
+                                                        db_fin_base_orcamentaria,
+                                                        id_contrato_empreendimento = ThisItem.id_contrato_empreendimento && 
+                                                        orcamento_ativo = "Ativo"
+                                                    ),
+                                                    nivel_1,
+                                                    ItensPorOrigem
+                                                ),
+                                                Soma_valor_previsto,
+                                                Sum(ItensPorOrigem, valor_previsto),
+                                                Soma_valor_bdi,
+                                                Sum(ItensPorOrigem, valor_bdi),
+                                                Descricao,
+                                                First(ItensPorOrigem).descricao,
+                                                Item_Grupo,
+                                                First(ItensPorOrigem).item_grupo
+                                            )
+                                        );
+                                        
+                                        If(Self.Icon = Icon.ChevronDown, 
+                                            Set(varQuantidadeItens, 0), 
+                                                Set(varQuantidadeItens, CountRows(colEmpreendimentoOrcamento)));
+                                        
+                                    Width: =40
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =15
+                                    ZIndex: =5
+
+                        Container34_3 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.Semilight
+                            Height: =Parent.TemplateHeight
+                            PaddingLeft: =20
+                            PaddingRight: =20
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - 10
+                            ZIndex: =4
+
+                            HtmlText1_2 As htmlViewer:
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =Parent.Height
+                                HtmlText: |-
+                                    ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                                     <!-- Nome -->
+                                     <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                      " & Concatenate(ThisItem.n_contrato, " - ", ThisItem.objeto_reduzido) & "
+                                     </div>
+                                    
+                                    <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                     <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                    
+                                      <div style='flex:1'><strong>SEI:</strong> " & ThisItem.processo_sei & "</div>
+                                    
+                                      <div style='flex:1'><strong>Data Assinatura:</strong> " & ThisItem.data_ass_contrato & "</div>
+                                    
+                                      <div style='flex:1'><strong>Data Término Prevista:</strong> " &
+                                    
+                                        DateAdd(ThisItem.data_ass_contrato, LookUp(colPrazoVigenciaDias, n_contrato = ThisItem.n_contrato, SomaPrazosDias), TimeUnit.Days)
+                                    
+                                      & "</div>
+                                    
+                                      <div style='flex:1'><strong>Valor Contrato:</strong> " & Text(ThisItem.valor_contrato_inicial, "[$-pt-BR]R$ #.##0,00") & "</div>
+                                      <div style='flex:1'><strong>Status Contrato:</strong> " & ThisItem.status_contrato.Value & "</div>
+                                    
+                                     </div>
+                                    
+                                    </div>"
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            icoSeta_3 As icon:
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledBorderColor: =
+                                DisabledColor: =RGBA(202, 202, 202, 1)
+                                DisabledFill: =RGBA(0, 0, 0, 0)
+                                DisplayMode: =If(!IsEmpty(Filter(db_cont_empreendimento, n_contrato = ThisItem.n_contrato)), DisplayMode.Edit, DisplayMode.Disabled)
+                                FocusedBorderThickness: =0
+                                Height: =Parent.Height
+                                HoverColor: =ColorFade(Self.Color, 10%)
+                                HoverFill: =
+                                Icon: |
+                                    =If(varExpandido = ThisItem.ID, Icon.ChevronDown, Icon.ChevronRight)
+                                OnSelect: |-
+                                    =Set(varVisualizarEdicaoOrcamento, false);
+                                    Set(varPopupConfirmacaoExclusao,false);
+                                    Set(varPopupConfirmacaoAcao,false);
+                                    UpdateContext({varExpandido: If(varExpandido = ThisItem.ID, Blank(), ThisItem.ID)});
+                                    Set(varQuantidadeItens, 0);
+                                    UpdateContext({varHistoricoExpandido: Blank()});
+                                    
+                                    Set(teste, ThisItem.n_contrato);
+                                    
+                                    ClearCollect(
+                                        colEmpreendimentoContratOrcamento,
+                                        Filter(
+                                            db_fin_base_orcamentaria,
+                                            id_contrato = ThisItem.n_contrato));
+                                    
+                                    If(Self.Icon = Icon.ChevronRight, 
+                                        Set(varBordaOrcamento, true), Set(varBordaOrcamento, false))
+                                PaddingBottom: =10
+                                PaddingRight: =Self.Width-Self.Height
+                                PaddingTop: =10
+                                Width: |
+                                    =60
+                                X: =Parent.Width - Self.Width 
+                                ZIndex: =2
+
+                ctn_loading_3 As groupContainer.manualLayoutContainer:
+                    BorderStyle: =BorderStyle.None
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(45, 65, 93, 1)
+                    Height: =Parent.Height
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Visible: =VarInicialDesativarOrcamento
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    img_loading_bonin_3 As image:
+                        Height: =70
+                        Image: ='Logo - Cohab'
+                        Width: =70
+                        X: =Parent.Width/2 - Self.Width/2
+                        Y: =Parent.Height/2 - Self.Height/2 - 5
+                        ZIndex: =1
+
+                    img_loading_3 As image:
+                        BorderColor: =
+                        DisabledBorderColor: =
+                        DisabledFill: =
+                        FocusedBorderThickness: =0
+                        Height: =300
+                        Image: |-
+                            ="data:image/svg+xml;utf8, " & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: none; display: block; shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+                                <g transform='rotate(0 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.9166666666666666s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(30 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(60 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(90 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(120 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(150 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(180 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(210 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(240 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(270 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(300 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g><g transform='rotate(330 50 50)'>
+                                <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                    <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate>
+                                </rect>
+                                </g>
+                                <!-- [ldio] generated by https://loading.io/ --></svg>
+                            ")
+                        Width: =300
+                        X: =Parent.Width/2 - Self.Width/2
+                        Y: =Parent.Height/2 - Self.Height/2
+                        ZIndex: =2
+

@@ -1,0 +1,348 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  MKT_1:
+    Properties:
+      Fill: =EsquemaDeCores.AzulBackground.Cor
+      LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+      OnVisible: |-
+        =ClearCollect(
+            colEtapasMktAtendimento,
+            {idStatus: "mktStatus1", Etapa: "Abertura do Ticket", Status: "Aberto"},
+            {idStatus: "mktStatus2", Etapa: "Atendimento", Status: "Em andamento"},
+            {idStatus: "mktStatus3", Etapa: "Concluído", Status: "Concluído"}
+        );
+    Children:
+      - sigd_ctn_geral_15:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Group: sigd_layout_15
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: =EsquemaDeCores.AzulConteiner.Cor
+            Height: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Height
+            RadiusBottomLeft: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Raio
+            RadiusBottomRight: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Raio
+            RadiusTopLeft: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Raio
+            RadiusTopRight: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Raio
+            Width: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Width
+            X: =sigd_bonin_cabecalho_15.ReferênciaContêiner.X
+            Y: =sigd_bonin_cabecalho_15.ReferênciaContêiner.Y
+          Children:
+            - Container35:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  BorderColor: =RGBA(45, 65, 93, 1)
+                  BorderThickness: =2
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height - Self.Y - 10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.Width - Self.X * 2
+                  X: =10
+                  Y: =10
+                Children:
+                  - galPortKanban_2:
+                      Control: Gallery@2.15.0
+                      Variant: Horizontal
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.Height - Self.Y * 2
+                        Items: =colEtapasMktAtendimento
+                        TemplateFill: =Color.Transparent
+                        TemplateSize: "=If(\r\n    CountRows(Self.AllItems) = 0,\r\n    0, // Valor padrão ou substituto para evitar divisão por zero\r\n    Parent.Width / CountRows(Self.AllItems) - 10\r\n    \r\n)"
+                        Width: =Parent.Width - Self.X * 2
+                      Children:
+                        - Gallery2:
+                            Control: Gallery@2.15.0
+                            Variant: VariableHeight
+                            Properties:
+                              Height: =Parent.Height - Self.Y - 10
+                              Items: =Filter(sigd_mkt_chamados, status_ticket = ThisItem.Status)
+                              ShowScrollbar: =false
+                              TemplatePadding: =0
+                              TemplateSize: =210
+                              Width: =Parent.TemplateWidth-Self.X*2
+                              Y: =HtmlText4_4.Y + HtmlText4_4.Height
+                            Children:
+                              - HtmlText1_2:
+                                  Control: HtmlViewer@2.1.0
+                                  Properties:
+                                    AutoHeight: =true
+                                    Height: =Parent.Height
+                                    HtmlText: |-
+                                      =With(
+                                        {
+                                          corLateral: Switch(
+                                            ThisItem.tipo_ticket,
+                                            "Contratação de Colaborador", "#F4B400",
+                                            "Solicitação reprovada pelo gestor", "#DB4437",
+                                            "Cotação em andamento pelo facilities", "#AB7DE7",
+                                            "Cotação enviada para aprovação do gestor", "#4285F4",
+                                            "Cotação reprovada pelo gestor", "#DB4437",
+                                            "Reorçamento solicitado pelo gestor", "#9C27B0",
+                                            "Compra em andamento pelo facilities", "#0F9D58",
+                                            "Processo finalizado", "#9E9E9E",
+                                            "#1E90FF"
+                                          ),
+                                          corTipoChamadoMkt: Switch(
+                                            ThisItem.tipo_ticket,
+                                            "Contratação de Colaborador", "#F4B400",
+                                            "Solicitação reprovada pelo gestor", "#DB4437",
+                                            "Cotação em andamento pelo facilities", "#AB7DE7",
+                                            "Cotação enviada para aprovação do gestor", "#4285F4",
+                                            "Cotação reprovada pelo gestor", "#DB4437",
+                                            "Reorçamento solicitado pelo gestor", "#9C27B0",
+                                            "Compra em andamento pelo facilities", "#0F9D58",
+                                            "Processo finalizado", "#9E9E9E",
+                                            "#1E90FF"
+                                          ),
+                                          corFundo: "#FFFFFF",
+                                          corTexto: "#222222",
+                                          sombra: "rgba(0,0,0,0.10)",
+                                          solicitante: ThisItem.nome_solicitante,
+                                          email_solicitante: ThisItem.email_solicitante,
+                                          empresa: ThisItem.empresa_solicitante,
+                                          tipo_ticket: ThisItem.tipo_ticket,
+                                          data_solicitacao: ThisItem.data_solicitacao,
+                                          solicitacao: ThisItem.solicitacao,
+                                          observacao: ThisItem.observacao,
+                                          data_previsao_conclusao: ThisItem.data_previsao_conclusao,
+                                          status: ThisItem.status_ticket,
+                                          prazo: DateDiff(Today(), ThisItem.data_previsao_conclusao, TimeUnit.Days)
+                                        },
+                                      "
+                                      <div style='
+                                        display: flex;
+                                        border-radius: 10px;
+                                        box-shadow: 2px 2px 8px " & sombra & ";
+                                        overflow: hidden;
+                                        font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                        background-color: " & corFundo & ";
+                                        color: " & corTexto & ";
+                                        margin: 6px;
+                                        position: relative;
+                                      '>
+                                        <!-- Borda lateral colorida -->
+                                        <div style='width: 12px; background-color: " & corLateral & ";'></div>
+
+                                        <!-- Conteúdo do card -->
+                                        <div style='padding: 5px; display: flex; flex-direction: column; gap: 2px; width: 90%;'>
+
+                                          <!-- Badge de status centralizado + ícone de fora do prazo -->
+                                          <div style='
+                                            position: relative;
+                                            margin-bottom: 7px;
+                                            min-height: 20px;
+                                            width: 100%;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                          '>
+                                            <div style='
+                                              background: " & corTipoChamadoMkt & ";
+                                              color: #fff;
+                                              font-size: 12px;
+                                              font-weight: bold;
+                                              border-radius: 6px;
+                                              padding: 2px 12px;
+                                              letter-spacing: 0.5px;
+                                              box-shadow: 1px 1px 4px " & corTipoChamadoMkt & "22;
+                                              z-index: 2;
+                                              display: inline-block;
+                                              margin-left: auto;
+                                              margin-right: auto;
+                                            '>" & tipo_ticket & "</div>
+
+                                            " & If(
+                                              prazo,
+                                              "<div style='
+                                                position: absolute;
+                                                right: 2px;
+                                                top: 50%;
+                                                transform: translateY(-50%);
+                                                font-size: 20px;
+                                                color: #DB4437;
+                                              '>⏱️</div>",
+                                              ""
+                                            ) & "
+                                          </div>
+
+                                          <!-- Demais informações -->
+                                          <div style='font-weight: bold; font-size: 12px;'>" & solicitante & "</div>
+                                          <div style='font-size: 11px;'><strong>E-mail Solicitante:</strong> " & email_solicitante & "</div>
+                                          <div style='font-size: 11px;'><strong>Empresa:</strong> " & empresa & "</div>
+                                          <div style='font-size: 11px;'><strong>Ticket:</strong> " & tipo_ticket & "</div>
+                                          <div style='font-size: 11px;'><strong>Solicitado em:</strong> " & data_solicitacao & "</div>
+                                          <div style='font-size: 11px;'><strong>Solicitação:</strong> " & solicitacao & "</div>
+                                          <div style='font-size: 11px;'><strong>Observação:</strong> " & observacao & "</div>
+                                          <div style='font-size: 11px;'><strong>Previsão de Conclusão:</strong> " & data_previsao_conclusao & "</div>
+                                        </div>
+                                      </div>"
+                                      )
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Width: =Parent.Width
+                              - Button1_1:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =
+                                    BorderThickness: =0
+                                    Color: =
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =1
+                                    Height: =HtmlText1_2.Height
+                                    HoverBorderColor: =
+                                    HoverColor: =
+                                    HoverFill: =
+                                    OnSelect: =
+                                    PressedBorderColor: =
+                                    PressedColor: =
+                                    PressedFill: =
+                                    TabIndex: =1
+                                    Text: =
+                                    Width: =HtmlText1_2.Width
+                              - Image5:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    Height: =40
+                                    Image: =btn_seta_proximo
+                                    OnSelect: |-
+                                      =If(ThisItem.status_ticket = "Aberto",
+                                          Patch(
+                                              sigd_mkt_chamados,
+                                              ThisItem, 
+                                              {
+                                                  status_ticket: "Em andamento",
+                                                  atendente: User().FullName
+                                              }
+                                          );
+                                          Patch(sigd_mkt_chamados_eventos, 
+                                              Defaults(sigd_mkt_chamados_eventos),
+                                              {
+                                                  id_ticket: ThisItem.id_ticket,
+                                                  data_inicio: Today(),
+                                                  tipo_evento: Last(FirstN(Choices(sigd_mkt_chamados_eventos.tipo_evento), 2))
+                                              }),
+                                      If(ThisItem.status_ticket = "Em andamento",
+                                          Patch(
+                                              sigd_mkt_chamados,
+                                              ThisItem, 
+                                              {
+                                                  status_ticket: "Concluído",
+                                                  atendente: User().FullName
+                                              }
+                                          );
+                                          Patch(sigd_mkt_chamados_eventos, 
+                                              First(Filter(sigd_mkt_chamados_eventos, id_ticket = ThisItem.id_ticket, tipo_evento.Value = "Atendimento")),
+                                              {
+                                                  data_termino: Today()
+                                              });
+                                          Patch(sigd_mkt_chamados_eventos, 
+                                              Defaults(sigd_mkt_chamados_eventos),
+                                              {
+                                                  id_ticket: ThisItem.id_ticket,
+                                                  data_inicio: Today(),
+                                                  data_termino: Today(),
+                                                  tipo_evento: Last(Choices(sigd_mkt_chamados_eventos.tipo_evento))
+                                              })))
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =If(ThisItem.status_ticket = "Concluído", false, true)
+                                    Width: =40
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =Button1_1.Height - Self.Height - 10
+                        - HtmlText4_4:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HtmlText: |
+                                =With(
+                                  {
+                                    background: EsquemaDeCores.AzulEscuroBonin.Texto,
+                                    altura: 36,
+                                    raio: Medidas.Raio,
+                                    espacamento: Medidas.Espacamento,
+                                    margem: Medidas.Raio,
+                                    sombra: EsquemaDeCores.SombraEscura.Texto,
+                                    titulo: Upper(ThisItem.Etapa)
+                                  },
+                                  "
+                                  <div style='
+                                    background-color: " & background & ";
+                                    height: " & altura & "px;
+                                    border-radius: " & raio & "px;
+                                    margin: " & espacamento & "px " & espacamento & "px " & espacamento & "px " & espacamento & "px;
+                                    box-shadow: 0 2px 4px 0 " & sombra & ";
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                    font-size: 16px;
+                                    font-weight: 600;
+                                    color: #ffffff;
+                                    letter-spacing: 1px;
+                                    text-transform: uppercase;
+                                  '>
+                                    " & titulo & "
+                                  </div>"
+                                )
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Width: =Parent.TemplateWidth
+      - sigd_bonin_sidebar_15:
+          Control: CanvasComponent
+          ComponentName: sigd_bonin_sidebar
+          Group: sigd_layout_15
+          Properties:
+            Espaçamento: =Medidas.Espacamento
+            EsquemaDeCores: =EsquemaDeCores
+            EstadoMenuEntrada: =gblFecharMenu
+            Height: =Self.TelaAltura
+            LarguraMenuAberto: =240
+            LarguraMenuFechado: =80
+            LarguraSubmenu: =240
+            ListaDasTelas: =colTelas
+            ListaDeIcones: =ColLogo
+            OnSelect: =
+            RaioDaBorda: ="10px 10px 10px 10px"
+            TelaAltura: =Medidas.TelaAltura
+            TelaLargura: =Medidas.TelaLargura
+            Width: =Self.LarguraTotalSaida
+      - sigd_bonin_cabecalho_15:
+          Control: CanvasComponent
+          ComponentName: sigd_bonin_cabecalho
+          Group: sigd_layout_15
+          Properties:
+            AlturaCabeçalho: =50
+            EixoX: =VarEixoXSideBar + VarLarguraSidebar
+            EixoY: =VarEixoYSideBar
+            EsquemaDeCores: =EsquemaDeCores
+            Height: =sigd_bonin_cabecalho_15.AlturaCabeçalho
+            ListaDasTelas: =colTelas
+            Medidas: =Medidas
+            RaioDaBorda: ="10px 10px 10px 10px"
+            Width: =App.Width - VarLarguraSidebar
+            X: =sigd_bonin_cabecalho_15.EixoX
+            Y: =sigd_bonin_cabecalho_15.EixoY

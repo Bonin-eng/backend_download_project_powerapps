@@ -1,0 +1,1381 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Controle de Pesquisas Screen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |+
+        =Set(varBordaOrcamento, true);
+        ClearCollect(
+            colMacroItensTest,
+            Filter(
+                db_fin_base_orcamentaria,
+                nivel_2 = "00" && nivel_3 = "00" && nivel_4 = "00" &&
+                // Para testes, COMENTE temporariamente a linha abaixo ou use um ID fixo
+                // id_contrato_empreendimento = ThisItem.id_contrato_empreendimento 
+                id_contrato_empreendimento = "PPE nº 024/2023-1" // Substitua por um ID real que você sabe que tem dados.
+            )
+        );
+
+        ClearCollect(
+            colPrazoVigenciaDias,
+            AddColumns(
+                GroupBy(
+                    db_cont_econtratual,
+                    n_contrato,
+                    DadosVigenciaDoContrato
+                ),
+                SomaPrazosMeses,
+                Sum(DadosVigenciaDoContrato,Coalesce(prazo_ec_mes,0)
+                ),
+                SomaPrazosDias,
+                Sum(DadosVigenciaDoContrato,Coalesce(prazo_ec_dia,0)
+                ),
+                id_contrato_empreendimento,
+                LookUp(DadosVigenciaDoContrato, !IsBlank(DadosVigenciaDoContrato), data_assinatura)
+            )
+        );
+
+    Children:
+      - app_cpn_bonin_16:
+          Control: CanvasComponent
+          ComponentName: app_cpn_bonin
+          Properties:
+            ButtonHeight: =50
+            ButtonHeightSUB: =40
+            ButtonRadius: =0
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =918
+            HoverFill: ="#EBEAEA33"
+            ListaDasTelas: =colTelas
+            ListaIcones: =ColLogo
+            OnSelect: =
+            Width: =1920
+      - Label1_146:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Semibold
+            Height: =100
+            Size: =18
+            Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - CONTROLE DE PESQUISAS"
+            Width: =Parent.Width - Self.X - 10
+            Wrap: =false
+            X: =230
+      - Container1_14:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height - Self.Y
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - Self.X - 10
+            X: =230
+            Y: =110
+          Children:
+            - Container2_10:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  PaddingBottom: =10
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  PaddingTop: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.Width
+                Children:
+                  - Container3_8:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =0
+                        Height: =70
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - Container5_24:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: |
+                                =0
+                              PaddingBottom: =5
+                              PaddingLeft: =5
+                              PaddingRight: =5
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =250
+                              X: =40
+                              Y: =40
+                            Children:
+                              - Label1_42:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =0
+                                    Size: =14
+                                    Text: |-
+                                      ="🔎  PESQUISAS CADASTRADAS"
+                                    Width: =100
+                  - Container19:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - Container8_7:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(45, 65, 93, 1)
+                              Height: =Parent.Height
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingTop: =5
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =Parent.Width
+                            Children:
+                              - galContratos_10:
+                                  Control: Gallery@2.15.0
+                                  Variant: VariableHeight
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Fill: =RGBA(45, 65, 93, 1)
+                                    Height: =Parent.Height - Self.X
+                                    Items: =db_acomp_tipo_pesquisa
+                                    ShowScrollbar: =false
+                                    TemplateSize: =50
+                                    Width: =Parent.Width - Self.X * 2
+                                  Children:
+                                    - Container6_10:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.TemplateHeight
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                          Width: =Parent.Width - Parent.X - 10
+                                        Children:
+                                          - HtmlText1_1:
+                                              Control: HtmlViewer@2.1.0
+                                              Properties:
+                                                Font: =Font.'Open Sans'
+                                                Height: =Parent.Height
+                                                HtmlText: |-
+                                                  ="<div style='width:100%; font-family:Arial; font-size:15px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+
+                                                    <!-- Nome -->
+                                                    <div style='font-size:15px; font-weight:bold; margin-bottom:2px;'>
+                                                      " & Concatenate(Upper(ThisItem.id_tipo_pesquisa), " - ", ThisItem.tipo_pesquisa) & "
+                                                    </div>
+                                                  </div>"
+                                                Width: =Parent.Width
+                                          - Button1_4:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderColor: =Color.Transparent
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =0
+                                                Color: =RGBA(255, 255, 255, 1)
+                                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Font: =Font.'Open Sans'
+                                                Height: =Parent.Height
+                                                HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =Color.Transparent
+                                                OnSelect: |-
+                                                  =Set(varPesquisaSelect, true);
+                                                  Set(varPesquisa, ThisItem);
+                                                  ClearCollect(col_TipoFiscalizacao,
+                                                      AddColumns(
+                                                          Filter(
+                                                          db_acomp_perguntas_pesquisas,
+                                                          id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                                          id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)));
+                                                PressedBorderColor: =Self.Fill
+                                                PressedColor: =Self.Fill
+                                                PressedFill: =Self.Color
+                                                Text: =
+                                                Width: =Parent.Width
+                        - cContratoSelect_4:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(175, 191, 224, 1)
+                              Height: =Parent.Height
+                              PaddingRight: =10
+                              PaddingTop: =
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =varPesquisaSelect
+                              Width: =Parent.Width
+                            Children:
+                              - Container9_1:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(175, 191, 224, 1)
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =5
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
+                                    PaddingBottom: =5
+                                    PaddingLeft: =5
+                                    PaddingRight: =5
+                                    PaddingTop: =5
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width
+                                  Children:
+                                    - Container10_20:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(219, 219, 219, 1)
+                                          FillPortions: =0
+                                          Height: =30
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                        Children:
+                                          - Label1_15:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Color: =RGBA(255, 255, 255, 1)
+                                                Fill: =RGBA(45, 65, 93, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =Parent.Height
+                                                Text: =Concatenate("PERGUNTAS DA PESQUISA - ", Upper(varPesquisa.tipo_pesquisa))
+                                                Width: =Parent.Width - Self.X
+                                                Wrap: =false
+                                          - Button2_28:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderColor: =ColorFade(Self.Fill, -15%)
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                Fill: =RGBA(237, 237, 237, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Normal
+                                                Height: =Parent.Height - Self.Y * 2
+                                                HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =RGBA(45, 65, 93, 1)
+                                                OnSelect: "=Set(varPesquisaSelect, false);\r\nSet(varNovaPergunta, false);\r\nSet(varElementoContratualSelect, false);\r\nSet(varElementoContratualEdit, false);\r\nSet(varElementoContratualSelect, false);\r\n "
+                                                PressedBorderColor: =Self.Fill
+                                                PressedColor: =Self.Fill
+                                                PressedFill: =Self.Color
+                                                Size: =11
+                                                Text: ="FECHAR"
+                                                X: =5
+                                                Y: =5
+                                          - Button2_29:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderColor: =ColorFade(Self.Fill, -15%)
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                Fill: =RGBA(237, 237, 237, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Normal
+                                                Height: =Parent.Height - Self.Y * 2
+                                                HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =RGBA(45, 65, 93, 1)
+                                                OnSelect: "=NewForm(Form_ContratoEdit_3);\r\nSet(varNovaPergunta, true);\r\nClearCollect(col_TipoFiscalizacao,\r\n    AddColumns(\r\n        Filter(\r\n        db_acomp_perguntas_pesquisas,\r\n        id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),\r\n        id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)));\r\nSet(max_id_pergunta_sequencial, Max(col_TipoFiscalizacao, id_pergunta_sequencial));\r\n\r\n "
+                                                PressedBorderColor: =Self.Fill
+                                                PressedColor: =Self.Fill
+                                                PressedFill: =Self.Color
+                                                Size: =11
+                                                Text: ="CRIAR NOVA PERGUNTA"
+                                                Width: =250
+                                                X: =Parent.Width - Self.Width - 5
+                                                Y: =5
+                                    - Container11_14:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(219, 219, 219, 1)
+                                          Height: =415
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                        Children:
+                                          - Container4_4:
+                                              Control: GroupContainer@1.3.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                BorderStyle: =BorderStyle.None
+                                                DropShadow: =DropShadow.None
+                                                Height: =Parent.Height
+                                                RadiusBottomLeft: =10
+                                                RadiusBottomRight: =10
+                                                RadiusTopLeft: =10
+                                                RadiusTopRight: =10
+                                                Width: =Parent.Width
+                                              Children:
+                                                - Container8_8:
+                                                    Control: GroupContainer@1.3.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(45, 65, 93, 1)
+                                                      Height: =Parent.Height
+                                                      LayoutDirection: =LayoutDirection.Vertical
+                                                      RadiusBottomLeft: =10
+                                                      RadiusBottomRight: =10
+                                                      RadiusTopLeft: =10
+                                                      RadiusTopRight: =10
+                                                      Visible: =If(varElementoContratualSelect, false, true)
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - galContratos_11:
+                                                          Control: Gallery@2.15.0
+                                                          Variant: VariableHeight
+                                                          Properties:
+                                                            BorderColor: =RGBA(0, 18, 107, 1)
+                                                            Fill: =RGBA(45, 65, 93, 1)
+                                                            Height: =Parent.Height - Self.X
+                                                            Items: =col_TipoFiscalizacao
+                                                            ShowScrollbar: =false
+                                                            TemplateSize: =40
+                                                            Width: =Parent.Width - Self.X * 2
+                                                          Children:
+                                                            - Container6_11:
+                                                                Control: GroupContainer@1.3.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  DropShadow: =DropShadow.None
+                                                                  Fill: =RGBA(255, 255, 255, 1)
+                                                                  Height: =Parent.TemplateHeight
+                                                                  RadiusBottomLeft: =10
+                                                                  RadiusBottomRight: =10
+                                                                  RadiusTopLeft: =10
+                                                                  RadiusTopRight: =10
+                                                                  Width: =Parent.Width - Parent.X - 10
+                                                                Children:
+                                                                  - HtmlText1_9:
+                                                                      Control: HtmlViewer@2.1.0
+                                                                      Properties:
+                                                                        Fill: =RGBA(255, 255, 255, 1)
+                                                                        Font: =Font.'Open Sans'
+                                                                        Height: =Parent.Height
+                                                                        HtmlText: |-
+                                                                          ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d'>
+
+                                                                            <!-- Nome -->
+                                                                            <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                                                              " & Concatenate(Right(ThisItem.id_pergunta_pesquisa,2), " - ", ThisItem.pergunta) & "
+                                                                            </div>
+                                                                          </div>"
+                                                                        Width: =Parent.Width
+                                                                  - Icon3:
+                                                                      Control: Classic/Icon@2.5.0
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 18, 107, 1)
+                                                                        Color: =RGBA(45, 65, 93, 1)
+                                                                        Height: =40
+                                                                        Icon: =Icon.Edit
+                                                                        OnSelect: |-
+                                                                          =Set(varElementoContratualSelect, true);
+                                                                          Set(varPerguntaEdit, DropColumns(ThisItem, id_pergunta_sequencial));
+                                                                        X: |+
+                                                                          =1490
+                                                                  - Icon3_1:
+                                                                      Control: Classic/Icon@2.5.0
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 18, 107, 1)
+                                                                        Color: =RGBA(45, 65, 93, 1)
+                                                                        Height: =40
+                                                                        Icon: =Icon.Trash
+                                                                        OnSelect: |-
+                                                                          =Set(VarDeletarPergunta, true);
+                                                                          Set(varPerguntaDelet, ThisItem)
+                                                                        X: =Parent.Width - Self.Width  - 20
+                                                - cEditarPergunta:
+                                                    Control: GroupContainer@1.3.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      BorderStyle: =BorderStyle.None
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(175, 191, 224, 1)
+                                                      Height: =Parent.Height
+                                                      PaddingRight: =10
+                                                      PaddingTop: =
+                                                      RadiusBottomLeft: =10
+                                                      RadiusBottomRight: =10
+                                                      RadiusTopLeft: =10
+                                                      RadiusTopRight: =10
+                                                      Visible: =varElementoContratualSelect
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - Container9_15:
+                                                          Control: GroupContainer@1.3.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            BorderStyle: =BorderStyle.None
+                                                            DropShadow: =DropShadow.None
+                                                            Fill: =RGBA(175, 191, 224, 1)
+                                                            Height: =Parent.Height
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            LayoutGap: =5
+                                                            PaddingBottom: =5
+                                                            PaddingLeft: =5
+                                                            PaddingRight: =5
+                                                            PaddingTop: =5
+                                                            RadiusBottomLeft: =10
+                                                            RadiusBottomRight: =10
+                                                            RadiusTopLeft: =10
+                                                            RadiusTopRight: =10
+                                                            Width: =Parent.Width
+                                                          Children:
+                                                            - Container10_21:
+                                                                Control: GroupContainer@1.3.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  DropShadow: =DropShadow.None
+                                                                  Fill: =RGBA(219, 219, 219, 1)
+                                                                  FillPortions: =0
+                                                                  Height: =40
+                                                                  RadiusBottomLeft: =10
+                                                                  RadiusBottomRight: =10
+                                                                  RadiusTopLeft: =10
+                                                                  RadiusTopRight: =10
+                                                                Children:
+                                                                  - Label1_16:
+                                                                      Control: Label@2.5.1
+                                                                      Properties:
+                                                                        Align: =Align.Center
+                                                                        BorderColor: =RGBA(0, 18, 107, 1)
+                                                                        Font: =Font.Arial
+                                                                        FontWeight: =FontWeight.Semibold
+                                                                        Height: =Parent.Height
+                                                                        Size: =15
+                                                                        Text: =
+                                                                        Width: =Parent.Width - Self.X
+                                                                        Wrap: =false
+                                                                  - Button2_30:
+                                                                      Control: Classic/Button@2.2.0
+                                                                      Properties:
+                                                                        BorderColor: =ColorFade(Self.Fill, -15%)
+                                                                        Color: =RGBA(0, 0, 0, 1)
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        Fill: =RGBA(237, 237, 237, 1)
+                                                                        Font: =Font.Arial
+                                                                        FontWeight: =FontWeight.Normal
+                                                                        Height: =Parent.Height - Self.Y * 2
+                                                                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                                        HoverFill: =RGBA(45, 65, 93, 1)
+                                                                        OnSelect: |
+                                                                          =Set(varElementoContratualEdit, false);
+                                                                          Set(varElementoContratualSelect, false);
+                                                                        PressedBorderColor: =Self.Fill
+                                                                        PressedColor: =Self.Fill
+                                                                        PressedFill: =Self.Color
+                                                                        Size: =12
+                                                                        Text: ="FECHAR"
+                                                                        X: =5
+                                                                        Y: =5
+                                                                  - Button2_31:
+                                                                      Control: Classic/Button@2.2.0
+                                                                      Properties:
+                                                                        BorderColor: =ColorFade(Self.Fill, -15%)
+                                                                        Color: =RGBA(0, 0, 0, 1)
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        Fill: =RGBA(237, 237, 237, 1)
+                                                                        Font: =Font.Arial
+                                                                        FontWeight: =FontWeight.Normal
+                                                                        Height: =Parent.Height - Self.Y * 2
+                                                                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                                        HoverFill: =RGBA(45, 65, 93, 1)
+                                                                        OnSelect: |
+                                                                          =SubmitForm(Form_ContratoEdit_2);
+                                                                          Set(varElementoContratualEdit, false);
+                                                                          Set(varElementoContratualSelect, false);
+                                                                        PressedBorderColor: =Self.Fill
+                                                                        PressedColor: =Self.Fill
+                                                                        PressedFill: =Self.Color
+                                                                        Size: =12
+                                                                        Text: ="SALVAR"
+                                                                        X: =Parent.Width - Self.Width - 5
+                                                                        Y: =5
+                                                            - Container11_15:
+                                                                Control: GroupContainer@1.3.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  DropShadow: =DropShadow.None
+                                                                  Fill: =RGBA(219, 219, 219, 1)
+                                                                  FillPortions: =0
+                                                                  Height: =450
+                                                                  RadiusBottomLeft: =10
+                                                                  RadiusBottomRight: =10
+                                                                  RadiusTopLeft: =10
+                                                                  RadiusTopRight: =10
+                                                                Children:
+                                                                  - Form_ContratoEdit_2:
+                                                                      Control: Form@2.4.4
+                                                                      Variant: Classic
+                                                                      Layout: Vertical
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 18, 107, 1)
+                                                                        DataSource: =db_acomp_perguntas_pesquisas
+                                                                        Height: =Parent.Height
+                                                                        Item: =varPerguntaEdit
+                                                                        NumberOfColumns: =6
+                                                                        OnSuccess: |
+                                                                          =Patch(
+                                                                              db_cont_contrato,
+                                                                              LookUp(db_cont_contrato, n_contrato = varContratoStatusNew.n_contrato),
+                                                                              {
+                                                                              status_contrato: 
+                                                                                  If(varContratoStatusNew.id_tipo_ec = Text(4), 
+                                                                                  {Value: "Suspenso"},
+                                                                                  {Value: "Em andamento"})});
+                                                                          Set(varContratoEdit, false);
+                                                                        Width: =Parent.Width
+                                                                        X: '=0   '
+                                                                      Children:
+                                                                        - id_tipo_pesquisa_DataCard1:
+                                                                            Control: TypedDataCard@1.0.7
+                                                                            Variant: ClassicTextualEdit
+                                                                            Properties:
+                                                                              BorderColor: =RGBA(0, 18, 107, 1)
+                                                                              DataField: ="id_tipo_pesquisa"
+                                                                              Default: =ThisItem.id_tipo_pesquisa
+                                                                              DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_tipo_pesquisa)
+                                                                              MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_tipo_pesquisa)
+                                                                              Required: =false
+                                                                              Update: =DataCardValue23.Text
+                                                                              Visible: =false
+                                                                              Width: =546
+                                                                              X: =0
+                                                                              Y: =0
+                                                                            Children:
+                                                                              - DataCardKey23:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldName
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =34
+                                                                                    Text: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    Wrap: =false
+                                                                                    X: =30
+                                                                                    Y: =10
+                                                                              - DataCardValue23:
+                                                                                  Control: Classic/TextInput@2.3.2
+                                                                                  MetadataKey: FieldValue
+                                                                                  Properties:
+                                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                                    Default: =Parent.Default
+                                                                                    DelayOutput: =true
+                                                                                    DisplayMode: =Parent.DisplayMode
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                                    MaxLength: =Parent.MaxLength
+                                                                                    PaddingLeft: =5
+                                                                                    RadiusBottomLeft: =0
+                                                                                    RadiusBottomRight: =0
+                                                                                    RadiusTopLeft: =0
+                                                                                    RadiusTopRight: =0
+                                                                                    Tooltip: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                                                                              - ErrorMessage23:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: ErrorMessage
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =10
+                                                                                    Live: =Live.Assertive
+                                                                                    PaddingBottom: =0
+                                                                                    PaddingLeft: =0
+                                                                                    PaddingRight: =0
+                                                                                    PaddingTop: =0
+                                                                                    Size: =14
+                                                                                    Text: =Parent.Error
+                                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardValue23.Y + DataCardValue23.Height
+                                                                              - StarVisible23:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldRequired
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =DataCardKey23.Height
+                                                                                    Text: ="*"
+                                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                                    Width: =30
+                                                                                    Wrap: =false
+                                                                                    Y: =DataCardKey23.Y
+                                                                        - id_pergunta_pesquisa_DataCard1:
+                                                                            Control: TypedDataCard@1.0.7
+                                                                            Variant: ClassicTextualEdit
+                                                                            Properties:
+                                                                              BorderColor: =RGBA(0, 18, 107, 1)
+                                                                              DataField: ="id_pergunta_pesquisa"
+                                                                              Default: =ThisItem.id_pergunta_pesquisa
+                                                                              DisplayMode: =DisplayMode.View
+                                                                              DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_pergunta_pesquisa)
+                                                                              MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_pergunta_pesquisa)
+                                                                              Required: =false
+                                                                              Update: =DataCardValue25.Text
+                                                                              Width: =273
+                                                                              X: =2
+                                                                              Y: =0
+                                                                            Children:
+                                                                              - DataCardKey25:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldName
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.Arial
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =34
+                                                                                    Size: =14
+                                                                                    Text: ="ID_PERGUNTA"
+                                                                                    Width: =Parent.Width - 60
+                                                                                    Wrap: =false
+                                                                                    X: =30
+                                                                                    Y: =10
+                                                                              - DataCardValue25:
+                                                                                  Control: Classic/TextInput@2.3.2
+                                                                                  MetadataKey: FieldValue
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                                    Default: =Parent.Default
+                                                                                    DelayOutput: =true
+                                                                                    DisplayMode: =Parent.DisplayMode
+                                                                                    Font: =Font.Arial
+                                                                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                                    MaxLength: =Parent.MaxLength
+                                                                                    PaddingLeft: =5
+                                                                                    RadiusBottomLeft: =0
+                                                                                    RadiusBottomRight: =0
+                                                                                    RadiusTopLeft: =0
+                                                                                    RadiusTopRight: =0
+                                                                                    Size: =12
+                                                                                    Tooltip: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                                                                              - ErrorMessage25:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: ErrorMessage
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =10
+                                                                                    Live: =Live.Assertive
+                                                                                    PaddingBottom: =0
+                                                                                    PaddingLeft: =0
+                                                                                    PaddingRight: =0
+                                                                                    PaddingTop: =0
+                                                                                    Size: =14
+                                                                                    Text: =Parent.Error
+                                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardValue25.Y + DataCardValue25.Height
+                                                                              - StarVisible25:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldRequired
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =DataCardKey25.Height
+                                                                                    Text: ="*"
+                                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                                    Width: =30
+                                                                                    Wrap: =false
+                                                                                    Y: =DataCardKey25.Y
+                                                                        - pergunta_DataCard1:
+                                                                            Control: TypedDataCard@1.0.7
+                                                                            Variant: ClassicTextualEdit
+                                                                            Properties:
+                                                                              BorderColor: =RGBA(0, 18, 107, 1)
+                                                                              DataField: ="pergunta"
+                                                                              Default: =ThisItem.pergunta
+                                                                              DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,pergunta)
+                                                                              MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, pergunta)
+                                                                              Required: =false
+                                                                              Update: =DataCardValue24.Text
+                                                                              Width: =1365
+                                                                              X: =3
+                                                                              Y: =0
+                                                                            Children:
+                                                                              - DataCardKey24:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldName
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.Arial
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =34
+                                                                                    Size: =14
+                                                                                    Text: ="PERGUNTA"
+                                                                                    Width: =Parent.Width - 60
+                                                                                    Wrap: =false
+                                                                                    X: =30
+                                                                                    Y: =10
+                                                                              - DataCardValue24:
+                                                                                  Control: Classic/TextInput@2.3.2
+                                                                                  MetadataKey: FieldValue
+                                                                                  Properties:
+                                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                                    Default: =Parent.Default
+                                                                                    DelayOutput: =true
+                                                                                    DisplayMode: =Parent.DisplayMode
+                                                                                    Font: =Font.Arial
+                                                                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                                    MaxLength: =Parent.MaxLength
+                                                                                    PaddingLeft: =5
+                                                                                    RadiusBottomLeft: =0
+                                                                                    RadiusBottomRight: =0
+                                                                                    RadiusTopLeft: =0
+                                                                                    RadiusTopRight: =0
+                                                                                    Size: =12
+                                                                                    Tooltip: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardKey24.Y + DataCardKey24.Height + 5
+                                                                              - ErrorMessage24:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: ErrorMessage
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =10
+                                                                                    Live: =Live.Assertive
+                                                                                    PaddingBottom: =0
+                                                                                    PaddingLeft: =0
+                                                                                    PaddingRight: =0
+                                                                                    PaddingTop: =0
+                                                                                    Size: =14
+                                                                                    Text: =Parent.Error
+                                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardValue24.Y + DataCardValue24.Height
+                                                                              - StarVisible24:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldRequired
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =DataCardKey24.Height
+                                                                                    Text: ="*"
+                                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                                    Width: =30
+                                                                                    Wrap: =false
+                                                                                    Y: =DataCardKey24.Y
+                                                - cCriarPergunta:
+                                                    Control: GroupContainer@1.3.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      BorderStyle: =BorderStyle.None
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(175, 191, 224, 1)
+                                                      Height: =Parent.Height
+                                                      PaddingRight: =10
+                                                      PaddingTop: =
+                                                      RadiusBottomLeft: =10
+                                                      RadiusBottomRight: =10
+                                                      RadiusTopLeft: =10
+                                                      RadiusTopRight: =10
+                                                      Visible: =varNovaPergunta
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - Container9_16:
+                                                          Control: GroupContainer@1.3.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            BorderStyle: =BorderStyle.None
+                                                            DropShadow: =DropShadow.None
+                                                            Fill: =RGBA(175, 191, 224, 1)
+                                                            Height: =Parent.Height
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            LayoutGap: =5
+                                                            PaddingBottom: =5
+                                                            PaddingLeft: =5
+                                                            PaddingRight: =5
+                                                            PaddingTop: =5
+                                                            RadiusBottomLeft: =10
+                                                            RadiusBottomRight: =10
+                                                            RadiusTopLeft: =10
+                                                            RadiusTopRight: =10
+                                                            Width: =Parent.Width
+                                                          Children:
+                                                            - Container10_22:
+                                                                Control: GroupContainer@1.3.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  DropShadow: =DropShadow.None
+                                                                  Fill: =RGBA(219, 219, 219, 1)
+                                                                  FillPortions: =0
+                                                                  Height: =40
+                                                                  RadiusBottomLeft: =10
+                                                                  RadiusBottomRight: =10
+                                                                  RadiusTopLeft: =10
+                                                                  RadiusTopRight: =10
+                                                                Children:
+                                                                  - Label1_17:
+                                                                      Control: Label@2.5.1
+                                                                      Properties:
+                                                                        Align: =Align.Center
+                                                                        BorderColor: =RGBA(0, 18, 107, 1)
+                                                                        Font: =Font.Arial
+                                                                        FontWeight: =FontWeight.Semibold
+                                                                        Height: =Parent.Height
+                                                                        Size: =15
+                                                                        Text: =
+                                                                        Width: =Parent.Width - Self.X
+                                                                        Wrap: =false
+                                                                  - Button2_32:
+                                                                      Control: Classic/Button@2.2.0
+                                                                      Properties:
+                                                                        BorderColor: =ColorFade(Self.Fill, -15%)
+                                                                        Color: =RGBA(0, 0, 0, 1)
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        Fill: =RGBA(237, 237, 237, 1)
+                                                                        Font: =Font.Arial
+                                                                        FontWeight: =FontWeight.Normal
+                                                                        Height: =Parent.Height - Self.Y * 2
+                                                                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                                        HoverFill: =RGBA(45, 65, 93, 1)
+                                                                        OnSelect: =Set(varNovaPergunta, false);
+                                                                        PressedBorderColor: =Self.Fill
+                                                                        PressedColor: =Self.Fill
+                                                                        PressedFill: =Self.Color
+                                                                        Size: =12
+                                                                        Text: ="CANCELAR"
+                                                                        X: =5
+                                                                        Y: =5
+                                                                  - Button2_33:
+                                                                      Control: Classic/Button@2.2.0
+                                                                      Properties:
+                                                                        BorderColor: =ColorFade(Self.Fill, -15%)
+                                                                        Color: =RGBA(0, 0, 0, 1)
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        Fill: =RGBA(237, 237, 237, 1)
+                                                                        Font: =Font.Arial
+                                                                        FontWeight: =FontWeight.Normal
+                                                                        Height: =Parent.Height - Self.Y * 2
+                                                                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                                        HoverFill: =RGBA(45, 65, 93, 1)
+                                                                        OnSelect: |-
+                                                                          =SubmitForm(Form_ContratoEdit_3);
+                                                                          Set(varNovaPergunta, false);
+                                                                        PressedBorderColor: =Self.Fill
+                                                                        PressedColor: =Self.Fill
+                                                                        PressedFill: =Self.Color
+                                                                        Size: =12
+                                                                        Text: ="SALVAR"
+                                                                        X: =Parent.Width - Self.Width - 5
+                                                                        Y: =5
+                                                            - Container11_16:
+                                                                Control: GroupContainer@1.3.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  DropShadow: =DropShadow.None
+                                                                  Fill: =RGBA(219, 219, 219, 1)
+                                                                  FillPortions: =0
+                                                                  Height: =450
+                                                                  RadiusBottomLeft: =10
+                                                                  RadiusBottomRight: =10
+                                                                  RadiusTopLeft: =10
+                                                                  RadiusTopRight: =10
+                                                                Children:
+                                                                  - Form_ContratoEdit_3:
+                                                                      Control: Form@2.4.4
+                                                                      Variant: Classic
+                                                                      Layout: Vertical
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 18, 107, 1)
+                                                                        DataSource: =db_acomp_perguntas_pesquisas
+                                                                        DefaultMode: =FormMode.New
+                                                                        Height: =Parent.Height
+                                                                        NumberOfColumns: =6
+                                                                        OnSuccess: |-
+                                                                          =ClearCollect(col_TipoFiscalizacao,
+                                                                              AddColumns(
+                                                                                  Filter(
+                                                                                  db_acomp_perguntas_pesquisas,
+                                                                                  id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                                                                  id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)))
+                                                                        Width: =Parent.Width
+                                                                        X: '=0   '
+                                                                      Children:
+                                                                        - id_tipo_pesquisa_DataCard1_1:
+                                                                            Control: TypedDataCard@1.0.7
+                                                                            Variant: ClassicTextualEdit
+                                                                            Properties:
+                                                                              BorderColor: =RGBA(0, 18, 107, 1)
+                                                                              DataField: ="id_tipo_pesquisa"
+                                                                              Default: =ThisItem.id_tipo_pesquisa
+                                                                              DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_tipo_pesquisa)
+                                                                              MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_tipo_pesquisa)
+                                                                              Required: =false
+                                                                              Update: =DataCardValue23_3.Text
+                                                                              Visible: =false
+                                                                              Width: =546
+                                                                              X: =0
+                                                                              Y: =0
+                                                                            Children:
+                                                                              - DataCardKey23_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldName
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =34
+                                                                                    Text: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    Wrap: =false
+                                                                                    X: =30
+                                                                                    Y: =10
+                                                                              - DataCardValue23_3:
+                                                                                  Control: Classic/TextInput@2.3.2
+                                                                                  MetadataKey: FieldValue
+                                                                                  Properties:
+                                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                                    Default: =varPesquisa.id_tipo_pesquisa
+                                                                                    DelayOutput: =true
+                                                                                    DisplayMode: =Parent.DisplayMode
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                                    MaxLength: =Parent.MaxLength
+                                                                                    PaddingLeft: =5
+                                                                                    RadiusBottomLeft: =0
+                                                                                    RadiusBottomRight: =0
+                                                                                    RadiusTopLeft: =0
+                                                                                    RadiusTopRight: =0
+                                                                                    Tooltip: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardKey23_3.Y + DataCardKey23_3.Height + 5
+                                                                              - ErrorMessage23_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: ErrorMessage
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =10
+                                                                                    Live: =Live.Assertive
+                                                                                    PaddingBottom: =0
+                                                                                    PaddingLeft: =0
+                                                                                    PaddingRight: =0
+                                                                                    PaddingTop: =0
+                                                                                    Size: =14
+                                                                                    Text: =Parent.Error
+                                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardValue23_3.Y + DataCardValue23_3.Height
+                                                                              - StarVisible23_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldRequired
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =DataCardKey23_3.Height
+                                                                                    Text: ="*"
+                                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                                    Width: =30
+                                                                                    Wrap: =false
+                                                                                    Y: =DataCardKey23_3.Y
+                                                                        - id_pergunta_pesquisa_DataCard1_1:
+                                                                            Control: TypedDataCard@1.0.7
+                                                                            Variant: ClassicTextualEdit
+                                                                            Properties:
+                                                                              BorderColor: =RGBA(0, 18, 107, 1)
+                                                                              DataField: ="id_pergunta_pesquisa"
+                                                                              Default: =ThisItem.id_pergunta_pesquisa
+                                                                              DisplayMode: =DisplayMode.View
+                                                                              DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_pergunta_pesquisa)
+                                                                              MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_pergunta_pesquisa)
+                                                                              Required: =false
+                                                                              Update: =DataCardValue25_3.Text
+                                                                              Width: =273
+                                                                              X: =2
+                                                                              Y: =0
+                                                                            Children:
+                                                                              - DataCardKey25_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldName
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.Arial
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =34
+                                                                                    Size: =14
+                                                                                    Text: ="ID DA PERGUNTA"
+                                                                                    Width: =Parent.Width - 60
+                                                                                    Wrap: =false
+                                                                                    X: =30
+                                                                                    Y: =10
+                                                                              - DataCardValue25_3:
+                                                                                  Control: Classic/TextInput@2.3.2
+                                                                                  MetadataKey: FieldValue
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                                    Default: |-
+                                                                                      =If((max_id_pergunta_sequencial + 1) < 10, 
+                                                                                      Concatenate(varPesquisa.id_tipo_pesquisa,"-0",max_id_pergunta_sequencial + 1),
+                                                                                      Concatenate(varPesquisa.id_tipo_pesquisa,"-",max_id_pergunta_sequencial + 1))
+                                                                                    DelayOutput: =true
+                                                                                    DisplayMode: =Parent.DisplayMode
+                                                                                    Font: =Font.Arial
+                                                                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                                    MaxLength: =Parent.MaxLength
+                                                                                    PaddingLeft: =5
+                                                                                    RadiusBottomLeft: =0
+                                                                                    RadiusBottomRight: =0
+                                                                                    RadiusTopLeft: =0
+                                                                                    RadiusTopRight: =0
+                                                                                    Size: =12
+                                                                                    Tooltip: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardKey25_3.Y + DataCardKey25_3.Height + 5
+                                                                              - ErrorMessage25_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: ErrorMessage
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =10
+                                                                                    Live: =Live.Assertive
+                                                                                    PaddingBottom: =0
+                                                                                    PaddingLeft: =0
+                                                                                    PaddingRight: =0
+                                                                                    PaddingTop: =0
+                                                                                    Size: =14
+                                                                                    Text: =Parent.Error
+                                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardValue25_3.Y + DataCardValue25_3.Height
+                                                                              - StarVisible25_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldRequired
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =DataCardKey25_3.Height
+                                                                                    Text: ="*"
+                                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                                    Width: =30
+                                                                                    Wrap: =false
+                                                                                    Y: =DataCardKey25_3.Y
+                                                                        - pergunta_DataCard1_1:
+                                                                            Control: TypedDataCard@1.0.7
+                                                                            Variant: ClassicTextualEdit
+                                                                            Properties:
+                                                                              BorderColor: =RGBA(0, 18, 107, 1)
+                                                                              DataField: ="pergunta"
+                                                                              Default: =ThisItem.pergunta
+                                                                              DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,pergunta)
+                                                                              MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, pergunta)
+                                                                              Required: =false
+                                                                              Update: =DataCardValue24_3.Text
+                                                                              Width: =1365
+                                                                              X: =3
+                                                                              Y: =0
+                                                                            Children:
+                                                                              - DataCardKey24_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldName
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.Arial
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =34
+                                                                                    Text: ="PERGUNTA"
+                                                                                    Width: =Parent.Width - 60
+                                                                                    Wrap: =false
+                                                                                    X: =30
+                                                                                    Y: =10
+                                                                              - DataCardValue24_3:
+                                                                                  Control: Classic/TextInput@2.3.2
+                                                                                  MetadataKey: FieldValue
+                                                                                  Properties:
+                                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                                    Default: =Parent.Default
+                                                                                    DelayOutput: =true
+                                                                                    DisplayMode: =Parent.DisplayMode
+                                                                                    Font: =Font.Arial
+                                                                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                                    MaxLength: =Parent.MaxLength
+                                                                                    PaddingLeft: =5
+                                                                                    RadiusBottomLeft: =0
+                                                                                    RadiusBottomRight: =0
+                                                                                    RadiusTopLeft: =0
+                                                                                    RadiusTopRight: =0
+                                                                                    Size: =12
+                                                                                    Tooltip: =Parent.DisplayName
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardKey24_3.Y + DataCardKey24_3.Height + 5
+                                                                              - ErrorMessage24_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: ErrorMessage
+                                                                                  Properties:
+                                                                                    AutoHeight: =true
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    FontWeight: =FontWeight.Semibold
+                                                                                    Height: =10
+                                                                                    Live: =Live.Assertive
+                                                                                    PaddingBottom: =0
+                                                                                    PaddingLeft: =0
+                                                                                    PaddingRight: =0
+                                                                                    PaddingTop: =0
+                                                                                    Size: =14
+                                                                                    Text: =Parent.Error
+                                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                                    Width: =Parent.Width - 60
+                                                                                    X: =30
+                                                                                    Y: =DataCardValue24_3.Y + DataCardValue24_3.Height
+                                                                              - StarVisible24_3:
+                                                                                  Control: Label@2.5.1
+                                                                                  MetadataKey: FieldRequired
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                                                                    Color: =RGBA(0, 18, 107, 1)
+                                                                                    Font: =Font.'Open Sans'
+                                                                                    Height: =DataCardKey24_3.Height
+                                                                                    Text: ="*"
+                                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                                    Width: =30
+                                                                                    Wrap: =false
+                                                                                    Y: =DataCardKey24_3.Y
+                                                - cApagarPergunta:
+                                                    Control: GroupContainer@1.3.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      BorderStyle: =BorderStyle.None
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(255, 255, 255, 0.8)
+                                                      Height: =Parent.Height
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Visible: =VarDeletarPergunta
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - Container18_1:
+                                                          Control: GroupContainer@1.3.0
+                                                          Variant: ManualLayout
+                                                          Properties:
+                                                            Fill: =RGBA(241, 244, 249, 1)
+                                                            Height: =400
+                                                            RadiusBottomLeft: =10
+                                                            RadiusBottomRight: =10
+                                                            RadiusTopLeft: =10
+                                                            RadiusTopRight: =10
+                                                            Width: =800
+                                                            X: =Parent.Width/2 - Self.Width/2
+                                                            Y: =Parent.Height/2 - Self.Height/2
+                                                          Children:
+                                                            - Label2:
+                                                                Control: Label@2.5.1
+                                                                Properties:
+                                                                  Align: =Align.Center
+                                                                  BorderColor: =RGBA(0, 18, 107, 1)
+                                                                  Font: =Font.'Open Sans'
+                                                                  Height: =133
+                                                                  Size: =12
+                                                                  Text: '="Gostaria de deletar o chamado " & Char(13)  & varPerguntaDelet.id_pergunta_sequencial '
+                                                                  Width: =Parent.Width
+                                                            - HtmlText1_10:
+                                                                Control: HtmlViewer@2.1.0
+                                                                Properties:
+                                                                  Font: =Font.'Open Sans'
+                                                                  Height: =Parent.Height
+                                                                  HtmlText: "=\"<div style='\r\n    max-width: 100%;\r\n    border: 1px solid #e0e0e0;\r\n    border-radius: 10px;\r\n    box-shadow: 0 2px 8px rgba(0,0,0,0.1);\r\n    padding: 16px;\r\n    background-color: #ffffff;\r\n    font-family: Aptos, Arial, sans-serif;\r\n    color: #333;\r\n'>\r\n  <h3 style='\r\n      margin-top: 0;\r\n      margin-bottom: 12px;\r\n      font-size: 18pt;\r\n      color: #d32f2f;\r\n  '>\r\n    ⚠️ Confirmação de Exclusão\r\n  </h3>\r\n  \r\n  <p style='\r\n      margin: 8px 0;\r\n      font-size: 16pt;\r\n      line-height: 1.4;\r\n  '>\r\n    Gostaria de deletar a Pergunta:\r\n  </p>\r\n  \r\n  <div style='\r\n      background-color: #f5f5f5;\r\n      border-radius: 6px;\r\n      padding: 10px;\r\n      margin-bottom: 8px;\r\n  '>\r\n    <p style='margin: 0; font-size: 16pt; font-weight: bold; color: #1976d2;'>\" \r\n    & varPerguntaDelet.pergunta &\r\n    \"</p>\r\n  </div>\r\n  \r\n  <p style='\r\n      margin: 6px 0 2px 0;\r\n      font-size: 16pt;\r\n      font-weight: bold;\r\n      color: #555;\r\n  '>\r\n    Do questionário de:\r\n  </p>\r\n  <p style='\r\n      margin: 2px 0 10px 0;\r\n      font-size: 16pt;\r\n      color: #777;\r\n  '>\r\n    \" & LookUp(db_acomp_tipo_pesquisa, id_tipo_pesquisa = varPerguntaDelet.id_tipo_pesquisa, tipo_pesquisa) &\r\n  \"</p>\r\n  \r\n  <p style='\r\n      margin: 6px 0 2px 0;\r\n      font-size: 16pt;\r\n      font-weight: bold;\r\n      color: #555;\r\n  '>\r\n    ID Pesquisa:\r\n  </p>\r\n  <p style='\r\n      margin: 2px 0 0 0;\r\n      font-size: 16pt;\r\n      color: #777;\r\n  '>\r\n    \" & varPerguntaDelet.id_tipo_pesquisa &\r\n  \"</p>\r\n</div>\"\r\n"
+                                                                  Width: =Parent.Width
+                                                            - Button7:
+                                                                Control: Classic/Button@2.2.0
+                                                                Properties:
+                                                                  BorderColor: =ColorFade(Self.Fill, -15%)
+                                                                  BorderThickness: =1
+                                                                  Color: =RGBA(255, 255, 255, 1)
+                                                                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                  Fill: =RGBA(56, 96, 178, 1)
+                                                                  FocusedBorderThickness: =1
+                                                                  Font: =Font.'Open Sans'
+                                                                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                                  HoverColor: =RGBA(255, 255, 255, 1)
+                                                                  HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                                  OnSelect: =Set(VarDeletarPergunta,false)
+                                                                  PressedBorderColor: =Self.Fill
+                                                                  PressedColor: =Self.Fill
+                                                                  PressedFill: =Self.Color
+                                                                  Text: ="Não"
+                                                                  X: =Parent.Width/2 + 20
+                                                                  Y: =Parent.Height - Self.Height - 20
+                                                            - Button6:
+                                                                Control: Classic/Button@2.2.0
+                                                                Properties:
+                                                                  BorderColor: =ColorFade(Self.Fill, -15%)
+                                                                  BorderThickness: =1
+                                                                  Color: =RGBA(255, 255, 255, 1)
+                                                                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                  Fill: =RGBA(56, 96, 178, 1)
+                                                                  FocusedBorderThickness: =1
+                                                                  Font: =Font.'Open Sans'
+                                                                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                                  HoverColor: =RGBA(255, 255, 255, 1)
+                                                                  HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                                  OnSelect: |-
+                                                                    =// 1. Busca os registros que devem ser excluídos em coleções temporárias
+                                                                    RemoveIf(db_acomp_perguntas_pesquisas, ID = varPerguntaDelet.ID);
+
+                                                                    // 2. Notificação de sucesso
+                                                                    Notify("Chamado e registros relacionados excluídos com sucesso!", NotificationType.Success);
+
+                                                                    // 3. Limpa coleções temporárias e variáveis de controle
+                                                                    Set(varPerguntaDelet, Blank());
+                                                                    ClearCollect(col_TipoFiscalizacao,
+                                                                        AddColumns(
+                                                                            Filter(
+                                                                            db_acomp_perguntas_pesquisas,
+                                                                            id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                                                            id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)));
+                                                                    Set(VarDeletarPergunta, false);
+                                                                  PressedBorderColor: =Self.Fill
+                                                                  PressedColor: =Self.Fill
+                                                                  PressedFill: =Self.Color
+                                                                  Text: ="Sim"
+                                                                  X: =Parent.Width/2 - Self.Width - 20
+                                                                  Y: =Parent.Height - Self.Height - 20

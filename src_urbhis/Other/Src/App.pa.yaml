@@ -1,0 +1,166 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    OnStart: |+
+      =Set(varUsuario, LookUp(dbCadastroFuncionario, Email = User().Email, TipoAutorizacao));
+      If(
+          !IsEmpty(dbCadastroFuncionario),
+          ClearCollect(
+              colTelas,
+              Switch(
+                  // Obtemos o tipo de autorização; garantindo que não seja nulo
+                  Coalesce(LookUp(dbCadastroFuncionario, Email = User().Email, TipoAutorizacao), "Usuario"),
+                  "Master",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Plantão", Tela: 'Atendimento Plantao Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Emergencial", Tela: 'Atendimento Emergencial Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Controle Geral de Atendimentos", Tela: 'Controle Geral Atendimentos Screen', Icon: Icon.Folder},
+                      {NomeTela: "Controle Atendimentos", Tela: 'Controle Atendimentos Screen', Icon: Icon.Folder},
+                      {NomeTela: "Cadastros", Tela: 'Cadastro Beneficiario Screen', Icon: Icon.Folder},
+                      {NomeTela: "Agendamentos", Tela: 'Agendamentos Screen', Icon: Icon.Notebook},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "Apoio a Pesquisa", Tela: 'Pesquisa Screen', Icon: Icon.PaperClip},
+                      {NomeTela: "Acompanhamento Medição", Tela: 'Acompanhamento Medição Screen', Icon: Icon.Paste},
+                      {NomeTela: "OS's", Tela: 'Ordens Serviço Screen', Icon: Icon.Paste},
+                      {NomeTela: "Produtos Cancelados", Tela: 'Produtos Cancelados Screen', Icon: Icon.Paste},
+                      {NomeTela: "Oficios", Tela: 'Oficios Screen', Icon: Icon.Newspaper},
+                      {NomeTela: "Controle de Agendamentos", Tela: 'Controle Agendamentos Screen', Icon: Icon.Key},
+                      {NomeTela: "Configurações", Tela: 'Configurações Screen', Icon: Icon.Tools},
+                      {NomeTela: "Frotas", Tela: 'Frotas Screen', Icon: Icon.Cars},
+                      {NomeTela: "Administrativo", Tela: 'Administrativo Screen', Icon: Icon.ComputerDesktop}
+                  ),
+                  "Visitante",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Plantão", Tela: 'Atendimento Plantao Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Emergencial", Tela: 'Atendimento Emergencial Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Cadastros", Tela: 'Cadastro Beneficiario Screen', Icon: Icon.Folder},
+                      {NomeTela: "Agendamentos", Tela: 'Agendamentos Screen', Icon: Icon.Notebook},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "OS's", Tela: 'Ordens Serviço Screen', Icon: Icon.Paste}
+                  ),
+                  "Social",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Plantão", Tela: 'Atendimento Plantao Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Agendamentos", Tela: 'Agendamentos Screen', Icon: Icon.Notebook},
+                      {NomeTela: "Controle Atendimentos", Tela: 'Controle Atendimentos Screen', Icon: Icon.Folder},
+                      {NomeTela: "Emergencial", Tela: 'Atendimento Emergencial Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Cadastros", Tela: 'Cadastro Beneficiario Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Apoio a Pesquisa", Tela: 'Pesquisa Screen', Icon: Icon.PaperClip},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar}
+                  ),
+                  "Social Nível 2",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Plantão", Tela: 'Atendimento Plantao Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Agendamentos", Tela: 'Agendamentos Screen', Icon: Icon.Notebook},
+                      {NomeTela: "Controle Atendimentos", Tela: 'Controle Atendimentos Screen', Icon: Icon.Folder},
+                      {NomeTela: "Emergencial", Tela: 'Atendimento Emergencial Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Cadastros", Tela: 'Cadastro Beneficiario Screen', Icon: Icon.Folder},
+                      {NomeTela: "Apoio a Pesquisa", Tela: 'Pesquisa Screen', Icon: Icon.PaperClip},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "Configurações", Tela: 'Configurações Screen', Icon: Icon.Tools}
+                  ),
+                  "Social Nível 3",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Plantão", Tela: 'Atendimento Plantao Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Agendamentos", Tela: 'Agendamentos Screen', Icon: Icon.Notebook},
+                      {NomeTela: "Controle Geral de Atendimentos", Tela: 'Controle Geral Atendimentos Screen', Icon: Icon.Folder},
+                      {NomeTela: "Controle Atendimentos", Tela: 'Controle Atendimentos Screen', Icon: Icon.Folder},
+                      {NomeTela: "Emergencial", Tela: 'Atendimento Emergencial Screen', Icon: Icon.Tablet},
+                      {NomeTela: "Cadastros", Tela: 'Cadastro Beneficiario Screen', Icon: Icon.Folder},
+                      {NomeTela: "Apoio a Pesquisa", Tela: 'Pesquisa Screen', Icon: Icon.PaperClip},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "Produtos Cancelados", Tela: 'Produtos Cancelados Screen', Icon: Icon.Paste},
+                      {NomeTela: "Configurações", Tela: 'Configurações Screen', Icon: Icon.Tools},
+                      {NomeTela: "Administrativo", Tela: 'Administrativo Screen', Icon: Icon.ComputerDesktop}
+                  ),
+                  "Administrativo",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "Oficios", Tela: 'Oficios Screen', Icon: Icon.Newspaper},
+                      {NomeTela: "Configurações", Tela: 'Configurações Screen', Icon: Icon.Tools},
+                      {NomeTela: "Frotas", Tela: 'Frotas Screen', Icon: Icon.Cars},
+                      {NomeTela: "Administrativo", Tela: 'Administrativo Screen', Icon: Icon.ComputerDesktop}
+                  ),
+                  "Administrativo Nível 2",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "Oficios", Tela: 'Oficios Screen', Icon: Icon.Newspaper},
+                      {NomeTela: "Configurações", Tela: 'Configurações Screen', Icon: Icon.Tools},
+                      {NomeTela: "Frotas", Tela: 'Frotas Screen', Icon: Icon.Cars},
+                      {NomeTela: "Administrativo", Tela: 'Administrativo Screen', Icon: Icon.ComputerDesktop}
+                  ),
+                  "Medição",
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home},
+                      {NomeTela: "Planejamento", Tela: 'Planejamento Semanal Screen', Icon: Icon.AddToCalendar},
+                      {NomeTela: "Acompanhamento Medição", Tela: 'Acompanhamento Medição Screen', Icon: Icon.Paste},
+                      {NomeTela: "OS's", Tela: 'Ordens Serviço Screen', Icon: Icon.Paste},
+                      {NomeTela: "Oficios", Tela: 'Oficios Screen', Icon: Icon.Newspaper},
+                      {NomeTela: "Produtos Cancelados", Tela: 'Produtos Cancelados Screen', Icon: Icon.Paste},
+                      {NomeTela: "Controle de Agendamentos", Tela: 'Controle Agendamentos Screen', Icon: Icon.Key},
+                      {NomeTela: "Configurações", Tela: 'Configurações Screen', Icon: Icon.Tools}
+                  ),
+                  // Caso o tipo de autorização seja desconhecido ou nulo
+                  Table(
+                      {NomeTela: "Tela Inicial", Tela: 'Tela Inicial Screen', Icon: Icon.Home}
+                  )
+              )
+          ));
+
+      ClearCollect(
+              colPlantaoPlanejado,
+              Filter(dbOS, StatusOS = "Planejado" && IdProduto = "P04")
+      );
+
+      ClearCollect(
+              colPlantaoEmergencialPlanejado,
+              Filter(dbOS, StatusOS = "Planejado" && IdProduto = "P10")
+      );
+
+      ClearCollect(colNucleoAscending, 
+          SortByColumns(
+              bdNucleos,
+              "Nucleo", 
+              SortOrder.Ascending
+          ));
+
+      ClearCollect(colDistritoAscending, 
+          SortByColumns(
+              bdNucleos,
+              "Distrito", 
+              SortOrder.Ascending
+          ));
+
+      ClearCollect(coldatafilter, Filter(dbCalendario, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate));
+
+      ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate && 
+              (IsBlank(inpNucleo_Busca_1.Selected.Nucleo) || Nucleo = inpNucleo_Busca_1.Selected.Nucleo)));
+
+      ClearCollect(colAgendamentoNucleo, 
+      Filter(dbAtendimentos, 
+          StatusAtendimento = "Planejado" || StatusAtendimento = "Atendimento Concluído com Relatório" || StatusAtendimento = "Atendimento Concluído sem Relatório" || StatusAtendimento = "Cancelado",
+          Encaminhamento = "Visita Domiciliar com Relatório Social" || Encaminhamento = "Vistoria Física com Relatório",
+          (IsBlank(inpOS_Busca_5.Text) || Plantao = inpOS_Busca_5.Text) && 
+          (IsBlank(inpOS_Busca_8.Text) || NomeCompleto = inpOS_Busca_8.Text) && 
+          (IsBlank(inpProduto_Busca_8.Selected.Value) || StatusAtendimento = inpProduto_Busca_8.Selected.Value) && 
+          (IsBlank(inpStatus_Busca_9.Selected.Motivo) || MotivoAtendimento = inpStatus_Busca_9.Selected.Motivo) && 
+          (IsBlank(inpTipoOS_Busca_3.Selected.Value) || Encaminhamento = inpTipoOS_Busca_3.Selected.Value) && 
+          (IsBlank(inpDataInicio_Busca_3.SelectedDate) || DataAtendimento = inpDataInicio_Busca_3.SelectedDate) && 
+          (IsBlank(inpOS_Busca_9.Text) || OSComplementar = inpOS_Busca_9.Text) && 
+          (IsBlank(inpDataInicio_Busca_8.SelectedDate) || DataAgendamento = inpDataInicio_Busca_8.SelectedDate)
+      ))
+    Theme: =PowerAppsTheme

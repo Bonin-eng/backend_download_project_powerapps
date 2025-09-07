@@ -1,0 +1,2567 @@
+DI_2 As screen:
+    Fill: =EsquemaDeCores.AzulBackground.Cor
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnHidden: =
+    OnVisible: |-
+        =// Carrega todas as opções de empresa
+        ClearCollect(
+            colEmpresaFiltroSolicitanteDI,
+            SortByColumns(
+                Distinct(
+                    db_tickets_dev,
+                    Tk_Empresa_Solicitante
+                ),
+                "Value",
+                SortOrder.Ascending
+            )
+        );
+        // Carrega todas as opções de chamados
+        ClearCollect(
+            ColChamadosDI,
+            SortByColumns(
+                Distinct(
+                    db_tickets_dev,
+                    Tk_Tipo_Ticket
+                ),
+                "Value",
+                SortOrder.Ascending
+            )
+        );
+        // Carrega todas as opções do campo Choice e resolve o Nome no M365 uma única vez
+        ClearCollect(
+            colAtendentesDI,
+            SortByColumns(
+                AddColumns(
+                    Choices(db_tickets_dev.Tk_Atendente),
+                    Atendente,
+                    UsuáriosdoOffice365.UserProfileV2(Value).displayName
+                ),
+                "Atendente",
+                SortOrder.Ascending
+            )
+        )
+
+    sigd_layout_28 As group:
+        Height: =5
+        minimumHeight: =5
+        minimumWidth: =5
+        Visible: =true
+        Width: =5
+        X: =0
+        Y: =0
+        ZIndex: =4
+
+        sigd_ctn_geral_28 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.Light
+            Fill: =EsquemaDeCores.AzulConteiner.Cor
+            Height: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Height
+            RadiusBottomLeft: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Raio
+            RadiusBottomRight: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Raio
+            RadiusTopLeft: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Raio
+            RadiusTopRight: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Raio
+            Width: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Width
+            X: =sigd_bonin_cabecalho_28.ReferênciaContêiner.X
+            Y: =sigd_bonin_cabecalho_28.ReferênciaContêiner.Y
+            ZIndex: =1
+
+            Container29_1 As groupContainer.horizontalAutoLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                Height: =Parent.Height
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Container33_3 As groupContainer.manualLayoutContainer:
+                    FillPortions: =0
+                    Height: =50
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =Medidas.Raio
+                    RadiusBottomRight: =Medidas.Raio
+                    RadiusTopLeft: =Medidas.Raio
+                    RadiusTopRight: =Medidas.Raio
+                    Visible: =!info_chamados
+                    ZIndex: =1
+
+                    sigd_ctn_geral_RH_1_6 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        Height: =30
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =Medidas.Espacamento*2
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        Width: =Parent.Width - Self.X * 2
+                        Y: =10
+                        ZIndex: =1
+
+                        TextInput1_2 As text:
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =0
+                            Clear: =true
+                            Color: =RGBA(0, 0, 0, 1)
+                            Default: =
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            DisabledColor: =RGBA(166, 166, 166, 1)
+                            DisabledFill: =RGBA(244, 244, 244, 1)
+                            FillPortions: =1
+                            FocusedBorderThickness: =4
+                            Font: =App.Theme.Font
+                            Height: =30
+                            HintText: ="🔎 Digite o nome do solicitante para filtrar"
+                            HoverBorderColor: =App.Theme.Colors.Darker40
+                            HoverColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =App.Theme.Colors.Lighter70
+                            LayoutMinWidth: =100
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            Size: =11
+                            X: =40
+                            ZIndex: =1
+
+                        Container23_7 As groupContainer.manualLayoutContainer:
+                            AlignInContainer: =AlignInContainer.Center
+                            BorderStyle: =BorderStyle.None
+                            Height: =30
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =100
+                            RadiusBottomLeft: =5
+                            RadiusBottomRight: =5
+                            RadiusTopLeft: =5
+                            RadiusTopRight: =5
+                            ZIndex: =2
+
+                            cmb_RH_1_3_11 As combobox:
+                                BorderColor: =
+                                BorderStyle: =BorderStyle.None
+                                BorderThickness: =0
+                                ChevronBackground: =App.Theme.Colors.Primary
+                                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayFields: =["nome"]
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =Parent.Height
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                InputTextPlaceholder: |
+                                    ="Selecione o atendente"
+                                Items: =colAtendentesDI
+                                PressedColor: =App.Theme.Colors.PrimaryForeground
+                                PressedFill: =App.Theme.Colors.Darker30
+                                SearchFields: =["Value"]
+                                SearchItems: =Search(SortByColumns(AddColumns(Filter(Distinct(db_tickets_dev,Tk_Atendente.Value),!IsBlank(Value)),nome,UsuáriosdoOffice365.UserProfile(Value).DisplayName),"nome",SortOrder.Ascending),cmb_RH_1_3_11.SearchText,Value)
+                                SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                SelectionFill: =App.Theme.Colors.Primary
+                                SelectMultiple: =false
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                        Container23_5 As groupContainer.manualLayoutContainer:
+                            AlignInContainer: =AlignInContainer.Center
+                            BorderStyle: =BorderStyle.None
+                            Height: =30
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =5
+                            RadiusBottomRight: =5
+                            RadiusTopLeft: =5
+                            RadiusTopRight: =5
+                            ZIndex: =3
+
+                            cmb_RH_1_3_6 As combobox:
+                                BorderColor: =
+                                BorderStyle: =
+                                BorderThickness: =0
+                                ChevronBackground: =App.Theme.Colors.Primary
+                                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayFields: =["Value"]
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =Parent.Height
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                InputTextPlaceholder: ="Selecione a empresa"
+                                Items: =colEmpresaFiltroSolicitanteDI
+                                PressedColor: =App.Theme.Colors.PrimaryForeground
+                                PressedFill: =App.Theme.Colors.Darker30
+                                SearchFields: =["Value"]
+                                SearchItems: =Search(colEmpresaFiltroSolicitanteDI,cmb_RH_1_3_6.SearchText,Value)
+                                SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                SelectionFill: =App.Theme.Colors.Primary
+                                SelectMultiple: =false
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                        Container23_6 As groupContainer.manualLayoutContainer:
+                            AlignInContainer: =AlignInContainer.Center
+                            BorderStyle: =BorderStyle.None
+                            Height: =30
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =5
+                            RadiusBottomRight: =5
+                            RadiusTopLeft: =5
+                            RadiusTopRight: =5
+                            ZIndex: =4
+
+                            cmb_RH_1_3_7 As combobox:
+                                BorderColor: =
+                                BorderStyle: =BorderStyle.None
+                                BorderThickness: =0
+                                ChevronBackground: =App.Theme.Colors.Primary
+                                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayFields: =["Value"]
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =Parent.Height
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                InputTextPlaceholder: ="Selecione o tipo de requisição"
+                                Items: =ColChamadosDI
+                                PressedColor: =App.Theme.Colors.PrimaryForeground
+                                PressedFill: =App.Theme.Colors.Darker30
+                                SearchFields: =["Value"]
+                                SearchItems: =Search(ColChamadosDI,cmb_RH_1_3_7.SearchText,Value)
+                                SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                SelectionFill: =App.Theme.Colors.Primary
+                                SelectMultiple: =false
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                        Container23_8 As groupContainer.manualLayoutContainer:
+                            AlignInContainer: =AlignInContainer.Center
+                            BorderStyle: =BorderStyle.None
+                            FillPortions: =2
+                            Height: =30
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =5
+                            RadiusBottomRight: =5
+                            RadiusTopLeft: =5
+                            RadiusTopRight: =5
+                            ZIndex: =5
+
+                            HtmlText13 As htmlViewer:
+                                AutoHeight: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =Parent.Height
+                                HtmlText: |
+                                    =With(
+                                      {
+                                        // Base sem a coluna complexa (se precisar)
+                                        _baseDs: DropColumns(db_tickets_dev, 'Criado por')},
+                                    
+                                        // Filtros comuns (empresa, tipo, atendente)
+                                        With({
+                                        _base:
+                                          Filter(
+                                            _baseDs,
+                                            (IsBlank(cmb_RH_1_3_6.Selected.Value)  || Tk_Empresa_Solicitante = cmb_RH_1_3_6.Selected.Value),
+                                            (IsBlank(cmb_RH_1_3_7.Selected.Value)  || Tk_Tipo_Ticket        = cmb_RH_1_3_7.Selected.Value),
+                                            (IsBlank(cmb_RH_1_3_11.Selected.Value) || Tk_Atendente.Value    = cmb_RH_1_3_11.Selected.Value)
+                                          )},
+                                    
+                                        // Pesquisa por nome (uma vez só)
+                                        With({
+                                        _src: Search(_base, TextInput1_2.Text, Tk_Nome_Solicitante)},
+                                        With({
+                                        // Contadores por status  (se for Choice: use Tk_Status_Ticket.Value)
+                                        _cAberto:      CountIf(_src, Tk_Status_Ticket = "Aberto"),
+                                        _cIniciado:    CountIf(_src, Tk_Status_Ticket = "Iniciado"),
+                                        _cAndamento:   CountIf(_src, Tk_Status_Ticket = "Em Andamento"),
+                                        _cSuspensao:   CountIf(_src, Tk_Status_Ticket = "Suspensão"),
+                                        _cCancelado:   CountIf(_src, Tk_Status_Ticket = "Cancelado"),
+                                        _cConcluido:   CountIf(_src, Tk_Status_Ticket = "Concluído")},
+                                        With({
+                                        // Tabela para renderizar as 4 colunas de forma compacta
+                                        _cards: Table(
+                                          { lbl:"Aberto",        val:_cAberto      },
+                                          { lbl:"Iniciado",      val:_cIniciado    },
+                                          { lbl:"Em Andamento",  val:_cAndamento   },
+                                          { lbl:"Suspensão",     val:_cSuspensao   },
+                                          { lbl:"Concluído",     val:_cConcluido   }
+                                        )
+                                      },
+                                    
+                                      "<div style='
+                                        background:#fff;
+                                        border:1px solid #e5e7eb;
+                                        border-radius:5px;
+                                        font-size:11px;
+                                        color:#111;
+                                      '>
+                                        <table style='width:100%;height:" & (sigd_ctn_geral_RH_1_6.Height) & "px;border-collapse:collapse;table-layout:fixed;'>
+                                          <tr>" &
+                                            Concat(
+                                              _cards,
+                                              "<td style=""width:25%;vertical-align:middle;"">
+                                                 <div style=""display:flex;align-items:center;justify-content:center;gap:6px;"">
+                                                   <span style=""font-weight:600;color:#374151;"">" & lbl & "</span>
+                                                   <span style=""font-size:13px;font-weight:700;"">" & Text(val) & "</span>
+                                                 </div>
+                                               </td>"
+                                            ) &
+                                          "</tr>
+                                        </table>
+                                      </div>"
+                                    )))))
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =13
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                Container35_3 As groupContainer.manualLayoutContainer:
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    ZIndex: =2
+
+                    galPortKanban_5 As gallery.galleryHorizontal:
+                        '#CopilotOverlayLabel': ="Filtrada"
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        DelayItemLoading: =true
+                        Height: =Parent.Height - Self.Y * 2
+                        Items: =db_tipo_evento
+                        LoadingSpinner: =LoadingSpinner.Data
+                        TemplateFill: =Color.Transparent
+                        TemplateSize: |-
+                            =If(
+                                CountRows(Self.AllItems) = 0,
+                                0, // Valor padrão ou substituto para evitar divisão por zero
+                                Parent.Width / CountRows(Self.AllItems) - 6
+                            )
+                        Width: =Parent.Width - Self.X * 2
+                        ZIndex: =1
+
+                        Gallery1 As gallery.variableTemplateHeightGallery:
+                            BorderColor: =App.Theme.Colors.Darker40
+                            DelayItemLoading: =true
+                            Height: =Parent.Height - Self.Y - 10
+                            Items: |-
+                                =With({Base:
+                                Search(
+                                    Filter(
+                                        DropColumns(db_tickets_dev, 'Criado por'),
+                                        Tk_Status_Ticket = ThisItem.Status,
+                                        (IsBlank(cmb_RH_1_3_6.Selected.Value) || Tk_Empresa_Solicitante = cmb_RH_1_3_6.Selected.Value),
+                                        (IsBlank(cmb_RH_1_3_7.Selected.Value) || Tk_Tipo_Ticket = cmb_RH_1_3_7.Selected.Value),
+                                        (IsBlank(cmb_RH_1_3_11.Selected.Value) || Tk_Atendente.Value = cmb_RH_1_3_11.Selected.Value)
+                                    ),
+                                    TextInput1_2.Text,
+                                    Tk_Nome_Solicitante
+                                )},
+                                Table(
+                                    SortByColumns(
+                                        Filter(Base, Tk_Status_Ticket = "Concluído" || Tk_Status_Ticket = "Cancelado"),
+                                            "Data_Abertura", SortOrder.Descending
+                                    ),
+                                    SortByColumns(
+                                        Filter(Base, !(Tk_Status_Ticket = "Concluído") || !(Tk_Status_Ticket = "Cancelado")),
+                                            "Data_Abertura", SortOrder.Ascending
+                                    )
+                                ))
+                            Layout: =Layout.Vertical
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplatePadding: =0
+                            TemplateSize: =120
+                            Width: =Parent.TemplateWidth
+                            Y: =HtmlText11_1.Y + HtmlText11_1.Height
+                            ZIndex: =3
+
+                            HtmlText1_5 As htmlViewer:
+                                AutoHeight: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =120
+                                HtmlText: |
+                                    =With(
+                                      {
+                                        corLateral: EsquemaDeCores.AzulEscuroBonin.Texto,
+                                        corFundo: "#FFFFFF",
+                                        corTexto: "#222222",
+                                        sombra: "rgba(0,0,0,0.10)",
+                                        solicitante: ThisItem.Tk_Nome_Solicitante,
+                                        email_solicitante: ThisItem.Tk_Email_Solicitante,
+                                        empresa: ThisItem.Tk_Empresa_Solicitante,
+                                        tipo_ticket: ThisItem.Tk_Tipo_Ticket,
+                                        data_solicitacao: Text(ThisItem.Tk_Data_Abertura, "dd/mm/yyyy"),
+                                        observacao: Substitute(ThisItem.Tk_Descricao_Ocorrencia, "<p>&#160;</p>",""),
+                                        data_previsao_conclusao: Text(LookUp(db_eventos_dev, Tk_TicketID = ThisItem.Tk_Ticket && Tk_Tipo_Evento.Value = "Abertura do Ticket", Tk_Data_Termino_Evento), "dd/mm/yyyy"),
+                                        status: ThisItem.Tk_Status_Ticket,
+                                        executor_nome: If(
+                                          !IsBlank(ThisItem.Tk_Atendente.Value),
+                                          UsuáriosdoOffice365.UserProfileV2(ThisItem.Tk_Atendente.Value).displayName,
+                                          ""
+                                        ),
+                                        executor_foto: If(
+                                          IsBlank(ThisItem.Tk_Atendente.Value),
+                                          UsuáriosdoOffice365.UserPhoto("sistemas@bonin.eng.br"),
+                                          UsuáriosdoOffice365.UserPhoto(ThisItem.Tk_Atendente.Value)
+                                        )
+                                      },
+                                      "
+                                    <div style='display:flex; flex-direction:column; height:100%;background: " & corFundo & "; border: 3px solid " & corLateral & "; border-radius: 10px; overflow: hidden;margin-left:3px;margin-right:3px; margin-bottom:3px; /* separa os cards */'>
+                                    
+                                      <!-- Conteúdo -->
+                                      <div style='flex-grow:1; padding: 10px; display: flex; flex-direction: column; gap: 4px; width: 100%; box-sizing: border-box;'>
+                                    
+                                        <!-- Badge do tipo de ticket -->
+                                        <div style='
+                                          min-height: 20px;
+                                          width: 100%;
+                                          display: flex;
+                                          justify-content: center;
+                                          align-items: center;
+                                        '>
+                                          <div style='
+                                            background: " & corLateral & ";
+                                            color: #fff;
+                                            font-size: 12px;
+                                            font-weight: bold;
+                                            border-radius: 6px;
+                                            padding: 2px 12px;
+                                            letter-spacing: 0.5px; 
+                                            box-shadow: 1px 1px 4px " & corLateral & "22;
+                                          '>" & tipo_ticket & "</div>
+                                        </div>
+                                    
+                                        <!-- Informações do chamado -->
+                                        <div style='font-weight: bold; font-size: 12px;'>" & solicitante & "</div>
+                                        <div style='font-size: 11px;'><strong>E-mail Solicitante:</strong> " & email_solicitante & "</div>
+                                        <div style='font-size: 11px;'><strong>Empresa:</strong> " & empresa & "</div>
+                                        <div style='font-size: 11px;'><strong>Solicitado em:</strong> " & data_solicitacao & "</div>
+                                        <div style='font-size: 11px;'><strong>Observação:</strong> " & observacao & "</div>
+                                        <div style='font-size: 11px;'><strong>Previsão de Conclusão:</strong> " & data_previsao_conclusao & "</div>
+                                    
+                                      </div>
+                                    
+                                      <!-- Rodapé com executor ocupando toda largura -->
+                                      <div style='
+                                          display: flex;
+                                          justify-content: flex-start;
+                                          align-items: center;
+                                          width: 100%;
+                                          padding: 10px 12px;
+                                          background-color: #f5f5f5;
+                                          border-top: 1px solid #e0e0e0;
+                                      '>
+                                          <!-- Foto do executor -->
+                                          <div style='
+                                              width: 48px;
+                                              height: 48px;
+                                              min-width: 48px;
+                                              border-radius: 50%;
+                                              overflow: hidden;
+                                              border: 1px solid #ccc;
+                                              margin-right: 12px;
+                                          '>
+                                              <img src='" & executor_foto & "' style='width: 48px; height: 48px; object-fit: cover;' />
+                                          </div>
+                                    
+                                          <!-- Nome do executor -->
+                                          <div style='
+                                              font-size: 12px;
+                                              font-weight: bold;
+                                              white-space: nowrap;
+                                              overflow: hidden;
+                                              text-overflow: ellipsis;
+                                              flex-grow: 1;
+                                          '>" & executor_nome & "</div>
+                                      </div>
+                                    
+                                    </div>
+                                    "
+                                    )
+                                OnSelect: =Select(Parent)
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =13
+                                Width: =Parent.Width
+                                ZIndex: =2
+
+                            Button1_3 As button:
+                                BorderColor: =
+                                BorderThickness: =0
+                                Color: =
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                DisabledColor: =RGBA(0, 0, 0, 0)
+                                DisabledFill: =RGBA(0, 0, 0, 0)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =HtmlText1_5.Height
+                                HoverBorderColor: =
+                                HoverColor: =
+                                HoverFill: =
+                                OnSelect: |-
+                                    =UpdateContext(
+                                        {
+                                            info_chamados: true,
+                                            AtualizacaoHistorico: false,
+                                            loc_InfoTicket_dev: LookUp(db_tickets_dev,Tk_Ticket = ThisItem.Ticket)
+                                        }
+                                    );
+                                    With(
+                                        {Consulta_Tk_Tipo_Ticket: loc_InfoTicket_dev.Tk_Tipo_Ticket},
+                                        Set(Requisicao, loc_InfoTicket_dev.Tk_Tipo_Ticket);
+                                        Set(Tipo_Requisicao,
+                                            Switch(
+                                                Consulta_Tk_Tipo_Ticket,
+                                                "CONSULTA TÉCNICA DE DESENVOLVIMENTO",           "CTD",
+                                                "REQUISIÇÃO DE AJUSTE E MELHORIA",               "RAM",
+                                                "REQUISIÇÃO DE CREDENCIAMENTO EM APLICATIVO",    "RCA",
+                                                "REQUISIÇÃO DE DESENVOLVIMENTO DE APLICATIVO",   "RDA",
+                                                "REQUISIÇÃO DE DESENVOLVIMENTO DE BI",           "RDB",
+                                                "REQUISIÇÃO DE ESCLARECIMENTO TÉCNICO",          "RET",
+                                                "REQUISIÇÃO DE IMPLEMENTAÇÃO DE AUTOMAÇÃO",      "RIA"
+                                            )
+                                        )
+                                    )
+                                PressedBorderColor: =
+                                PressedColor: =
+                                PressedFill: =
+                                Size: =15
+                                TabIndex: =1
+                                Text: =
+                                Width: =Parent.Width - Self.X * 2
+                                X: =5
+                                ZIndex: =3
+
+                            Icon2 As icon:
+                                BorderColor: =App.Theme.Colors.Darker30
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(244, 244, 244, 1)
+                                Height: =34
+                                Icon: =Icon.Erase
+                                OnSelect: |-
+                                    =UpdateContext({varDeletar: ThisItem});
+                                    UpdateContext({VarCnDeletar: true})
+                                Width: =24
+                                X: |
+                                    =Parent.TemplateWidth - Self.Width - 20
+                                Y: |
+                                    =HtmlText1_5.Height - Self.Height - 23
+                                ZIndex: =4
+
+                            Image1_2 As image:
+                                BorderColor: =App.Theme.Colors.Darker30
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                Height: =48
+                                Image: |-
+                                    =If(ThisItem.Tk_Atendente.Value = Blank(),
+                                    UsuáriosdoOffice365.UserPhoto("sistemas@bonin.eng.br"),
+                                    UsuáriosdoOffice365.UserPhoto(ThisItem.Tk_Atendente.Value))
+                                RadiusBottomLeft: =50
+                                RadiusBottomRight: =50
+                                RadiusTopLeft: =50
+                                RadiusTopRight: =50
+                                Width: =48
+                                X: =19
+                                Y: |
+                                    =HtmlText1_5.Height - Self.Height - 19
+                                ZIndex: =5
+
+                        HtmlText11_1 As htmlViewer:
+                            AutoHeight: =true
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            Font: =App.Theme.Font
+                            HtmlText: |
+                                =With(
+                                    {
+                                        corPrincipal: "white",
+                                        corSecundaria: "rgba(0,0,0,0.08)",
+                                        corTexto: "#222",
+                                        corSombra: "rgba(0,0,0,0.08)",
+                                        corNeutra: "#6b7280",
+                                
+                                        tituloGaleria: Upper(ThisItem.Tipo_Evento),
+                                        subtituloGaleria: ThisItem.Status
+                                    },
+                                
+                                    "<div style='border:1px solid " & EsquemaDeCores.AzulEscuroBonin.Texto & ";border-radius:10px;box-shadow:0 2px 6px " & corSombra & ";
+                                                 font-family: "& App.Theme.Font & ", Arial, sans-serif;background:" & EsquemaDeCores.AzulBackground.Texto & ";color:" & corTexto & ";
+                                                 margin:3px;padding:6px;width:100% - 6;display:flex;flex-direction:column;gap:4px;text-align: center'>
+                                
+                                        <div style='font-size:14px;font-weight:700;color:" & corPrincipal & ";white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>
+                                            " & tituloGaleria & "
+                                        </div>
+                                
+                                        <div style='font-size:13px;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>
+                                            " & subtituloGaleria & "
+                                        </div>
+                                
+                                    </div>"
+                                )
+                            OnSelect: =Select(Parent)
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =13
+                            Width: =Parent.TemplateWidth
+                            ZIndex: =7
+
+                    Container36 As groupContainer.manualLayoutContainer:
+                        Fill: =EsquemaDeCores.AzulConteiner.Cor
+                        Height: =Parent.Height
+                        Visible: =info_chamados
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        Container38 As groupContainer.horizontalAutoLayoutContainer:
+                            Height: =Parent.Height - Self.Y
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            Width: =Parent.Width - Medidas.Espacamento*2
+                            X: =Parent.Width/2 - Self.Width/2
+                            Y: =Medidas.Espacamento*2
+                            ZIndex: =1
+
+                            Container39 As groupContainer.manualLayoutContainer:
+                                AlignInContainer: =AlignInContainer.Center
+                                Fill: =EsquemaDeCores.AzulBackground.Cor
+                                FillPortions: =0
+                                Height: =50
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                RadiusBottomLeft: =Medidas.Raio/2
+                                RadiusBottomRight: =Medidas.Raio/2
+                                RadiusTopLeft: =Medidas.Raio/2
+                                RadiusTopRight: =Medidas.Raio/2
+                                Width: =Parent.Width - Medidas.Espacamento*4
+                                ZIndex: =1
+
+                                Label1_140 As label:
+                                    Align: =Align.Center
+                                    BorderColor: =App.Theme.Colors.Darker30
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    Font: =App.Theme.Font
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =Parent.Height
+                                    Size: =20
+                                    Text: |-
+                                        =Concatenate(Requisicao, " - TICKET: ", loc_InfoTicket_dev.Ticket)
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                Icon1 As icon:
+                                    BorderColor: =App.Theme.Colors.Darker30
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =Parent.Height - Self.Y * 2
+                                    Icon: =Icon.CancelBadge
+                                    OnSelect: |-
+                                        =UpdateContext({info_chamados: false})
+                                    X: =Parent.Width - Self.Width
+                                    Y: =5
+                                    ZIndex: =2
+
+                            Container45 As groupContainer.manualLayoutContainer:
+                                FillPortions: =0
+                                Height: =Medidas.Espacamento*2
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                ZIndex: =2
+
+                            Container39_1 As groupContainer.manualLayoutContainer:
+                                Height: =40
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                ZIndex: =3
+
+                                Container40 As groupContainer.horizontalAutoLayoutContainer:
+                                    BorderStyle: =BorderStyle.None
+                                    Height: =Parent.Height
+                                    LayoutMode: =LayoutMode.Auto
+                                    PaddingBottom: =10
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    Container44 As groupContainer.horizontalAutoLayoutContainer:
+                                        Fill: =RGBA(255, 255, 255, 1)
+                                        Height: =150
+                                        LayoutDirection: =LayoutDirection.Vertical
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        LayoutMode: =LayoutMode.Auto
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Width: =981
+                                        Y: =Parent.Height - Self.Height
+                                        ZIndex: =1
+
+                                        HtmlText10 As htmlViewer:
+                                            AutoHeight: =true
+                                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                            FillPortions: =1
+                                            Font: =App.Theme.Font
+                                            Height: =Parent.Height - Container44.Height
+                                            HtmlText: |
+                                                =With(
+                                                    { req: loc_InfoTicket_dev },
+                                                    With(
+                                                        {
+                                                            // ------------------ Campos comuns ------------------
+                                                            reqName:                req.Tk_Nome_Solicitante,
+                                                            reqEmail:               req.Tk_Email_Solicitante,
+                                                            reqCompany:             req.Tk_Empresa_Solicitante,
+                                                            reqOpenedAt:            Text(req.Tk_Data_Abertura, "[$-pt-BR]dd/mm/yyyy"),
+                                                            reqDescHtml:            req.Tk_Descricao_Ocorrencia,
+                                                
+                                                            // ------------------ CTD ------------------
+                                                            ctdQuestion:            req.CTD_problema_existente,
+                                                            ctdRelated:             req.CTD_relacao_sistema,
+                                                            ctdLimitation:          req.CTD_necessidade_tecnica,
+                                                            ctdImpact:              req.CTD_impacto_consulta.Value,
+                                                
+                                                            // ------------------ RAM ------------------
+                                                            ramImpactedUsers:       req.RAM_Impacto,
+                                                            ramTargetSystem:        req.RAM_Sistema_Automacao,
+                                                
+                                                            // ------------------ RDA ------------------
+                                                            rdaObjective:           req.RDA_objetivo_Aplicativo,
+                                                            rdaFlow:                req.RDA_Fluxo_Existente,
+                                                            rdaFeatures:            req.RDA_Funcionalidades,
+                                                            rdaDesign:              req.RDA_Controle_Exemplo,
+                                                            rdaAutomation:          req.RDA_Necessidade_Automacao,
+                                                
+                                                            // ------------------ RDB ------------------
+                                                            rdbObjective:           req.RDB_Objetivo_BI,
+                                                            rdbDataSources:         req.RDB_Fontes_Dados,
+                                                            rdbAudience:            req.RDB_usuarios_BI,
+                                                            rdbKPIs:                req.RDB_indicadores_existentes,
+                                                
+                                                            // ------------------ RCA ------------------
+                                                            rcaGrantEmail:          req.RCA_email_liberacao,
+                                                            rcaAppName:             req.RCA_Nome_Aplicativo,
+                                                
+                                                            // ------------------ RET ------------------
+                                                            retClarification:       req.RET_Duvida_Especifica,
+                                                            retType:                req.RET_Tipo_Parecer.Value,
+                                                            retSpecificDoubt:       req.RET_evidencia_erro,
+                                                
+                                                            // ------------------ RIA ------------------
+                                                            riaProcessName:         req.RIA_Nome_Processo,
+                                                            riaExpectedDeadline:    req.RIA_prazo_esperado,
+                                                            riaIssues:              req.RIA_Dificuldades,
+                                                            riaOwner:               req.RIA_responsavel_processo
+                                                
+                                                        },
+                                                        With(
+                                                            {
+                                                                // Linha de 3 colunas aparece se houver qualquer valor
+                                                                hasTopRow: Or(!IsBlank(reqName), !IsBlank(reqEmail), !IsBlank(reqCompany)),
+                                                
+                                                                // Perguntas por tipo (ordem alfabética por código: CTD, RDA, RDB, RCA, RET, RIA, RAM)
+                                                                questions: Table(
+                                                                    // CTD
+                                                                    { k:"Dúvida/Necessidade técnica:",      v: ctdQuestion },
+                                                                    { k:"Sistema/app relacionado:",         v: ctdRelated },
+                                                                    { k:"Limitação técnica:",               v: ctdLimitation },
+                                                                    { k:"Impacto da dúvida:",               v: ctdImpact },
+                                                
+                                                                    // RAM
+                                                                    { k:"Usuários impactados:",             v: ramImpactedUsers },
+                                                                    { k:"Sistema/app/automação a ajustar:", v: ramTargetSystem },
+                                                
+                                                                    // RDA
+                                                                    { k:"Objetivo do app:",                 v: rdaObjective },
+                                                                    { k:"Fluxo de uso:",                    v: rdaFlow },
+                                                                    { k:"Funcionalidades necessárias:",     v: rdaFeatures },
+                                                                    { k:"Design desejado:",                 v: rdaDesign },
+                                                                    { k:"Necessita automação?",             v: rdaAutomation },
+                                                
+                                                                    // RDB
+                                                                    { k:"Objetivo do BI:",                  v: rdbObjective },
+                                                                    { k:"Fontes de dados:",                 v: rdbDataSources },
+                                                                    { k:"Acesso (usuários):",               v: rdbAudience },
+                                                                    { k:"Métricas/KPIs:",                   v: rdbKPIs },
+                                                
+                                                                    // RCA
+                                                                    { k:"E-mail para liberação:",           v: rcaGrantEmail },
+                                                                    { k:"Nome do aplicativo:",              v: rcaAppName },
+                                                
+                                                                    // RET
+                                                                    { k:"Esclarecimento necessário:",       v: retClarification },
+                                                                    { k:"Tipo de esclarecimento:",          v: retType },
+                                                                    { k:"Dúvida específica:",               v: retSpecificDoubt },
+                                                
+                                                                    // RIA
+                                                                    { k:"Nome do processo:",               v: riaProcessName },
+                                                                    { k:"Prazo esperado:",                 v: riaExpectedDeadline },
+                                                                    { k:"Dificuldades no processo:",       v: riaIssues },
+                                                                    { k:"Responsável pelo processo:",      v: riaOwner }
+                                                
+                                                                )
+                                                            },
+                                                
+                                                            // --------- Cartão (HTML inline compatível com HTML Text) ---------
+                                                            "<div style='height:" & Self.Height & "px; overflow-y:auto; overflow-x:hidden; box-sizing:border-box;'>" &
+                                                            "<div style='height: 93%;background:#fff;padding:15px 15px;
+                                                                        font-family:Segoe UI, Arial, sans-serif;color:#1a202c;margin-bottom: " & Medidas.Espacamento & "px;'>" &
+                                                
+                                                                // Cabeçalho: título à esquerda, "Chamado aberto em" (label acima do valor) à direita
+                                                                "<table style='width:100%;border-collapse:collapse;margin-bottom:8px;'><tr>" &
+                                                                    "<td style='font-weight:700;font-size:16px;'>Detalhes para atendimento</td>" &
+                                                                    "<td style='padding:0px 0;'>" &
+                                                                        If(
+                                                                            !IsBlank(reqOpenedAt),
+                                                                            "<div style='text-align:right;'>" &
+                                                                                "<div style='font-size:14px;color:#6b7280;font-weight:600;'>Chamado aberto em</div>" &
+                                                                                "<div style='font-size:14px;color:#374151;'>" & PlainText(reqOpenedAt) & "</div>" &
+                                                                            "</div>",
+                                                                            ""
+                                                                        ) &
+                                                                    "</td>" &
+                                                                "</tr></table>" &
+                                                
+                                                                "<div style='height:1px;background:#f0f2f6;margin:8px 0;'></div>" &
+                                                
+                                                                // Primeira linha: 3 colunas iguais (Solicitante – E-mail – Empresa)
+                                                                If(
+                                                                    hasTopRow,
+                                                                    "<table style='width:100%;border-collapse:collapse;margin-bottom:6px;'><tr>" &
+                                                                        // Solicitan­te
+                                                                        "<td style='width:33.33%;vertical-align:top;padding:6px 8px;'>" &
+                                                                            "<div style='font-weight:600;color:#4a5568;margin-bottom:2px'>Solicitante</div>" &
+                                                                            "<div style='color:#111827;'>" &
+                                                                                Substitute( PlainText(Coalesce(reqName, "")), Char(10), "<br>" ) &
+                                                                            "</div>" &
+                                                                        "</td>" &
+                                                                        // E-mail (clicável)
+                                                                        "<td style='width:33.33%;vertical-align:top;padding:6px 8px;'>" &
+                                                                            "<div style='font-weight:600;color:#4a5568;margin-bottom:2px'>E-mail</div>" &
+                                                                            "<div style='color:#111827;'>" &
+                                                                                If(
+                                                                                    !IsBlank(reqEmail),
+                                                                                    "<a href='mailto:" & PlainText(reqEmail) & "' style='text-decoration:none;border-bottom:1px dotted #9ca3af;'>" &
+                                                                                        PlainText(reqEmail) & "</a>",
+                                                                                    ""
+                                                                                ) &
+                                                                            "</div>" &
+                                                                        "</td>" &
+                                                                        // Empresa
+                                                                        "<td style='width:33.33%;vertical-align:top;padding:6px 8px;'>" &
+                                                                            "<div style='font-weight:600;color:#4a5568;margin-bottom:2px'>Empresa</div>" &
+                                                                            "<div style='color:#111827;'>" &
+                                                                                Substitute( PlainText(Coalesce(reqCompany, "")), Char(10), "<br>" ) &
+                                                                            "</div>" &
+                                                                        "</td>" &
+                                                                    "</tr></table>",
+                                                                    ""
+                                                                ) &
+                                                
+                                                                // Perguntas: rótulo (direita) | valor (esquerda)
+                                                                "<div style='height:1px;background:#f0f2f6;margin:8px 0;'></div>" &
+                                                                "<table style='width:100%;border-collapse:collapse;'>" &
+                                                                    Concat(
+                                                                        Filter(questions, !IsBlank(v)),
+                                                                        "<tr>" &
+                                                                            "<td style='width:33.33%;vertical-align:top;padding:6px 8px;font-weight:600;color:#4a5568;text-align:right;'>" &
+                                                                                PlainText(k) &
+                                                                            "</td>" &
+                                                                            "<td style='vertical-align:top;padding:6px 8px;color:#111827;text-align:left;'>" &
+                                                                                Substitute( PlainText(Coalesce(v, "")), Char(10), "<br>" ) &
+                                                                            "</td>" &
+                                                                        "</tr>"
+                                                                    ) &
+                                                                "</table>" &
+                                                
+                                                                // Descrição (HTML do SharePoint preservado)
+                                                                If(
+                                                                    !IsBlank(reqDescHtml),
+                                                                    "<div style='height:1px;background:#f0f2f6;margin:8px 0;'></div>" &
+                                                                    "<div style='margin:6px 0 2px 0;font-weight:700;'>Descrição da requisição</div>" &
+                                                                    "<div>" & reqDescHtml & "</div>",
+                                                                    ""
+                                                                ) &
+                                                
+                                                            "</div>" & "</div>"
+                                                        )
+                                                    )
+                                                )
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =13
+                                            Width: =Parent.Width
+                                            ZIndex: =1
+
+                                        Container39_2 As groupContainer.manualLayoutContainer:
+                                            AlignInContainer: =AlignInContainer.Center
+                                            Fill: =EsquemaDeCores.AzulBackground.Cor
+                                            FillPortions: =0
+                                            Height: =40
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =Medidas.Raio
+                                            RadiusBottomRight: =Medidas.Raio
+                                            RadiusTopLeft: =Medidas.Raio
+                                            RadiusTopRight: =Medidas.Raio
+                                            Width: =Parent.Width - Medidas.Espacamento*2
+                                            Y: =20
+                                            ZIndex: =2
+
+                                            Label1_141 As label:
+                                                Align: =Align.Center
+                                                BorderColor: =App.Theme.Colors.Darker30
+                                                Color: =RGBA(255, 255, 255, 1)
+                                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                                Font: =App.Theme.Font
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =Parent.Height
+                                                Size: =15
+                                                Text: ="ATENDENTE"
+                                                Width: =Parent.Width
+                                                ZIndex: =1
+
+                                        Container46_2 As groupContainer.manualLayoutContainer:
+                                            BorderStyle: =BorderStyle.None
+                                            FillPortions: =0
+                                            Height: =100
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            X: =40
+                                            Y: =40
+                                            ZIndex: =3
+
+                                            Form_Selecao_Atendente_4 As form:
+                                                AcceptsFocus: =false
+                                                BorderColor: =App.Theme.Colors.Darker30
+                                                DataSource: =db_tickets_dev
+                                                DefaultMode: =FormMode.View
+                                                Height: =Parent.Height
+                                                Item: =loc_InfoTicket_dev
+                                                Width: =Parent.Width - Self.X
+                                                X: =Image1_3.X + Image1_3.Width + Medidas.Espacamento*2
+                                                ZIndex: =1
+
+                                                Tk_Atendente_DataCard2_4 As typedDataCard.comboBoxEditCard:
+                                                    AutoHeight: =true
+                                                    BorderColor: =App.Theme.Colors.Darker30
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    BorderThickness: =0
+                                                    ContentLanguage: =""
+                                                    DataField: ="Tk_Atendente"
+                                                    Default: =ThisItem.Tk_Atendente
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    DisplayName: =DataSourceInfo([@db_tickets_infra],DataSourceInfo.DisplayName,Tk_Atendente)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =Parent.Height
+                                                    LayoutHeight: =0
+                                                    LayoutWidth: =0
+                                                    LayoutX: =0
+                                                    LayoutY: =0
+                                                    maximumHeight: =7680
+                                                    maximumWidth: =1366
+                                                    minimumHeight: =20
+                                                    minimumWidth: =20
+                                                    Required: =false
+                                                    Update: =DataCardValue22_5.Selected
+                                                    Visible: =true
+                                                    Width: =Parent.Width
+                                                    WidthFit: =false
+                                                    X: =0
+                                                    Y: =0
+                                                    ZIndex: =1
+
+                                                    DataCardKey22_5 As label:
+                                                        AutoHeight: =true
+                                                        Color: =App.Theme.Colors.Darker30
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        Font: =App.Theme.Font
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =34
+                                                        Size: =12
+                                                        Text: =Parent.DisplayName
+                                                        Visible: =false
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue22_5 As combobox:
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        ChevronBackground: =App.Theme.Colors.Primary
+                                                        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                                        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                                        ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                        Default: =loc_InfoTicket_dev.Tk_Atendente
+                                                        DefaultSelectedItems: =Parent.Default
+                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                        DisplayFields: =["Value"]
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        Font: =App.Theme.Font
+                                                        Height: =30
+                                                        HoverColor: =RGBA(0, 0, 0, 1)
+                                                        HoverFill: =RGBA(186, 202, 226, 1)
+                                                        InputTextPlaceholder: ="Localizar itens"
+                                                        Items: =Choices([@db_tickets_infra].Tk_Atendente)
+                                                        OnSelect: |-
+                                                            =Patch(
+                                                                db_eventos_dev,
+                                                                Defaults(db_eventos_dev),
+                                                                {
+                                                                    Tk_TicketID: loc_InfoTicket_dev.Tk_Ticket,
+                                                                    Tk_Data_Inicio_Evento: Today(),
+                                                                    Tk_Data_Termino_Evento: Today(),
+                                                                    Tk_Tipo_Evento: { Value: "Atendente Selecionado" } // Formato correto para campo de Opções
+                                                                }
+                                                            );
+                                                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                        PressedColor: =RGBA(255, 255, 255, 1)
+                                                        PressedFill: =App.Theme.Colors.Darker30
+                                                        SearchFields: =["Value"]
+                                                        SearchItems: =Choices(db_tickets_infra.Tk_Atendente,DataCardValue22_5.SearchText)
+                                                        SelectionFill: =RGBA(56, 96, 178, 1)
+                                                        SelectMultiple: =false
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        Y: =Image1_3.Height/2
+                                                        ZIndex: =2
+
+                                                    ErrorMessage22_5 As label:
+                                                        AutoHeight: =true
+                                                        Color: =RGBA(168, 0, 0, 1)
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        Font: =App.Theme.Font
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue22_5.Y + DataCardValue22_5.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible22_5 As label:
+                                                        Align: =Align.Center
+                                                        Color: =App.Theme.Colors.Darker30
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        Font: =App.Theme.Font
+                                                        Height: =DataCardKey22_5.Height
+                                                        Size: =13
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =10
+                                                        Wrap: =false
+                                                        Y: =DataCardKey22_5.Y
+                                                        ZIndex: =4
+
+                                                    Label1_1 As label:
+                                                        BorderColor: =App.Theme.Colors.Darker40
+                                                        Color: =RGBA(0, 0, 0, 1)
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        Font: =App.Theme.Font
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =30
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        Size: =12
+                                                        Text: =If(IsBlank(loc_InfoTicket_dev.Tk_Atendente.Value), "Sem atendente selecionado", LookUp(colAtendentesDI, Value = loc_InfoTicket_dev.Tk_Atendente.Value, Atendente))
+                                                        Width: =Parent.Width
+                                                        Y: =Image1_4.Height/2 - Self.Height
+                                                        ZIndex: =5
+
+                                            Image1_3 As image:
+                                                BorderColor: =App.Theme.Colors.Darker30
+                                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                                Height: =Parent.Height - Medidas.Espacamento*2
+                                                Image: |-
+                                                    =If(DataCardValue22_5.Selected.Value = Blank(),
+                                                    UsuáriosdoOffice365.UserPhoto("sistemas@bonin.eng.br"),
+                                                    UsuáriosdoOffice365.UserPhoto(DataCardValue22_5.Selected.Value))
+                                                ImagePosition: =ImagePosition.Fill
+                                                RadiusBottomLeft: =50
+                                                RadiusBottomRight: =50
+                                                RadiusTopLeft: =50
+                                                RadiusTopRight: =50
+                                                Width: =Self.Height
+                                                X: =Medidas.Espacamento*2
+                                                Y: =Parent.Height/2 - Self.Height/2
+                                                ZIndex: =2
+
+                                    Container42 As groupContainer.manualLayoutContainer:
+                                        FillPortions: =0
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        Width: =Medidas.Espacamento*2
+                                        ZIndex: =3
+
+                                    Container43 As groupContainer.horizontalAutoLayoutContainer:
+                                        LayoutDirection: =LayoutDirection.Vertical
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        LayoutMode: =LayoutMode.Auto
+                                        ZIndex: =4
+
+                                        Container37_1 As groupContainer.manualLayoutContainer:
+                                            FillPortions: =0
+                                            Height: =50
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            Visible: =If(AtualizacaoHistorico || EditarHistorico, false, true)
+                                            ZIndex: =1
+
+                                            Button4_1 As button:
+                                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                                Fill: =EsquemaDeCores.AzulBackground.Cor
+                                                Font: =App.Theme.Font
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =Parent.Height
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =ColorFade(EsquemaDeCores.AzulBackground.Cor, -20%)
+                                                OnSelect: |-
+                                                    =UpdateContext({AtualizacaoHistorico:true});
+                                                    UpdateContext({Atendente:false});
+                                                    NewForm(Form_Lancamento_Historico);
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =ColorFade(EsquemaDeCores.AzulBackground.Cor, -20%)
+                                                RadiusBottomLeft: =Medidas.Raio
+                                                RadiusBottomRight: =Medidas.Raio
+                                                RadiusTopLeft: =Medidas.Raio
+                                                RadiusTopRight: =Medidas.Raio
+                                                Size: =15
+                                                Text: ="ATUALIZAR HISTÓRICO DE EVENTOS"
+                                                Width: =Parent.Width
+                                                ZIndex: =1
+
+                                        Container37 As groupContainer.manualLayoutContainer:
+                                            FillPortions: =0
+                                            Height: =Medidas.Espacamento
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            Visible: =If(AtualizacaoHistorico || EditarHistorico, false, true)
+                                            ZIndex: =2
+
+                                        Container28_6 As groupContainer.manualLayoutContainer:
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =150
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =Medidas.Raio
+                                            RadiusBottomRight: =Medidas.Raio
+                                            RadiusTopLeft: =Medidas.Raio
+                                            RadiusTopRight: =Medidas.Raio
+                                            Visible: =If(AtualizacaoHistorico || EditarHistorico, false, true)
+                                            ZIndex: =3
+
+                                            Container30_3 As groupContainer.horizontalAutoLayoutContainer:
+                                                Height: =Parent.Height - Medidas.Espacamento*2
+                                                LayoutDirection: =LayoutDirection.Vertical
+                                                LayoutMode: =LayoutMode.Auto
+                                                Width: =Parent.Width - Medidas.Espacamento*2
+                                                X: =Parent.Width/2 - Self.Width/2
+                                                Y: =Parent.Height/2 - Self.Height/2
+                                                ZIndex: =1
+
+                                                HtmlText9_2 As htmlViewer:
+                                                    AlignInContainer: =AlignInContainer.Stretch
+                                                    AutoHeight: =true
+                                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                    Font: =App.Theme.Font
+                                                    HtmlText: |
+                                                        =With(
+                                                            {
+                                                                corPrincipal: EsquemaDeCores.AzulBackground.Texto,
+                                                                corTexto: "#fff",
+                                                                corSombra: "rgba(0,0,0,0.08)"
+                                                            },
+                                                            "
+                                                                <div style='display:flex;align-items:center;justify-content:space-between;
+                                                                        border:1px solid " & corPrincipal & ";border-radius:" & Medidas.Raio & "px;
+                                                                        background:" & corPrincipal & ";
+                                                                        margin-bottom:" & Medidas.Espacamento & "px;
+                                                                        padding:4px 4px;
+                                                                        font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                                                        font-size:20px;font-weight:700;
+                                                                        color:" & corTexto & ";box-shadow:0 1px 3px " & corSombra & ";'>
+                                                        
+                                                                <!-- Data -->
+                                                                <div style='flex:1;text-align:center;'>HISTÓRICO DE EVENTOS</div>
+                                                            </div>
+                                                            <div style='display:flex;align-items:center;justify-content:space-between;
+                                                                        border:1px solid " & corPrincipal & ";border-radius:" & Medidas.Raio & "px;
+                                                                        background:" & corPrincipal & ";
+                                                                        margin-top:" & Medidas.Espacamento & "px;
+                                                                        margin-bottom:" & Medidas.Espacamento & "px;
+                                                                        padding:4px 4px;
+                                                                        font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                                                        font-size:16px;font-weight:700;
+                                                                        color:" & corTexto & ";box-shadow:0 1px 3px " & corSombra & ";'>
+                                                        
+                                                                <!-- Data -->
+                                                                <div style='flex:1;text-align:center;'>DATA DE<br>ABERTURA</div>
+                                                        
+                                                                <!-- Nome -->
+                                                                <div style='flex:2;text-align:center;'>TICKET</div>
+                                                        
+                                                                <!-- Status -->
+                                                                <div style='flex:3;text-align:center;'>STATUS</div>
+                                                            </div>
+                                                            "
+                                                        )
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Size: =13
+                                                    ZIndex: =3
+
+                                                Gallery1_20 As gallery.variableTemplateHeightGallery:
+                                                    '#CopilotOverlayLabel': ="Filtrada"
+                                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                                    BorderStyle: =BorderStyle.None
+                                                    DelayItemLoading: =true
+                                                    Fill: =RGBA(255, 255, 255, 1)
+                                                    FillPortions: =0
+                                                    Height: |
+                                                        =Parent.Height - Self.Y - 10
+                                                    Items: =Filter(db_eventos_dev, Tk_TicketID = loc_InfoTicket_dev.Ticket)
+                                                    Layout: =Layout.Vertical
+                                                    LayoutMinHeight: =287
+                                                    LayoutMinWidth: =320
+                                                    LoadingSpinner: =LoadingSpinner.Data
+                                                    ShowScrollbar: =false
+                                                    TemplatePadding: =0
+                                                    TemplateSize: =50
+                                                    Width: =Parent.Width - Self.X*2
+                                                    X: =10
+                                                    Y: =593
+                                                    ZIndex: =4
+
+                                                    HtmlText8_1 As htmlViewer:
+                                                        AutoHeight: =true
+                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                        Font: =App.Theme.Font
+                                                        Height: =50
+                                                        HtmlText: |
+                                                            =With(
+                                                                {
+                                                                    corTexto: "#222",
+                                                                    corSombra: "rgba(0,0,0,0.08)"
+                                                                },
+                                                                "
+                                                                <div style='display:flex;align-items:center;justify-content:space-between;
+                                                                            height: 60px;
+                                                                            border:1px solid #ddd;border-radius:6px;
+                                                                            background:#fff;padding:4px 8px;
+                                                                            font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                                                            font-size:14px;color:" & corTexto & ";
+                                                                            box-shadow:0 1px 3px " & corSombra & ";'>
+                                                            
+                                                                    <!-- Data de início -->
+                                                                    <div style='flex:1;text-align:center;white-space:nowrap;'>
+                                                                        " & Text(ThisItem.Tk_Data_Inicio_Evento,"dd/mm/yyyy") & "
+                                                                    </div>
+                                                            
+                                                                    <!-- Nome do modificador -->
+                                                                    <div style='flex:2;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>
+                                                                        " & ThisItem.'Modificado por'.DisplayName & "
+                                                                    </div>
+                                                            
+                                                                    <!-- Status -->
+                                                                    <div style='flex:3;text-align:center;font-weight:600;white-space:nowrap;'>
+                                                                        " & ThisItem.Tk_Tipo_Evento.Value & "
+                                                                    </div>
+                                                                </div>
+                                                                "
+                                                            )
+                                                        OnSelect: =Select(Parent)
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Size: =13
+                                                        Width: =Parent.Width
+                                                        ZIndex: =1
+
+                                                    Button3_3 As button:
+                                                        BorderStyle: =BorderStyle.None
+                                                        Color: =RGBA(0, 0, 0, 0)
+                                                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                        Fill: =RGBA(0, 0, 0, 0)
+                                                        Font: =App.Theme.Font
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =HtmlText8_1.Height - 2
+                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                        HoverFill: =ColorValue(EsquemaDeCores.AzulEscuroBonin.Texto&"33") // O 33 representa o código em hexadecimal que indica a transparência, nesse caso 20%
+                                                        OnSelect: |
+                                                            =UpdateContext({EditarHistorico:true});
+                                                            Clear(colHistorioEvento);
+                                                            ClearCollect(colHistorioEvento, Filter(db_eventos_dev, ID = ThisItem.ID));
+                                                            UpdateContext({loc_InfoHistorioEvento_Dev: First(colHistorioEvento)});
+                                                        PressedFill: =Color.Transparent
+                                                        RadiusBottomLeft: =5
+                                                        RadiusBottomRight: =5
+                                                        RadiusTopLeft: =5
+                                                        RadiusTopRight: =5
+                                                        Size: =15
+                                                        Text: =
+                                                        Width: =Parent.Width
+                                                        ZIndex: =2
+
+                                        Container28_7 As groupContainer.manualLayoutContainer:
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =150
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =10
+                                            RadiusBottomRight: =10
+                                            RadiusTopLeft: =10
+                                            RadiusTopRight: =10
+                                            Visible: =If(AtualizacaoHistorico || EditarHistorico, true, false)
+                                            ZIndex: =4
+
+                                            Container30_4 As groupContainer.horizontalAutoLayoutContainer:
+                                                Height: =Parent.Height - Self.Y - 10
+                                                LayoutDirection: =LayoutDirection.Vertical
+                                                LayoutMode: =LayoutMode.Auto
+                                                Width: =Parent.Width - Self.X * 2
+                                                X: =10
+                                                Y: =10 
+                                                ZIndex: =1
+
+                                                Container31_4 As groupContainer.manualLayoutContainer:
+                                                    BorderColor: =RGBA(0, 13, 75, 1)
+                                                    Fill: =EsquemaDeCores.AzulBackground.Cor
+                                                    FillPortions: =0
+                                                    Height: =40
+                                                    LayoutMinHeight: =100
+                                                    LayoutMinWidth: =250
+                                                    RadiusBottomLeft: =4
+                                                    RadiusBottomRight: =4
+                                                    RadiusTopLeft: =4
+                                                    RadiusTopRight: =4
+                                                    ZIndex: =1
+
+                                                    Label1_143 As label:
+                                                        Align: =Align.Center
+                                                        BorderColor: =App.Theme.Colors.Darker30
+                                                        Color: =RGBA(255, 255, 255, 1)
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        FocusedBorderThickness: =
+                                                        Font: =App.Theme.Font
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =Parent.Height
+                                                        OnSelect: =
+                                                        Size: =15
+                                                        TabIndex: =1
+                                                        Text: ="LANÇAMENTO DE EVENTOS"
+                                                        Width: =Parent.Width - Self.X * 2
+                                                        ZIndex: =1
+
+                                                    Icon1_1 As icon:
+                                                        BorderColor: =App.Theme.Colors.Darker30
+                                                        Color: =RGBA(255, 255, 255, 1)
+                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                        DisabledColor: =RGBA(244, 244, 244, 1)
+                                                        Height: =Parent.Height - Self.Y * 2
+                                                        Icon: =Icon.CancelBadge
+                                                        OnSelect: |-
+                                                            =UpdateContext({AtualizacaoHistorico: false});
+                                                            UpdateContext({EditarHistorico: false});
+                                                            ResetForm(Form_Lancamento_Historico);
+                                                        X: =Parent.Width - Self.Width
+                                                        Y: =5
+                                                        ZIndex: =2
+
+                                                Container32_4 As groupContainer.horizontalAutoLayoutContainer:
+                                                    LayoutDirection: =LayoutDirection.Vertical
+                                                    LayoutMinHeight: =100
+                                                    LayoutMinWidth: =250
+                                                    LayoutMode: =LayoutMode.Auto
+                                                    ZIndex: =2
+
+                                                    Container46 As groupContainer.manualLayoutContainer:
+                                                        BorderStyle: =BorderStyle.None
+                                                        FillPortions: =0
+                                                        Height: =Medidas.Espacamento
+                                                        LayoutMinHeight: =100
+                                                        LayoutMinWidth: =250
+                                                        ZIndex: =1
+
+                                                    Container61 As groupContainer.manualLayoutContainer:
+                                                        Fill: =EsquemaDeCores.AzulConteiner.Cor
+                                                        LayoutMinHeight: =100
+                                                        LayoutMinWidth: =250
+                                                        RadiusBottomLeft: =Medidas.Raio
+                                                        RadiusBottomRight: =Medidas.Raio
+                                                        RadiusTopLeft: =Medidas.Raio
+                                                        RadiusTopRight: =Medidas.Raio
+                                                        ZIndex: =2
+
+                                                        Form_Selecao_Atendente_1 As form:
+                                                            AcceptsFocus: =false
+                                                            BorderColor: =App.Theme.Colors.Darker30
+                                                            DataSource: =db_tickets_dev
+                                                            Height: =100
+                                                            Item: =loc_InfoTicket_dev
+                                                            Visible: |-
+                                                                =If(
+                                                                    !IsBlank(DataCardValue26_2.Selected.Value) && DataCardValue26_2.Selected.Value = "Atendente Selecionado",
+                                                                    true,
+                                                                    false
+                                                                )
+                                                            Width: =Parent.Width
+                                                            Y: =Parent.Height-Self.Height
+                                                            ZIndex: =1
+
+                                                            Tk_Atendente_DataCard2_1 As typedDataCard.comboBoxEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Tk_Atendente"
+                                                                Default: =ThisItem.Tk_Atendente
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_tickets_infra],DataSourceInfo.DisplayName,Tk_Atendente)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =Parent.Height
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue22_4.Selected
+                                                                Visible: =true
+                                                                Width: =609
+                                                                WidthFit: =true
+                                                                X: =0
+                                                                Y: =0
+                                                                ZIndex: =1
+
+                                                                DataCardKey22_4 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: ="SELECIONAR ATENDENTE"
+                                                                    Width: =Parent.Width - 20
+                                                                    Wrap: =false
+                                                                    X: =10
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                Container65 As groupContainer.manualLayoutContainer:
+                                                                    BorderStyle: =BorderStyle.None
+                                                                    Height: =30
+                                                                    RadiusBottomLeft: =5
+                                                                    RadiusBottomRight: =5
+                                                                    RadiusTopLeft: =5
+                                                                    RadiusTopRight: =5
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =48
+                                                                    ZIndex: =3
+
+                                                                    DataCardValue22_4 As combobox:
+                                                                        BorderColor: =If(IsBlank(Tk_Atendente_DataCard2_1.Error), Parent.BorderColor, Color.Red)
+                                                                        BorderStyle: =BorderStyle.None
+                                                                        BorderThickness: =0
+                                                                        ChevronBackground: =App.Theme.Colors.Primary
+                                                                        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                                                        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                                                        ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                                                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                                        DefaultSelectedItems: =Tk_Atendente_DataCard2_1.Default
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                                        DisplayFields: =["Atendente"]
+                                                                        DisplayMode: =Parent.DisplayMode
+                                                                        Font: =App.Theme.Font
+                                                                        Height: =Parent.Height
+                                                                        HoverColor: =RGBA(0, 0, 0, 1)
+                                                                        HoverFill: =RGBA(186, 202, 226, 1)
+                                                                        InputTextPlaceholder: ="Selecione o atendente"
+                                                                        Items: =colAtendentesDI
+                                                                        OnSelect: =
+                                                                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                                        PressedColor: =RGBA(255, 255, 255, 1)
+                                                                        PressedFill: =App.Theme.Colors.Darker30
+                                                                        SearchFields: =["Value"]
+                                                                        SearchItems: =Search(colAtendentesDI,DataCardValue22_4.SearchText,Value)
+                                                                        SelectionFill: =RGBA(56, 96, 178, 1)
+                                                                        SelectMultiple: =false
+                                                                        Tooltip: =Tk_Atendente_DataCard2_1.DisplayName
+                                                                        Width: =Parent.Width
+                                                                        ZIndex: =1
+
+                                                                ErrorMessage22_4 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardValue22_4.Y + DataCardValue22_4.Height
+                                                                    ZIndex: =4
+
+                                                                StarVisible22_4 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey22_4.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey22_4.Y
+                                                                    ZIndex: =5
+
+                                                        Form_Lancamento_Historico As form:
+                                                            AcceptsFocus: =false
+                                                            BorderColor: =App.Theme.Colors.Darker30
+                                                            DataSource: =db_eventos_dev
+                                                            Height: =Parent.Height - If(!Form_Selecao_Atendente_1.Visible, 0,Form_Selecao_Atendente_1.Height)
+                                                            Item: =loc_InfoHistorioEvento_Dev
+                                                            OnReset: =true
+                                                            OnSuccess: |
+                                                                =ResetForm(Form_Lancamento_Historico);
+                                                            SnapToColumns: =false
+                                                            Width: =Parent.Width
+                                                            ZIndex: =2
+
+                                                            Tk_Tipo_Evento_DataCard1 As typedDataCard.comboBoxEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Tk_Tipo_Evento"
+                                                                Default: =ThisItem.Tk_Tipo_Evento
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_eventos_infra],DataSourceInfo.DisplayName,Tk_Tipo_Evento)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =50
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue26_2.Selected
+                                                                Visible: =true
+                                                                Width: =Parent.Width/3
+                                                                WidthFit: =false
+                                                                X: =0
+                                                                Y: =0
+                                                                ZIndex: =1
+
+                                                                DataCardKey26_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: ="TIPO EVENTO"
+                                                                    Width: =Parent.Width - 20
+                                                                    Wrap: =false
+                                                                    X: =10
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                Container62 As groupContainer.manualLayoutContainer:
+                                                                    BorderStyle: =BorderStyle.None
+                                                                    Height: =30
+                                                                    RadiusBottomLeft: =5
+                                                                    RadiusBottomRight: =5
+                                                                    RadiusTopLeft: =5
+                                                                    RadiusTopRight: =5
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardKey26_2.Y + DataCardKey26_2.Height + 5
+                                                                    ZIndex: =3
+
+                                                                    DataCardValue26_2 As combobox:
+                                                                        BorderColor: =If(IsBlank(Tk_Tipo_Evento_DataCard1.Error), Parent.BorderColor, Color.Red)
+                                                                        BorderStyle: =BorderStyle.None
+                                                                        BorderThickness: =0
+                                                                        ChevronBackground: =App.Theme.Colors.Primary
+                                                                        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                                                        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                                                        ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                                                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                                        DefaultSelectedItems: =Tk_Tipo_Evento_DataCard1.Default
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                                        DisplayFields: =["Value"]
+                                                                        DisplayMode: =Parent.DisplayMode
+                                                                        FocusedBorderThickness: =1
+                                                                        Font: =App.Theme.Font
+                                                                        Height: =Parent.Height
+                                                                        HoverColor: =RGBA(0, 0, 0, 1)
+                                                                        HoverFill: =RGBA(186, 202, 226, 1)
+                                                                        InputTextPlaceholder: ="Selecione o evento"
+                                                                        Items: =Choices([@db_eventos_infra].Tk_Tipo_Evento)
+                                                                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                                        PressedColor: =RGBA(255, 255, 255, 1)
+                                                                        PressedFill: =App.Theme.Colors.Darker30
+                                                                        SearchFields: =["Value"]
+                                                                        SearchItems: =Choices(db_eventos_infra.Tk_Tipo_Evento,DataCardValue26_2.SearchText)
+                                                                        SelectionFill: =RGBA(56, 96, 178, 1)
+                                                                        SelectMultiple: =false
+                                                                        Tooltip: =Tk_Tipo_Evento_DataCard1.DisplayName
+                                                                        Width: =Parent.Width
+                                                                        ZIndex: =1
+
+                                                                ErrorMessage26_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: |
+                                                                        =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardValue26_2.Y + DataCardValue26_2.Height
+                                                                    ZIndex: =4
+
+                                                                StarVisible26_2 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey26_2.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey26_2.Y
+                                                                    ZIndex: =5
+
+                                                            Tk_Data_Inicio_Evento_DataCard1 As typedDataCard.dateEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Tk_Data_Inicio_Evento"
+                                                                Default: =ThisItem.Tk_Data_Inicio_Evento
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_eventos_infra],DataSourceInfo.DisplayName,Tk_Data_Inicio_Evento)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =50
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue27_2.SelectedDate
+                                                                Visible: =true
+                                                                Width: =Parent.Width/3
+                                                                WidthFit: =false
+                                                                X: =2
+                                                                Y: =0
+                                                                ZIndex: =2
+
+                                                                DataCardKey27_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: ="DATA INÍCIO"
+                                                                    Width: =Parent.Width - 20
+                                                                    Wrap: =false
+                                                                    X: =10
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                Container63 As groupContainer.manualLayoutContainer:
+                                                                    BorderStyle: =BorderStyle.None
+                                                                    Height: =30
+                                                                    RadiusBottomLeft: =5
+                                                                    RadiusBottomRight: =5
+                                                                    RadiusTopLeft: =5
+                                                                    RadiusTopRight: =5
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardKey27_2.Y + DataCardKey27_2.Height + 5
+                                                                    ZIndex: =3
+
+                                                                    DataCardValue27_2 As datepicker:
+                                                                        BorderColor: =If(IsBlank(Tk_Data_Inicio_Evento_DataCard1.Error), Parent.BorderColor, Color.Red)
+                                                                        BorderStyle: =BorderStyle.None
+                                                                        BorderThickness: =0
+                                                                        CalendarHeaderFill: =App.Theme.Colors.Primary
+                                                                        Color: =RGBA(0, 0, 0, 1)
+                                                                        DefaultDate: =If(DataCardValue26_2.Selected.Value = "Atendente Selecionado" && Not(EditarHistorico), Today(), Tk_Data_Inicio_Evento_DataCard1.Default)
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                                        DisplayMode: =Parent.DisplayMode
+                                                                        EndYear: =Year(Today())+100
+                                                                        FocusedBorderThickness: =1
+                                                                        Font: =App.Theme.Font
+                                                                        Height: =Parent.Height
+                                                                        HoverDateFill: =App.Theme.Colors.Lighter70
+                                                                        IconBackground: =App.Theme.Colors.Primary
+                                                                        IsEditable: =true
+                                                                        PaddingBottom: =0
+                                                                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                                        SelectedDateFill: =App.Theme.Colors.Primary
+                                                                        Size: =11
+                                                                        StartYear: =1899
+                                                                        Tooltip: =Tk_Data_Inicio_Evento_DataCard1.DisplayName
+                                                                        Width: =Parent.Width
+                                                                        ZIndex: =1
+
+                                                                ErrorMessage27_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardValue27_2.Y + DataCardValue27_2.Height
+                                                                    ZIndex: =4
+
+                                                                StarVisible27_2 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey27_2.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey27_2.Y
+                                                                    ZIndex: =5
+
+                                                            Tk_Data_Termino_Evento_DataCard1 As typedDataCard.dateEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Tk_Data_Termino_Evento"
+                                                                Default: =ThisItem.Tk_Data_Termino_Evento
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_eventos_infra],DataSourceInfo.DisplayName,Tk_Data_Termino_Evento)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =50
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue28_2.SelectedDate
+                                                                Visible: =true
+                                                                Width: =Parent.Width/3
+                                                                WidthFit: =false
+                                                                X: =3
+                                                                Y: =0
+                                                                ZIndex: =3
+
+                                                                DataCardKey28_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: ="DATA TÉRMINO"
+                                                                    Width: =Parent.Width - 20
+                                                                    Wrap: =false
+                                                                    X: =10
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                Container64 As groupContainer.manualLayoutContainer:
+                                                                    BorderStyle: =BorderStyle.None
+                                                                    Height: =30
+                                                                    RadiusBottomLeft: =5
+                                                                    RadiusBottomRight: =5
+                                                                    RadiusTopLeft: =5
+                                                                    RadiusTopRight: =5
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardKey28_2.Y + DataCardKey28_2.Height + 5
+                                                                    ZIndex: =3
+
+                                                                    DataCardValue28_2 As datepicker:
+                                                                        BorderColor: =If(IsBlank(Tk_Data_Termino_Evento_DataCard1.Error), Parent.BorderColor, Color.Red)
+                                                                        BorderStyle: =BorderStyle.None
+                                                                        BorderThickness: =0
+                                                                        CalendarHeaderFill: =App.Theme.Colors.Primary
+                                                                        Color: =RGBA(0, 0, 0, 1)
+                                                                        DefaultDate: =If(DataCardValue26_2.Selected.Value = "Atendente Selecionado", Today(), Tk_Data_Termino_Evento_DataCard1.Default)
+                                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                                        DisplayMode: =Parent.DisplayMode
+                                                                        EndYear: =Year(Today())+100
+                                                                        FocusedBorderThickness: =1
+                                                                        Font: =App.Theme.Font
+                                                                        Height: =Parent.Height
+                                                                        HoverDateFill: =App.Theme.Colors.Lighter70
+                                                                        IconBackground: =App.Theme.Colors.Primary
+                                                                        IsEditable: =true
+                                                                        PaddingBottom: =0
+                                                                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                                        SelectedDateFill: =App.Theme.Colors.Primary
+                                                                        Size: =11
+                                                                        StartYear: =1899
+                                                                        Tooltip: =Tk_Data_Termino_Evento_DataCard1.DisplayName
+                                                                        Width: =Parent.Width
+                                                                        ZIndex: =1
+
+                                                                ErrorMessage28_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardValue28_2.Y + DataCardValue28_2.Height
+                                                                    ZIndex: =4
+
+                                                                StarVisible28_2 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey28_2.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey28_2.Y
+                                                                    ZIndex: =5
+
+                                                            Observação_DataCard3 As typedDataCard.richTextEditorEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Observa_x00e7__x00e3_o"
+                                                                Default: =ThisItem.Observação
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_eventos_infra],DataSourceInfo.DisplayName,Observa_x00e7__x00e3_o)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =280
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue33.HtmlText
+                                                                Visible: =If(DataCardValue26_2.Selected.Value = "Cancelamento", false, true)
+                                                                Width: =Parent.Width
+                                                                WidthFit: =false
+                                                                X: =2
+                                                                Y: =1
+                                                                ZIndex: =4
+
+                                                                DataCardKey33 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: ="OBSERVAÇÃO"
+                                                                    Width: =Parent.Width - 20
+                                                                    Wrap: =false
+                                                                    X: =10
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                DataCardValue33 As richTextEditor:
+                                                                    BorderColor: =App.Theme.Colors.Darker30
+                                                                    Default: =Parent.Default
+                                                                    DisplayMode: =Parent.DisplayMode
+                                                                    Height: =220
+                                                                    Width: |
+                                                                        =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardKey33.Y + DataCardKey33.Height + 5
+                                                                    ZIndex: =2
+
+                                                                ErrorMessage33 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardValue33.Y + DataCardValue33.Height
+                                                                    ZIndex: =3
+
+                                                                StarVisible33 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey33.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey33.Y
+                                                                    ZIndex: =4
+
+                                                            Tk_Motivo_Cancelamento_DataCard3 As typedDataCard.richTextEditorEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Tk_Motivo_Cancelamento"
+                                                                Default: =ThisItem.Tk_Motivo_Cancelamento
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_eventos_infra],DataSourceInfo.DisplayName,Tk_Motivo_Cancelamento)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =280
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue30_2.HtmlText
+                                                                Visible: =If(DataCardValue26_2.Selected.Value = "Cancelamento", true, false)
+                                                                Width: =If(!Self.Visible, 0 , Parent.Width)
+                                                                WidthFit: =false
+                                                                X: =0
+                                                                Y: =2
+                                                                ZIndex: =5
+
+                                                                DataCardKey30_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: ="MOTIVO CANCELAMENTO"
+                                                                    Width: =Parent.Width - 20
+                                                                    Wrap: =false
+                                                                    X: =10
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                DataCardValue30_2 As richTextEditor:
+                                                                    BorderColor: =App.Theme.Colors.Darker30
+                                                                    Default: =Parent.Default
+                                                                    DisplayMode: =Parent.DisplayMode
+                                                                    Height: =220
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardKey30_2.Y + DataCardKey30_2.Height + 5
+                                                                    ZIndex: =2
+
+                                                                ErrorMessage30 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: =Parent.Width - 20
+                                                                    X: =10
+                                                                    Y: =DataCardValue30_2.Y + DataCardValue30_2.Height
+                                                                    ZIndex: =3
+
+                                                                StarVisible30 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey30_2.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey30_2.Y
+                                                                    ZIndex: =4
+
+                                                            Tk_TicketID_DataCard1 As typedDataCard.textualEditCard:
+                                                                AutoHeight: =true
+                                                                BorderColor: =App.Theme.Colors.Darker30
+                                                                BorderStyle: =BorderStyle.Solid
+                                                                BorderThickness: =0
+                                                                ContentLanguage: =""
+                                                                DataField: ="Tk_TicketID"
+                                                                Default: =ThisItem.Tk_TicketID
+                                                                DisplayMode: =Parent.DisplayMode
+                                                                DisplayName: =DataSourceInfo([@db_eventos_infra],DataSourceInfo.DisplayName,Tk_TicketID)
+                                                                Fill: =RGBA(0, 0, 0, 0)
+                                                                Height: =50
+                                                                LayoutHeight: =0
+                                                                LayoutWidth: =0
+                                                                LayoutX: =0
+                                                                LayoutY: =0
+                                                                maximumHeight: =7680
+                                                                maximumWidth: =1366
+                                                                MaxLength: =DataSourceInfo([@db_eventos_infra], DataSourceInfo.MaxLength, Tk_TicketID)
+                                                                minimumHeight: =20
+                                                                minimumWidth: =20
+                                                                Required: =false
+                                                                Update: =DataCardValue25_3.Text
+                                                                Visible: =false
+                                                                Width: =300
+                                                                WidthFit: =false
+                                                                X: =1
+                                                                Y: =2
+                                                                ZIndex: =6
+
+                                                                DataCardKey25_3 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =34
+                                                                    Size: =12
+                                                                    Text: =Parent.DisplayName
+                                                                    Width: =Parent.Width - 60
+                                                                    Wrap: =false
+                                                                    X: =30
+                                                                    Y: =10
+                                                                    ZIndex: =1
+
+                                                                DataCardValue25_3 As text:
+                                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                                    BorderThickness: =2
+                                                                    Color: =RGBA(0, 0, 0, 1)
+                                                                    Default: =loc_InfoTicket_dev.Ticket
+                                                                    DelayOutput: =true
+                                                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                                                    DisplayMode: =Parent.DisplayMode
+                                                                    FocusedBorderThickness: =4
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =30
+                                                                    HintText: =""
+                                                                    HoverBorderColor: =App.Theme.Colors.Darker30
+                                                                    HoverColor: =RGBA(0, 0, 0, 1)
+                                                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                                                    MaxLength: =Parent.MaxLength
+                                                                    PaddingLeft: =5
+                                                                    RadiusBottomLeft: =0
+                                                                    RadiusBottomRight: =0
+                                                                    RadiusTopLeft: =0
+                                                                    RadiusTopRight: =0
+                                                                    Size: =11
+                                                                    Tooltip: =Parent.DisplayName
+                                                                    Width: =Parent.Width - 60
+                                                                    X: =30
+                                                                    Y: =DataCardKey25_3.Y + DataCardKey25_3.Height + 5
+                                                                    ZIndex: =2
+
+                                                                ErrorMessage25_2 As label:
+                                                                    AutoHeight: =true
+                                                                    Color: =RGBA(168, 0, 0, 1)
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    FontWeight: =FontWeight.Semibold
+                                                                    Height: =10
+                                                                    Live: =Live.Assertive
+                                                                    PaddingBottom: =0
+                                                                    PaddingLeft: =0
+                                                                    PaddingRight: =0
+                                                                    PaddingTop: =0
+                                                                    Text: =Parent.Error
+                                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                                    Width: =Parent.Width - 60
+                                                                    X: =30
+                                                                    Y: =DataCardValue25_3.Y + DataCardValue25_3.Height
+                                                                    ZIndex: =3
+
+                                                                StarVisible25_2 As label:
+                                                                    Align: =Align.Center
+                                                                    Color: =App.Theme.Colors.Darker30
+                                                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                                                    Font: =App.Theme.Font
+                                                                    Height: =DataCardKey25_3.Height
+                                                                    Size: =13
+                                                                    Text: ="*"
+                                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                                    Width: =10
+                                                                    Wrap: =false
+                                                                    Y: =DataCardKey25_3.Y
+                                                                    ZIndex: =4
+
+                                                    Container46_3 As groupContainer.manualLayoutContainer:
+                                                        BorderStyle: =BorderStyle.None
+                                                        FillPortions: =0
+                                                        Height: =Medidas.Espacamento
+                                                        LayoutMinHeight: =100
+                                                        LayoutMinWidth: =250
+                                                        ZIndex: =3
+
+                                                Container47 As groupContainer.manualLayoutContainer:
+                                                    FillPortions: =0
+                                                    Height: =50
+                                                    LayoutMinHeight: =100
+                                                    LayoutMinWidth: =250
+                                                    ZIndex: =3
+
+                                                    Button4_4 As button:
+                                                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                                        DisabledColor: =RGBA(166, 166, 166, 1)
+                                                        DisabledFill: =RGBA(244, 244, 244, 1)
+                                                        Fill: =RGBA(45, 65, 93, 1)
+                                                        Font: =App.Theme.Font
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =Parent.Height
+                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                        HoverFill: =ColorFade(EsquemaDeCores.AzulEscuroBonin.Cor, -20%)
+                                                        OnSelect: |-
+                                                            =If(DataCardValue26_2.Selected.Value = "Abertura do Ticket",
+                                                                UpdateContext({AtualizacaoHistorico:false});
+                                                                UpdateContext({EditarHistorico:false});
+                                                                SubmitForm(Form_Lancamento_Historico),
+                                                            If(DataCardValue26_2.Selected.Value = "Atendente Selecionado",
+                                                                Patch(
+                                                                    db_tickets_dev,
+                                                                    LookUp(db_tickets_dev, Tk_Ticket = loc_InfoTicket_dev.Ticket),
+                                                                    {
+                                                                        Tk_Status_Ticket: "Iniciado"
+                                                                    }
+                                                                );
+                                                                'BONINHELPDESK-ATUALIZAÇÃODEEVENTOS'.Run(loc_InfoTicket_dev.Tk_Email_Solicitante,
+                                                                    loc_InfoTicket_dev.Nome_Solicitante,
+                                                                    Requisicao,
+                                                                    loc_InfoTicket_dev.Ticket,
+                                                                    "Iniciado",
+                                                                    DataCardValue26_2.Selected.Value,
+                                                                    UsuáriosdoOffice365.UserProfile(DataCardValue22_4.Selected.Value).DisplayName
+                                                                );
+                                                                UpdateContext({AtualizacaoHistorico:false});
+                                                                UpdateContext({EditarHistorico:false});
+                                                                SubmitForm(Form_Lancamento_Historico);
+                                                                SubmitForm(Form_Selecao_Atendente_1),
+                                                            If(DataCardValue26_2.Selected.Value = "Atendimento",
+                                                                Patch(
+                                                                    db_tickets_dev,
+                                                                    LookUp(db_tickets_dev, Tk_Ticket = loc_InfoTicket_dev.Ticket),
+                                                                    {
+                                                                        Tk_Status_Ticket: "Em Andamento"
+                                                                    }
+                                                                );
+                                                                'BONINHELPDESK-ATUALIZAÇÃODEEVENTOS'.Run(loc_InfoTicket_dev.Tk_Email_Solicitante,
+                                                                    loc_InfoTicket_dev.Nome_Solicitante,
+                                                                    Requisicao,
+                                                                    loc_InfoTicket_dev.Ticket,
+                                                                    "Em Andamento",
+                                                                    DataCardValue26_2.Selected.Value,
+                                                                    UsuáriosdoOffice365.UserProfile(loc_InfoTicket_dev.Tk_Atendente.Value).DisplayName
+                                                                );
+                                                                UpdateContext({AtualizacaoHistorico:false});
+                                                                UpdateContext({EditarHistorico:false});
+                                                                SubmitForm(Form_Lancamento_Historico),
+                                                            If(DataCardValue26_2.Selected.Value = "Pausa no Atendimento",
+                                                                Patch(
+                                                                    db_tickets_dev,
+                                                                    LookUp(db_tickets_dev, Tk_Ticket = loc_InfoTicket_dev.Ticket),
+                                                                    {
+                                                                        Tk_Status_Ticket: "Suspensão"
+                                                                    }
+                                                                );
+                                                                'BONINHELPDESK-ATUALIZAÇÃODEEVENTOS'.Run(loc_InfoTicket_dev.Tk_Email_Solicitante,
+                                                                    loc_InfoTicket_dev.Nome_Solicitante,
+                                                                    Requisicao,
+                                                                    loc_InfoTicket_dev.Ticket,
+                                                                    "Suspensão",
+                                                                    DataCardValue26_2.Selected.Value,
+                                                                    UsuáriosdoOffice365.UserProfile(loc_InfoTicket_dev.Tk_Atendente.Value).DisplayName
+                                                                );
+                                                                UpdateContext({AtualizacaoHistorico:false});
+                                                                UpdateContext({EditarHistorico:false});
+                                                                SubmitForm(Form_Lancamento_Historico),
+                                                            If(DataCardValue26_2.Selected.Value = "Cancelamento",
+                                                                Patch(
+                                                                    db_tickets_dev,
+                                                                    LookUp(db_tickets_dev, Tk_Ticket = loc_InfoTicket_dev.Ticket),
+                                                                    {
+                                                                        Tk_Status_Ticket: "Cancelado"
+                                                                    }
+                                                                );
+                                                                'BONINHELPDESK-ATUALIZAÇÃODEEVENTOS'.Run(loc_InfoTicket_dev.Tk_Email_Solicitante,
+                                                                    loc_InfoTicket_dev.Nome_Solicitante,
+                                                                    Requisicao,
+                                                                    loc_InfoTicket_dev.Ticket,
+                                                                    "Suspensão",
+                                                                    DataCardValue26_2.Selected.Value,
+                                                                    UsuáriosdoOffice365.UserProfile(loc_InfoTicket_dev.Tk_Atendente.Value).DisplayName
+                                                                );
+                                                                UpdateContext({AtualizacaoHistorico:false});
+                                                                UpdateContext({EditarHistorico:false});
+                                                                SubmitForm(Form_Lancamento_Historico),
+                                                            If(DataCardValue26_2.Selected.Value = "Concluído",
+                                                                Patch(
+                                                                    db_tickets_dev,
+                                                                    LookUp(db_tickets_dev, Tk_Ticket = loc_InfoTicket_dev.Ticket),
+                                                                    {
+                                                                        Tk_Status_Ticket: "Concluído"
+                                                                    }
+                                                                );
+                                                                Patch(
+                                                                    db_nps_dev,
+                                                                    Defaults(db_nps_dev),
+                                                                    {
+                                                                        Tk_TicketID: loc_InfoTicket_dev.Ticket,
+                                                                        Tk_Status_NPS: "Aguardando Pesquisa",
+                                                                        Tk_Solicitante: loc_InfoTicket_dev.Tk_Email_Solicitante
+                                                                    }
+                                                                );
+                                                                'BONINHELPDESK-ATUALIZAÇÃODEEVENTOS'.Run(loc_InfoTicket_dev.Tk_Email_Solicitante,
+                                                                    loc_InfoTicket_dev.Nome_Solicitante,
+                                                                    Requisicao,
+                                                                    loc_InfoTicket_dev.Ticket,
+                                                                    "Concluído",
+                                                                    DataCardValue26_2.Selected.Value,
+                                                                    UsuáriosdoOffice365.UserProfile(loc_InfoTicket_dev.Tk_Atendente.Value).DisplayName
+                                                                );
+                                                                UpdateContext({AtualizacaoHistorico:false});
+                                                                UpdateContext({EditarHistorico:false});
+                                                                SubmitForm(Form_Lancamento_Historico)
+                                                            ))))));
+                                                            ClearCollect(colTicketDev_Atendimento, Filter(db_tickets_dev, Tk_Ticket = loc_InfoTicket_dev.Ticket));
+                                                            UpdateContext({loc_InfoTicket_dev: First(colTicketDev_Atendimento)});
+                                                        Size: =15
+                                                        Text: ="LANÇAR"
+                                                        Width: =Parent.Width
+                                                        ZIndex: =1
+
+                    Container15_25 As groupContainer.manualLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(255, 255, 255, 0.8)
+                        Height: =Parent.Height
+                        Visible: =VarCnDeletar
+                        Width: =Parent.Width
+                        ZIndex: =3
+
+                        Container18_15 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.Light
+                            Fill: =RGBA(241, 244, 249, 1)
+                            Height: =400
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =800
+                            X: =Parent.Width/2 - Self.Width/2
+                            Y: =Parent.Height/2 - Self.Height/2
+                            ZIndex: =1
+
+                            Label2 As label:
+                                Align: =Align.Center
+                                BorderColor: =App.Theme.Colors.Darker30
+                                Color: =RGBA(0, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =133
+                                Size: =12
+                                Text: ="Gostaria de deletar o chamado " & Char(13)  & varDeletar.Tk_Ticket & Char(13) & Char(13) & varDeletar.Tk_Tipo_Ticket & Char(13) & Char(13) & varDeletar.Tk_Empresa_Solicitante
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            HtmlText1_4 As htmlViewer:
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =Parent.Height
+                                HtmlText: |
+                                    ="<div style='
+                                        max-width: 100%;
+                                        border: 1px solid #e0e0e0;
+                                        border-radius: 10px;
+                                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                        padding: 16px;
+                                        background-color: #ffffff;
+                                        font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                        color: #333;
+                                    '>
+                                      <h3 style='
+                                          margin-top: 0;
+                                          margin-bottom: 12px;
+                                          font-size: 18pt;
+                                          color: #d32f2f;
+                                      '>
+                                        ⚠️ Confirmação de Exclusão
+                                      </h3>
+                                      
+                                      <p style='
+                                          margin: 8px 0;
+                                          font-size: 16pt;
+                                          line-height: 1.4;
+                                      '>
+                                        Gostaria de deletar o chamado:
+                                      </p>
+                                      
+                                      <div style='
+                                          background-color: #f5f5f5;
+                                          border-radius: 6px;
+                                          padding: 10px;
+                                          margin-bottom: 8px;
+                                      '>
+                                        <p style='margin: 0; font-size: 16pt; font-weight: bold; color: #1976d2;'>" 
+                                        & varDeletar.Tk_Ticket &
+                                        "</p>
+                                      </div>
+                                      
+                                      <p style='
+                                          margin: 6px 0 2px 0;
+                                          font-size: 16pt;
+                                          font-weight: bold;
+                                          color: #555;
+                                      '>
+                                        Tipo do Chamado:
+                                      </p>
+                                      <p style='
+                                          margin: 2px 0 10px 0;
+                                          font-size: 16pt;
+                                          color: #777;
+                                      '>
+                                        " & varDeletar.Tk_Tipo_Ticket &
+                                      "</p>
+                                      
+                                      <p style='
+                                          margin: 6px 0 2px 0;
+                                          font-size: 16pt;
+                                          font-weight: bold;
+                                          color: #555;
+                                      '>
+                                        Empresa Solicitante:
+                                      </p>
+                                      <p style='
+                                          margin: 2px 0 0 0;
+                                          font-size: 16pt;
+                                          color: #777;
+                                      '>
+                                        " & varDeletar.Tk_Empresa_Solicitante &
+                                      "</p>
+                                    </div>"
+                                Size: =13
+                                Width: =Parent.Width
+                                ZIndex: =2
+
+                            Button7 As button:
+                                BorderThickness: =1
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                Fill: =RGBA(56, 96, 178, 1)
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                HoverColor: =RGBA(255, 255, 255, 1)
+                                HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                OnSelect: |-
+                                    =UpdateContext({varDeletar: Blank()});
+                                    UpdateContext({VarCnDeletar: false});
+                                Size: =15
+                                Text: ="Não"
+                                X: =Parent.Width/2 + 20
+                                Y: =Parent.Height - Self.Height - 20
+                                ZIndex: =3
+
+                            Button6 As button:
+                                BorderThickness: =1
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                Fill: =RGBA(56, 96, 178, 1)
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                HoverColor: =RGBA(255, 255, 255, 1)
+                                HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                OnSelect: |
+                                    =// 1. Busca os registros que devem ser excluídos em coleções temporárias
+                                    ClearCollect(colExcluir_eventos, Filter(db_eventos_dev, Tk_TicketID = varDeletar.Tk_Ticket));
+                                    ClearCollect(colExcluir_nps, Filter(db_nps_dev, Tk_TicketID = varDeletar.Tk_Ticket));
+                                    ClearCollect(colExcluir_tickets, Filter(db_tickets_dev, Tk_Ticket = varDeletar.Tk_Ticket));
+                                    
+                                    // 2. Exclui um a um usando as coleções
+                                    ForAll(colExcluir_eventos, Remove(db_eventos_dev, ThisRecord));
+                                    ForAll(colExcluir_nps, Remove(db_nps_dev, ThisRecord));
+                                    ForAll(colExcluir_tickets, Remove(db_tickets_dev, ThisRecord));
+                                    
+                                    // 3. Notificação de sucesso
+                                    Notify("Chamado e registros relacionados excluídos com sucesso!", NotificationType.Success);
+                                    
+                                    // 4. Limpa coleções temporárias e variáveis de controle
+                                    Clear(colExcluir_eventos);
+                                    Clear(colExcluir_nps);
+                                    Clear(colExcluir_tickets);
+                                    UpdateContext({varDeletar: Blank()});
+                                    UpdateContext({VarCnDeletar: false});
+                                Size: =15
+                                Text: ="Sim"
+                                X: =Parent.Width/2 - Self.Width - 20
+                                Y: =Parent.Height - Self.Height - 20
+                                ZIndex: =4
+
+        sigd_bonin_sidebar_28 As sigd_bonin_sidebar:
+            ChildTabPriority: =true
+            ContentLanguage: =""
+            EnableChildFocus: =true
+            OnSelect: =
+            Visible: =true
+            ZIndex: =2
+
+        sigd_bonin_cabecalho_28 As sigd_bonin_cabecalho:
+            ChildTabPriority: =true
+            ContentLanguage: =""
+            EnableChildFocus: =true
+            Height: =sigd_bonin_cabecalho_28.AlturaCabeçalho
+            Visible: =true
+            X: =sigd_bonin_cabecalho_28.EixoX
+            Y: =sigd_bonin_cabecalho_28.EixoY
+            ZIndex: =3
+

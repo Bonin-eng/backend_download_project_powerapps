@@ -1,0 +1,1532 @@
+"'Planejamento Semanal Screen' As screen":
+
+    Container2_2 As groupContainer.verticalAutoLayoutContainer:
+        Height: =Parent.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =1
+
+        cCabecalioPSC As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(112, 111, 111, 1)
+            FillPortions: =0
+            Height: =75
+            LayoutMinHeight: =100
+            LayoutMinWidth: =
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Image5_5 As image:
+                Height: =Parent.Height - Self.Y * 2
+                Image: ='aplicação fundo escuro'
+                Width: =180
+                X: =Image13_5.X - Self.Width
+                Y: =10
+                ZIndex: =1
+
+            Image13_5 As image:
+                Height: =Parent.Height - Self.Y * 2
+                Image: =HABITAÇÃO_CENTRALIZADO_FUNDO_ESCURO
+                Width: =150
+                X: =Parent.Width - Self.Width
+                Y: =10
+                ZIndex: =2
+
+            Label1_6 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: |
+                    =Parent.Height - Self.Y * 2
+                Size: =18
+                Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO URBHIS - PLANEJAMENTO SEMANAL DE ATIVIDADES"
+                Width: =1393
+                X: =20
+                Y: =5
+                ZIndex: =3
+
+        Container6_2 As groupContainer.horizontalAutoLayoutContainer:
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =2
+
+            cMenuLateral_3 As cmpMenuLateral:
+                AlignInContainer: =AlignInContainer.Stretch
+                LayoutMinHeight: =640
+                LayoutMinWidth: =640
+                Visible: =true
+                Width: =If(cMenuLateral_3.FecharMenu = true, 95, 250)
+
+            cPlanejamentoScreen As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(255, 255, 255, 1)
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =2
+
+                html_Fundo_gal_3 As htmlViewer:
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Font: =Font.'Segoe UI'
+                    Height: =Parent.Height
+                    HtmlText: |-
+                        ="<div style='
+                            background-color: #ffffff;
+                            height: "&Self.Height-1&"px;
+                            border-radius: 10px 5px 5px 5px;
+                            margin: 0px 0px 0px 10px;
+                            box-shadow: 5px 5px 5px gray;'
+                        ></div>"
+                    OnSelect: =
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Container7_2 As groupContainer.manualLayoutContainer:
+                    BorderStyle: =BorderStyle.None
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =Parent.Height
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    Container4_1 As groupContainer.verticalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(237, 237, 237, 1)
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        Container11_5 As groupContainer.manualLayoutContainer:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            FillPortions: =0
+                            Height: =80
+                            LayoutMinHeight: =10
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =800
+                            ZIndex: =1
+
+                            Button_PlanejamentoAtividade As button:
+                                BorderColor: =RGBA(0, 0, 0, 0)
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                Fill: =RGBA(122, 111, 150, 1)
+                                FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                                Font: =Font.Arial
+                                Height: =50
+                                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                                OnSelect: |-
+                                    =UpdateContext({locPP_Projeto:true});
+                                    ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate));
+                                    ClearCollect(colOrdemServicoPlanejada, Filter(dbOS, StatusOS = "Planejado"));
+                                    NewForm(Form_PlanejamentoSemanal);
+                                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                                PressedColor: =RGBA(255, 255, 255, 1)
+                                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                Size: =13
+                                Text: ="(+) Planejar atividade"
+                                Visible: =If(varUsuario = "Visitante",false,true)
+                                Width: =278
+                                X: =930
+                                Y: =20
+                                ZIndex: =1
+
+                            cF_SingleText_5 As groupContainer.verticalAutoLayoutContainer:
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderThickness: =2
+                                DropShadow: =DropShadow.None
+                                Fill: =Color.White
+                                Height: =50
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =1
+                                PaddingLeft: =1
+                                PaddingRight: =1
+                                PaddingTop: =1
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                Width: =250
+                                X: =360
+                                Y: =20
+                                ZIndex: =2
+
+                                Label5_44 As label:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =
+                                    Color: =Color.Black
+                                    DisabledColor: =
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    Text: |-
+                                        ="Data Inicial : "
+                                    Width: =110
+                                    ZIndex: =1
+
+                                Data1 As datepicker:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(166, 166, 166, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    CalendarHeaderFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                                    Color: =RGBA(51, 51, 51, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =43
+                                    HoverDateFill: =RGBA(200, 200, 200, 1)
+                                    IconBackground: =RGBA(0, 120, 212, 1)
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =10
+                                    OnChange: |-
+                                        =ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate && 
+                                                (IsBlank(inpNucleo_Busca_1.Selected.Nucleo) || Nucleo = inpNucleo_Busca_1.Selected.Nucleo)));
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    SelectedDateFill: =RGBA(0, 120, 212, 1)
+                                    Size: =13
+                                    Width: =150
+                                    X: =307
+                                    Y: =28
+                                    ZIndex: =2
+
+                            cF_SingleText_6 As groupContainer.verticalAutoLayoutContainer:
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderThickness: =2
+                                DropShadow: =DropShadow.None
+                                Fill: =Color.White
+                                Height: =50
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =1
+                                PaddingLeft: =1
+                                PaddingRight: =1
+                                PaddingTop: =1
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                Width: =250
+                                X: =640
+                                Y: =20
+                                ZIndex: =4
+
+                                Label5_45 As label:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =
+                                    Color: =Color.Black
+                                    DisabledColor: =
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    Text: |-
+                                        ="Data Final : "
+                                    Width: =110
+                                    ZIndex: =1
+
+                                Data2 As datepicker:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    CalendarHeaderFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                                    Color: =RGBA(51, 51, 51, 1)
+                                    DefaultDate: =Data1.SelectedDate + 6
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =43
+                                    HoverDateFill: =RGBA(200, 200, 200, 1)
+                                    IconBackground: =RGBA(0, 120, 212, 1)
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =10
+                                    OnChange: |-
+                                        =ClearCollect(coldatafilter, Filter(dbCalendario, Data >= Data1.SelectedDate ,Data <= Self.SelectedDate));
+                                        ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate && 
+                                                (IsBlank(inpNucleo_Busca_1.Selected.Nucleo) || Nucleo = inpNucleo_Busca_1.Selected.Nucleo)));
+                                    OnSelect: =
+                                    PaddingBottom: =0
+                                    PaddingLeft: |
+                                        =0
+                                    PaddingRight: =0
+                                    SelectedDateFill: =RGBA(0, 120, 212, 1)
+                                    Size: =13
+                                    Width: =Parent.Width
+                                    X: =896
+                                    Y: =28
+                                    ZIndex: =2
+
+                            cF_SingleText_8 As groupContainer.verticalAutoLayoutContainer:
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderThickness: =2
+                                DropShadow: =DropShadow.None
+                                Fill: =Color.White
+                                Height: =50
+                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =2
+                                PaddingLeft: =2
+                                PaddingRight: =2
+                                PaddingTop: =2
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                Width: =300
+                                X: =25
+                                Y: =20
+                                ZIndex: =5
+
+                                Label5_46 As label:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =
+                                    Color: =Color.Black
+                                    DisabledColor: =
+                                    Font: =Font.Arial
+                                    Height: =30
+                                    Text: |-
+                                        ="Núcleo : "
+                                    Width: =80
+                                    ZIndex: =1
+
+                                inpNucleo_Busca_1 As combobox:
+                                    BorderColor: =RGBA(108, 187, 207, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    DisplayFields: =["Nucleo"]
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    Height: =35
+                                    InputTextPlaceholder: =
+                                    Items: |-
+                                        =Table(
+                                            { Nucleo: "Selecione um Núcleo" },
+                                            Ungroup(colNucleoAscending, Nucleo))
+                                    LayoutMinWidth: =10
+                                    OnChange: |-
+                                        =ClearCollect(coldatafilter, Filter(dbCalendario, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate));
+                                        ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate && 
+                                                (IsBlank(inpNucleo_Busca_1.Selected.Nucleo) || Nucleo = inpNucleo_Busca_1.Selected.Nucleo)));
+                                    SearchFields: =["Nucleo"]
+                                    SearchItems: |-
+                                        =Search(Table({Nucleo:"Selecione um Núcleo"},Ungroup(colNucleoAscending,Nucleo)),inpNucleo_Busca_1.SearchText,Nucleo)
+                                    SelectMultiple: =false
+                                    Size: =10
+                                    Width: =Parent.Width - Self.X * 2
+                                    X: =10
+                                    Y: =40
+                                    ZIndex: =2
+
+                        cPortifolioProjetos_1 As groupContainer.verticalAutoLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =Parent.Height
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGap: =1
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            Width: =Parent.Width
+                            ZIndex: =3
+
+                            cPortCorpo_1 As groupContainer.manualLayoutContainer:
+                                Fill: =RGBA(255, 255, 255, 1)
+                                Height: =150
+                                LayoutMinHeight: =100
+                                LayoutMinWidth: =250
+                                PaddingTop: =20
+                                Width: =Parent.Width
+                                ZIndex: =4
+
+                                cPortKanban_1 As groupContainer.manualLayoutContainer:
+                                    ContentLanguage: =
+                                    Fill: =RGBA(230, 230, 230, 1)
+                                    Height: =Parent.Height
+                                    Width: =Parent.Width
+                                    ZIndex: =5
+
+                                    galPortKanban_1 As gallery.galleryHorizontal:
+                                        BorderColor: =RGBA(166, 166, 166, 1)
+                                        DelayItemLoading: =true
+                                        Fill: =RGBA(202, 202, 202, 1)
+                                        Height: =Parent.Height
+                                        Items: =dbCalendarioSemanaId
+                                        LoadingSpinner: =LoadingSpinner.Data
+                                        TemplateFill: =Color.Transparent
+                                        TemplateSize: |-
+                                            =If(
+                                                CountRows(Self.AllItems) = 0,
+                                                0, // Valor padrão ou substituto para evitar divisão por zero
+                                                Parent.Width / CountRows(Self.AllItems) - 7
+                                            )
+                                        Width: =Parent.Width
+                                        ZIndex: =6
+
+                                        html_Fundo_Galeria_1 As htmlViewer:
+                                            Font: =Font.Arial
+                                            Height: =Parent.Height - Self.Y - 10
+                                            HtmlText: |-
+                                                ="<div style='
+                                                    background-color: #f2f2f2;
+                                                    height: "&Self.Height-12&"px;
+                                                    border-radius: 12px;
+                                                    margin: 0px;
+                                                    box-shadow: rgba(0,0,0,0.05) 3px 3px 3px;'
+                                                ></div>"
+                                            OnSelect: =Select(Parent)
+                                            Width: =Parent.TemplateWidth
+                                            Y: =Button4_12.Y + Button4_12.Height
+                                            ZIndex: =1
+
+                                        galPortK_Projetos_1 As gallery.galleryVertical:
+                                            BorderColor: =RGBA(166, 166, 166, 1)
+                                            DelayItemLoading: =true
+                                            Height: =Parent.Height - Self.Y - 10
+                                            Items: =Filter(colPlanejamentoSemanalFilter, idData = LookUp(coldatafilter, NumeroSemana = ThisItem.idSemana, idDataSemana))
+                                            Layout: =Layout.Vertical
+                                            LoadingSpinner: =LoadingSpinner.Data
+                                            ShowScrollbar: =false
+                                            TemplatePadding: =0
+                                            TemplateSize: =160
+                                            Width: =Parent.TemplateWidth-Self.X*2
+                                            X: =1
+                                            Y: =Button4_12.Y + Button4_12.Height + 20
+                                            ZIndex: =2
+
+                                            html_Fundo_gal_7 As htmlViewer:
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =Parent.TemplateHeight
+                                                HtmlText: |-
+                                                    ="<div style='
+                                                        background-color: #ffffff;
+                                                        height: "&Self.Height-12&"px;
+                                                        border-radius: 12px;
+                                                        margin: 0px;
+                                                        box-shadow: rgba(0,0,0,0.05) 3px 3px 3px;'
+                                                    ></div>"
+                                                OnSelect: |-
+                                                    =If(
+                                                        TimerControl > Now() - Time(0, 0, 1),  // Verifica se o último clique foi há menos de 1 segundo
+                                                        Set(gbl_Projeto, ThisItem);
+                                                        UpdateContext({ doubleClick: true }),   // Se foi; ativa a variável `doubleClick`
+                                                        UpdateContext({ TimerControl: Now() })  // Senão; atualiza o tempo para o clique atual
+                                                    );
+                                                    If(
+                                                        doubleClick,                           // Se `doubleClick` for verdadeiro
+                                                        Notify("Duplo clique detectado!"),     // Execute a ação desejada (exemplo: uma notificação)
+                                                        UpdateContext({ doubleClick: false })  // Redefine `doubleClick` para evitar múltiplas execuções
+                                                    );
+                                                PaddingBottom: =0
+                                                PaddingLeft: =10
+                                                PaddingRight: =10
+                                                PaddingTop: =0
+                                                Width: =Parent.TemplateWidth
+                                                ZIndex: =1
+
+                                            Label4_4 As label:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Arial
+                                                Height: =50
+                                                LineHeight: =1.5
+                                                OnSelect: =Select(Parent)
+                                                Size: =9
+                                                Text: =ThisItem.idProduto & " - " & ThisItem.Atividade
+                                                Width: |
+                                                    =200
+                                                X: =10
+                                                Y: =40
+                                                ZIndex: =2
+
+                                            Label4_2 As label:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Semibold
+                                                OnSelect: =Select(Parent)
+                                                Size: =11
+                                                Text: =LookUp(bdNucleos, idNucleo = ThisItem.idNucleo, Nucleo)
+                                                Width: =200
+                                                X: =10
+                                                Y: =1
+                                                ZIndex: =3
+
+                                            Container29 As groupContainer.manualLayoutContainer:
+                                                DropShadow: =DropShadow.None
+                                                Height: =Parent.TemplateHeight
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.TemplateWidth
+                                                ZIndex: =4
+
+                                                Label4 As label:
+                                                    Align: =Align.Center
+                                                    Font: =Font.Arial
+                                                    Size: =9
+                                                    Text: ="Local "&ThisItem.Local
+                                                    Width: =200
+                                                    X: =10
+                                                    Y: =100
+                                                    ZIndex: =1
+
+                                                Button6 As button:
+                                                    BorderThickness: =0
+                                                    Color: =RGBA(0, 0, 0, 0)
+                                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Font: =Font.Arial
+                                                    Height: =Parent.Height
+                                                    HoverBorderColor: =ColorFade(Self.BorderColor, 100%)
+                                                    HoverFill: =ColorFade(RGBA(0, 0, 0, 0), -20%)
+                                                    OnSelect: |
+                                                        =UpdateContext({locPP_Projeto:true});
+                                                        UpdateContext({locPP_AtividadePlanejada:true});
+                                                        ClearCollect(colAtividadePlanejada, Filter(dbPlanejamentoSemanal, ID = ThisItem.ID));
+                                                        UpdateContext({locPP_AtividadeSemanalPlanejada: First(colAtividadePlanejada)});
+                                                    Text: =
+                                                    Width: =Parent.Width
+                                                    ZIndex: =2
+
+                                        Button4_12 As button:
+                                            BorderColor: =RGBA(202, 202, 202, 1)
+                                            BorderThickness: =1
+                                            Color: =
+                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                                            Font: =Font.'Segoe UI'
+                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                            HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                                            OnSelect: =Select(Parent)
+                                            PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                            PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Text: =LookUp(coldatafilter, NumeroSemana = ThisItem.idSemana, Data)
+                                            Width: =Parent.TemplateWidth
+                                            Y: =Button4_6.Height
+                                            ZIndex: =3
+
+                                        Button4_6 As button:
+                                            BorderColor: =RGBA(202, 202, 202, 1)
+                                            BorderThickness: =1
+                                            Color: =
+                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                                            Font: =Font.'Segoe UI'
+                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                            HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                                            OnSelect: =Select(Parent)
+                                            PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                            PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Text: =ThisItem.DiaSemanaResumido
+                                            Width: =Parent.TemplateWidth
+                                            ZIndex: =4
+
+                                        Button4_7 As button:
+                                            Align: =Align.Left
+                                            BorderColor: =RGBA(122, 111, 150, 1)
+                                            Color: =Color.White
+                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                            DisplayMode: =DisplayMode.View
+                                            Fill: =RGBA(202, 202, 202, 1)
+                                            FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                                            Font: =Font.'Segoe UI'
+                                            Height: =5
+                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                            HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                                            OnSelect: =Select(Parent)
+                                            PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                            PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                                            RadiusBottomLeft: =0
+                                            RadiusBottomRight: =0
+                                            RadiusTopLeft: =0
+                                            RadiusTopRight: =0
+                                            Text: =""
+                                            Width: =Parent.TemplateWidth
+                                            ZIndex: =5
+
+    cPP_Cad_Atividade As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(122, 111, 150, 0.6)
+        Height: =Parent.Height - Self.Y
+        Visible: =locPP_Projeto
+        Width: =cPlanejamentoScreen.Width
+        X: =cMenuLateral_3.Width
+        Y: =cCabecalioPSC.Height
+        ZIndex: =2
+
+        PP_Atividade_Central As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =600
+            Width: =800
+            X: =Parent.Width/2-Self.Width/2
+            Y: =Parent.Height/2-Self.Height/2
+            ZIndex: =38
+
+            c1_3 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(122, 111, 150, 1)
+                Fill: =RGBA(122, 111, 150, 1)
+                Height: =80
+                Width: =Parent.Width
+                ZIndex: =39
+
+                Label6_3 As label:
+                    Align: =Align.Center
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(255, 255, 255, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    FocusedBorderThickness: =4
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =Parent.Height
+                    Size: =15
+                    Text: =If(locPP_AtividadePlanejada, "INFORMAÇÕES DA ATIVIDADE", "PLANEJAR AÇÃO")
+                    Width: =Parent.Width
+                    ZIndex: =40
+
+            c2_3 As groupContainer.horizontalAutoLayoutContainer:
+                Height: |
+                    =Parent.Height - c3_3.Height*2
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMode: =LayoutMode.Auto
+                LayoutWrap: =true
+                Width: =Parent.Width
+                Y: =80
+                ZIndex: =42
+
+                Form_PlanejamentoSemanal As form:
+                    DataSource: =dbPlanejamentoSemanal
+                    Item: =locPP_AtividadeSemanalPlanejada
+                    LayoutMinHeight: =250
+                    LayoutMinWidth: =400
+                    OnSuccess: =ResetForm(Form_PlanejamentoSemanal)
+                    ZIndex: =1
+
+                    OrdemServico_DataCard2 As typedDataCard.allowedValuesStringEditCard:
+                        AllowedValues: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.AllowedValues, OrdemServico)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="OrdemServico"
+                        Default: =ThisItem.OrdemServico
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,OrdemServico)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue8.Selected.Value
+                        Width: =266
+                        X: =0
+                        Y: =0
+                        ZIndex: =1
+
+                        DataCardKey8 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="ORDEM DE SERVIÇO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue8 As dropdown:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DisplayMode: =Parent.DisplayMode
+                            Items: =Distinct(colOrdemServicoPlanejada, OSNumero)
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage8 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue8.Y + DataCardValue8.Height
+                            ZIndex: =3
+
+                        StarVisible8 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey8.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey8.Y
+                            ZIndex: =4
+
+                    Produto_DataCard3 As typedDataCard.allowedValuesStringEditCard:
+                        AllowedValues: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.AllowedValues, Produto0)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Produto0"
+                        Default: =ThisItem.Produto
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,Produto0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue84.Selected.Produto
+                        Width: =532
+                        X: =1
+                        Y: =0
+                        ZIndex: =1
+
+                        DataCardKey84 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="PRODUTO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue84 As dropdown:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DisplayMode: =Parent.DisplayMode
+                            Items: =SortByColumns(dbProdutos, "idProduto", SortOrder.Ascending).Produto
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey84.Y + DataCardKey84.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage84 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue84.Y + DataCardValue84.Height
+                            ZIndex: =3
+
+                        StarVisible84 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey84.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey84.Y
+                            ZIndex: =4
+
+                    Nucleo_DataCard5 As typedDataCard.allowedValuesStringEditCard:
+                        AllowedValues: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.AllowedValues, Nucleo)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Nucleo"
+                        Default: =ThisItem.Nucleo
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,Nucleo)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue100.Selected.Nucleo
+                        Width: =500
+                        X: =1
+                        Y: =1
+                        ZIndex: =1
+
+                        DataCardKey100 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="NÚCLEO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue100 As dropdown:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DisplayMode: =Parent.DisplayMode
+                            Items: =SortByColumns(bdNucleos, "Nucleo", SortOrder.Ascending).Nucleo
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey100.Y + DataCardKey100.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage100 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue100.Y + DataCardValue100.Height
+                            ZIndex: =3
+
+                        StarVisible100 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey100.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey100.Y
+                            ZIndex: =4
+
+                    idNucleo_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="idNucleo"
+                        Default: =ThisItem.idNucleo
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,idNucleo)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, idNucleo)
+                        Required: =false
+                        Update: =DataCardValue7.Text
+                        Visible: =false
+                        Width: =266
+                        X: =0
+                        Y: =3
+                        ZIndex: =1
+
+                        DataCardKey7 As label:
+                            AutoHeight: =true
+                            Height: =34
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue7 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =LookUp(colOrdemServicoPlanejada, OSNumero = DataCardValue8.Selected.Value, IdNucleo)
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage7 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue7.Y + DataCardValue7.Height
+                            ZIndex: =3
+
+                        StarVisible7 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey7.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey7.Y
+                            ZIndex: =4
+
+                    idProduto_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="idProduto0"
+                        Default: =ThisItem.idProduto
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,idProduto0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, idProduto0)
+                        Required: =false
+                        Update: =DataCardValue21.Text
+                        Visible: =false
+                        Width: =266
+                        X: =1
+                        Y: =3
+                        ZIndex: =1
+
+                        DataCardKey21 As label:
+                            AutoHeight: =true
+                            Height: =34
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue21 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =LookUp(colOrdemServicoPlanejada, OSNumero = DataCardValue8.Selected.Value, IdProduto)
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey21.Y + DataCardKey21.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage21 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue21.Y + DataCardValue21.Height
+                            ZIndex: =3
+
+                        StarVisible21 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey21.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey21.Y
+                            ZIndex: =4
+
+                    idProduto_DataCard3 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="idProduto0"
+                        Default: =ThisItem.idProduto
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,idProduto0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, idProduto0)
+                        Required: =false
+                        Update: =DataCardValue22.Text
+                        Visible: =false
+                        Width: =266
+                        X: =2
+                        Y: =3
+                        ZIndex: =1
+
+                        DataCardKey22 As label:
+                            AutoHeight: =true
+                            Height: =34
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue22 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =LookUp(dbProdutos, Produto = DataCardValue84.Selected.Produto, idProduto)
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey22.Y + DataCardKey22.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage22 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue22.Y + DataCardValue22.Height
+                            ZIndex: =3
+
+                        StarVisible22 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey22.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey22.Y
+                            ZIndex: =4
+
+                    idNucleo_DataCard3 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="idNucleo"
+                        Default: =ThisItem.idNucleo
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,idNucleo)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, idNucleo)
+                        Required: =false
+                        Update: =DataCardValue87.Text
+                        Visible: =false
+                        Width: =266
+                        X: =0
+                        Y: =4
+                        ZIndex: =1
+
+                        DataCardKey87 As label:
+                            AutoHeight: =true
+                            Height: =34
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue87 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =LookUp(bdNucleos, Nucleo = DataCardValue100.Selected.Nucleo, idNucleo)
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey87.Y + DataCardKey87.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage87 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue87.Y + DataCardValue87.Height
+                            ZIndex: =3
+
+                        StarVisible87 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey87.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey87.Y
+                            ZIndex: =4
+
+                    idData_DataCard1 As typedDataCard.numberEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="idData0"
+                        Default: =ThisItem.idData
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,idData0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =Value(DataCardValue102.Text)
+                        Visible: =false
+                        Width: =266
+                        X: =1
+                        Y: =4
+                        ZIndex: =1
+
+                        DataCardKey102 As label:
+                            AutoHeight: =true
+                            Height: =34
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue102 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =LookUp(dbCalendario, Data = DataCardValue18.SelectedDate, idDataSemana)
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Format: =TextFormat.Number
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey102.Y + DataCardKey102.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage102 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue102.Y + DataCardValue102.Height
+                            ZIndex: =3
+
+                        StarVisible102 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey102.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey102.Y
+                            ZIndex: =4
+
+                    Data_DataCard2 As typedDataCard.dateEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Data0"
+                        Default: =ThisItem.Data
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,Data)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue18.SelectedDate
+                        Width: =300
+                        X: =0
+                        Y: =1
+                        ZIndex: =2
+
+                        DataCardKey18 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="DATA DA PROGRAMAÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue18 As datepicker:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            DefaultDate: =Parent.Default
+                            DisplayMode: =Parent.DisplayMode
+                            EndYear: =Year(Today())+100
+                            IsEditable: =true
+                            PaddingBottom: =0
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            StartYear: =1899
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage18 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue18.Y + DataCardValue18.Height
+                            ZIndex: =3
+
+                        StarVisible18 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey18.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey18.Y
+                            ZIndex: =4
+
+                    Local_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Local"
+                        Default: =ThisItem.Local
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,Local)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, Local)
+                        Required: =false
+                        Update: =DataCardValue13.Text
+                        Width: =266
+                        X: =0
+                        Y: =2
+                        ZIndex: =2
+
+                        DataCardKey13 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="LOCAL"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue13 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage13 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue13.Y + DataCardValue13.Height
+                            ZIndex: =3
+
+                        StarVisible13 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey13.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey13.Y
+                            ZIndex: =4
+
+                    Atividade_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Atividade"
+                        Default: =ThisItem.Atividade
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,Atividade)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, Atividade)
+                        Required: =false
+                        Update: =DataCardValue12.Text
+                        Width: =266
+                        X: =1
+                        Y: =2
+                        ZIndex: =2
+
+                        DataCardKey12 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="ATIVIDADE"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue12 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage12 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue12.Y + DataCardValue12.Height
+                            ZIndex: =3
+
+                        StarVisible12 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey12.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey12.Y
+                            ZIndex: =4
+
+                    Descricao_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Descricao"
+                        Default: =ThisItem.Descricao
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@dbPlanejamentoSemanal],DataSourceInfo.DisplayName,Descricao)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@dbPlanejamentoSemanal], DataSourceInfo.MaxLength, Descricao)
+                        Required: =false
+                        Update: =DataCardValue9.Text
+                        Width: =266
+                        X: =2
+                        Y: =2
+                        ZIndex: =2
+
+                        DataCardKey9 As label:
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            Height: =34
+                            Text: ="DESCRIÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue9 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage9 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue9.Y + DataCardValue9.Height
+                            ZIndex: =3
+
+                        StarVisible9 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey9.Height
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey9.Y
+                            ZIndex: =4
+
+            c3_3 As groupContainer.manualLayoutContainer:
+                Fill: =RGBA(122, 111, 150, 1)
+                Height: =83
+                Width: =Parent.Width
+                Y: =Max(PP_Atividade_Central.Height) - Self.Height
+                ZIndex: =54
+
+                Button4_10 As button:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    Fill: =RGBA(166, 166, 166, 1)
+                    FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                    Font: =Font.'Segoe UI'
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverFill: =ColorFade(Self.Fill, -10%)
+                    OnSelect: |-
+                        =UpdateContext({locPP_Projeto:false});
+                        UpdateContext({locPP_AtividadePlanejada:false});
+                        
+                        ResetForm(Form_PlanejamentoSemanal);
+                        ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate));
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =ColorFade(Self.Fill, -30%)
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    Text: ="CANCELAR"
+                    X: =30
+                    Y: =20
+                    ZIndex: =55
+
+                Button4_11 As button:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    Fill: =RGBA(39, 113, 194, 1)
+                    FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                    Font: =Font.'Segoe UI'
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverFill: =ColorFade(Self.Fill, -10%)
+                    OnSelect: |-
+                        =Set(varCarregando, true);
+                        UpdateContext({locPP_Projeto:false});
+                        SubmitForm(Form_PlanejamentoSemanal);
+                        ClearCollect(colPlanejamentoSemanalFilter, Filter(dbPlanejamentoSemanal, Data >= Data1.SelectedDate ,Data <= Data2.SelectedDate));
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =ColorFade(Self.Fill, -30%)
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    Text: ="CADASTRAR"
+                    Visible: =If(varUsuario = "Visitante",false,true)
+                    X: =Parent.Width - Self.Width - 30
+                    Y: =20
+                    ZIndex: =56
+

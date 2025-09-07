@@ -1,0 +1,2642 @@
+RH_2 As screen:
+    Fill: =EsquemaDeCores.AzulBackground.Cor
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnHidden: =
+    OnVisible: =
+
+    sigd_layout_RH_1 As group:
+        Height: =5
+        minimumHeight: =5
+        minimumWidth: =5
+        Visible: =true
+        Width: =5
+        X: =0
+        Y: =0
+        ZIndex: =4
+
+        sigd_ctn_geral_RH_1 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.Light
+            Fill: =EsquemaDeCores.AzulConteiner.Cor
+            Height: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Height
+            RadiusBottomLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+            RadiusBottomRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+            RadiusTopLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+            RadiusTopRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+            Width: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Width
+            X: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.X
+            Y: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Y
+            ZIndex: =1
+
+            sigd_ctn_geral_RH_1_1 As groupContainer.verticalAutoLayoutContainer:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                Height: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Height - 5
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGap: =5
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                RadiusBottomRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                RadiusTopLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                RadiusTopRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                Width: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Width
+                Y: =5
+                ZIndex: =3
+
+                sigd_ctn_geral_RH_1_1_botoes As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    DropShadow: =DropShadow.Light
+                    FillPortions: =0
+                    Height: =50
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =Medidas.Espacamento
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - 10
+                    ZIndex: =1
+
+                    HtmlText7 As htmlViewer:
+                        AlignInContainer: =AlignInContainer.Center
+                        AutoHeight: =true
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Font: =App.Theme.Font
+                        HtmlText: |-
+                            ="<div
+                              style='
+                                display:inline-flex;
+                                align-items:center;
+                                justify-content:center;
+                                height:42px;
+                                padding:0 24px;
+                                background:#e6f4ea;
+                                color:#18613a;
+                                border-radius:14px;
+                                box-shadow:0 2px 7px rgba(0,0,0,0.10);
+                                border:1px solid #b2dfdb;
+                                font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                font-size:16px;
+                                font-weight:bold;
+                                cursor:pointer;
+                                transition:background 0.15s, box-shadow 0.15s, color 0.15s;
+                                user-select:none;
+                                gap:10px;
+                                letter-spacing:0.5px;
+                              '
+                              title='Cadastrar Novo Colaborador'
+                              onmouseover=\'this.style.background='#b2dfdb'; this.style.color='#095828'; this.style.boxShadow='0 3px 18px rgba(24,97,58,0.13)';\'
+                              onmouseout=\'this.style.background='#e6f4ea'; this.style.color='#18613a'; this.style.boxShadow='0 2px 7px rgba(0,0,0,0.10)';\'
+                            >
+                              <span style='font-size:20px; margin-right:6px;'>➕</span>
+                              Cadastrar Novo Colaborador
+                            </div>"
+                        OnSelect: |-
+                            =UpdateContext({varVisibleFormColaborar_11: !varVisibleFormColaborar_11});
+                            UpdateContext({Var_ID_cadastro_rh_colab: "RHU-COLAB-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Width: =250
+                        ZIndex: =2
+
+                sigd_ctn_geral_RH_1_2 As groupContainer.manualLayoutContainer:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    FillPortions: =0
+                    Height: =html_frm_colaboradores_RH_1_2.Height
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    Visible: =varVisibleFormColaborar_11
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    html_frm_colaboradores_RH_1_2 As htmlViewer:
+                        AutoHeight: =true
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Font: =App.Theme.Font
+                        Height: =270
+                        HtmlText: |-
+                            ="<div style='
+                              width: 1820px;
+                              height: 290px;
+                              border: 1px solid rgba(0,0,0,0.1);
+                              border-radius: 12px;
+                              padding: 16px;
+                              background-color: #829EC3;
+                            '>
+                            </div>"
+                        PaddingBottom: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                    frm_colaboradores_RH_1_2 As form:
+                        AcceptsFocus: =false
+                        BorderColor: =App.Theme.Colors.Darker40
+                        DataSource: =sigd_colaboradores
+                        DefaultMode: =If(!IsBlank(varEditFormColaborar_11), FormMode.Edit, FormMode.New)
+                        Height: =290
+                        Item: =varEditFormColaborar_11
+                        NumberOfColumns: =12
+                        OnSuccess: |-
+                            =If(IsBlank(varEditFormColaborar_11),
+                                Patch(sigd_colaboradores, frm_colaboradores_RH_1_2.LastSubmit, {ID_linha: frm_colaboradores_RH_1_2.LastSubmit.ID});
+                                Patch(sigd_din_perm_telas, Defaults(sigd_din_perm_telas), {id_colaborador: frm_colaboradores_RH_1_2.LastSubmit.ID_Referencia}));
+                            ResetForm(frm_colaboradores_RH_1_2);
+                            If(IsBlank(varEditFormColaborar_11) && IsBlank(varAttFormColaborar_11), Notify("Cadastro realizado com sucesso",  NotificationType.Success, 2000));
+                            If(!IsBlank(varEditFormColaborar_11), Notify("Edição realizada com sucesso",  NotificationType.Success, 2000));
+                            If(!IsBlank(varAttFormColaborar_11), Notify("Atualização realizada com sucesso",  NotificationType.Success, 2000));
+                            UpdateContext({varVisibleFormColaborar_11: !varVisibleFormColaborar_11});
+                            UpdateContext({varEditFormColaborar_11: Blank()});
+                            UpdateContext({Var_ID_cadastro_rh_colab: "RHU-COLAB-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                        Width: =Parent.Width - 150
+                        X: =Parent.Width/2 - Self.Width/2
+                        Y: =5
+                        ZIndex: =2
+
+                        nome_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="nome"
+                            Default: =ThisItem.nome
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,nome)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, nome)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =Upper(DataCardValue1.Text)
+                            Visible: =true
+                            Width: =Parent.Width/2.5
+                            WidthFit: =false
+                            X: =0
+                            Y: =0
+                            ZIndex: =1
+
+                            DataCardKey1 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Nome"
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =If(IsBlank(varAttFormColaborar_11), Parent.Default, varAttFormColaborar_11.nome)
+                                DelayOutput: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage1 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue1.Y + DataCardValue1.Height
+                                ZIndex: =3
+
+                            StarVisible1 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey1.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey1.Y
+                                ZIndex: =4
+
+                        cnh_DataCard1 As typedDataCard.textualEditCard:
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="cnh"
+                            Default: =ThisItem.cnh
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,cnh)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, cnh)
+                            Required: =false
+                            Update: =DataCardValue25.Text
+                            Width: =Parent.Width/5
+                            X: =6
+                            Y: =1
+                            ZIndex: =1
+
+                            DataCardKey25 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="CNH"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue25 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderStyle: =BorderStyle.None
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage24 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue25.Y + DataCardValue25.Height
+                                ZIndex: =3
+
+                            StarVisible24 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =DataCardKey25.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey25.Y
+                                ZIndex: =4
+
+                        cnh_validade_DataCard1 As typedDataCard.dateEditCard:
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="cnh_validade"
+                            Default: =ThisItem.cnh_validade
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,cnh_validade)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =false
+                            Update: =DataCardValue23.SelectedDate
+                            Width: =Parent.Width/5
+                            X: =7
+                            Y: =1
+                            ZIndex: =1
+
+                            DataCardKey23 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Validade da CNH"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            Container25 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                Height: =30
+                                RadiusBottomLeft: =5
+                                RadiusBottomRight: =5
+                                RadiusTopLeft: =5
+                                RadiusTopRight: =5
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                                ZIndex: =3
+
+                                DataCardValue23 As datepicker:
+                                    BorderColor: =If(IsBlank(cnh_validade_DataCard1.Error), Parent.BorderColor, Color.Red)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    CalendarHeaderFill: =App.Theme.Colors.Primary
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DefaultDate: =cnh_validade_DataCard1.Default
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                    DisplayMode: =Parent.DisplayMode
+                                    EndYear: =Year(Today())+100
+                                    FocusedBorderThickness: |
+                                        =1
+                                    Font: =App.Theme.Font
+                                    Height: =Parent.Height
+                                    HoverDateFill: =App.Theme.Colors.Lighter70
+                                    IconBackground: =App.Theme.Colors.Primary
+                                    IconFill: =App.Theme.Colors.PrimaryForeground
+                                    IsEditable: =true
+                                    PaddingBottom: =0
+                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                    SelectedDateFill: =App.Theme.Colors.Primary
+                                    Size: =11
+                                    StartYear: =1899
+                                    Tooltip: =cnh_validade_DataCard1.DisplayName
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                            ErrorMessage23 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue23.Y + DataCardValue23.Height
+                                ZIndex: =4
+
+                            StarVisible23 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =DataCardKey23.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey23.Y
+                                ZIndex: =5
+
+                        email_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="email"
+                            Default: =ThisItem.email
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,email)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, email)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue5.Text
+                            Visible: =true
+                            Width: =Parent.Width/2.5
+                            WidthFit: =false
+                            X: =5
+                            Y: =0
+                            ZIndex: =2
+
+                            DataCardKey5 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="E-mail"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue5 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =If(IsBlank(varAttFormColaborar_11), Parent.Default, varAttFormColaborar_11.email)
+                                DelayOutput: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey5.Y + DataCardKey5.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage5 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue5.Y + DataCardValue5.Height
+                                ZIndex: =3
+
+                            StarVisible5 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey5.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey5.Y
+                                ZIndex: =4
+
+                        telefone_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="telefone"
+                            Default: =ThisItem.telefone
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,telefone)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, telefone)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue4.Text
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =10
+                            Y: =0
+                            ZIndex: =3
+
+                            DataCardKey4 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Telefone"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue4 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: |
+                                    =With(
+                                        {
+                                            Entrada: DataCardValue4_1.Text,
+                                            Len: Len(DataCardValue4_1.Text)
+                                        },
+                                        Concat(
+                                            ForAll(
+                                                Sequence(
+                                                    Len,
+                                                    1,
+                                                    1
+                                                ),
+                                                {
+                                                    ID: Value,
+                                                    Caracter: Mid(
+                                                        Entrada,
+                                                        Value,
+                                                        1
+                                                    )
+                                                }
+                                            ),
+                                            If(
+                                                // Se tiver 11 dígitos, formata como celular
+                                                Len = 11,
+                                                Switch(
+                                                    ID,
+                                                    1,"(" & Caracter,   // insere "(" antes do primeiro dígito
+                                                    2,Caracter & ")",   // insere ")" logo após o segundo dígito
+                                                    7,Caracter & "-",   // insere "-" após o sétimo dígito
+                                                    Caracter            // se não estiver nessas posições, só retorna o caractere
+                                                ),
+                                                // Se tiver 10 dígitos, formata como fixo
+                                                Switch(
+                                                    ID,
+                                                    1,"(" & Caracter,
+                                                    2,Caracter & ")",
+                                                    6,Caracter & "-",
+                                                    Caracter
+                                                )
+                                            )
+                                        )
+                                    )
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                TabIndex: =-1
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                                ZIndex: =2
+
+                            DataCardValue4_1 As text:
+                                BorderColor: =
+                                BorderStyle: =BorderStyle.None
+                                BorderThickness: =0
+                                Color: =If(IsBlank(Self.Text), RGBA(0, 0, 0, 1), RGBA(0, 0, 0, 0.0))
+                                Default: =If(IsBlank(varAttFormColaborar_11), Parent.Default, varAttFormColaborar_11.telefone)
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                DisabledColor: =RGBA(0, 0, 0, 0)
+                                DisabledFill: =RGBA(0, 0, 0, 0)
+                                DisplayMode: =Parent.DisplayMode
+                                Fill: =RGBA(0, 0, 0, 0)
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Format: =TextFormat.Number
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =
+                                HoverColor: =RGBA(0, 0, 0, 0)
+                                HoverFill: =If(IsBlank(Self.Text), App.Theme.Colors.Lighter70, RGBA(0, 0, 0, 0.0))
+                                MaxLength: =11
+                                PaddingLeft: =5
+                                PressedBorderColor: =
+                                PressedColor: =
+                                PressedFill: =
+                                Size: =13
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                                ZIndex: =3
+
+                            ErrorMessage4 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue4.Y + DataCardValue4.Height
+                                ZIndex: =4
+
+                            StarVisible4 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey4.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey4.Y
+                                ZIndex: =5
+
+                        cpf_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="cpf"
+                            Default: =ThisItem.cpf
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,cpf)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, cpf)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue2.Text
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =0
+                            Y: =1
+                            ZIndex: =4
+
+                            DataCardKey2 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="CPF"
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue2 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: |-
+                                    =With(
+                                        {   Entrada: DataCardValue2_1.Text,
+                                            Len: Len(DataCardValue2_1.Text)
+                                        },
+                                        Concat(
+                                            ForAll(
+                                                Sequence(
+                                                    Len,
+                                                    1,
+                                                    1
+                                                ),
+                                                {
+                                                    ID: Value,
+                                                    Caracter: Mid(
+                                                        Entrada,
+                                                        Value,
+                                                        1
+                                                    )
+                                                }
+                                            )
+                                            ,
+                                    
+                                            Switch(ID
+                                            ,4,"."
+                                            ,7,"."
+                                            ,10, "-"
+                                            )
+                                            &Caracter
+                                        )
+                                    )
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: |
+                                    =14
+                                OnChange: |-
+                                    =ClearCollect(
+                                        colPhoneNumberFormat,
+                                        With(
+                                            {varTextPhoneNumberFormat: "###.###.###.##"},
+                                            With(
+                                                {
+                                                    varTablePhoneNumberFormat: ForAll(
+                                                        Sequence(Len(varTextPhoneNumberFormat)),
+                                                        With(
+                                                            {
+                                                                varNumberCurrentLength: Left(
+                                                                    varTextPhoneNumberFormat,
+                                                                    Value
+                                                                )
+                                                            },
+                                                            {
+                                                                NumberFormat: varNumberCurrentLength,
+                                                                CountNumbers: CountRows(
+                                                                    MatchAll(
+                                                                        varNumberCurrentLength,
+                                                                        "#"
+                                                                    )
+                                                                )
+                                                            }
+                                                        )
+                                                    )
+                                                },
+                                                ForAll(
+                                                    Sequence(
+                                                        Max(
+                                                            varTablePhoneNumberFormat,
+                                                            CountNumbers
+                                                        )
+                                                    ),
+                                                    LookUp(
+                                                        varTablePhoneNumberFormat,
+                                                        CountNumbers = Value
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                PaddingLeft: =5
+                                Size: =11
+                                TabIndex: =-1
+                                Tooltip: =Parent.DisplayName
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                                ZIndex: =2
+
+                            DataCardValue2_1 As text:
+                                BorderColor: =
+                                BorderStyle: =BorderStyle.None
+                                BorderThickness: =0
+                                Color: =If(IsBlank(Self.Text), RGBA(0, 0, 0, 1), RGBA(0, 0, 0, 0.0))
+                                Default: =If(IsBlank(varAttFormColaborar_11), Parent.Default, varAttFormColaborar_11.cpf)
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                DisabledColor: =RGBA(0, 0, 0, 0)
+                                DisabledFill: =RGBA(0, 0, 0, 0)
+                                DisplayMode: =Parent.DisplayMode
+                                Fill: =RGBA(0, 0, 0, 0)
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Format: =TextFormat.Number
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =
+                                HoverColor: =RGBA(0, 0, 0, 0)
+                                HoverFill: =If(IsBlank(Self.Text), App.Theme.Colors.Lighter70, RGBA(0, 0, 0, 0.0))
+                                MaxLength: |
+                                    =14
+                                PaddingLeft: =5
+                                PressedBorderColor: =
+                                PressedColor: =
+                                PressedFill: =
+                                Size: =13
+                                Tooltip: =Parent.DisplayName
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                                ZIndex: =3
+
+                            ErrorMessage2 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue2.Y + DataCardValue2.Height
+                                ZIndex: =4
+
+                            StarVisible2 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey2.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey2.Y
+                                ZIndex: =5
+
+                        rg_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="rg"
+                            Default: =ThisItem.rg
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,rg)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, rg)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue3.Text
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =2
+                            Y: =1
+                            ZIndex: =5
+
+                            DataCardKey3 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="RG"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue3 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =If(IsBlank(varAttFormColaborar_11), Parent.Default, varAttFormColaborar_11.rg)
+                                DelayOutput: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage3 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue3.Y + DataCardValue3.Height
+                                ZIndex: =3
+
+                            StarVisible3 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey3.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey3.Y
+                                ZIndex: =4
+
+                        nascimento_DataCard1 As typedDataCard.dateEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="nascimento"
+                            Default: =ThisItem.nascimento
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,nascimento)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue6.SelectedDate
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =4
+                            Y: =1
+                            ZIndex: =6
+
+                            DataCardKey6 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Nascimento"
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            Container16 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                Height: =30
+                                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                PaddingRight: =5
+                                RadiusBottomLeft: =5
+                                RadiusBottomRight: =5
+                                RadiusTopLeft: =5
+                                RadiusTopRight: =5
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                                ZIndex: =3
+
+                                DataCardValue6 As datepicker:
+                                    BorderColor: =If(IsBlank(nascimento_DataCard1.Error), Parent.BorderColor, Color.Red)
+                                    BorderThickness: =0
+                                    CalendarHeaderFill: =App.Theme.Colors.Primary
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DefaultDate: =If(IsBlank(varAttFormColaborar_11), nascimento_DataCard1.Default, varAttFormColaborar_11.nascimento)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                    DisplayMode: =Parent.DisplayMode
+                                    EndYear: =Year(Today())+100
+                                    FocusedBorderThickness: =1
+                                    Font: =App.Theme.Font
+                                    Height: =Parent.Height
+                                    HoverDateFill: =App.Theme.Colors.Lighter70
+                                    IconBackground: =App.Theme.Colors.Primary
+                                    IconFill: =App.Theme.Colors.PrimaryForeground
+                                    IsEditable: =true
+                                    PaddingBottom: =0
+                                    PaddingLeft: =5
+                                    PaddingRight: =0
+                                    SelectedDateFill: =App.Theme.Colors.Primary
+                                    Size: =11
+                                    StartYear: =1899
+                                    Tooltip: =nascimento_DataCard1.DisplayName
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                            ErrorMessage6 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue6.Y + DataCardValue6.Height
+                                ZIndex: =4
+
+                            StarVisible6 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey6.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey6.Y
+                                ZIndex: =5
+
+                        endereco_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="endereco"
+                            Default: =ThisItem.endereco
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,endereco)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, endereco)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue7.Text
+                            Visible: =true
+                            Width: =Parent.Width
+                            WidthFit: =false
+                            X: =8
+                            Y: =1
+                            ZIndex: =7
+
+                            DataCardKey7 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Endereço"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue7 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =If(IsBlank(varAttFormColaborar_11), Parent.Default, varAttFormColaborar_11.endereco)
+                                DelayOutput: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage7 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue7.Y + DataCardValue7.Height
+                                ZIndex: =3
+
+                            StarVisible7 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey7.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey7.Y
+                                ZIndex: =4
+
+                        tipo_contratacao_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="tipo_contratacao"
+                            Default: =ThisItem.tipo_contratacao
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,tipo_contratacao)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, tipo_contratacao)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue8.Selected.Value
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =0
+                            Y: =2
+                            ZIndex: =8
+
+                            DataCardKey8 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Tipo de Contratação"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            Container19 As groupContainer.manualLayoutContainer:
+                                Height: =30
+                                RadiusBottomLeft: =5
+                                RadiusBottomRight: =5
+                                RadiusTopLeft: =5
+                                RadiusTopRight: =5
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                                ZIndex: =3
+
+                                DataCardValue8 As combobox:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    ChevronBackground: =App.Theme.Colors.Primary
+                                    ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                    ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                    ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                    ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                    ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                    DefaultSelectedItems: |
+                                        =If(
+                                            !IsBlank(varEditFormColaborar_11),
+                                                [varEditFormColaborar_11.tipo_contratacao],
+                                            If(
+                                                !IsBlank(varAttFormColaborar_11),
+                                                [varAttFormColaborar_11.tipo_contratacao]
+                                            )
+                                        )
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                    DisplayFields: =["Value"]
+                                    FocusedBorderThickness: =1
+                                    Font: =App.Theme.Font
+                                    Height: =30
+                                    HoverColor: =RGBA(0, 0, 0, 1)
+                                    HoverFill: =App.Theme.Colors.Lighter70
+                                    InputTextPlaceholder: ="Selecione o tipo de contratação"
+                                    Items: =["CLT", "ESTÁGIO", "JOVEM APRENDIZ","PJ"]
+                                    PressedColor: =App.Theme.Colors.PrimaryForeground
+                                    PressedFill: =App.Theme.Colors.Darker30
+                                    SearchFields: =["Value"]
+                                    SearchItems: =Search(["CLT","ESTÁGIO","JOVEM APRENDIZ","PJ"],DataCardValue8.SearchText,Value)
+                                    SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                    SelectionFill: =App.Theme.Colors.Primary
+                                    SelectMultiple: =false
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                            ErrorMessage8 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue8.Y + DataCardValue8.Height
+                                ZIndex: =4
+
+                            StarVisible8 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey8.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey8.Y
+                                ZIndex: =5
+
+                        id_contrato_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="id_contrato"
+                            Default: =ThisItem.id_contrato
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,id_contrato)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, id_contrato)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue11.Selected.ID_Contrato
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =1
+                            Y: =2
+                            ZIndex: =9
+
+                            DataCardKey11 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Contrato"
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            Container24 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                Height: =30
+                                RadiusBottomLeft: =5
+                                RadiusBottomRight: =5
+                                RadiusTopLeft: =5
+                                RadiusTopRight: =5
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: |
+                                    =DataCardKey11.Y + DataCardKey11.Height + 5
+                                ZIndex: =3
+
+                                DataCardValue11 As combobox:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    ChevronBackground: =App.Theme.Colors.Primary
+                                    ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                    ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                    ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                    ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                    ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                    DefaultSelectedItems: |
+                                        =If(
+                                            !IsBlank(varEditFormColaborar_11),
+                                            Table(
+                                                LookUp(sigd_contratos, ID_Contrato = varEditFormColaborar_11.id_contrato)
+                                            ),
+                                            If(
+                                                !IsBlank(varAttFormColaborar_11),
+                                                Table(
+                                                    LookUp(sigd_contratos, ID_Contrato = varAttFormColaborar_11.id_contrato)
+                                                )
+                                            )
+                                        )
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                    DisplayFields: =["referencia"]
+                                    Font: =App.Theme.Font
+                                    Height: =30
+                                    HoverColor: =RGBA(0, 0, 0, 1)
+                                    HoverFill: =App.Theme.Colors.Lighter70
+                                    InputTextPlaceholder: ="Selecione o contrato"
+                                    Items: =SortByColumns(ShowColumns(Filter(sigd_contratos, ativo), ID_Contrato, referencia), "referencia", SortOrder.Ascending)
+                                    PressedColor: =App.Theme.Colors.PrimaryForeground
+                                    PressedFill: =App.Theme.Colors.Darker30
+                                    SearchFields: =["referencia"]
+                                    SearchItems: =Search(SortByColumns(ShowColumns(Filter(sigd_contratos,ativo),ID_Contrato,referencia),"referencia",SortOrder.Ascending),DataCardValue11.SearchText,referencia)
+                                    SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                    SelectionFill: =App.Theme.Colors.Primary
+                                    SelectMultiple: =false
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                            ErrorMessage11 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue11.Y + DataCardValue11.Height
+                                ZIndex: =4
+
+                            StarVisible11 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey11.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey11.Y
+                                ZIndex: =5
+
+                        id_setor_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="id_departamento"
+                            Default: =ThisItem.id_departamento
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,id_departamento)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, id_departamento)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue13.Selected.ID_Referencia
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =2
+                            Y: =2
+                            ZIndex: =10
+
+                            DataCardKey13 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Departamento"
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            Container17 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                Height: =30
+                                RadiusBottomLeft: =5
+                                RadiusBottomRight: =5
+                                RadiusTopLeft: =5
+                                RadiusTopRight: =5
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                                ZIndex: =3
+
+                                DataCardValue13 As combobox:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    ChevronBackground: =App.Theme.Colors.Primary
+                                    ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                    ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                    ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                    ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                    ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                    DefaultSelectedItems: |
+                                        =If(
+                                            !IsBlank(varEditFormColaborar_11),
+                                            Table(
+                                                LookUp(sigd_departamentos, ID_Referencia = varEditFormColaborar_11.id_departamento)
+                                            ),
+                                            If(
+                                                !IsBlank(varAttFormColaborar_11),
+                                                Table(
+                                                    LookUp(sigd_departamentos, ID_Referencia = varAttFormColaborar_11.id_departamento)
+                                                )
+                                            )
+                                        )
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                    DisplayFields: =["departamento"]
+                                    FocusedBorderThickness: =1
+                                    Font: =App.Theme.Font
+                                    Height: =Parent.Height
+                                    HoverColor: =RGBA(0, 0, 0, 1)
+                                    HoverFill: =App.Theme.Colors.Lighter70
+                                    InputTextPlaceholder: ="Selecione o departamento"
+                                    Items: =SortByColumns(ShowColumns(Filter(sigd_departamentos, ativo), ID_Referencia, departamento), "departamento", SortOrder.Ascending)
+                                    PressedColor: =App.Theme.Colors.PrimaryForeground
+                                    PressedFill: =App.Theme.Colors.Darker30
+                                    SearchFields: =["ID_Referencia"]
+                                    SearchItems: =Search(SortByColumns(ShowColumns(Filter(sigd_departamentos,ativo),ID_Referencia,departamento),"departamento",SortOrder.Ascending),DataCardValue13.SearchText,ID_Referencia)
+                                    SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                    SelectionFill: =App.Theme.Colors.Primary
+                                    SelectMultiple: =false
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                            ErrorMessage13 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue13.Y + DataCardValue13.Height
+                                ZIndex: =4
+
+                            StarVisible13 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey13.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey13.Y
+                                ZIndex: =5
+
+                        id_gestor_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="id_gestor"
+                            Default: =ThisItem.id_gestor
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,id_gestor)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, id_gestor)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue12.Selected.id_colaboradores
+                            Visible: =true
+                            Width: =Parent.Width/5
+                            WidthFit: =false
+                            X: =3
+                            Y: =2
+                            ZIndex: =11
+
+                            DataCardKey12 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Gestor"
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            Container18 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                Height: =30
+                                RadiusBottomLeft: =5
+                                RadiusBottomRight: =5
+                                RadiusTopLeft: =5
+                                RadiusTopRight: =5
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                                ZIndex: =3
+
+                                DataCardValue12 As combobox:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    ChevronBackground: =App.Theme.Colors.Primary
+                                    ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                                    ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                                    ChevronFill: =App.Theme.Colors.PrimaryForeground
+                                    ChevronHoverBackground: =App.Theme.Colors.Darker10
+                                    ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                                    DefaultSelectedItems: |-
+                                        ={gestor: LookUp(sigd_colaboradores, ID_Referencia = ThisItem.id_gestor, nome),
+                                        id_colaboradores: ThisItem.id_gestor}
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisabledFill: =RGBA(244, 244, 244, 1)
+                                    DisplayFields: =["gestor"]
+                                    FocusedBorderThickness: =1
+                                    Font: =App.Theme.Font
+                                    Height: =Parent.Height
+                                    HoverColor: =RGBA(0, 0, 0, 1)
+                                    HoverFill: =App.Theme.Colors.Lighter70
+                                    InputTextPlaceholder: ="Selecione o gestor"
+                                    Items: =SortByColumns(AddColumns(ShowColumns(Filter(sigd_gestores, ativo), id_colaboradores), gestor, LookUp(sigd_colaboradores, id_colaboradores = ID_Referencia, nome)), "gestor", SortOrder.Ascending)
+                                    PressedColor: =App.Theme.Colors.PrimaryForeground
+                                    PressedFill: =App.Theme.Colors.Darker30
+                                    SearchFields: =["gestor"]
+                                    SearchItems: =Search(SortByColumns(AddColumns(ShowColumns(Filter(sigd_gestores,ativo),id_colaboradores),gestor,LookUp(sigd_colaboradores,id_colaboradores=ID_Referencia,nome)),"gestor",SortOrder.Ascending),DataCardValue12.SearchText,gestor)
+                                    SelectionColor: =App.Theme.Colors.PrimaryForeground
+                                    SelectionFill: =App.Theme.Colors.Primary
+                                    SelectMultiple: =false
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                            ErrorMessage12 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue12.Y + DataCardValue12.Height
+                                ZIndex: =4
+
+                            StarVisible12 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey12.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey12.Y
+                                ZIndex: =5
+
+                        ativo_DataCard1 As typedDataCard.toggleEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="ativo"
+                            Default: =ThisItem.ativo
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,ativo)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue9.Value
+                            Visible: =true
+                            Width: =Parent.Width/7.5
+                            WidthFit: =false
+                            X: =4
+                            Y: =2
+                            ZIndex: =12
+
+                            DataCardKey9 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                PaddingBottom: =0
+                                Size: =12
+                                Text: ="Ativo"
+                                Width: =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue9 As toggleSwitch:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =Parent.Default
+                                DisplayMode: =Parent.DisplayMode
+                                FalseFill: =RGBA(128, 130, 133, 1)
+                                FalseText: ="Desativado"
+                                Font: =App.Theme.Font
+                                HandleFill: =RGBA(255, 255, 255, 1)
+                                Height: =30
+                                ShowLabel: =false
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                TrueFill: =App.Theme.Colors.Primary
+                                TrueText: ="Ligar"
+                                Width: =55
+                                X: =Parent.Width/2 - Self.Width/2
+                                Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage9 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue9.Y + DataCardValue9.Height
+                                ZIndex: =3
+
+                            StarVisible9 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey9.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey9.Y
+                                ZIndex: =4
+
+                        ID_Referencia_DataCard1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderColor: =App.Theme.Colors.Darker40
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="ID_Referencia"
+                            Default: =ThisItem.ID_Referencia
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_colaboradores],DataSourceInfo.DisplayName,ID_Referencia)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =7680
+                            maximumWidth: =1366
+                            MaxLength: =DataSourceInfo([@sigd_colaboradores], DataSourceInfo.MaxLength, ID_Referencia)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue10.Text
+                            Visible: =false
+                            Width: =Parent.Width/3
+                            WidthFit: =false
+                            X: =5
+                            Y: =2
+                            ZIndex: =13
+
+                            DataCardKey10 As label:
+                                AutoHeight: =true
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =34
+                                Size: =12
+                                Text: =Parent.DisplayName
+                                Width: |
+                                    =Parent.Width - 20
+                                Wrap: =false
+                                X: =10
+                                ZIndex: =1
+
+                            DataCardValue10 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                BorderThickness: =0
+                                Color: =RGBA(0, 0, 0, 1)
+                                Default: =If(!IsBlank(varEditFormColaborar_11), varEditFormColaborar_11.ID_Referencia, Var_ID_cadastro_rh_colab)
+                                DelayOutput: =true
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                DisplayMode: =Parent.DisplayMode
+                                FocusedBorderThickness: =1
+                                Font: =App.Theme.Font
+                                Height: =30
+                                HintText: =""
+                                HoverBorderColor: =App.Theme.Colors.Darker40
+                                HoverColor: =RGBA(0, 0, 0, 1)
+                                HoverFill: =App.Theme.Colors.Lighter70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                Size: =11
+                                Tooltip: =Parent.DisplayName
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage10 As label:
+                                AutoHeight: =true
+                                Color: =RGBA(168, 0, 0, 1)
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =10
+                                Y: =DataCardValue10.Y + DataCardValue10.Height
+                                ZIndex: =3
+
+                            StarVisible10 As label:
+                                Align: =Align.Center
+                                Color: =App.Theme.Colors.Darker30
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                Font: =App.Theme.Font
+                                Height: =DataCardKey10.Height
+                                Size: =12
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =10
+                                Wrap: =false
+                                Y: =DataCardKey10.Y
+                                ZIndex: =4
+
+                    html_btn_clean_RH_1_2 As htmlViewer:
+                        AutoHeight: =true
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Font: =App.Theme.Font
+                        HtmlText: |-
+                            ="<div
+                              style='
+                                display:inline-flex;
+                                justify-content:center;
+                                align-items:center;
+                                width:38px;
+                                height:38px;
+                                background:#e3eafc;
+                                color:#254985;
+                                border-radius:12px;
+                                box-shadow:0 1px 4px rgba(0,0,0,0.12);
+                                border:1px solid #bbdefb;
+                                font-size:19px;
+                                cursor:pointer;
+                                transition:background 0.16s, box-shadow 0.16s, color 0.16s;
+                                user-select:none;
+                                margin:1px;
+                              '
+                              title='Limpar formulário'
+                              onmouseover=\'this.style.background='#bbdefb'; this.style.color='#184379'; this.style.boxShadow='0 3px 12px rgba(37,73,133,0.15)';\'
+                              onmouseout=\'this.style.background='#e3eafc'; this.style.color='#254985'; this.style.boxShadow='0 1px 4px rgba(0,0,0,0.12)';\'
+                            >
+                              🧹
+                            </div>"
+                        OnSelect: |-
+                            =If(!IsBlank(varEditFormColaborar_11), UpdateContext({varEditFormColaborar_11: Blank()}));
+                            If(!IsBlank(varAttFormColaborar_11), UpdateContext({varAttFormColaborar_11: Blank()}));
+                            ResetForm(frm_colaboradores_RH_1_2);
+                            UpdateContext({Var_ID_cadastro_rh_colab: "RHU-COLAB-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Width: =40
+                        X: =html_btn_save_RH_1_2.X - Self.Width - Medidas.Espacamento*2
+                        Y: =238.5
+                        ZIndex: =5
+
+                    html_btn_save_RH_1_2 As htmlViewer:
+                        AutoHeight: =true
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Font: =App.Theme.Font
+                        HtmlText: |-
+                            ="<div
+                              style='
+                                display:inline-flex;
+                                justify-content:center;
+                                align-items:center;
+                                width:38px;
+                                height:38px;
+                                background:#e6f4ea;
+                                color:#18613a;
+                                border-radius:12px;
+                                box-shadow:0 1px 4px rgba(0,0,0,0.12);
+                                border:1px solid #b2dfdb;
+                                font-size:19px;
+                                cursor:pointer;
+                                transition:background 0.16s, box-shadow 0.16s, color 0.16s;
+                                user-select:none;
+                                margin:1px;
+                              '
+                              title='Salvar'
+                              onmouseover=\'this.style.background='#b2dfdb'; this.style.color='#095828'; this.style.boxShadow='0 3px 12px rgba(24,97,58,0.15)';\'
+                              onmouseout=\'this.style.background='#e6f4ea'; this.style.color='#18613a'; this.style.boxShadow='0 1px 4px rgba(0,0,0,0.12)';\'
+                            >
+                              💾
+                            </div>"
+                        OnSelect: |
+                            =// Verifica os campos obrigatórios
+                            UpdateContext({
+                                varFormCamposObrig_11:
+                                    !IsBlank(DataCardValue1.Text) &&
+                                    !IsBlank(DataCardValue2.Text) &&
+                                    !IsBlank(DataCardValue3.Text) &&
+                                    !IsBlank(DataCardValue4.Text) &&
+                                    !IsBlank(DataCardValue5.Text) &&
+                                    !IsBlank(DataCardValue6.SelectedDate) &&
+                                    !IsBlank(DataCardValue7.Text) &&
+                                    !IsBlank(DataCardValue8.Selected) &&
+                                    !IsBlank(DataCardValue10.Text) &&
+                                    !IsBlank(DataCardValue11.Selected) &&
+                                    !IsBlank(DataCardValue12.Selected) &&
+                                    !IsBlank(DataCardValue13.Selected)
+                            });
+                            
+                            // Verifica se é novo registro ou edição
+                            If(
+                                IsBlank(varAttFormColaborar_11),
+                            
+                                // NOVO REGISTRO
+                                If(
+                                    varFormCamposObrig_11,
+                                    SubmitForm(frm_colaboradores_RH_1_2),
+                                    Notify("Preencha todos os campos obrigatórios", NotificationType.Information, 2000)
+                                ),
+                            
+                                // ATUALIZAÇÃO
+                                If(
+                                    varAttFormColaborar_11.nome = DataCardValue1.Text &&
+                                    varAttFormColaborar_11.email = DataCardValue5.Text &&
+                                    varAttFormColaborar_11.telefone = DataCardValue4_1.Text &&
+                                    varAttFormColaborar_11.cpf = DataCardValue2_1.Text &&
+                                    varAttFormColaborar_11.rg = DataCardValue3.Text &&
+                                    varAttFormColaborar_11.nascimento = DataCardValue6.SelectedDate &&
+                                    varAttFormColaborar_11.endereco = DataCardValue7.Text &&
+                                    varAttFormColaborar_11.tipo_contratacao = DataCardValue8.Selected.Value &&
+                                    varAttFormColaborar_11.id_contrato = DataCardValue11.Selected.ID_Contrato &&
+                                    varAttFormColaborar_11.id_departamento = DataCardValue13.Selected.ID_Referencia &&
+                                    varAttFormColaborar_11.id_gestor = DataCardValue12.Selected.id_colaboradores,
+                            
+                                    Notify(
+                                        "Os dados submetidos não apresentam alterações em relação ao registro atual. A atualização cadastral foi interrompida.", NotificationType.Information, 2000),
+                            
+                                    // CASO CAMPOS DIFERENTES, ENVIAR SE CAMPOS OBRIGATÓRIOS OK
+                                    If(
+                                        varFormCamposObrig_11,
+                                        SubmitForm(frm_colaboradores_RH_1_2);
+                                        Patch(sigd_colaboradores, frm_colaboradores_RH_1_2.LastSubmit, {ID_linha: frm_colaboradores_RH_1_2.LastSubmit.ID}),
+                                        Notify("Preencha todos os campos obrigatórios", NotificationType.Information, 2000)
+                                    )
+                                )
+                            )
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Width: =40
+                        X: =frm_colaboradores_RH_1_2.X + frm_colaboradores_RH_1_2.Width - Self.Width - 10
+                        Y: =238.5
+                        ZIndex: =6
+
+                sigd_ctn_geral_RH_1_3 As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    FillPortions: =0
+                    Height: =30
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutGap: =Medidas.Espacamento
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    Width: =Parent.Width
+                    ZIndex: =3
+
+                    TextInput1 As text:
+                        BorderColor: =App.Theme.Colors.Darker40
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Clear: =true
+                        Color: =RGBA(0, 0, 0, 1)
+                        Default: =
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        DisabledFill: =RGBA(244, 244, 244, 1)
+                        FocusedBorderThickness: =4
+                        Font: =App.Theme.Font
+                        Height: =30
+                        HintText: ="🔎 Digite o nome do colaborador para filtrar"
+                        HoverBorderColor: =App.Theme.Colors.Darker40
+                        HoverColor: =RGBA(0, 0, 0, 1)
+                        HoverFill: =App.Theme.Colors.Lighter70
+                        PaddingLeft: =5
+                        Size: =11
+                        X: =40
+                        ZIndex: =1
+
+                    Container23_1 As groupContainer.manualLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        Height: =sigd_ctn_geral_RH_1_3.Height
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        ZIndex: =3
+
+                        cmb_RH_1_3_2 As combobox:
+                            BorderColor: =
+                            BorderStyle: =
+                            BorderThickness: =0
+                            ChevronBackground: =App.Theme.Colors.Primary
+                            ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                            ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                            ChevronFill: =App.Theme.Colors.PrimaryForeground
+                            ChevronHoverBackground: =App.Theme.Colors.Darker10
+                            ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            DisabledColor: =RGBA(166, 166, 166, 1)
+                            DisabledFill: =RGBA(244, 244, 244, 1)
+                            DisplayFields: =["referencia"]
+                            FocusedBorderThickness: =1
+                            Font: =App.Theme.Font
+                            Height: =Parent.Height
+                            HoverColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =App.Theme.Colors.Lighter70
+                            InputTextPlaceholder: ="Selecione o contrato para filtrar"
+                            Items: =SortByColumns(ShowColumns(Filter(sigd_contratos, ativo), ID_Contrato, referencia), "referencia", SortOrder.Ascending)
+                            PressedColor: =App.Theme.Colors.PrimaryForeground
+                            PressedFill: =App.Theme.Colors.Darker30
+                            SearchFields: =["referencia"]
+                            SearchItems: =Search(SortByColumns(ShowColumns(Filter(sigd_contratos,ativo),ID_Contrato,referencia),"referencia",SortOrder.Ascending),cmb_RH_1_3_2.SearchText,referencia)
+                            SelectionColor: =App.Theme.Colors.PrimaryForeground
+                            SelectionFill: =App.Theme.Colors.Primary
+                            SelectMultiple: =false
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                    Container23_2 As groupContainer.manualLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        Height: =sigd_ctn_geral_RH_1_3.Height
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        ZIndex: =4
+
+                        cmb_RH_1_3_3 As combobox:
+                            BorderColor: =
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =0
+                            ChevronBackground: =App.Theme.Colors.Primary
+                            ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                            ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                            ChevronFill: =App.Theme.Colors.PrimaryForeground
+                            ChevronHoverBackground: =App.Theme.Colors.Darker10
+                            ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            DisabledColor: =RGBA(166, 166, 166, 1)
+                            DisabledFill: =RGBA(244, 244, 244, 1)
+                            DisplayFields: =["Value","email"]
+                            FocusedBorderThickness: =1
+                            Font: =App.Theme.Font
+                            Height: =Parent.Height
+                            HoverColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =App.Theme.Colors.Lighter70
+                            InputTextPlaceholder: |
+                                ="Selecione o tipo de contratação para filtrar"
+                            Items: =["CLT", "ESTÁGIO", "JOVEM APRENDIZ","PJ"]
+                            PressedColor: =App.Theme.Colors.PrimaryForeground
+                            PressedFill: =App.Theme.Colors.Darker30
+                            SearchFields: =["Value"]
+                            SearchItems: =Search(["CLT","ESTÁGIO","JOVEM APRENDIZ","PJ"],cmb_RH_1_3_3.SearchText,Value)
+                            SelectionColor: =App.Theme.Colors.PrimaryForeground
+                            SelectionFill: =App.Theme.Colors.Primary
+                            SelectMultiple: =false
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                    Container23_3 As groupContainer.manualLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        Height: =sigd_ctn_geral_RH_1_3.Height
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        ZIndex: =5
+
+                        cmb_RH_1_3_4 As combobox:
+                            BorderColor: =
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =0
+                            ChevronBackground: =App.Theme.Colors.Primary
+                            ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                            ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                            ChevronFill: =App.Theme.Colors.PrimaryForeground
+                            ChevronHoverBackground: =App.Theme.Colors.Darker10
+                            ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            DisabledColor: =RGBA(166, 166, 166, 1)
+                            DisabledFill: =RGBA(244, 244, 244, 1)
+                            DisplayFields: =["departamento"]
+                            FocusedBorderThickness: =1
+                            Font: =App.Theme.Font
+                            Height: =Parent.Height
+                            HoverColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =App.Theme.Colors.Lighter70
+                            InputTextPlaceholder: |
+                                ="Selecione o departamento para filtrar"
+                            Items: =SortByColumns(ShowColumns(Filter(sigd_departamentos, ativo), ID_Referencia, departamento), "departamento", SortOrder.Ascending)
+                            PressedColor: =App.Theme.Colors.PrimaryForeground
+                            PressedFill: =App.Theme.Colors.Darker30
+                            SearchFields: =["departamento"]
+                            SearchItems: =Search(SortByColumns(ShowColumns(Filter(sigd_departamentos,ativo),ID_Referencia,departamento),"departamento",SortOrder.Ascending),cmb_RH_1_3_4.SearchText,departamento)
+                            SelectionColor: =App.Theme.Colors.PrimaryForeground
+                            SelectionFill: =App.Theme.Colors.Primary
+                            SelectMultiple: =false
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                    Container23_4 As groupContainer.manualLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        Height: =sigd_ctn_geral_RH_1_3.Height
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        ZIndex: =6
+
+                        cmb_RH_1_3_5 As combobox:
+                            BorderColor: =
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =0
+                            ChevronBackground: =App.Theme.Colors.Primary
+                            ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                            ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                            ChevronFill: =App.Theme.Colors.PrimaryForeground
+                            ChevronHoverBackground: =App.Theme.Colors.Darker10
+                            ChevronHoverFill: =App.Theme.Colors.PrimaryForeground
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            DisabledColor: =RGBA(166, 166, 166, 1)
+                            DisabledFill: =RGBA(244, 244, 244, 1)
+                            DisplayFields: =["gestor"]
+                            FocusedBorderThickness: =1
+                            Font: =App.Theme.Font
+                            Height: =Parent.Height
+                            HoverColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =App.Theme.Colors.Lighter70
+                            InputTextPlaceholder: |
+                                ="Selecione o gestor para filtrar"
+                            Items: =SortByColumns(AddColumns(ShowColumns(Filter(sigd_gestores, ativo), id_colaboradores), gestor, LookUp(sigd_colaboradores, id_colaboradores = ID_Referencia, nome)), "gestor", SortOrder.Ascending)
+                            PressedColor: =App.Theme.Colors.PrimaryForeground
+                            PressedFill: =App.Theme.Colors.Darker30
+                            SearchFields: =["gestor"]
+                            SearchItems: =Search(SortByColumns(AddColumns(ShowColumns(Filter(sigd_gestores,ativo),id_colaboradores),gestor,LookUp(sigd_colaboradores,id_colaboradores=ID_Referencia,nome)),"gestor",SortOrder.Ascending),cmb_RH_1_3_5.SearchText,gestor)
+                            SelectionColor: =App.Theme.Colors.PrimaryForeground
+                            SelectionFill: =App.Theme.Colors.Primary
+                            SelectMultiple: =false
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                sigd_ctn_geral_RH_1_4 As groupContainer.manualLayoutContainer:
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    ZIndex: =5
+
+                    sigd_glr_geral_rh_1_4 As gallery.variableTemplateHeightGallery:
+                        '#CopilotOverlayLabel': ="Filtrada"
+                        BorderColor: =App.Theme.Colors.Darker40
+                        DelayItemLoading: =true
+                        Height: =Parent.Height
+                        Items: |-
+                            =Search(
+                                Filter(
+                                    SortByColumns(
+                                            sigd_colaboradores,
+                                        "nome",
+                                        SortOrder.Ascending
+                                    ),
+                                    (IsBlank(cmb_RH_1_3_2.Selected.ID_Contrato) || id_contrato = cmb_RH_1_3_2.Selected.ID_Contrato) &&
+                                    (IsBlank(cmb_RH_1_3_3.Selected.Value) || tipo_contratacao = cmb_RH_1_3_3.Selected.Value) &&
+                                    (IsBlank(cmb_RH_1_3_4.Selected.ID_Referencia) || id_departamento = cmb_RH_1_3_4.Selected.ID_Referencia) &&
+                                    (IsBlank(cmb_RH_1_3_5.Selected.id_colaboradores) || id_gestor = cmb_RH_1_3_5.Selected.id_colaboradores) &&
+                                    email <> "sistemas@bonin.eng.br"
+                                ),
+                                TextInput1.Text,
+                                nome
+                            )
+                        Layout: =Layout.Vertical
+                        LoadingSpinner: =LoadingSpinner.Data
+                        TemplatePadding: =0
+                        TemplateSize: =10
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        html_txt_glr_RH_1_4 As htmlViewer:
+                            AutoHeight: =true
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            Font: =App.Theme.Font
+                            Height: =10
+                            HtmlText: |
+                                ="<div style='
+                                  background:#fff;
+                                  border-radius:10px;
+                                  box-shadow:0 1px 4px rgba(44,62,80,0.10);
+                                  padding:6px 12px;
+                                  margin-left:5px;
+                                  margin-right:20px;
+                                  display:flex;
+                                  flex-direction:column;
+                                  font-family: "& App.Theme.Font & ", Arial, sans-serif;
+                                  font-size:11px;
+                                  color:" & EsquemaDeCores.AzulEscuroBonin.Texto & ";
+                                '>
+                                
+                                  <!-- Linha 1: Nome, E-mail, Telefone (padrão destacado) -->
+                                  <div style='display:flex; flex-wrap:wrap; gap:14px; margin-bottom:4px; align-items:center;'>
+                                    <div style='width:350px; '>
+                                      <span style='font-weight:bold; font-size:13px; color:" & EsquemaDeCores.AzulEscuroBonin.Texto & "; display:block;'>
+                                        " & ThisItem.nome & "
+                                      </span>
+                                    </div>
+                                    <div style='width:300px; '>
+                                      <span style='font-weight:bold; font-size:13px; color:" & EsquemaDeCores.AzulEscuroBonin.Texto & "; display:block;'>
+                                        E-mail: <span style='font-weight:normal; color:" & EsquemaDeCores.AzulEscuroBonin.Texto & ";'>" & ThisItem.email & "</span>
+                                      </span>
+                                    </div>
+                                    <div style='width:250px; '>
+                                      <span style='font-weight:bold; font-size:13px; color:" & EsquemaDeCores.AzulEscuroBonin.Texto & "; display:block;'>
+                                        Telefone: <span style='font-weight:normal; color:" & EsquemaDeCores.AzulEscuroBonin.Texto & ";'>" & ThisItem.telefone & "</span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                
+                                  <!-- Linha 2: Documentos e Endereço -->
+                                  <div style='display:flex; flex-wrap:wrap; gap:14px; margin-bottom:4px;'>
+                                    <div style='width:350px;'><span style='font-weight:bold;'>CPF:</span> " & ThisItem.cpf & "</div>
+                                    <div style='width:300px;'><span style='font-weight:bold;'>RG:</span> " & ThisItem.rg & "</div>
+                                    <div style='width:300px;'><span style='font-weight:bold;'>Nascimento:</span> " & ThisItem.nascimento & "</div>
+                                    <div style='flex:1; min-width:220px;'><span style='font-weight:bold;'>Endereço:</span> " & ThisItem.endereco & "</div>
+                                  </div>
+                                
+                                  <!-- Linha 3: Contrato, Tipo de Contratação, Departamento, Gestor, Status -->
+                                  <div style='display:flex; flex-wrap:wrap; gap:14px;'>
+                                    <div style='width:350px;'><span style='font-weight:bold;'>Contrato:</span> " & LookUp(sigd_contratos, ID_Contrato = ThisItem.id_contrato, referencia) & "</div>
+                                    <div style='width:300px;'><span style='font-weight:bold;'>Tipo de Contratação:</span> " & ThisItem.tipo_contratacao & "</div>
+                                    <div style='width:300px;'><span style='font-weight:bold;'>Departamento:</span> " & LookUp(sigd_departamentos, ID_Referencia = ThisItem.id_departamento, departamento) & "</div>
+                                    <div style='width:300px;'><span style='font-weight:bold;'>Gestor:</span> " & LookUp(sigd_colaboradores, ID_Referencia = ThisItem.id_gestor, nome) & "</div>
+                                    <div style='width:110px; display:flex; align-items:center; gap:6px;'>
+                                      <span style='font-weight:bold;'>Status:</span>
+                                      <span style='
+                                        background-color:#e8eaf6;
+                                        color:" & EsquemaDeCores.AzulEscuroBonin.Texto & ";
+                                        font-size:11px;
+                                        border-radius:14px;
+                                        font-weight:bold;
+                                        min-width:56px;
+                                        text-align:center;
+                                        box-shadow:0 1px 2px rgba(30,30,60,0.07);
+                                        padding:2px 8px;
+                                        display:inline-block;
+                                      '>
+                                        " & If(ThisItem.ativo, "Ativo", "Inativo") & "
+                                      </span>
+                                    </div>
+                                  </div>
+                                
+                                </div>"
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =13
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                        html_btn_att_glr_RH_1_4 As htmlViewer:
+                            AutoHeight: =true
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            Font: =App.Theme.Font
+                            Height: =10
+                            HtmlText: |
+                                ="<div
+                                  style='
+                                    display:inline-flex;
+                                    justify-content:center;
+                                    align-items:center;
+                                    width:38px;
+                                    height:38px;
+                                    background:#fbe9e7;
+                                    color:#b71c1c;
+                                    border-radius:12px;
+                                    box-shadow:0 1px 4px rgba(0,0,0,0.12);
+                                    border:1px solid #ffcdd2;
+                                    font-size:19px;
+                                    cursor:pointer;
+                                    transition:background 0.16s, box-shadow 0.16s, color 0.16s;
+                                    user-select:none;
+                                    margin:1px;
+                                  '
+                                  title='Atualizar dados'
+                                  onmouseover=\'this.style.background='#ffcdd2'; this.style.color='#7f0000'; this.style.boxShadow='0 3px 12px rgba(183,28,28,0.13)';\'
+                                  onmouseout=\'this.style.background='#fbe9e7'; this.style.color='#b71c1c'; this.style.boxShadow='0 1px 4px rgba(0,0,0,0.12)';\'
+                                >
+                                  &#x21bb;
+                                </div>"
+                            OnSelect: |-
+                                =If(!IsBlank(varEditFormColaborar_11),
+                                UpdateContext({
+                                    varEditFormColaborar_11: Blank()
+                                    }));
+                                UpdateContext({
+                                    varAttFormColaborar_11: Patch(ThisItem,
+                                        {
+                                            telefone: Substitute(Substitute(Substitute(ThisItem.telefone, "(", ""), ")",""), "-",""),
+                                            cpf: Substitute(Substitute(ThisItem.cpf, ".",""), "-","")
+                                        })
+                                    });
+                                UpdateContext({
+                                    varVisibleFormColaborar_11: true
+                                })
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =13
+                            Width: =40
+                            X: =html_btn_edit_glr_RH_1_4.X - Self.Width - Medidas.Espacamento
+                            Y: =html_txt_glr_RH_1_4.Height/2 - Self.Height/2
+                            ZIndex: =4
+
+                        html_btn_edit_glr_RH_1_4 As htmlViewer:
+                            AutoHeight: =true
+                            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                            Font: =App.Theme.Font
+                            Height: =10
+                            HtmlText: |
+                                ="<div
+                                  style='
+                                    display:inline-flex;
+                                    justify-content:center;
+                                    align-items:center;
+                                    width:38px;
+                                    height:38px;
+                                    background:#e8eaf6;
+                                    color:#1a237e;
+                                    border-radius:12px;
+                                    box-shadow:0 1px 4px rgba(0,0,0,0.12);
+                                    border:1px solid #d1d9ff;
+                                    font-size:19px;
+                                    cursor:pointer;
+                                    transition:background 0.16s, box-shadow 0.16s, color 0.16s;
+                                    user-select:none;
+                                    margin:1px;
+                                  '
+                                  title='Editar dados'
+                                  onmouseover=\'this.style.background='#c5cae9'; this.style.color='#111d5e'; this.style.boxShadow='0 3px 12px rgba(30,30,60,0.18)';\'
+                                  onmouseout=\'this.style.background='#e8eaf6'; this.style.color='#1a237e'; this.style.boxShadow='0 1px 4px rgba(0,0,0,0.12)';\'
+                                >
+                                  ✏️
+                                </div>"
+                            OnSelect: |-
+                                =If(!IsBlank(varAttFormColaborar_11),
+                                UpdateContext({
+                                    varAttFormColaborar_11: Blank()
+                                    }));
+                                UpdateContext({
+                                    varEditFormColaborar_11: Patch(ThisItem,
+                                        {
+                                            telefone: Substitute(Substitute(Substitute(ThisItem.telefone, "(", ""), ")",""), "-",""),
+                                            cpf: Substitute(Substitute(ThisItem.cpf, ".",""), "-","")
+                                        })
+                                    });
+                                UpdateContext({
+                                    varVisibleFormColaborar_11: true
+                                })
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =13
+                            Width: =40
+                            X: =html_txt_glr_RH_1_4.Width - Self.Width - Medidas.Espacamento - 20
+                            Y: =html_txt_glr_RH_1_4.Height/2 - Self.Height/2
+                            ZIndex: =5
+
+        sigd_bonin_sidebar_RH_1 As sigd_bonin_sidebar:
+            ChildTabPriority: =true
+            ContentLanguage: =""
+            EnableChildFocus: =true
+            OnSelect: =
+            Visible: =true
+            ZIndex: =2
+
+        sigd_bonin_cabecalho_RH_1 As sigd_bonin_cabecalho:
+            ChildTabPriority: =true
+            ContentLanguage: =""
+            EnableChildFocus: =true
+            Height: =sigd_bonin_cabecalho_RH_1.AlturaCabeçalho
+            Visible: =true
+            X: =sigd_bonin_cabecalho_RH_1.EixoX
+            Y: =sigd_bonin_cabecalho_RH_1.EixoY
+            ZIndex: =3
+

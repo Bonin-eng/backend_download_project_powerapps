@@ -1,0 +1,649 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Boletim Medição Screen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - app_cpn_bonin_14:
+          Control: CanvasComponent
+          ComponentName: app_cpn_bonin
+          Properties:
+            ButtonHeight: =50
+            ButtonHeightSUB: =40
+            ButtonRadius: =0
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =918
+            HoverFill: ="#EBEAEA33"
+            ListaDasTelas: =colTelas
+            ListaIcones: =ColLogo
+            OnSelect: =
+            Width: =1920
+      - Label1_134:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Semibold
+            Height: =100
+            Size: =18
+            Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - BOLETIM DE MEDIÇÃO"
+            Width: =Parent.Width - Self.X - 10
+            Wrap: =false
+            X: =230
+      - Container1_12:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height - Self.Y
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - Self.X - 10
+            X: =230
+            Y: =110
+          Children:
+            - Container2_9:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  PaddingBottom: =10
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  PaddingTop: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.Width
+                Children:
+                  - Container3_7:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =0
+                        Height: =70
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - Container5_19:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: |
+                                =0
+                              PaddingBottom: =5
+                              PaddingLeft: =5
+                              PaddingRight: =5
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =200
+                            Children:
+                              - Label1_144:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Justify
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =0
+                                    Size: =10
+                                    Text: |-
+                                      ="🔎 CONTRATO "
+                                    Width: =100
+                              - Container20_1:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    BorderThickness: =2
+                                    DropShadow: =DropShadow.None
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =5
+                                    RadiusBottomRight: =5
+                                    RadiusTopLeft: =5
+                                    RadiusTopRight: =5
+                                    Width: =0
+                                  Children:
+                                    - TextInput1_19:
+                                        Control: Classic/ComboBox@2.4.0
+                                        Properties:
+                                          AccessibleLabel: =
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          ChevronBackground: =RGBA(56, 96, 178, 1)
+                                          ChevronFill: =RGBA(255, 255, 255, 1)
+                                          ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                          ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                          DisplayFields: =["n_contrato"]
+                                          Font: =Font.'Open Sans'
+                                          Height: =Parent.Height
+                                          HoverFill: =RGBA(186, 202, 226, 1)
+                                          Items: =db_cont_contrato
+                                          OnChange: |
+                                            =//Collection com mais de 2 mil itens
+
+                                            UpdateContext({VarInicial:true});
+
+                                            // 7️⃣. Limpa as collections que não estão sendo utilizadas
+                                            Clear(RegistroMes);
+                                            Clear(collRegistrosFiltrados);
+
+                                            // 0️⃣. Define o número de registros do lote
+                                            UpdateContext({VarLote: 100});
+
+                                            // 1️⃣. Captura o primeiro e o último registro baseado no ID
+                                            UpdateContext({firstRecord: First(db_fin_medicao).ID});
+                                            UpdateContext({lastRecord: First(Sort(db_fin_medicao, ID, SortOrder.Descending)).ID});
+
+                                            // 2️⃣. Calcula o número de lotes necessários (arredondando para cima)
+                                            UpdateContext({RegistroMesNo: RoundUp((lastRecord - firstRecord) / VarLote, 0)});
+
+                                            // 3️⃣. Cria uma sequência de iteradores para segmentação
+                                            ClearCollect(RegistroMes, Sequence(RegistroMesNo, 1));
+
+                                            // 4️⃣. Define a coleção final onde serão armazenados os registros filtrados
+                                            ClearCollect(collRegistrosFiltrados, []);
+
+                                            // 5️⃣. Itera sobre os lotes e coleta os registros paginados
+                                            ForAll(
+                                                RegistroMes,
+                                                With(
+                                                    {
+                                                        prevThreshold: ThisRecord.Value * VarLote,
+                                                        nextThreshold: (ThisRecord.Value + 1) * VarLote
+                                                    },
+                                                    Collect(
+                                                        collRegistrosFiltrados,
+                                                        Filter(
+                                                            db_fin_medicao,
+                                                            contrato = TextInput1_19.Selected.n_contrato &&
+                                                            medicao_ativo = "Ativo"
+                                                        )
+                                                    )
+                                                )
+                                            );
+
+                                            ClearCollect(
+                                                collRegistrosUnicosFinal,
+                                                ForAll(
+                                                    GroupBy(collRegistrosFiltrados, ID, TempGroup),
+                                                    First(TempGroup)
+                                                )
+                                            );
+
+                                            ClearCollect(
+                                                colMedicaoEmpreendimento_Detalhado,
+                                                AddColumns(
+                                                    GroupBy(
+                                                        collRegistrosUnicosFinal,
+                                                        numero_medicao,
+                                                        ItensPorMedicao
+                                                    ),
+                                                    Soma_valor_executado,
+                                                    Sum(ItensPorMedicao, valor_executado_periodo),
+                                                    Soma_valor_acumulado,
+                                                    Sum(ItensPorMedicao, valor_executado_acumulado),
+                                                    id_contrato_empreendimento,
+                                                    LookUp(ItensPorMedicao, !IsBlank(empreendimento), empreendimento), 
+                                                    periodo_medicao,
+                                                    LookUp(ItensPorMedicao, !IsBlank(periodo_medicao), periodo_medicao), 
+                                                    competencia_medicao,
+                                                    LookUp(ItensPorMedicao, !IsBlank(competencia_medicao), competencia_medicao), 
+                                                    Item_Grupo,
+                                                    First(ItensPorMedicao).item_grupo
+                                                )
+                                            );
+
+                                            UpdateContext({VarInicial:false});
+                                          OnSelect: =
+                                          PressedColor: =RGBA(255, 255, 255, 1)
+                                          PressedFill: =RGBA(0, 18, 107, 1)
+                                          SearchFields: =["ComplianceAssetId"]
+                                          SelectMultiple: =false
+                                          SelectionColor: =RGBA(255, 255, 255, 1)
+                                          SelectionFill: =RGBA(56, 96, 178, 1)
+                                          Size: =11
+                                          Width: =Parent.Width
+                        - Container5_20:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: |
+                                =0
+                              PaddingBottom: =5
+                              PaddingLeft: =5
+                              PaddingRight: =5
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =250
+                              X: =40
+                              Y: =40
+                            Children:
+                              - Label1_145:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Justify
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =0
+                                    Size: =10
+                                    Text: |-
+                                      ="🔎 NÚMERO MEDIÇÃO"
+                                    Width: =100
+                              - TextInput1_20:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    Default: =
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Size: =10
+                                    Width: =0
+                  - Container4_8:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - Container8_15:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(45, 65, 93, 1)
+                              Height: =Parent.Height
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingBottom: =5
+                              PaddingLeft: =5
+                              PaddingRight: =5
+                              PaddingTop: =5
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =If(varContratoSelect, false, true)
+                              Width: =Parent.Width
+                            Children:
+                              - Gallery3_6:
+                                  Control: Gallery@2.15.0
+                                  Variant: VariableHeight
+                                  Properties:
+                                    BorderColor: =
+                                    Height: =Parent.Height
+                                    Items: |-
+                                      =Filter(
+                                          db_cont_empreendimento,
+                                          n_contrato = TextInput1_19.Selected.n_contrato
+                                      )
+                                    LayoutMinHeight: =0
+                                    ShowScrollbar: =false
+                                    TemplateSize: =60
+                                    Width: =Parent.Width
+                                  Children:
+                                    - Gallery1_3:
+                                        Control: Gallery@2.15.0
+                                        Variant: VariableHeight
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Height: |-
+                                            =If(varQuantidadeItensDetalhado = 0,
+                                            Self.AllItemsCount * 30 * 2 + (35 * varQuantidadeItensDetalhado),
+                                            Self.AllItemsCount * 35 * 2 + (35 * varQuantidadeItensDetalhado + 20))
+                                          Items: |-
+                                            =Filter(
+                                                SortByColumns(
+                                                    AddColumns(
+                                                        colMedicaoEmpreendimento_Detalhado, // Sua coleção original
+                                                        NumeroMedicaoNumerico, // Nome da nova coluna temporária que conterá o valor numérico
+                                                        Value(numero_medicao) // A expressão que calcula o valor dessa nova coluna
+                                                    ),
+                                                    "NumeroMedicaoNumerico", // Agora, ordene pela nova coluna numérica temporária
+                                                    SortOrder.Ascending), 
+                                                (IsBlank(TextInput1_20.Text) || StartsWith(numero_medicao, TextInput1_20.Text)))
+                                          ShowScrollbar: =false
+                                          TemplatePadding: =0
+                                          TemplateSize: =50
+                                          Visible: =varExpandido = ThisItem.ID
+                                          Width: =Parent.TemplateWidth-Self.X
+                                          X: =10
+                                          Y: =Container34_6.Height+Container34_6.Y
+                                        Children:
+                                          - Container7_22:
+                                              Control: GroupContainer@1.3.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.Semilight
+                                                Height: =htmltxt_historico_3.Height + If(htmltxt_historico_viajantes_3.Visible, htmltxt_historico_viajantes_3.Height, 0)
+                                                RadiusBottomLeft: =10
+                                                RadiusBottomRight: =10
+                                                RadiusTopLeft: =10
+                                                RadiusTopRight: =10
+                                                Width: =Parent.Width
+                                              Children:
+                                                - htmltxt_historico_viajantes_3:
+                                                    Control: HtmlViewer@2.1.0
+                                                    Properties:
+                                                      AutoHeight: =true
+                                                      Fill: =RGBA(214, 223, 238, 1)
+                                                      Font: =Font.'Open Sans'
+                                                      Height: =10
+                                                      HtmlText: |-
+                                                        ="<div style='background-color: #2d415d; padding: 10px; color: white; border-radius: 10px;'>" &
+                                                            "<h2 style= 'font-size:13px; '>RESUMO - PLANILHA ORÇAMENTÁRIA</h2>" &
+                                                            "<table border='1' style='width:100%; border-color: white; border-style: solid ;border-collapse: collapse;'>" &
+                                                                "<thead>" &
+                                                                    "<tr style='height: 10px; font-size:13px'>" &
+                                                                        "<th style='padding: 6px;  text-align: left; color: white;'>ITEM ORIGINAL</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>ITEM PADRÃO</th>" &
+                                                                        "<th style='padding: 6px; text-align: left; color: white; width: 700px;'>DESCRIÇÃO</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>UNIDADE</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>QUANTIDADE</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>PREÇO UNITÁRIO</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>VALOR TOTAL</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>(%) B.I.D.</th>" &
+                                                                        "<th style='padding: 6px; text-align: center; color: white;'>VALOR TOTAL c/ BID</th>" &
+                                                                    "</tr>" &
+                                                                "</thead>" &
+                                                                "<tbody>" &
+                                                                    Concat(
+                                                                        SortByColumns(
+                                                                            colMedicacaoDetalhado,
+                                                                            "item_grupo",
+                                                                            SortOrder.Ascending,
+                                                                            "nivel_1",
+                                                                            SortOrder.Ascending
+                                                                        ),
+                                                                    "<tr>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: left;'>" & item_origem & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & num_item & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: left; width: 700px;'>" & num_item & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & num_item & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & num_item & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & num_item & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(valor_previsto, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & num_item & "</td>" &
+                                                                        "<td style='font-size:13px; padding: 6px; text-align: center;'>" & Text(valor_bdi, "[$-pt-BR]R$ #.##0,00") & "</td>" &
+                                                                    "</tr>"
+                                                                    ) &
+                                                                "</tbody>" &
+                                                            "</table>" &
+                                                        "</div>"
+                                                      OnSelect: =
+                                                      Visible: =varHistoricoExpandidoDetalhado = ThisItem.numero_medicao
+                                                      Width: =Parent.Width
+                                                      Y: =htmltxt_historico_3.Y + htmltxt_historico_3.Height
+                                                - htmltxt_historico_3:
+                                                    Control: HtmlViewer@2.1.0
+                                                    Properties:
+                                                      BorderColor: =RGBA(0, 0, 0, 0)
+                                                      Fill: =RGBA(214, 223, 238, 1)
+                                                      Font: =Font.'Open Sans'
+                                                      Height: =50
+                                                      HtmlText: |-
+                                                        ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                                                         <!-- Nome -->
+                                                         <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                                          " & Concatenate("Boletim de Medição nº - ", ThisItem.numero_medicao) & "
+                                                         </div>
+
+                                                        <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                                         <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+
+                                                          <div style='flex:1'><strong>Perído Medição:</strong> " & ThisItem.periodo_medicao & "</div>
+
+                                                          <div style='flex:1'><strong>Competência:</strong> " & ThisItem.competencia_medicao & "</div>
+
+                                                          <div style='flex:1'><strong>Valor Medido:</strong> " & Text(ThisItem.Soma_valor_executado, "[$-pt-BR]R$ #.##0,00") & "</div>
+
+                                                          <div style='flex:1'><strong>Valor Contrato:</strong> " & Text(ThisItem.Soma_valor_acumulado, "[$-pt-BR]R$ #.##0,00") & "</div>
+
+                                                         </div>
+
+                                                        </div>"
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Width: =Parent.Width
+                                                - icn_expandir_3:
+                                                    Control: Classic/Icon@2.5.0
+                                                    Properties:
+                                                      Height: =htmltxt_historico_3.Height - Self.Y * 2
+                                                      Icon: =If(varHistoricoExpandidoDetalhado = ThisItem.numero_medicao, Icon.ChevronUp, Icon.ChevronDown)
+                                                      OnSelect: |
+                                                        =UpdateContext(
+                                                            {
+                                                                varHistoricoExpandidoDetalhado: If(
+                                                                    varHistoricoExpandidoDetalhado = ThisItem.numero_medicao,
+                                                                    Blank(),
+                                                                    ThisItem.numero_medicao
+                                                                )
+                                                            }
+                                                        );
+
+                                                        ClearCollect(colMedicacaoDetalhado, Filter(collRegistrosUnicosFinal, numero_medicao = ThisItem.numero_medicao));
+
+                                                        If(
+                                                            Self.Icon = Icon.ChevronDown,
+                                                            Set(
+                                                                varQuantidadeItensDetalhado,
+                                                                0
+                                                            ),
+                                                            Set(
+                                                                varQuantidadeItensDetalhado,
+                                                                CountRows(colMedicacaoDetalhado)
+                                                            )
+                                                        );
+                                                      Width: =40
+                                                      X: =Parent.Width - Self.Width - 10
+                                                      Y: =15
+                                    - Container34_6:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.Semilight
+                                          Height: =Parent.TemplateHeight
+                                          PaddingLeft: =20
+                                          PaddingRight: =20
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                          Width: =Parent.Width - 10
+                                        Children:
+                                          - HtmlText1_5:
+                                              Control: HtmlViewer@2.1.0
+                                              Properties:
+                                                Fill: =RGBA(255, 255, 255, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =Parent.Height
+                                                HtmlText: |-
+                                                  ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                                                   <!-- Nome -->
+                                                   <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                                    " & Concatenate(ThisItem.n_contrato, " - ", ThisItem.objeto_empreendimento) & "
+                                                   </div>
+
+                                                  <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                                   <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+
+                                                    <div style='flex:1'><strong>SEI:</strong> " & ThisItem.n_unidade_habitacional & "</div>
+
+                                                    <div style='flex:1'><strong>Data Assinatura:</strong> " & ThisItem.qre & "</div>
+
+                                                    <div style='flex:1'><strong>Data Término Prevista:</strong> " &
+
+                                                      ThisItem.qre
+
+                                                    & "</div>
+
+                                                    <div style='flex:1'><strong>Valor Contrato:</strong> " & ThisItem.qre & "</div>
+
+                                                   </div>
+
+                                                  </div>"
+                                                Width: =Parent.Width
+                                          - icoSeta_6:
+                                              Control: Classic/Icon@2.5.0
+                                              Properties:
+                                                BorderColor: =RGBA(0, 0, 0, 1)
+                                                DisabledBorderColor: =
+                                                DisabledColor: =
+                                                DisabledFill: =
+                                                FocusedBorderThickness: =0
+                                                Height: =Parent.Height
+                                                HoverColor: =ColorFade(Self.Color, 10%)
+                                                HoverFill: =
+                                                Icon: =If(varExpandido = ThisItem.ID, Icon.ChevronDown, Icon.ChevronRight)
+                                                OnSelect: |-
+                                                  =UpdateContext({varExpandido: If(varExpandido = ThisItem.ID, Blank(), ThisItem.ID)});
+                                                  Set(varQuantidadeItensDetalhado, 0);
+                                                  UpdateContext({varHistoricoExpandidoDetalhado: Blank()});
+
+                                                  If(Self.Icon = Icon.ChevronRight, 
+                                                      Set(varBordaOrcamento, true), Set(varBordaOrcamento, false))
+                                                PaddingBottom: =10
+                                                PaddingRight: =Self.Width-Self.Height
+                                                PaddingTop: =10
+                                                Width: |
+                                                  =60
+                                                X: '=Parent.Width - Self.Width '
+                        - ctn_loading_1:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(45, 65, 93, 1)
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Visible: =VarInicial
+                              Width: =Parent.Width
+                            Children:
+                              - img_loading_bonin_1:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Height: =70
+                                    Image: ='Logo - Cohab'
+                                    Width: =70
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =Parent.Height/2 - Self.Height/2 - 5
+                              - img_loading_1:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =
+                                    DisabledBorderColor: =
+                                    DisabledFill: =
+                                    FocusedBorderThickness: =0
+                                    Height: =300
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8, " & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: none; display: block; shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+                                          <g transform='rotate(0 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.9166666666666666s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(30 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(60 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(90 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(120 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(150 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(180 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(210 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(240 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(270 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(300 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g><g transform='rotate(330 50 50)'>
+                                          <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                              <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate>
+                                          </rect>
+                                          </g>
+                                          <!-- [ldio] generated by https://loading.io/ --></svg>
+                                      ")
+                                    Width: =300
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =Parent.Height/2 - Self.Height/2

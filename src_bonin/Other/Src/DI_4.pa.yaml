@@ -1,0 +1,1389 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  DI_4:
+    Properties:
+      Fill: =EsquemaDeCores.AzulBackground.Cor
+      LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    Children:
+      - sigd_ctn_geral_26:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Group: sigd_layout_26
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: =EsquemaDeCores.AzulConteiner.Cor
+            Height: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Height
+            RadiusBottomLeft: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Raio
+            RadiusBottomRight: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Raio
+            RadiusTopLeft: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Raio
+            RadiusTopRight: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Raio
+            Width: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Width
+            X: =sigd_bonin_cabecalho_26.ReferênciaContêiner.X
+            Y: =sigd_bonin_cabecalho_26.ReferênciaContêiner.Y
+          Children:
+            - sigd_ctn_geral_DI_2_2_telas:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  Height: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  RadiusBottomLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  RadiusBottomRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  RadiusTopLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  RadiusTopRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  Visible: =varVisibleCtnTelas_12
+                  Width: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Width
+                  Y: |
+                    =0
+                Children:
+                  - sigd_ctn_geral_RH_2_2_1_botoes_1:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        PaddingRight: |
+                          =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - ctn_btn_RH_2_2_1_1_departamento_1:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/10
+                            Children:
+                              - btn_novo_RH_2_2_1_2:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Primary
+                                    Height: =40
+                                    Icon: ="Add"
+                                    IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                    Layout: ='ButtonCanvas.Layout'.IconBefore
+                                    OnSelect: |-
+                                      =UpdateContext({varVisibleFormTelas_12: !varVisibleFormTelas_12});
+                                      UpdateContext({Var_ID_novo_tela: "DIN-TELAS-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                                    Text: ="Novo Cadastro"
+                                    Width: =120
+                                    X: =5
+                                    Y: =5
+                        - ctn_btn_RH_2_2_1_2_departamento_1:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width - ctn_btn_RH_2_2_1_1_departamento_1.Width - ctn_btn_RH_2_2_1_3_departamento_1.Width
+                            Children:
+                              - lbl_titulo_RH_2_2_2_departamento_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =EsquemaDeCores.AzulEscuroBonin.Cor
+                                    FontWeight: =FontWeight.Semibold
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =14
+                                    Text: =Upper("Controle de Permissão de Telas")
+                                    Width: =300
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =Parent.Height/2 - Self.Height/2
+                        - ctn_btn_RH_2_2_1_3_departamento_1:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/10
+                            Children:
+                              - img_RH_2_2_1_4:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    Height: =32
+                                    Image: =LookUp(ColIconesMenus, Nome = "close", SVG)
+                                    OnSelect: |-
+                                      =UpdateContext({varVisibleCtnTelas_12: false})
+                                    TabIndex: =2
+                                    Width: =32
+                                    X: =Parent.Width - Self.Width - Medidas.Espacamento
+                                    Y: =Parent.Height/2 - Self.Height/2
+                  - sigd_ctn_geral_RH_2_2_3:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =html_frm_colaboradores_RH_2_2_3.Height
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =varVisibleFormTelas_12
+                        Width: =Parent.Width
+                      Children:
+                        - html_frm_colaboradores_RH_2_2_3:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =500
+                              HtmlText: |-
+                                ="<div style='
+                                  width: 1820px;
+                                  height: 240px;
+                                  border: 1px solid rgba(0,0,0,0.1);
+                                  border-radius: 12px;
+                                  padding: 16px;
+                                  background-color: #829EC3;
+                                '>
+                                </div>"
+                              Width: =Parent.Width
+                        - frm_telas_DI_2_2_3:
+                            Control: Form@2.4.4
+                            Variant: Classic
+                            Layout: Vertical
+                            Properties:
+                              DataSource: =sigd_din_perm_telas
+                              DefaultMode: =If(!IsBlank(varEditFormTelas_12), FormMode.Edit, FormMode.New)
+                              Height: =250
+                              Item: =varEditFormTelas_12
+                              NumberOfColumns: =2
+                              OnSuccess: |-
+                                =If(!IsBlank(varEditFormTelas_12), Notify("Telas atualizado com sucesso.", NotificationType.Success, 2000), Notify("Telas cadastrado com sucesso.", NotificationType.Success, 2000));
+                                If(!IsBlank(varEditFormTelas_12), UpdateContext({varEditFormTelas_12: Blank()}));
+                                ResetForm(frm_telas_DI_2_2_3);
+                                UpdateContext({Var_ID_novo_tela: "DIN-DEPART-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                              Width: =Parent.Width/4
+                              X: =Parent.Width/2 - Self.Width/2
+                            Children:
+                              - id_colaborador_DataCard1:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicTextualEdit
+                                  Properties:
+                                    DataField: ="id_colaborador"
+                                    Default: =ThisItem.id_colaborador
+                                    DisplayName: =DataSourceInfo([@sigd_din_perm_telas],DataSourceInfo.DisplayName,id_colaborador)
+                                    MaxLength: =DataSourceInfo([@sigd_din_perm_telas], DataSourceInfo.MaxLength, id_colaborador)
+                                    Required: =false
+                                    Update: =DataCardValue29.Selected.ID_Referencia
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                  Children:
+                                    - DataCardKey29:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: ="Nome do Colaborador"
+                                          Width: |+
+                                            =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                          Y: =10
+                                    - Container28:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Height: =30
+                                          RadiusBottomLeft: =5
+                                          RadiusBottomRight: =5
+                                          RadiusTopLeft: =5
+                                          RadiusTopRight: =5
+                                          Width: |+
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardKey29.Y + DataCardKey29.Height + 5
+                                        Children:
+                                          - DataCardValue29:
+                                              Control: Classic/ComboBox@2.4.0
+                                              Properties:
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =0
+                                                DefaultSelectedItems: =Filter(SortByColumns(ShowColumns(sigd_colaboradores, ID_Referencia, nome, email), "nome", SortOrder.Ascending), ID_Referencia = ThisItem.id_colaborador)
+                                                DisplayFields: =["nome"]
+                                                Height: =Parent.Height
+                                                InputTextPlaceholder: ="Selecione o colaborador"
+                                                Items: =SortByColumns(ShowColumns(Filter(sigd_colaboradores, ativo), ID_Referencia, nome, email), "nome", SortOrder.Ascending)
+                                                SearchFields: =["ID_Referencia"]
+                                                SelectMultiple: =false
+                                                Size: =11
+                                                Width: =Parent.Width
+                                    - ErrorMessage28:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =14
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: =Parent.Width - 60
+                                          X: =30
+                                          Y: =DataCardValue29.Y + DataCardValue29.Height
+                                    - StarVisible28:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey29.Height
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =30
+                                          Wrap: =false
+                                          Y: =DataCardKey29.Y
+                              - telas_DataCard1:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicTextualEdit
+                                  Properties:
+                                    DataField: ="telas"
+                                    Default: =ThisItem.telas
+                                    DisplayName: =DataSourceInfo([@sigd_din_perm_telas],DataSourceInfo.DisplayName,telas)
+                                    MaxLength: =DataSourceInfo([@sigd_din_perm_telas], DataSourceInfo.MaxLength, telas)
+                                    Required: =false
+                                    Update: =Concat(DataCardValue30.SelectedItems,'3. Nome Tela SubMenu',"; ")
+                                    Width: =Parent.Width
+                                    X: =1
+                                    Y: =0
+                                  Children:
+                                    - DataCardKey30:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: ="Telas com Acesso"
+                                          Width: |+
+                                            =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                          Y: =10
+                                    - Container29:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Height: =30
+                                          RadiusBottomLeft: =5
+                                          RadiusBottomRight: =5
+                                          RadiusTopLeft: =5
+                                          RadiusTopRight: =5
+                                          Width: |+
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardKey30.Y + DataCardKey30.Height + 5
+                                        Children:
+                                          - DataCardValue30:
+                                              Control: Classic/ComboBox@2.4.0
+                                              Properties:
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =0
+                                                DefaultSelectedItems: |+
+                                                  =Filter(
+                                                      AddColumns(RenameColumns(Ungroup(RenameColumns(ShowColumns(colTelasGeral, NomeTela, SubMenu, Tela), NomeTela, '1. Nome Tela Principal', Tela, '2. Tela Princial'), SubMenu), NomeTela, '3. Nome Tela SubMenu', Tela, '4. Tela SubMenu'), GrupoTelas, '1. Nome Tela Principal' & " | " & '3. Nome Tela SubMenu'),
+                                                      '3. Nome Tela SubMenu' in Split(ThisItem.telas, "; ")
+                                                  )
+                                                DisplayFields: =["GrupoTelas"]
+                                                Height: =Parent.Height
+                                                InputTextPlaceholder: ="Selecione as telas"
+                                                Items: =AddColumns(RenameColumns(Ungroup(RenameColumns(ShowColumns(colTelasGeral, NomeTela, SubMenu, Tela), NomeTela, '1. Nome Tela Principal', Tela, '2. Tela Princial'), SubMenu), NomeTela, '3. Nome Tela SubMenu', Tela, '4. Tela SubMenu'), GrupoTelas, '1. Nome Tela Principal' & " | " & '3. Nome Tela SubMenu')
+                                                SearchFields: =["1. Nome Tela Principal"]
+                                                Size: =11
+                                                Width: =Parent.Width
+                                    - ErrorMessage29:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =14
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: =Parent.Width - 60
+                                          X: =30
+                                          Y: =DataCardValue30.Y + DataCardValue30.Height
+                                    - StarVisible29:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey30.Height
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =30
+                                          Wrap: =false
+                                          Y: =DataCardKey30.Y
+                              - ativo_DataCard5:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicToggleEdit
+                                  Properties:
+                                    DataField: ="ativo"
+                                    Default: =ThisItem.ativo
+                                    DisplayName: =DataSourceInfo([@sigd_din_perm_telas],DataSourceInfo.DisplayName,ativo)
+                                    Required: =false
+                                    Update: =DataCardValue27.Value
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =1
+                                  Children:
+                                    - DataCardKey27:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          Align: =Align.Center
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: =Parent.DisplayName
+                                          Width: |+
+                                            =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                          Y: =10
+                                    - DataCardValue27:
+                                        Control: Classic/Toggle@2.1.0
+                                        MetadataKey: FieldValue
+                                        Properties:
+                                          BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                          Default: =Parent.Default
+                                          DisplayMode: =Parent.DisplayMode
+                                          Height: =30
+                                          ShowLabel: =false
+                                          Size: =11
+                                          Tooltip: =Parent.DisplayName
+                                          Width: =55
+                                          X: =Parent.Width/2 - Self.Width/2
+                                          Y: =DataCardKey27.Y + DataCardKey27.Height + 5
+                                    - ErrorMessage26:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =14
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: =Parent.Width - 60
+                                          X: =30
+                                          Y: =DataCardValue27.Y + DataCardValue27.Height
+                                    - StarVisible26:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey27.Height
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =30
+                                          Wrap: =false
+                                          Y: =DataCardKey27.Y
+                              - ID_Referencia_DataCard5:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicTextualEdit
+                                  Properties:
+                                    DataField: ="ID_Referencia"
+                                    Default: =ThisItem.ID_Referencia
+                                    DisplayName: =DataSourceInfo([@sigd_din_perm_telas],DataSourceInfo.DisplayName,ID_Referencia)
+                                    MaxLength: =DataSourceInfo([@sigd_din_perm_telas], DataSourceInfo.MaxLength, ID_Referencia)
+                                    Required: =false
+                                    Update: =DataCardValue28.Text
+                                    Visible: =false
+                                    Width: =Parent.Width
+                                    X: =1
+                                    Y: =1
+                                  Children:
+                                    - DataCardKey28:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: =Parent.DisplayName
+                                          Width: =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                          Y: =10
+                                    - DataCardValue28:
+                                        Control: Classic/TextInput@2.3.2
+                                        MetadataKey: FieldValue
+                                        Properties:
+                                          BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Default: =If(!IsBlank(varEditFormTelas_12.ID_Referencia), varEditFormTelas_12.ID_Referencia, Var_ID_novo_tela)
+                                          DelayOutput: =true
+                                          DisplayMode: =Parent.DisplayMode
+                                          Height: =30
+                                          MaxLength: =Parent.MaxLength
+                                          PaddingLeft: =5
+                                          Size: =11
+                                          Tooltip: =Parent.DisplayName
+                                          Width: |+
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardKey28.Y + DataCardKey28.Height + 5
+                                    - ErrorMessage27:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =14
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: =Parent.Width - 60
+                                          X: =30
+                                          Y: =DataCardValue28.Y + DataCardValue28.Height
+                                    - StarVisible27:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey28.Height
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =30
+                                          Wrap: =false
+                                          Y: =DataCardKey28.Y
+                        - icn_clean_RH_2_2_4:
+                            Control: Image@2.2.3
+                            Properties:
+                              Height: =icn_save_RH_2_2_3.Height
+                              Image: =LookUp(ColIconesMenus, Nome = "clean", SVG)
+                              OnSelect: |-
+                                =If(!IsBlank(varEditFormTelas_12), UpdateContext({varEditFormTelas_12: Blank()}));
+                                ResetForm(frm_telas_DI_2_2_3);
+                                UpdateContext({Var_ID_novo_tela: "DIN-DEPART-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")});
+                              TabIndex: |
+                                =2
+                              Width: =icn_save_RH_2_2_3.Width
+                              X: =icn_save_RH_2_2_3.X
+                              Y: =icn_save_RH_2_2_3.Y + icn_save_RH_2_2_3.Height + icn_save_RH_2_2_3.Y
+                        - icn_save_RH_2_2_3:
+                            Control: Image@2.2.3
+                            Properties:
+                              Height: =32
+                              HoverBorderColor: =
+                              Image: =LookUp(ColIconesMenus, Nome = "save", SVG)
+                              OnSelect: |
+                                =// Atualiza a variável de campos obrigatórios
+                                UpdateContext({
+                                    varFormTelasCamposObrig_12:
+                                        !IsBlank(DataCardValue29.Selected.ID_Referencia) // Verifica se algum item foi selecionado
+                                });
+
+                                // SE os campos obrigatórios estiverem preenchidos...
+                                If(
+                                    varFormTelasCamposObrig_12,
+
+                                    // VERIFICA se o colaborador JÁ ESTÁ CADASTRADO
+                                    If(
+                                        !IsEmpty(
+                                            Filter(sigd_din_perm_telas, id_colaborador = DataCardValue29.Selected.ID_Referencia)
+                                        ) && IsBlank(varEditFormTelas_12),
+
+                                        Notify("Colaborador já cadastrado", NotificationType.Information, 2000),
+
+                                        SubmitForm(frm_telas_DI_2_2_3)),
+
+                                    // CASO os campos obrigatórios NÃO estejam preenchidos
+                                    Notify("Preencha todos os campos obrigatórios", NotificationType.Information, 2000)
+                                )
+                              PressedBorderColor: =
+                              TabIndex: =2
+                              Width: =32
+                              X: |
+                                =frm_telas_DI_2_2_3.X + frm_telas_DI_2_2_3.Width + Self.Width/2 
+                              Y: =(Parent.Height - (Self.Height*2))/3
+                  - sigd_ctn_geral_RH_2_2_3_filtros_1:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =Medidas.Espacamento
+                        PaddingLeft: =Medidas.Espacamento
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - TextInput1_1:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =0
+                              Clear: =true
+                              Default: =
+                              Height: =30
+                              HintText: |-
+                                ="🔎 Digite o nome do colaborador para filtrar"
+                              PaddingLeft: =5
+                              Size: =11
+                              X: =40
+                        - cmb_RH_2_2_3_6:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =
+                              BorderStyle: =
+                              BorderThickness: =0
+                              DisplayFields: =["tratado"]
+                              FocusedBorderThickness: =1
+                              Height: =30
+                              Items: |
+                                =Table(
+                                    {
+                                        value: true,
+                                        tratado: "Sim"
+                                    },
+                                    {
+                                        value: false,
+                                        tratado: "Não"
+                                    }
+                                )
+                              SearchFields: =["tratado"]
+                              SelectMultiple: =false
+                              Size: =11
+                  - sigd_glr_geral_RH_2_2_5:
+                      Control: Gallery@2.15.0
+                      Variant: VariableHeight
+                      Properties:
+                        Items: =Search(SortByColumns(AddColumns(ShowColumns(sigd_din_perm_telas, ID, ID_Referencia, id_colaborador, telas, ativo), nome, LookUp(sigd_colaboradores, ID_Referencia = id_colaborador, nome)), "nome", SortOrder.Ascending), TextInput1_1.Text, nome)
+                        LayoutMinHeight: =10
+                        TemplateSize: =60
+                      Children:
+                        - html_div_RH_2_2_6:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =10
+                              HtmlText: |
+                                ="<div style='width:100%; font-family: "& App.Theme.Font & ", Arial, sans-serif; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'></div>"
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Width: =Parent.Width - (Medidas.Espacamento*2)
+                              X: =
+                              Y: =html_txt_RH_2_2_6.Y + html_txt_RH_2_2_6.Height
+                        - html_txt_RH_2_2_6:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =10
+                              HtmlText: |
+                                ="<div style='width:100%; font-family: "& App.Theme.Font & ", Arial, sans-serif; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px;'>
+
+                                  <!-- Linha de Nome -->
+                                  <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                    " & LookUp(sigd_colaboradores, ID_Referencia = ThisItem.id_colaborador, nome) & "
+                                  </div>
+
+                                  <!-- Linha 1: CPF, RG, E-mail, Telefone -->
+                                  <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                     <div style='flex:1'><strong>Telas:</strong> " & ThisItem.telas & "</div>
+                                  </div>
+
+                                  <!-- Linha 1: CPF, RG, E-mail, Telefone -->
+                                  <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                     <div style='flex:1'><strong>Ativo:</strong> " & If(ThisItem.ativo, "Sim", "Não") & "</div>
+                                  </div>
+
+                                </div>"
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Width: =Parent.Width - 32 - (Medidas.Espacamento*2)
+                        - icn_edit_RH_2_2_6:
+                            Control: Image@2.2.3
+                            Properties:
+                              Height: =32
+                              Image: =LookUp(ColIconesMenus, Nome = "edit", SVG)
+                              OnSelect: |-
+                                =UpdateContext({
+                                    varEditFormTelas_12: DropColumns(ThisItem, nome)
+                                    });
+                                UpdateContext({
+                                    varVisibleFormTelas_12: true
+                                })
+                              TabIndex: =2
+                              Width: =32
+                              X: =html_txt_RH_2_2_6.X + html_txt_RH_2_2_6.Width - Medidas.Espacamento
+                              Y: =Medidas.Espacamento*2
+            - sigd_ctn_geral_RH_2_2_departamento:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  Height: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  RadiusBottomLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  RadiusBottomRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  RadiusTopLeft: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  RadiusTopRight: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Raio
+                  Visible: =varVisibleCtnDepartamento_12
+                  Width: =sigd_bonin_cabecalho_RH_1.ReferênciaContêiner.Width
+                  Y: |
+                    =0
+                Children:
+                  - sigd_ctn_geral_RH_2_2_1_botoes:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        PaddingRight: |
+                          =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - ctn_btn_RH_2_2_1_1_departamento:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/10
+                            Children:
+                              - btn_novo_RH_2_2_1_1:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Primary
+                                    Height: =40
+                                    Icon: ="Add"
+                                    IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                                    Layout: ='ButtonCanvas.Layout'.IconBefore
+                                    OnSelect: |-
+                                      =UpdateContext({varVisibleFormDepartamento_12: !varVisibleFormDepartamento_12});
+                                      UpdateContext({Var_ID_novo_departamento: "DIN-DEPART-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                                    Text: ="Novo Departamento"
+                                    Width: =120
+                                    X: =5
+                                    Y: =5
+                        - ctn_btn_RH_2_2_1_2_departamento:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width - ctn_btn_RH_2_2_1_1_departamento.Width - ctn_btn_RH_2_2_1_3_departamento.Width
+                            Children:
+                              - lbl_titulo_RH_2_2_2_departamento:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =EsquemaDeCores.AzulEscuroBonin.Cor
+                                    FontWeight: =FontWeight.Semibold
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =14
+                                    Text: =Upper("Controle de Departamentos")
+                                    Width: =300
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =Parent.Height/2 - Self.Height/2
+                        - ctn_btn_RH_2_2_1_3_departamento:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/10
+                            Children:
+                              - img_RH_2_2_1_3:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    Height: =32
+                                    Image: =LookUp(ColIconesMenus, Nome = "close", SVG)
+                                    OnSelect: |-
+                                      =UpdateContext({varVisibleCtnDepartamento_12: false})
+                                    TabIndex: =2
+                                    Width: =32
+                                    X: =Parent.Width - Self.Width - Medidas.Espacamento
+                                    Y: =Parent.Height/2 - Self.Height/2
+                  - sigd_ctn_geral_RH_2_2_2:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =html_frm_colaboradores_RH_2_2_2.Height
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =varVisibleFormDepartamento_12
+                        Width: =Parent.Width
+                      Children:
+                        - html_frm_colaboradores_RH_2_2_2:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =235
+                              HtmlText: |+
+                                ="<div style='
+                                  width: 1820px;
+                                  height: 155px;
+                                  border: 1px solid rgba(0,0,0,0.1);
+                                  border-radius: 12px;
+                                  padding: 16px;
+                                  background-color: #829EC3;
+                                '>
+                                </div>"
+
+
+                              Width: =Parent.Width
+                        - frm_departamentos_RH_2_2_2:
+                            Control: Form@2.4.4
+                            Variant: Classic
+                            Layout: Vertical
+                            Properties:
+                              DataSource: =sigd_departamentos
+                              DefaultMode: =If(!IsBlank(varEditFormDepartamento_12), FormMode.Edit, FormMode.New)
+                              Item: =varEditFormDepartamento_12
+                              NumberOfColumns: =2
+                              OnSuccess: |-
+                                =If(!IsBlank(varEditFormDepartamento_12), Notify("Departamento atualizado com sucesso.", NotificationType.Success, 2000), Notify("Departamento cadastrado com sucesso.", NotificationType.Success, 2000));
+                                If(!IsBlank(varEditFormDepartamento_12), UpdateContext({varEditFormDepartamento_12: Blank()}));
+                                ResetForm(frm_departamentos_RH_2_2_2);
+                                UpdateContext({Var_ID_novo_departamento: "DIN-DEPART-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")})
+                              Width: =Parent.Width/4
+                              X: =Parent.Width/2 - Self.Width/2
+                              Y: =5
+                            Children:
+                              - departamento_DataCard1:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicTextualEdit
+                                  Properties:
+                                    DataField: ="departamento"
+                                    Default: =ThisItem.departamento
+                                    DisplayName: =DataSourceInfo([@sigd_departamentos],DataSourceInfo.DisplayName,departamento)
+                                    MaxLength: =DataSourceInfo([@sigd_departamentos], DataSourceInfo.MaxLength, departamento)
+                                    Required: =false
+                                    Update: =DataCardValue14.Text
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                  Children:
+                                    - DataCardKey14:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: ="Departamento"
+                                          Width: =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                    - DataCardValue14:
+                                        Control: Classic/TextInput@2.3.2
+                                        MetadataKey: FieldValue
+                                        Properties:
+                                          BorderColor: =
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Default: =Parent.Default
+                                          DelayOutput: =true
+                                          DisplayMode: =If(IsBlank(varEditFormDepartamento_12), Parent.DisplayMode, DisplayMode.Disabled)
+                                          FocusedBorderThickness: =1
+                                          Height: =30
+                                          MaxLength: =Parent.MaxLength
+                                          PaddingLeft: =5
+                                          Size: =11
+                                          Tooltip: =Parent.DisplayName
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardKey14.Y + DataCardKey14.Height + 5
+                                    - ErrorMessage14:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: |
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardValue14.Y + DataCardValue14.Height
+                                    - StarVisible14:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey14.Height
+                                          Size: =12
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =10
+                                          Wrap: =false
+                                          Y: =DataCardKey14.Y
+                              - ativo_DataCard3:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicToggleEdit
+                                  Properties:
+                                    DataField: ="ativo"
+                                    Default: =ThisItem.ativo
+                                    DisplayName: =DataSourceInfo([@sigd_departamentos],DataSourceInfo.DisplayName,ativo)
+                                    Required: =false
+                                    Update: =DataCardValue19.Value
+                                    Width: =Parent.Width
+                                    X: =1
+                                    Y: =0
+                                  Children:
+                                    - DataCardKey19:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          Align: =Align.Center
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: =Parent.DisplayName
+                                          Width: =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                    - DataCardValue19:
+                                        Control: Classic/Toggle@2.1.0
+                                        MetadataKey: FieldValue
+                                        Properties:
+                                          BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                          Default: =Parent.Default
+                                          DisplayMode: =Parent.DisplayMode
+                                          Height: =30
+                                          ShowLabel: =false
+                                          Size: =11
+                                          Tooltip: =Parent.DisplayName
+                                          Width: =55
+                                          X: =Parent.Width/2 - Self.Width/2
+                                          Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                                    - ErrorMessage19:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: |
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardValue19.Y + DataCardValue19.Height
+                                    - StarVisible19:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey19.Height
+                                          Size: =12
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =10
+                                          Wrap: =false
+                                          Y: =DataCardKey19.Y
+                              - ID_Referencia_DataCard2:
+                                  Control: TypedDataCard@1.0.7
+                                  Variant: ClassicTextualEdit
+                                  Properties:
+                                    DataField: ="ID_Referencia"
+                                    Default: =ThisItem.ID_Referencia
+                                    DisplayName: =DataSourceInfo([@sigd_departamentos],DataSourceInfo.DisplayName,ID_Referencia)
+                                    MaxLength: =DataSourceInfo([@sigd_departamentos], DataSourceInfo.MaxLength, ID_Referencia)
+                                    Required: =false
+                                    Update: =DataCardValue20.Text
+                                    Visible: =false
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =1
+                                  Children:
+                                    - DataCardKey20:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldName
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =34
+                                          Size: =12
+                                          Text: =Parent.DisplayName
+                                          Width: =Parent.Width - 20
+                                          Wrap: =false
+                                          X: =10
+                                    - DataCardValue20:
+                                        Control: Classic/TextInput@2.3.2
+                                        MetadataKey: FieldValue
+                                        Properties:
+                                          BorderColor: =
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Default: =If(!IsBlank(varEditFormDepartamento_12), varEditFormDepartamento_12.ID_Referencia, Var_ID_novo_departamento)
+                                          DelayOutput: =true
+                                          DisplayMode: =Parent.DisplayMode
+                                          FocusedBorderThickness: =1
+                                          Height: =30
+                                          MaxLength: =Parent.MaxLength
+                                          PaddingLeft: =5
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Size: =11
+                                          Tooltip: =Parent.DisplayName
+                                          Width: |
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardKey20.Y + DataCardKey20.Height + 5
+                                    - ErrorMessage20:
+                                        Control: Label@2.5.1
+                                        MetadataKey: ErrorMessage
+                                        Properties:
+                                          AutoHeight: =true
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(168, 0, 0, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =10
+                                          Live: =Live.Assertive
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =Parent.Error
+                                          Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                          Width: |
+                                            =Parent.Width - 20
+                                          X: =10
+                                          Y: =DataCardValue20.Y + DataCardValue20.Height
+                                    - StarVisible20:
+                                        Control: Label@2.5.1
+                                        MetadataKey: FieldRequired
+                                        Properties:
+                                          Align: =Align.Center
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =App.Theme.Colors.Darker30
+                                          Height: =DataCardKey20.Height
+                                          Size: =12
+                                          Text: ="*"
+                                          Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                          Width: =10
+                                          Wrap: =false
+                                          Y: =DataCardKey20.Y
+                        - icn_clean_RH_2_2_2:
+                            Control: Image@2.2.3
+                            Properties:
+                              Height: =icn_save_RH_2_2_2.Height
+                              Image: =LookUp(ColIconesMenus, Nome = "clean", SVG)
+                              OnSelect: |-
+                                =If(!IsBlank(varEditFormDepartamento_12), UpdateContext({varEditFormDepartamento_12: Blank()}));
+                                ResetForm(frm_departamentos_RH_2_2_2);
+                                UpdateContext({Var_ID_novo_departamento: "DIN-DEPART-" & Upper(Left(GUID(), 7)) & "-" & Text(Today(), "ddmmyy")});
+                              TabIndex: |
+                                =2
+                              Width: =icn_save_RH_2_2_2.Width
+                              X: =icn_save_RH_2_2_2.X
+                              Y: =icn_save_RH_2_2_2.Y + icn_save_RH_2_2_2.Height + icn_save_RH_2_2_2.Y
+                        - icn_save_RH_2_2_2:
+                            Control: Image@2.2.3
+                            Properties:
+                              Height: =32
+                              HoverBorderColor: =
+                              Image: =LookUp(ColIconesMenus, Nome = "save", SVG)
+                              OnSelect: |
+                                =// Atualiza a variável de campos obrigatórios
+                                UpdateContext({
+                                    varFormDepartamentoCamposObrig_12:
+                                        !IsBlank(DataCardValue14.Text) // Verifica se algum item foi selecionado
+                                });
+
+                                // SE os campos obrigatórios estiverem preenchidos...
+                                If(
+                                    varFormDepartamentoCamposObrig_12,
+
+                                    // VERIFICA se o departamento JÁ ESTÁ CADASTRADO
+                                    If(
+                                        !IsEmpty(
+                                            Filter(sigd_departamentos, departamento = DataCardValue14.Text)
+                                        ) && IsBlank(varEditFormDepartamento_12),
+
+                                        Notify("Departamento já cadastrado", NotificationType.Information, 2000),
+
+                                        SubmitForm(frm_departamentos_RH_2_2_2)),
+
+                                    // CASO os campos obrigatórios NÃO estejam preenchidos
+                                    Notify("Preencha todos os campos obrigatórios", NotificationType.Information, 2000)
+                                )
+                              PressedBorderColor: =
+                              TabIndex: =2
+                              Width: =32
+                              X: |
+                                =frm_departamentos_RH_2_2_2.X + frm_departamentos_RH_2_2_2.Width + Self.Width/2 
+                              Y: =(Parent.Height - (Self.Height*2))/3
+                  - sigd_ctn_geral_RH_2_2_3_filtros:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =Medidas.Espacamento
+                        PaddingLeft: =Medidas.Espacamento
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - cmb_RH_2_2_3_1:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =0
+                              DisplayFields: =["nome"]
+                              FocusedBorderThickness: =1
+                              Height: =30
+                              Items: =SortByColumns(AddColumns(ShowColumns(sigd_gestores, id_colaboradores), nome, LookUp(sigd_colaboradores, ID_Referencia = id_colaboradores, nome)), "nome", SortOrder.Ascending)
+                              SearchFields: =["id_colaboradores"]
+                              SelectMultiple: =false
+                              Size: =11
+                        - cmb_RH_2_2_3_2:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =
+                              BorderStyle: =
+                              BorderThickness: =0
+                              DisplayFields: =["tratado"]
+                              FocusedBorderThickness: =1
+                              Height: =30
+                              Items: |
+                                =Table(
+                                    {
+                                        value: true,
+                                        tratado: "Sim"
+                                    },
+                                    {
+                                        value: false,
+                                        tratado: "Não"
+                                    }
+                                )
+                              SearchFields: =["tratado"]
+                              SelectMultiple: =false
+                              Size: =11
+                  - sigd_glr_geral_RH_2_2_4:
+                      Control: Gallery@2.15.0
+                      Variant: VariableHeight
+                      Properties:
+                        Items: =SortByColumns(sigd_departamentos, "departamento", SortOrder.Ascending)
+                        LayoutMinHeight: =10
+                        TemplateSize: =60
+                      Children:
+                        - html_div_RH_2_2_4:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =10
+                              HtmlText: |
+                                ="<div style='width:100%; font-family: "& App.Theme.Font & ", Arial, sans-serif; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'></div>"
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Width: =Parent.Width - (Medidas.Espacamento*2)
+                              X: =
+                              Y: =html_txt_RH_2_2_4.Y + html_txt_RH_2_2_4.Height
+                        - html_txt_RH_2_2_4:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =10
+                              HtmlText: |
+                                ="<div style='width:100%; font-family: "& App.Theme.Font & ", Arial, sans-serif; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px;'>
+
+                                  <!-- Linha de Nome -->
+                                  <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                    " & ThisItem.departamento & "
+                                  </div>
+
+                                  <!-- Linha 1: CPF, RG, E-mail, Telefone -->
+                                  <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                     <div style='flex:1'><strong>Ativo:</strong> " & If(ThisItem.ativo, "Sim", "Não") & "</div>
+                                  </div>
+
+                                </div>"
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Width: =Parent.Width - 32 - (Medidas.Espacamento*2)
+                        - icn_edit_RH_2_2_4:
+                            Control: Image@2.2.3
+                            Properties:
+                              Height: =32
+                              Image: =LookUp(ColIconesMenus, Nome = "edit", SVG)
+                              OnSelect: |-
+                                =UpdateContext({
+                                    varEditFormDepartamento_12: ThisItem
+                                    });
+                                UpdateContext({
+                                    varVisibleFormDepartamento_12: true
+                                })
+                              TabIndex: =2
+                              Width: =32
+                              X: =html_txt_RH_2_2_4.X + html_txt_RH_2_2_4.Width - Medidas.Espacamento
+                              Y: =Medidas.Espacamento*2
+            - ctn_geral_DI_2_1_3:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  Height: =50
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Visible: =!varVisibleCtnDepartamento_12 && !varVisibleCtnTelas_12
+                  Width: =Parent.Width
+                  Y: =ctn_geral_RH_2_1_2.Y + ctn_geral_RH_2_1_2.Height
+                Children:
+                  - btn_open_DI_2_1_3:
+                      Control: Button@0.0.45
+                      Properties:
+                        OnSelect: |-
+                          =UpdateContext({varVisibleCtnTelas_12: true})
+                        Text: ="Telas"
+            - ctn_geral_RH_2_1_2:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  Height: =50
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Visible: =!varVisibleCtnDepartamento_12 && !varVisibleCtnTelas_12
+                  Width: =Parent.Width
+                Children:
+                  - btn_open_RH_2_1_2:
+                      Control: Button@0.0.45
+                      Properties:
+                        OnSelect: |-
+                          =UpdateContext({varVisibleCtnDepartamento_12: true})
+                        Text: ="Departamento"
+      - sigd_bonin_sidebar_26:
+          Control: CanvasComponent
+          ComponentName: sigd_bonin_sidebar
+          Group: sigd_layout_26
+          Properties:
+            Espaçamento: =Medidas.Espacamento
+            EsquemaDeCores: =EsquemaDeCores
+            EstadoMenuEntrada: =gblFecharMenu
+            Height: =Self.TelaAltura
+            LarguraMenuAberto: =240
+            LarguraMenuFechado: =80
+            LarguraSubmenu: =240
+            ListaDasTelas: =colTelas
+            ListaDeIcones: =ColLogo
+            OnSelect: =
+            RaioDaBorda: ="10px 10px 10px 10px"
+            TelaAltura: =Medidas.TelaAltura
+            TelaLargura: =Medidas.TelaLargura
+            Width: =Self.LarguraTotalSaida
+      - sigd_bonin_cabecalho_26:
+          Control: CanvasComponent
+          ComponentName: sigd_bonin_cabecalho
+          Group: sigd_layout_26
+          Properties:
+            AlturaCabeçalho: =50
+            EixoX: =VarEixoXSideBar + VarLarguraSidebar
+            EixoY: =VarEixoYSideBar
+            EsquemaDeCores: =EsquemaDeCores
+            Height: =sigd_bonin_cabecalho_26.AlturaCabeçalho
+            ListaDasTelas: =colTelas
+            Medidas: =Medidas
+            RaioDaBorda: ="10px 10px 10px 10px"
+            Width: =App.Width - VarLarguraSidebar
+            X: =sigd_bonin_cabecalho_26.EixoX
+            Y: =sigd_bonin_cabecalho_26.EixoY

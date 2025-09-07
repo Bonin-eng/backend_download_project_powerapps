@@ -1,0 +1,72 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  CON_1:
+    Properties:
+      Fill: =EsquemaDeCores.AzulBackground.Cor
+      LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    Children:
+      - sigd_ctn_geral_CON_1:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Group: sigd_layout_CON_1
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: =EsquemaDeCores.AzulConteiner.Cor
+            Height: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Height
+            RadiusBottomLeft: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Raio
+            RadiusBottomRight: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Raio
+            RadiusTopLeft: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Raio
+            RadiusTopRight: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Raio
+            Width: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Width
+            X: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.X
+            Y: =sigd_bonin_cabecalho_CON_1.ReferênciaContêiner.Y
+          Children:
+            - PowerBI1:
+                Control: PowerBI@2.4.0
+                Properties:
+                  Height: =Parent.Height
+                  TileUrl: ="https://app.powerbi.com/view?r=eyJrIjoiNDQzNzQ1YmUtNDk2ZC00MmVmLTk1YjItOTVmZjU0OTg3ZGFkIiwidCI6IjFlMTFjNGVmLTI3MzItNDExZi04OTBjLWZlZjBmODU2ZmM2NiJ9"
+                  Width: =Parent.Width
+      - sigd_bonin_sidebar_CON_1:
+          Control: CanvasComponent
+          ComponentName: sigd_bonin_sidebar
+          Group: sigd_layout_CON_1
+          Properties:
+            Espaçamento: =Medidas.Espacamento
+            EsquemaDeCores: =EsquemaDeCores
+            EstadoMenuEntrada: =gblFecharMenu
+            Height: =Self.TelaAltura
+            LarguraMenuAberto: =240
+            LarguraMenuFechado: =80
+            LarguraSubmenu: =240
+            ListaDasTelas: =colTelas
+            ListaDeIcones: =ColLogo
+            OnSelect: =
+            RaioDaBorda: ="10px 10px 10px 10px"
+            TelaAltura: =Medidas.TelaAltura
+            TelaLargura: =Medidas.TelaLargura
+            Width: =Self.LarguraTotalSaida
+      - sigd_bonin_cabecalho_CON_1:
+          Control: CanvasComponent
+          ComponentName: sigd_bonin_cabecalho
+          Group: sigd_layout_CON_1
+          Properties:
+            AlturaCabeçalho: =50
+            EixoX: =VarEixoXSideBar + VarLarguraSidebar
+            EixoY: =VarEixoYSideBar
+            EsquemaDeCores: =EsquemaDeCores
+            Height: =sigd_bonin_cabecalho_CON_1.AlturaCabeçalho
+            ListaDasTelas: =colTelas
+            Medidas: =Medidas
+            RaioDaBorda: ="10px 10px 10px 10px"
+            Width: =App.Width - VarLarguraSidebar
+            X: =sigd_bonin_cabecalho_CON_1.EixoX
+            Y: =sigd_bonin_cabecalho_CON_1.EixoY

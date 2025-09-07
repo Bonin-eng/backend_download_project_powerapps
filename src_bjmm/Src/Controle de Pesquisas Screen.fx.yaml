@@ -1,0 +1,1306 @@
+"'Controle de Pesquisas Screen' As screen":
+    OnVisible: |+
+        =Set(varBordaOrcamento, true);
+        ClearCollect(
+            colMacroItensTest,
+            Filter(
+                db_fin_base_orcamentaria,
+                nivel_2 = "00" && nivel_3 = "00" && nivel_4 = "00" &&
+                // Para testes, COMENTE temporariamente a linha abaixo ou use um ID fixo
+                // id_contrato_empreendimento = ThisItem.id_contrato_empreendimento 
+                id_contrato_empreendimento = "PPE nº 024/2023-1" // Substitua por um ID real que você sabe que tem dados.
+            )
+        );
+        
+        ClearCollect(
+            colPrazoVigenciaDias,
+            AddColumns(
+                GroupBy(
+                    db_cont_econtratual,
+                    n_contrato,
+                    DadosVigenciaDoContrato
+                ),
+                SomaPrazosMeses,
+                Sum(DadosVigenciaDoContrato,Coalesce(prazo_ec_mes,0)
+                ),
+                SomaPrazosDias,
+                Sum(DadosVigenciaDoContrato,Coalesce(prazo_ec_dia,0)
+                ),
+                id_contrato_empreendimento,
+                LookUp(DadosVigenciaDoContrato, !IsBlank(DadosVigenciaDoContrato), data_assinatura)
+            )
+        );
+        
+
+    app_cpn_bonin_16 As app_cpn_bonin:
+        OnSelect: =
+
+    Label1_146 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =100
+        Size: =18
+        Text: ="SISTEMA INTEGRADO DE GESTÃO E DESENVOLVIMENTO BJMM - CONTROLE DE PESQUISAS"
+        Width: =Parent.Width - Self.X - 10
+        Wrap: =false
+        X: =230
+        ZIndex: =2
+
+    Container1_14 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X - 10
+        X: =230
+        Y: =110
+        ZIndex: =3
+
+        Container2_10 As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container3_8 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                FillPortions: =0
+                Height: =70
+                LayoutGap: =10
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingTop: =5
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =1
+
+                Container5_24 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: |
+                        =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =250
+                    X: =40
+                    Y: =40
+                    ZIndex: =4
+
+                    Label1_42 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        Size: =14
+                        Text: ="🔎  PESQUISAS CADASTRADAS"
+                        Width: =100
+                        ZIndex: =1
+
+            Container19 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =2
+
+                Container8_7 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(45, 65, 93, 1)
+                    Height: =Parent.Height
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    galContratos_10 As gallery.variableTemplateHeightGallery:
+                        '#CopilotOverlayLabel': ="Filtrada"
+                        DelayItemLoading: =true
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =Parent.Height - Self.X
+                        Items: =db_acomp_tipo_pesquisa
+                        Layout: =Layout.Vertical
+                        LayoutMinHeight: =287
+                        LayoutMinWidth: =320
+                        LoadingSpinner: =LoadingSpinner.Data
+                        ShowScrollbar: =false
+                        TemplateSize: =50
+                        Width: =Parent.Width - Self.X * 2
+                        ZIndex: =1
+
+                        Container6_10 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =Parent.TemplateHeight
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Parent.X - 10
+                            ZIndex: =1
+
+                            HtmlText1_1 As htmlViewer:
+                                Height: =Parent.Height
+                                HtmlText: |-
+                                    ="<div style='width:100%; font-family:Arial; font-size:15px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                                    
+                                      <!-- Nome -->
+                                      <div style='font-size:15px; font-weight:bold; margin-bottom:2px;'>
+                                        " & Concatenate(Upper(ThisItem.id_tipo_pesquisa), " - ", ThisItem.tipo_pesquisa) & "
+                                      </div>
+                                    </div>"
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            Button1_4 As button:
+                                BorderColor: =Color.Transparent
+                                BorderStyle: =BorderStyle.None
+                                BorderThickness: =0
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =Parent.Height
+                                HoverFill: =Color.Transparent
+                                OnSelect: |-
+                                    =Set(varPesquisaSelect, true);
+                                    Set(varPesquisa, ThisItem);
+                                    ClearCollect(col_TipoFiscalizacao,
+                                        AddColumns(
+                                            Filter(
+                                            db_acomp_perguntas_pesquisas,
+                                            id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                            id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)));
+                                Text: =
+                                Width: =Parent.Width
+                                ZIndex: =2
+
+                cContratoSelect_4 As groupContainer.manualLayoutContainer:
+                    BorderStyle: =BorderStyle.None
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(175, 191, 224, 1)
+                    Height: =Parent.Height
+                    PaddingRight: =10
+                    PaddingTop: =
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Visible: =varPesquisaSelect
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    Container9_1 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(175, 191, 224, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        LayoutMode: =LayoutMode.Auto
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        Container10_20 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            FillPortions: =0
+                            Height: =30
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =1
+
+                            Label1_15 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Fill: =RGBA(45, 65, 93, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Text: =Concatenate("PERGUNTAS DA PESQUISA - ", Upper(varPesquisa.tipo_pesquisa))
+                                Width: =Parent.Width - Self.X
+                                Wrap: =false
+                                ZIndex: =1
+
+                            Button2_28 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =Set(varPesquisaSelect, false);
+                                    Set(varNovaPergunta, false);
+                                    Set(varElementoContratualSelect, false);
+                                    Set(varElementoContratualEdit, false);
+                                    Set(varElementoContratualSelect, false);
+                                     
+                                Size: =11
+                                Text: ="FECHAR"
+                                X: =5
+                                Y: =5
+                                ZIndex: =2
+
+                            Button2_29 As button:
+                                Color: =RGBA(0, 0, 0, 1)
+                                Fill: =RGBA(237, 237, 237, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Normal
+                                Height: =Parent.Height - Self.Y * 2
+                                HoverFill: =RGBA(45, 65, 93, 1)
+                                OnSelect: |-
+                                    =NewForm(Form_ContratoEdit_3);
+                                    Set(varNovaPergunta, true);
+                                    ClearCollect(col_TipoFiscalizacao,
+                                        AddColumns(
+                                            Filter(
+                                            db_acomp_perguntas_pesquisas,
+                                            id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                            id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)));
+                                    Set(max_id_pergunta_sequencial, Max(col_TipoFiscalizacao, id_pergunta_sequencial));
+                                    
+                                     
+                                Size: =11
+                                Text: ="CRIAR NOVA PERGUNTA"
+                                Width: =250
+                                X: =Parent.Width - Self.Width - 5
+                                Y: =5
+                                ZIndex: =3
+
+                        Container11_14 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(219, 219, 219, 1)
+                            Height: =415
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =2
+
+                            Container4_4 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                DropShadow: =DropShadow.None
+                                Height: =Parent.Height
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                                Container8_8 As groupContainer.horizontalAutoLayoutContainer:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(45, 65, 93, 1)
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMode: =LayoutMode.Auto
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =If(varElementoContratualSelect, false, true)
+                                    Width: =Parent.Width
+                                    ZIndex: =1
+
+                                    galContratos_11 As gallery.variableTemplateHeightGallery:
+                                        '#CopilotOverlayLabel': ="Filtrada"
+                                        DelayItemLoading: =true
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Height: =Parent.Height - Self.X
+                                        Items: =col_TipoFiscalizacao
+                                        Layout: =Layout.Vertical
+                                        LayoutMinHeight: =287
+                                        LayoutMinWidth: =320
+                                        LoadingSpinner: =LoadingSpinner.Data
+                                        ShowScrollbar: =false
+                                        TemplateSize: =40
+                                        Width: =Parent.Width - Self.X * 2
+                                        ZIndex: =1
+
+                                        Container6_11 As groupContainer.manualLayoutContainer:
+                                            DropShadow: =DropShadow.None
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =Parent.TemplateHeight
+                                            RadiusBottomLeft: =10
+                                            RadiusBottomRight: =10
+                                            RadiusTopLeft: =10
+                                            RadiusTopRight: =10
+                                            Width: =Parent.Width - Parent.X - 10
+                                            ZIndex: =1
+
+                                            HtmlText1_9 As htmlViewer:
+                                                Fill: =RGBA(255, 255, 255, 1)
+                                                Height: =Parent.Height
+                                                HtmlText: |-
+                                                    ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d'>
+                                                    
+                                                      <!-- Nome -->
+                                                      <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                                                        " & Concatenate(Right(ThisItem.id_pergunta_pesquisa,2), " - ", ThisItem.pergunta) & "
+                                                      </div>
+                                                    </div>"
+                                                Width: =Parent.Width
+                                                ZIndex: =1
+
+                                            Icon3 As icon.Edit:
+                                                Color: =RGBA(45, 65, 93, 1)
+                                                Height: =40
+                                                Icon: =Icon.Edit
+                                                OnSelect: |-
+                                                    =Set(varElementoContratualSelect, true);
+                                                    Set(varPerguntaEdit, DropColumns(ThisItem, id_pergunta_sequencial));
+                                                X: |
+                                                    =1490
+                                                ZIndex: =3
+
+                                            Icon3_1 As icon:
+                                                Color: =RGBA(45, 65, 93, 1)
+                                                Height: =40
+                                                Icon: =Icon.Trash
+                                                OnSelect: |-
+                                                    =Set(VarDeletarPergunta, true);
+                                                    Set(varPerguntaDelet, ThisItem)
+                                                X: =Parent.Width - Self.Width  - 20
+                                                ZIndex: =4
+
+                                cEditarPergunta As groupContainer.manualLayoutContainer:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(175, 191, 224, 1)
+                                    Height: =Parent.Height
+                                    PaddingRight: =10
+                                    PaddingTop: =
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =varElementoContratualSelect
+                                    Width: =Parent.Width
+                                    ZIndex: =2
+
+                                    Container9_15 As groupContainer.horizontalAutoLayoutContainer:
+                                        BorderStyle: =BorderStyle.None
+                                        DropShadow: =DropShadow.None
+                                        Fill: =RGBA(175, 191, 224, 1)
+                                        Height: =Parent.Height
+                                        LayoutDirection: =LayoutDirection.Vertical
+                                        LayoutGap: =5
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =5
+                                        PaddingRight: =5
+                                        PaddingTop: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Width: =Parent.Width
+                                        ZIndex: =1
+
+                                        Container10_21 As groupContainer.manualLayoutContainer:
+                                            DropShadow: =DropShadow.None
+                                            Fill: =RGBA(219, 219, 219, 1)
+                                            FillPortions: =0
+                                            Height: =40
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =10
+                                            RadiusBottomRight: =10
+                                            RadiusTopLeft: =10
+                                            RadiusTopRight: =10
+                                            ZIndex: =1
+
+                                            Label1_16 As label:
+                                                Align: =Align.Center
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =Parent.Height
+                                                Size: =15
+                                                Text: =
+                                                Width: =Parent.Width - Self.X
+                                                Wrap: =false
+                                                ZIndex: =1
+
+                                            Button2_30 As button:
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                Fill: =RGBA(237, 237, 237, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Normal
+                                                Height: =Parent.Height - Self.Y * 2
+                                                HoverFill: =RGBA(45, 65, 93, 1)
+                                                OnSelect: |
+                                                    =Set(varElementoContratualEdit, false);
+                                                    Set(varElementoContratualSelect, false);
+                                                Size: =12
+                                                Text: ="FECHAR"
+                                                X: =5
+                                                Y: =5
+                                                ZIndex: =2
+
+                                            Button2_31 As button:
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                Fill: =RGBA(237, 237, 237, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Normal
+                                                Height: =Parent.Height - Self.Y * 2
+                                                HoverFill: =RGBA(45, 65, 93, 1)
+                                                OnSelect: |
+                                                    =SubmitForm(Form_ContratoEdit_2);
+                                                    Set(varElementoContratualEdit, false);
+                                                    Set(varElementoContratualSelect, false);
+                                                Size: =12
+                                                Text: ="SALVAR"
+                                                X: =Parent.Width - Self.Width - 5
+                                                Y: =5
+                                                ZIndex: =3
+
+                                        Container11_15 As groupContainer.manualLayoutContainer:
+                                            BorderStyle: =BorderStyle.None
+                                            DropShadow: =DropShadow.None
+                                            Fill: =RGBA(219, 219, 219, 1)
+                                            FillPortions: =0
+                                            Height: =450
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =10
+                                            RadiusBottomRight: =10
+                                            RadiusTopLeft: =10
+                                            RadiusTopRight: =10
+                                            ZIndex: =2
+
+                                            Form_ContratoEdit_2 As form:
+                                                AcceptsFocus: =false
+                                                DataSource: =db_acomp_perguntas_pesquisas
+                                                Height: =Parent.Height
+                                                Item: =varPerguntaEdit
+                                                NumberOfColumns: =6
+                                                OnSuccess: |
+                                                    =Patch(
+                                                        db_cont_contrato,
+                                                        LookUp(db_cont_contrato, n_contrato = varContratoStatusNew.n_contrato),
+                                                        {
+                                                        status_contrato: 
+                                                            If(varContratoStatusNew.id_tipo_ec = Text(4), 
+                                                            {Value: "Suspenso"},
+                                                            {Value: "Em andamento"})});
+                                                    Set(varContratoEdit, false);
+                                                Width: =Parent.Width
+                                                X: =0   
+                                                ZIndex: =1
+
+                                                id_tipo_pesquisa_DataCard1 As typedDataCard.textualEditCard:
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    DataField: ="id_tipo_pesquisa"
+                                                    Default: =ThisItem.id_tipo_pesquisa
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_tipo_pesquisa)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =50
+                                                    MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_tipo_pesquisa)
+                                                    Required: =false
+                                                    Update: =DataCardValue23.Text
+                                                    Visible: =false
+                                                    Width: =546
+                                                    X: =0
+                                                    Y: =0
+                                                    ZIndex: =2
+
+                                                    DataCardKey23 As label:
+                                                        AutoHeight: =true
+                                                        Height: =34
+                                                        Text: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue23 As text:
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        Default: =Parent.Default
+                                                        DelayOutput: =true
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        MaxLength: =Parent.MaxLength
+                                                        PaddingLeft: =5
+                                                        RadiusBottomLeft: =0
+                                                        RadiusBottomRight: =0
+                                                        RadiusTopLeft: =0
+                                                        RadiusTopRight: =0
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                                                        ZIndex: =2
+
+                                                    ErrorMessage23 As label:
+                                                        AutoHeight: =true
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue23.Y + DataCardValue23.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible23 As label:
+                                                        Align: =Align.Center
+                                                        Height: =DataCardKey23.Height
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =30
+                                                        Wrap: =false
+                                                        Y: =DataCardKey23.Y
+                                                        ZIndex: =4
+
+                                                id_pergunta_pesquisa_DataCard1 As typedDataCard.textualEditCard:
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    DataField: ="id_pergunta_pesquisa"
+                                                    Default: =ThisItem.id_pergunta_pesquisa
+                                                    DisplayMode: =DisplayMode.View
+                                                    DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_pergunta_pesquisa)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =50
+                                                    MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_pergunta_pesquisa)
+                                                    Required: =false
+                                                    Update: =DataCardValue25.Text
+                                                    Width: =273
+                                                    X: =2
+                                                    Y: =0
+                                                    ZIndex: =2
+
+                                                    DataCardKey25 As label:
+                                                        Align: =Align.Center
+                                                        AutoHeight: =true
+                                                        Font: =Font.Arial
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =34
+                                                        Size: =14
+                                                        Text: ="ID_PERGUNTA"
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue25 As text:
+                                                        Align: =Align.Center
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        Default: =Parent.Default
+                                                        DelayOutput: =true
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        Font: =Font.Arial
+                                                        MaxLength: =Parent.MaxLength
+                                                        PaddingLeft: =5
+                                                        RadiusBottomLeft: =0
+                                                        RadiusBottomRight: =0
+                                                        RadiusTopLeft: =0
+                                                        RadiusTopRight: =0
+                                                        Size: =12
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                                                        ZIndex: =2
+
+                                                    ErrorMessage25 As label:
+                                                        AutoHeight: =true
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue25.Y + DataCardValue25.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible25 As label:
+                                                        Align: =Align.Center
+                                                        Height: =DataCardKey25.Height
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =30
+                                                        Wrap: =false
+                                                        Y: =DataCardKey25.Y
+                                                        ZIndex: =4
+
+                                                pergunta_DataCard1 As typedDataCard.textualEditCard:
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    DataField: ="pergunta"
+                                                    Default: =ThisItem.pergunta
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,pergunta)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =50
+                                                    MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, pergunta)
+                                                    Required: =false
+                                                    Update: =DataCardValue24.Text
+                                                    Width: =1365
+                                                    X: =3
+                                                    Y: =0
+                                                    ZIndex: =2
+
+                                                    DataCardKey24 As label:
+                                                        Align: =Align.Center
+                                                        AutoHeight: =true
+                                                        Font: =Font.Arial
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =34
+                                                        Size: =14
+                                                        Text: ="PERGUNTA"
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue24 As text:
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        Default: =Parent.Default
+                                                        DelayOutput: =true
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        Font: =Font.Arial
+                                                        MaxLength: =Parent.MaxLength
+                                                        PaddingLeft: =5
+                                                        RadiusBottomLeft: =0
+                                                        RadiusBottomRight: =0
+                                                        RadiusTopLeft: =0
+                                                        RadiusTopRight: =0
+                                                        Size: =12
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardKey24.Y + DataCardKey24.Height + 5
+                                                        ZIndex: =2
+
+                                                    ErrorMessage24 As label:
+                                                        AutoHeight: =true
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue24.Y + DataCardValue24.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible24 As label:
+                                                        Align: =Align.Center
+                                                        Height: =DataCardKey24.Height
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =30
+                                                        Wrap: =false
+                                                        Y: =DataCardKey24.Y
+                                                        ZIndex: =4
+
+                                cCriarPergunta As groupContainer.manualLayoutContainer:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(175, 191, 224, 1)
+                                    Height: =Parent.Height
+                                    PaddingRight: =10
+                                    PaddingTop: =
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =varNovaPergunta
+                                    Width: =Parent.Width
+                                    ZIndex: =3
+
+                                    Container9_16 As groupContainer.horizontalAutoLayoutContainer:
+                                        BorderStyle: =BorderStyle.None
+                                        DropShadow: =DropShadow.None
+                                        Fill: =RGBA(175, 191, 224, 1)
+                                        Height: =Parent.Height
+                                        LayoutDirection: =LayoutDirection.Vertical
+                                        LayoutGap: =5
+                                        LayoutMode: =LayoutMode.Auto
+                                        PaddingBottom: =5
+                                        PaddingLeft: =5
+                                        PaddingRight: =5
+                                        PaddingTop: =5
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Width: =Parent.Width
+                                        ZIndex: =1
+
+                                        Container10_22 As groupContainer.manualLayoutContainer:
+                                            DropShadow: =DropShadow.None
+                                            Fill: =RGBA(219, 219, 219, 1)
+                                            FillPortions: =0
+                                            Height: =40
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =10
+                                            RadiusBottomRight: =10
+                                            RadiusTopLeft: =10
+                                            RadiusTopRight: =10
+                                            ZIndex: =1
+
+                                            Label1_17 As label:
+                                                Align: =Align.Center
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =Parent.Height
+                                                Size: =15
+                                                Text: =
+                                                Width: =Parent.Width - Self.X
+                                                Wrap: =false
+                                                ZIndex: =1
+
+                                            Button2_32 As button:
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                Fill: =RGBA(237, 237, 237, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Normal
+                                                Height: =Parent.Height - Self.Y * 2
+                                                HoverFill: =RGBA(45, 65, 93, 1)
+                                                OnSelect: =Set(varNovaPergunta, false);
+                                                Size: =12
+                                                Text: ="CANCELAR"
+                                                X: =5
+                                                Y: =5
+                                                ZIndex: =2
+
+                                            Button2_33 As button:
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                Fill: =RGBA(237, 237, 237, 1)
+                                                Font: =Font.Arial
+                                                FontWeight: =FontWeight.Normal
+                                                Height: =Parent.Height - Self.Y * 2
+                                                HoverFill: =RGBA(45, 65, 93, 1)
+                                                OnSelect: |-
+                                                    =SubmitForm(Form_ContratoEdit_3);
+                                                    Set(varNovaPergunta, false);
+                                                Size: =12
+                                                Text: ="SALVAR"
+                                                X: =Parent.Width - Self.Width - 5
+                                                Y: =5
+                                                ZIndex: =3
+
+                                        Container11_16 As groupContainer.manualLayoutContainer:
+                                            BorderStyle: =BorderStyle.None
+                                            DropShadow: =DropShadow.None
+                                            Fill: =RGBA(219, 219, 219, 1)
+                                            FillPortions: =0
+                                            Height: =450
+                                            LayoutMinHeight: =100
+                                            LayoutMinWidth: =250
+                                            RadiusBottomLeft: =10
+                                            RadiusBottomRight: =10
+                                            RadiusTopLeft: =10
+                                            RadiusTopRight: =10
+                                            ZIndex: =2
+
+                                            Form_ContratoEdit_3 As form:
+                                                AcceptsFocus: =false
+                                                DataSource: =db_acomp_perguntas_pesquisas
+                                                DefaultMode: =FormMode.New
+                                                Height: =Parent.Height
+                                                NumberOfColumns: =6
+                                                OnSuccess: |-
+                                                    =ClearCollect(col_TipoFiscalizacao,
+                                                        AddColumns(
+                                                            Filter(
+                                                            db_acomp_perguntas_pesquisas,
+                                                            id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                                            id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)))
+                                                Width: =Parent.Width
+                                                X: =0   
+                                                ZIndex: =1
+
+                                                id_tipo_pesquisa_DataCard1_1 As typedDataCard.textualEditCard:
+                                                    AutoHeight: =true
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    BorderThickness: =0
+                                                    ContentLanguage: =""
+                                                    DataField: ="id_tipo_pesquisa"
+                                                    Default: =ThisItem.id_tipo_pesquisa
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_tipo_pesquisa)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =50
+                                                    LayoutHeight: =0
+                                                    LayoutWidth: =0
+                                                    LayoutX: =0
+                                                    LayoutY: =0
+                                                    maximumHeight: =7680
+                                                    maximumWidth: =1366
+                                                    MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_tipo_pesquisa)
+                                                    minimumHeight: =20
+                                                    minimumWidth: =20
+                                                    Required: =false
+                                                    Update: =DataCardValue23_3.Text
+                                                    Visible: =false
+                                                    Width: =546
+                                                    WidthFit: =false
+                                                    X: =0
+                                                    Y: =0
+                                                    ZIndex: =1
+
+                                                    DataCardKey23_3 As label:
+                                                        AutoHeight: =true
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(0, 18, 107, 1)
+                                                        Height: =34
+                                                        Text: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue23_3 As text:
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        Default: =varPesquisa.id_tipo_pesquisa
+                                                        DelayOutput: =true
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        HintText: =""
+                                                        MaxLength: =Parent.MaxLength
+                                                        PaddingLeft: =5
+                                                        RadiusBottomLeft: =0
+                                                        RadiusBottomRight: =0
+                                                        RadiusTopLeft: =0
+                                                        RadiusTopRight: =0
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardKey23_3.Y + DataCardKey23_3.Height + 5
+                                                        ZIndex: =2
+
+                                                    ErrorMessage23_3 As label:
+                                                        AutoHeight: =true
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(168, 0, 0, 1)
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Size: =14
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue23_3.Y + DataCardValue23_3.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible23_3 As label:
+                                                        Align: =Align.Center
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(0, 18, 107, 1)
+                                                        Height: =DataCardKey23_3.Height
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =30
+                                                        Wrap: =false
+                                                        Y: =DataCardKey23_3.Y
+                                                        ZIndex: =4
+
+                                                id_pergunta_pesquisa_DataCard1_1 As typedDataCard.textualEditCard:
+                                                    AutoHeight: =true
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    BorderThickness: =0
+                                                    ContentLanguage: =""
+                                                    DataField: ="id_pergunta_pesquisa"
+                                                    Default: =ThisItem.id_pergunta_pesquisa
+                                                    DisplayMode: =DisplayMode.View
+                                                    DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,id_pergunta_pesquisa)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =50
+                                                    LayoutHeight: =0
+                                                    LayoutWidth: =0
+                                                    LayoutX: =0
+                                                    LayoutY: =0
+                                                    maximumHeight: =7680
+                                                    maximumWidth: =1366
+                                                    MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, id_pergunta_pesquisa)
+                                                    minimumHeight: =20
+                                                    minimumWidth: =20
+                                                    Required: =false
+                                                    Update: =DataCardValue25_3.Text
+                                                    Visible: =true
+                                                    Width: =273
+                                                    WidthFit: =false
+                                                    X: =2
+                                                    Y: =0
+                                                    ZIndex: =2
+
+                                                    DataCardKey25_3 As label:
+                                                        Align: =Align.Center
+                                                        AutoHeight: =true
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(0, 18, 107, 1)
+                                                        Font: =Font.Arial
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =34
+                                                        Size: =14
+                                                        Text: ="ID DA PERGUNTA"
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue25_3 As text:
+                                                        Align: =Align.Center
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        Default: |-
+                                                            =If((max_id_pergunta_sequencial + 1) < 10, 
+                                                            Concatenate(varPesquisa.id_tipo_pesquisa,"-0",max_id_pergunta_sequencial + 1),
+                                                            Concatenate(varPesquisa.id_tipo_pesquisa,"-",max_id_pergunta_sequencial + 1))
+                                                        DelayOutput: =true
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        Font: =Font.Arial
+                                                        HintText: =""
+                                                        MaxLength: =Parent.MaxLength
+                                                        PaddingLeft: =5
+                                                        RadiusBottomLeft: =0
+                                                        RadiusBottomRight: =0
+                                                        RadiusTopLeft: =0
+                                                        RadiusTopRight: =0
+                                                        Size: =12
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardKey25_3.Y + DataCardKey25_3.Height + 5
+                                                        ZIndex: =2
+
+                                                    ErrorMessage25_3 As label:
+                                                        AutoHeight: =true
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(168, 0, 0, 1)
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Size: =14
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue25_3.Y + DataCardValue25_3.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible25_3 As label:
+                                                        Align: =Align.Center
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(0, 18, 107, 1)
+                                                        Height: =DataCardKey25_3.Height
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =30
+                                                        Wrap: =false
+                                                        Y: =DataCardKey25_3.Y
+                                                        ZIndex: =4
+
+                                                pergunta_DataCard1_1 As typedDataCard.textualEditCard:
+                                                    AutoHeight: =true
+                                                    BorderStyle: =BorderStyle.Solid
+                                                    BorderThickness: =0
+                                                    ContentLanguage: =""
+                                                    DataField: ="pergunta"
+                                                    Default: =ThisItem.pergunta
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    DisplayName: =DataSourceInfo([@db_acomp_perguntas_pesquisas],DataSourceInfo.DisplayName,pergunta)
+                                                    Fill: =RGBA(0, 0, 0, 0)
+                                                    Height: =50
+                                                    LayoutHeight: =0
+                                                    LayoutWidth: =0
+                                                    LayoutX: =0
+                                                    LayoutY: =0
+                                                    maximumHeight: =7680
+                                                    maximumWidth: =1366
+                                                    MaxLength: =DataSourceInfo([@db_acomp_perguntas_pesquisas], DataSourceInfo.MaxLength, pergunta)
+                                                    minimumHeight: =20
+                                                    minimumWidth: =20
+                                                    Required: =false
+                                                    Update: =DataCardValue24_3.Text
+                                                    Visible: =true
+                                                    Width: =1365
+                                                    WidthFit: =false
+                                                    X: =3
+                                                    Y: =0
+                                                    ZIndex: =3
+
+                                                    DataCardKey24_3 As label:
+                                                        Align: =Align.Center
+                                                        AutoHeight: =true
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(0, 18, 107, 1)
+                                                        Font: =Font.Arial
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =34
+                                                        Text: ="PERGUNTA"
+                                                        Width: =Parent.Width - 60
+                                                        Wrap: =false
+                                                        X: =30
+                                                        Y: =10
+                                                        ZIndex: =1
+
+                                                    DataCardValue24_3 As text:
+                                                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                        Default: =Parent.Default
+                                                        DelayOutput: =true
+                                                        DisplayMode: =Parent.DisplayMode
+                                                        Font: =Font.Arial
+                                                        HintText: =""
+                                                        MaxLength: =Parent.MaxLength
+                                                        PaddingLeft: =5
+                                                        RadiusBottomLeft: =0
+                                                        RadiusBottomRight: =0
+                                                        RadiusTopLeft: =0
+                                                        RadiusTopRight: =0
+                                                        Size: =12
+                                                        Tooltip: =Parent.DisplayName
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardKey24_3.Y + DataCardKey24_3.Height + 5
+                                                        ZIndex: =2
+
+                                                    ErrorMessage24_3 As label:
+                                                        AutoHeight: =true
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(168, 0, 0, 1)
+                                                        FontWeight: =FontWeight.Semibold
+                                                        Height: =10
+                                                        Live: =Live.Assertive
+                                                        PaddingBottom: =0
+                                                        PaddingLeft: =0
+                                                        PaddingRight: =0
+                                                        PaddingTop: =0
+                                                        Size: =14
+                                                        Text: =Parent.Error
+                                                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                        Width: =Parent.Width - 60
+                                                        X: =30
+                                                        Y: =DataCardValue24_3.Y + DataCardValue24_3.Height
+                                                        ZIndex: =3
+
+                                                    StarVisible24_3 As label:
+                                                        Align: =Align.Center
+                                                        BorderColor: =RGBA(0, 0, 0, 1)
+                                                        Color: =RGBA(0, 18, 107, 1)
+                                                        Height: =DataCardKey24_3.Height
+                                                        Text: ="*"
+                                                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                        Width: =30
+                                                        Wrap: =false
+                                                        Y: =DataCardKey24_3.Y
+                                                        ZIndex: =4
+
+                                cApagarPergunta As groupContainer.manualLayoutContainer:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(255, 255, 255, 0.8)
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Visible: =VarDeletarPergunta
+                                    Width: =Parent.Width
+                                    ZIndex: =4
+
+                                    Container18_1 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(241, 244, 249, 1)
+                                        Height: =400
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Width: =800
+                                        X: =Parent.Width/2 - Self.Width/2
+                                        Y: =Parent.Height/2 - Self.Height/2
+                                        ZIndex: =1
+
+                                        Label2 As label:
+                                            Align: =Align.Center
+                                            Height: =133
+                                            Size: =12
+                                            Text: ="Gostaria de deletar o chamado " & Char(13)  & varPerguntaDelet.id_pergunta_sequencial 
+                                            Width: =Parent.Width
+                                            ZIndex: =1
+
+                                        HtmlText1_10 As htmlViewer:
+                                            Height: =Parent.Height
+                                            HtmlText: |
+                                                ="<div style='
+                                                    max-width: 100%;
+                                                    border: 1px solid #e0e0e0;
+                                                    border-radius: 10px;
+                                                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                                    padding: 16px;
+                                                    background-color: #ffffff;
+                                                    font-family: Aptos, Arial, sans-serif;
+                                                    color: #333;
+                                                '>
+                                                  <h3 style='
+                                                      margin-top: 0;
+                                                      margin-bottom: 12px;
+                                                      font-size: 18pt;
+                                                      color: #d32f2f;
+                                                  '>
+                                                    ⚠️ Confirmação de Exclusão
+                                                  </h3>
+                                                  
+                                                  <p style='
+                                                      margin: 8px 0;
+                                                      font-size: 16pt;
+                                                      line-height: 1.4;
+                                                  '>
+                                                    Gostaria de deletar a Pergunta:
+                                                  </p>
+                                                  
+                                                  <div style='
+                                                      background-color: #f5f5f5;
+                                                      border-radius: 6px;
+                                                      padding: 10px;
+                                                      margin-bottom: 8px;
+                                                  '>
+                                                    <p style='margin: 0; font-size: 16pt; font-weight: bold; color: #1976d2;'>" 
+                                                    & varPerguntaDelet.pergunta &
+                                                    "</p>
+                                                  </div>
+                                                  
+                                                  <p style='
+                                                      margin: 6px 0 2px 0;
+                                                      font-size: 16pt;
+                                                      font-weight: bold;
+                                                      color: #555;
+                                                  '>
+                                                    Do questionário de:
+                                                  </p>
+                                                  <p style='
+                                                      margin: 2px 0 10px 0;
+                                                      font-size: 16pt;
+                                                      color: #777;
+                                                  '>
+                                                    " & LookUp(db_acomp_tipo_pesquisa, id_tipo_pesquisa = varPerguntaDelet.id_tipo_pesquisa, tipo_pesquisa) &
+                                                  "</p>
+                                                  
+                                                  <p style='
+                                                      margin: 6px 0 2px 0;
+                                                      font-size: 16pt;
+                                                      font-weight: bold;
+                                                      color: #555;
+                                                  '>
+                                                    ID Pesquisa:
+                                                  </p>
+                                                  <p style='
+                                                      margin: 2px 0 0 0;
+                                                      font-size: 16pt;
+                                                      color: #777;
+                                                  '>
+                                                    " & varPerguntaDelet.id_tipo_pesquisa &
+                                                  "</p>
+                                                </div>"
+                                            Width: =Parent.Width
+                                            ZIndex: =2
+
+                                        Button7 As button:
+                                            BorderThickness: =1
+                                            FocusedBorderThickness: =1
+                                            OnSelect: =Set(VarDeletarPergunta,false)
+                                            Text: ="Não"
+                                            X: =Parent.Width/2 + 20
+                                            Y: =Parent.Height - Self.Height - 20
+                                            ZIndex: =3
+
+                                        Button6 As button:
+                                            BorderThickness: =1
+                                            FocusedBorderThickness: =1
+                                            OnSelect: |-
+                                                =// 1. Busca os registros que devem ser excluídos em coleções temporárias
+                                                RemoveIf(db_acomp_perguntas_pesquisas, ID = varPerguntaDelet.ID);
+                                                
+                                                // 2. Notificação de sucesso
+                                                Notify("Chamado e registros relacionados excluídos com sucesso!", NotificationType.Success);
+                                                
+                                                // 3. Limpa coleções temporárias e variáveis de controle
+                                                Set(varPerguntaDelet, Blank());
+                                                ClearCollect(col_TipoFiscalizacao,
+                                                    AddColumns(
+                                                        Filter(
+                                                        db_acomp_perguntas_pesquisas,
+                                                        id_tipo_pesquisa = varPesquisa.id_tipo_pesquisa),
+                                                        id_pergunta_sequencial, Right(id_pergunta_pesquisa,2)));
+                                                Set(VarDeletarPergunta, false);
+                                            Text: ="Sim"
+                                            X: =Parent.Width/2 - Self.Width - 20
+                                            Y: =Parent.Height - Self.Height - 20
+                                            ZIndex: =4
+

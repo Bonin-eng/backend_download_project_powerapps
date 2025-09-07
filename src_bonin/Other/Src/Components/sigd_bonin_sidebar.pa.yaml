@@ -1,0 +1,465 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  sigd_bonin_sidebar:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      Espaçamento:
+        PropertyKind: Input
+        DisplayName: Espaçamento
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =Medidas.Espacamento
+      EsquemaDeCores:
+        PropertyKind: Input
+        DisplayName: Esquema de Cores
+        Description: Uma propriedade personalizada
+        DataType: Record
+        Default: =EsquemaDeCores
+      EstadoMenuEntrada:
+        PropertyKind: Input
+        DisplayName: Estado Menu Entrada
+        Description: Uma propriedade personalizada
+        DataType: Text
+        Default: =gblFecharMenu
+      EstadoMenuSaida:
+        PropertyKind: Output
+        DisplayName: Estado Menu Saida
+        Description: Uma propriedade personalizada
+        DataType: Text
+      LarguraMenuAberto:
+        PropertyKind: Input
+        DisplayName: Largura Menu Aberto
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =240
+      LarguraMenuFechado:
+        PropertyKind: Input
+        DisplayName: Largura Menu Fechado
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =80
+      LarguraSubmenu:
+        PropertyKind: Input
+        DisplayName: Largura Submenu
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =240
+      LarguraTotalSaida:
+        PropertyKind: Output
+        DisplayName: Largura Total Saida
+        Description: Uma propriedade personalizada
+        DataType: Number
+      LarguraTotalSidebar:
+        PropertyKind: Output
+        DisplayName: Largura Total Sidebar
+        Description: Uma propriedade personalizada
+        DataType: Number
+      ListaDasTelas:
+        PropertyKind: Input
+        DisplayName: Lista das Telas
+        Description: Uma propriedade personalizada
+        DataType: Table
+        Default: =colTelas
+      ListaDeIcones:
+        PropertyKind: Input
+        DisplayName: Lista de Icones
+        Description: Uma propriedade personalizada
+        DataType: Table
+        Default: =ColLogo
+      OnSelect:
+        PropertyKind: Event
+        DisplayName: OnSelect
+        Description: Uma propriedade personalizada
+        ReturnType: None
+        Default: =
+      RaioDaBorda:
+        PropertyKind: Input
+        DisplayName: Raio da Borda
+        Description: Uma propriedade personalizada
+        DataType: Text
+        Default: ="10px 10px 10px 10px"
+      TelaAltura:
+        PropertyKind: Input
+        DisplayName: Tela Altura
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =Medidas.TelaAltura
+      TelaLargura:
+        PropertyKind: Input
+        DisplayName: Tela Largura
+        Description: Uma propriedade personalizada
+        DataType: Number
+        Default: =Medidas.TelaLargura
+    Properties:
+      EstadoMenuSaida: =gblFecharMenu
+      Height: =Self.TelaAltura
+      LarguraTotalSaida: =ctn_geral.Width
+      LarguraTotalSidebar: =html_background.Width
+      Width: =Self.LarguraTotalSaida
+    Children:
+      - ctn_geral:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =If(glr_submenu.Visible, gpj_glr_itens.Width + glr_submenu.Width, gpj_glr_itens.Width)
+          Children:
+            - html_background:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  Height: =sigd_bonin_sidebar.TelaAltura
+                  HtmlText: |-
+                    =With({
+                      background: sigd_bonin_sidebar.EsquemaDeCores.AzulEscuroBonin.Texto,
+                      altura: Parent.Height - 11,
+                      raio: sigd_bonin_sidebar.RaioDaBorda,
+                      espacamento: sigd_bonin_sidebar.Espaçamento,
+                      sombra: sigd_bonin_sidebar.EsquemaDeCores.SombraEscura.Texto
+                    },
+                    "
+                    <div style='
+                        background:" & background & ";
+                        height:" & altura & "px;
+                        align-items: center;
+                        border-radius: " & raio & ";
+                        margin: " & espacamento & "px " & espacamento*2 & "px " & espacamento & "px " & espacamento & "px;
+                        box-shadow: 2px 2px 2px 0px " & sombra & "'
+                    ></div>
+                    "
+                    )
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Width: =If(gblFecharMenu, sigd_bonin_sidebar.LarguraMenuFechado+5, sigd_bonin_sidebar.LarguraMenuAberto+5)
+            - glr_submenu:
+                Control: Gallery@2.15.0
+                Variant: VariableHeight
+                Properties:
+                  BorderColor: =
+                  BorderStyle: =BorderStyle.None
+                  DelayItemLoading: =false
+                  Fill: =RGBA(255, 255, 255, 0)
+                  Height: =(Self.AllItemsCount * Self.TemplateHeight) + (Self.AllItemsCount*(5+1))
+                  Items: =gpj_glr_itens.Selected.SubMenu
+                  NavigationStep: =-1
+                  ShowScrollbar: =false
+                  TemplateSize: =39
+                  Visible: =varShowSubMenu &&  gpj_glr_itens.Selected.NomeTela = varItemMenuClicked.NomeTela
+                  Width: =If(IsBlank(gpj_glr_itens.Selected.SubMenu), 0, sigd_bonin_sidebar.LarguraSubmenu)
+                  X: =If(!Self.Visible, 0, gpj_glr_itens.X + gpj_glr_itens.Width - 5)
+                  Y: |-
+                    =/*
+                    If(gpj_glr_itens_1.Height - gpj_glr_itens_1.Selected.ID*gpj_glr_itens_1.TemplateHeight - (CountRows(gpj_glr_itens_1.Selected.SubMenu)*glr_submenu_2.TemplateHeight + (CountRows(gpj_glr_itens_1.Selected.SubMenu)-1)*glr_submenu_2.TemplatePadding) <0 ; (- 
+                    CountRows(Table(gpj_glr_itens_1.Selected.SubMenu))*(glr_submenu_2.TemplateHeight  + glr_submenu_2.TemplatePadding - 1)) + (CountRows(Table(gpj_glr_itens_1.Selected.SubMenu))) * glr_submenu_2.TemplatePadding + sigd_bonin_sidebar_2.Espaçamento; 0)
+                    */
+                    If(gpj_glr_itens.Y - (gpj_glr_itens.TemplateHeight + gpj_glr_itens.TemplatePadding) + gpj_glr_itens.Selected.ID*(gpj_glr_itens.TemplateHeight + gpj_glr_itens.TemplatePadding) + (glr_submenu.AllItemsCount*(glr_submenu.TemplateHeight + glr_submenu.TemplatePadding) + (glr_submenu.TemplateHeight + glr_submenu.TemplatePadding))<= gpj_glr_itens.Y + gpj_glr_itens.Height, gpj_glr_itens.Y - (gpj_glr_itens.TemplateHeight + gpj_glr_itens.TemplatePadding) + gpj_glr_itens.Selected.ID*(gpj_glr_itens.TemplateHeight + gpj_glr_itens.TemplatePadding), gpj_glr_itens.Y + gpj_glr_itens.Selected.ID*(gpj_glr_itens.TemplateHeight + gpj_glr_itens.TemplatePadding) - glr_submenu.AllItemsCount*(glr_submenu.TemplateHeight + glr_submenu.TemplatePadding))
+                Children:
+                  - html_texto_telas_2:
+                      Control: HtmlViewer@2.1.0
+                      Properties:
+                        Height: =39
+                        HtmlText: |
+                          =With(
+                              {
+                                  ativo: ThisItem.Tela.Name = App.ActiveScreen.Name,
+                                  peso: If(ThisItem.Tela.Name = App.ActiveScreen.Name, "bold", "600"),
+                                  sublinhado: If(ThisItem.Tela.Name = App.ActiveScreen.Name, "underline", "none"),
+                                  sombra: sigd_bonin_sidebar.EsquemaDeCores.SombraEscura.Texto,
+                                  srcIcone: LookUp(ColIconesMenus, Nome = "next_screen", SVG)
+                              },
+                              "<div style='
+                                  display: flex;
+                                  background-color: " & sigd_bonin_sidebar.EsquemaDeCores.AzulEscuroBonin.Texto & ";
+                                  align-items: center;
+                                  font-family: " & App.Theme.Font & ";
+                                  font-weight: " & peso & ";
+                                  text-align: center;
+                                  text-decoration: " & sublinhado & ";
+                                  font-size: 12px;
+                                  color: white;
+                                  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+                                  padding: 10px;
+                                  width: " & Self.Width & "px;
+                                  height: 100%;
+                                  overflow: hidden;
+                                  box-shadow: 2px 2px 2px 0px " & sombra & ";
+                              '>
+                                  <img src='" & srcIcone & "' style='height: 18px; width: 18px;' />
+
+                                  <span style='
+                                      flex-grow: 1;
+                                      min-width: 0;
+                                      white-space: nowrap;
+                                      overflow: hidden;
+                                      text-overflow: ellipsis;
+                                  '>" & Upper(ThisItem.NomeTela) & "</span>
+                              </div>"
+                          )
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Width: =glr_submenu.Width - 10
+                  - btn_icone_2:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(0, 0, 0, 0)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =html_texto_telas_2.Height
+                        HoverBorderColor: =
+                        HoverColor: =
+                        HoverFill: =RGBA(87, 107, 133, 0.3)
+                        OnSelect: |
+                          =Set(varFillSelectedMenu,gpj_glr_itens.Selected);
+                          Set(varItemMenuClicked,gpj_glr_itens.Selected);
+                          Set(varItemSubMenuClicked,ThisItem);
+                          Set(varShowSubMenu,false);
+                          Navigate(ThisItem.Tela);
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =
+                        PressedColor: =
+                        PressedFill: =
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        TabIndex: =1
+                        Text: =
+                        Tooltip: =ThisItem.NomeTela
+                        Width: =html_texto_telas_2.Width
+                        X: =html_texto_telas_2.X
+                        Y: =html_texto_telas_2.Y
+            - gpj_glr_itens:
+                Control: Gallery@2.15.0
+                Variant: VariableHeight
+                Properties:
+                  DelayItemLoading: =false
+                  Height: =Parent.Height - Self.Y - sigd_bonin_sidebar.Espaçamento
+                  Items: =sigd_bonin_sidebar.ListaDasTelas
+                  NavigationStep: =-1
+                  ShowScrollbar: =false
+                  TemplateSize: =html_texto_telas.Height
+                  Width: =html_background.Width
+                  X: =
+                  Y: =html_nome_colaborador.Y + html_nome_colaborador.Height
+                Children:
+                  - html_texto_telas:
+                      Control: HtmlViewer@2.1.0
+                      Properties:
+                        AutoHeight: =true
+                        Height: =49
+                        HtmlText: |
+                          =With(
+                              {
+                                  ativo: ThisItem.Tela.Name = App.ActiveScreen.Name 
+                                      || LookUp(ThisItem.SubMenu, Tela.Name = App.ActiveScreen.Name, Tela.Name) = App.ActiveScreen.Name,
+                                  peso: If(ThisItem.Tela.Name = App.ActiveScreen.Name 
+                                      || LookUp(ThisItem.SubMenu, Tela.Name = App.ActiveScreen.Name, Tela.Name) = App.ActiveScreen.Name, "bold", "600"),
+                                  sublinhado: If(ThisItem.Tela.Name = App.ActiveScreen.Name 
+                                      || LookUp(ThisItem.SubMenu, Tela.Name = App.ActiveScreen.Name, Tela.Name) = App.ActiveScreen.Name, "underline", "none"),
+                                  usarEstiloIconeAtivo: ThisItem.Tela.Name = App.ActiveScreen.Name 
+                                      || LookUp(ThisItem.SubMenu, Tela.Name = App.ActiveScreen.Name, Tela.Name) = App.ActiveScreen.Name && !img_bonin.Visible,
+                                  estiloIcone: If(
+                                      ThisItem.Tela.Name = App.ActiveScreen.Name 
+                                      || LookUp(ThisItem.SubMenu, Tela.Name = App.ActiveScreen.Name, Tela.Name) = App.ActiveScreen.Name && !img_bonin.Visible,
+                                      "filter: brightness(2); box-shadow: 1px 1px 1px 2px rgba(255,255,255,0.5); border-radius: 10px;",
+                                      ""
+                                  ),
+                                  iconeExtra: If(
+                                      !IsBlank(ThisItem.SubMenu) && img_bonin.Visible,
+                                      If(
+                                          !varShowSubMenu || IsBlank(varItemMenuClicked) || varItemMenuClicked.NomeTela <> ThisItem.NomeTela,
+                                          "<img src='" & LookUp(ColIconesMenus, Nome = "seta_direita", SVG) & "' style='height: 32px; width: auto;' />",
+                                          "<img src='" & LookUp(ColIconesMenus, Nome = "seta_esquerda", SVG) & "' style='height: 32px; width: auto;' />"
+                                      ),
+                                      ""
+                                  ),
+                                  texto: If(
+                                      img_bonin.Visible,
+                                      "<span style='
+                                          flex-grow: 1;
+                                          min-width: 0;
+                                          white-space: nowrap;
+                                          overflow: hidden;
+                                          text-overflow: ellipsis;
+                                      '>" & Upper(ThisItem.NomeTela) & "</span>",
+                                      ""
+                                  )
+                              },
+                              "<div style='
+                                  display: flex;
+                                  align-items: center;
+                                  gap: " & sigd_bonin_sidebar.Espaçamento & "px;
+                                  font-family: " & App.Theme.Font & ";
+                                  font-weight: " & peso & ";
+                                  text-decoration: " & sublinhado & ";
+                                  font-size: 12px;
+                                  color: white;
+                                  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+                                  padding-top:1px;
+                                  padding-left:9px;
+                                  padding-right:1px;
+                                  height: 100%;
+                                  width: " & Self.Width & "px;
+                              '>
+                                  <img src='" & ThisItem.Icon & "' style='height: 44px; width: 50px; " & estiloIcone & "' />
+                                  " & texto & "
+                                  <span style='display: flex; align-items: center;'>" & iconeExtra & "</span>
+                              </div>"
+                          )
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Tooltip: =ThisItem.NomeTela
+                        Width: =html_background.Width - sigd_bonin_sidebar.Espaçamento*3
+                  - btn_icone:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(0, 0, 0, 0)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =html_texto_telas.Height
+                        HoverBorderColor: =
+                        HoverColor: =
+                        HoverFill: =RGBA(87, 107, 133, 0.3)
+                        OnSelect: "=/*\nWith(\n    {TemSubMenu: !IsEmpty(ThisItem.SubMenu) && !IsBlank(ThisItem.SubMenu)};\n    If(\n        TemSubMenu;\n        If(\n            varItemMenuClicked.NomeTela = ThisItem.NomeTela && varShowSubMenu;\n            Set(varShowSubMenu; false);\n            Set(varShowSubMenu; true)\n        );\n        Set(varShowSubMenu; false);;\n        Navigate(ThisItem.Tela)\n    );;\n    Set(varItemMenuClicked; If(varItemMenuClicked.NomeTela = ThisItem.NomeTela && varShowSubMenu; Blank(); ThisItem));;\n    Set(varItemSubMenuClicked; Blank());;\n    Set(varMenuKey; ThisItem.NomeTela)\n)\n*/\nWith(\n    {TemSubMenu: !IsEmpty(ThisItem.SubMenu) && !IsBlank(ThisItem.SubMenu)},\n    \n    If(\n        TemSubMenu,\n        \n        If(\n            varItemMenuClicked.NomeTela = ThisItem.NomeTela,\n            \n            // Clique repetido no mesmo item\n            Set(varShowSubMenu, !varShowSubMenu), \n            // alterna o estado atual\n\n            Set(varShowSubMenu, true) // clique em outro item com submenu\n        ),\n        \n        // Item sem submenu\n        Set(varShowSubMenu, false);\n        Set(varFillSelectedMenu, ThisItem);\n        Navigate(ThisItem.Tela)\n    );\n\n    Set(varItemMenuClicked, ThisItem);\n    Set(varItemSubMenuClicked, Blank());\n    Set(varMenuKey, ThisItem.NomeTela);\n    sigd_bonin_sidebar.OnSelect()\n)\n"
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =
+                        PressedColor: =
+                        PressedFill: =
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Text: =
+                        Tooltip: =ThisItem.NomeTela
+                        Width: =html_texto_telas.Width
+                        X: =html_texto_telas.X
+                        Y: =html_texto_telas.Y
+            - html_nome_colaborador:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  AutoHeight: =true
+                  HtmlText: |+
+                    ="<div style='
+                        color: white;
+                        font-family: " & App.Theme.Font & ";
+                        font-weight: bold;
+                        font-size: 13px;
+                        text-align: center;
+                    '>
+                      " & Nome_Colaborador & "
+                    </div>
+                    <div style='
+                        height: 2px;
+                        background-color: white;
+                        margin-top: 5px;
+                        margin-left: 10px;
+                        margin-right: 10px;
+                    '></div>"
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Width: =html_background.Width - sigd_bonin_sidebar.Espaçamento*2
+                  X: =sigd_bonin_sidebar.Espaçamento - 2.5
+                  Y: =img_colab.Y + img_colab.Height + 5
+            - img_colab:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =2
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =EsquemaDeCores.AzulEscuroBonin.Cor
+                  Height: =img_bonin_menor.Height + 20
+                  HoverBorderColor: =
+                  HoverFill: =
+                  Image: =UsuáriosdoOffice365.UserPhoto(User().Email)
+                  ImagePosition: =ImagePosition.Fill
+                  OnSelect: =Navigate(US_1)
+                  PressedBorderColor: =
+                  PressedFill: =
+                  RadiusBottomLeft: =90
+                  RadiusBottomRight: =90
+                  RadiusTopLeft: =90
+                  RadiusTopRight: =90
+                  TabIndex: =1
+                  Tooltip: ="Clique aqui para acessar o perfil do usuário"
+                  Width: =img_bonin_menor.Width + 20
+                  X: =(html_background.Width/2 - Self.Width/2) - 2.5
+                  Y: =90
+            - img_bonin_menor:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =40
+                  HoverBorderColor: =
+                  Image: =LookUp(sigd_bonin_sidebar.ListaDeIcones, Nome = "logo_menor", SVG)
+                  OnSelect: |-
+                    =Set(gblFecharMenu, false);
+                    Set(VarLarguraSidebar, sigd_bonin_sidebar.LarguraTotalSidebar)
+                  PressedBorderColor: =
+                  TabIndex: =2
+                  Tooltip: ="Clique aqui para expandir o menu"
+                  Visible: =gblFecharMenu
+                  Width: =40
+                  X: =(html_background.Width/2 - Self.Width/2)-2.5
+                  Y: =15
+            - img_bonin:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =57.0932108725332
+                  HoverBorderColor: =
+                  Image: =LookUp(sigd_bonin_sidebar.ListaDeIcones, Nome = "logo", SVG)
+                  OnSelect: |-
+                    =Set(gblFecharMenu, true);
+                    Set(VarLarguraSidebar, sigd_bonin_sidebar.LarguraTotalSidebar);
+                    Set(VarEixoXSideBar, sigd_bonin_sidebar.X);
+                    Set(VarEixoYSideBar, sigd_bonin_sidebar.Y);
+                  PressedBorderColor: =
+                  TabIndex: =2
+                  Tooltip: ="Clique aqui para minimizar o menu"
+                  Visible: =!img_bonin_menor.Visible
+                  Width: =188
+                  X: =(html_background.Width/2 - Self.Width/2) - 2.5
+                  Y: =15
