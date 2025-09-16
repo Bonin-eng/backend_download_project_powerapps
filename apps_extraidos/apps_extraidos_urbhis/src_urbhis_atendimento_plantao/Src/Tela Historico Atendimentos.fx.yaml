@@ -1,0 +1,562 @@
+"'Tela Historico Atendimentos' As screen":
+    OnVisible: |-
+        =ClearCollect(
+                colPlantaoPlanejado,
+                Filter(dbOS, StatusOS = "Planejado" && IdProduto = "P04")
+        );
+
+    Container2_5 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        PaddingLeft: =10
+        PaddingRight: =10
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =1
+
+        Container1_5 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(112, 111, 111, 1)
+            FillPortions: =0
+            Height: =90
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =0
+            RadiusTopRight: |
+                =0
+            Width: =Parent.Width - Self.X * 2
+            X: =10
+            ZIndex: =1
+
+            Label1_7 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: |
+                    =Parent.Height - Self.Y * 2
+                Size: =18
+                Text: ="CADASTRO DE BENEFICIÁRIO"
+                Width: =620
+                Y: =5
+                ZIndex: =2
+
+            img_colab_8 As image:
+                BorderColor: =RGBA(112, 111, 111, 1)
+                BorderThickness: =2
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =70
+                HoverBorderColor: =
+                HoverFill: =
+                Image: =UsuáriosdoOffice365.UserPhoto(User().Email)
+                ImagePosition: =ImagePosition.Fill
+                PressedBorderColor: =
+                PressedFill: =
+                RadiusBottomLeft: =90
+                RadiusBottomRight: =90
+                RadiusTopLeft: =90
+                RadiusTopRight: =90
+                TabIndex: =-2
+                Width: =70
+                X: =10
+                Y: =10
+                ZIndex: =3
+
+            Image3_7 As image:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =70
+                Image: =logo_urbhis
+                RadiusBottomLeft: =90
+                RadiusBottomRight: =90
+                RadiusTopLeft: =90
+                RadiusTopRight: =90
+                Width: =70
+                X: =535
+                Y: =10
+                ZIndex: =4
+
+        Container3_6 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(112, 111, 111, 1)
+            Height: =300
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            ZIndex: =5
+
+            Container5_4 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height - Self.Y * 2
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGap: =10
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =10
+                ZIndex: =6
+
+                Button4_9 As button:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Fill: =RGBA(122, 111, 150, 1)
+                    Font: =Font.Arial
+                    HoverFill: =ColorFade(Self.Fill, -20%)
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =280
+                    OnSelect: =Navigate('Atendimentos Screen')
+                    Size: =11
+                    Text: ="INICIAR NOVO ATENDIMENTO"
+                    Width: =280
+                    X: =40
+                    Y: =40
+                    ZIndex: =1
+
+                cF_SingleText_21 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    FillPortions: =0
+                    Height: =80
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =112
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =10
+                    PaddingLeft: =10
+                    PaddingRight: =10
+                    PaddingTop: =10
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =300
+                    ZIndex: =2
+
+                    Label5_100 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =560
+                        Size: =10
+                        Text: ="🔎 PESQUISAR NÚCLEO"
+                        Width: =200
+                        ZIndex: =1
+
+                    cb_Reuniao_7 As combobox:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(108, 187, 207, 1)
+                        DisplayFields: =["Nucleo"]
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        InputTextPlaceholder: ="Selecionar Núcleo"
+                        Items: =bdNucleos.Nucleo
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =10
+                        OnChange: |-
+                            =ClearCollect(colAtendimentoRealizado, 
+                            If(cb_Reuniao_7.Selected.Nucleo = Blank(),Blank(),
+                            Filter(dbAtendimentos, Nucleo = cb_Reuniao_7.Selected.Nucleo,
+                                'Criado por'.Email = User().Email)))
+                        OnSelect: |
+                            =UpdateContext({ocultar_botao_atendimento:false});
+                            UpdateContext({locPP_HistoricoAtendimento:false});
+                            UpdateContext({locPP_Atendimento:false});
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        SearchFields: =["Nucleo"]
+                        SearchItems: =Search(bdNucleos.Nucleo,cb_Reuniao_7.SearchText,Nucleo)
+                        SelectionFill: =RGBA(108, 187, 207, 1)
+                        SelectMultiple: =false
+                        Size: =12
+                        Width: =273
+                        X: =20
+                        Y: =43
+                        ZIndex: =2
+
+                Container9 As groupContainer.verticalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =225
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =112
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    ZIndex: =3
+
+                    Container13_61 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderColor: =RGBA(122, 111, 150, 1)
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        Fill: =Color.Transparent
+                        FillPortions: =0
+                        Height: =80
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        PaddingBottom: =1
+                        PaddingLeft: =1
+                        PaddingRight: =1
+                        PaddingTop: =1
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =
+                        ZIndex: =2
+
+                        cOrdemServicoTable_20 As groupContainer.manualLayoutContainer:
+                            BorderColor: =RGBA(122, 111, 150, 1)
+                            BorderThickness: =1
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =225
+                            LayoutMinHeight: =10
+                            LayoutMinWidth: =180
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =1
+                            PaddingLeft: =1
+                            PaddingRight: =1
+                            PaddingTop: =1
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =200
+                            ZIndex: =1
+
+                            Label6_572 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderStyle: =BorderStyle.None
+                                Font: =Font.Arial
+                                Height: |
+                                    =40
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =10
+                                Text: ="NOME COMPLETO"
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            inpOS_Busca_13 As text:
+                                BorderColor: =RGBA(108, 187, 207, 1)
+                                BorderStyle: =BorderStyle.Dotted
+                                BorderThickness: =1
+                                Clear: =true
+                                Color: =Color.Black
+                                Default: =
+                                DisabledBorderColor: =
+                                DisabledColor: =
+                                DisabledFill: =
+                                Fill: =Color.White
+                                FocusedBorderThickness: =1
+                                Font: =Font.Arial
+                                Height: =35
+                                HintText: ="🔎"
+                                HoverBorderColor: =
+                                HoverColor: =
+                                HoverFill: =Color.White
+                                OnChange: =
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Reset: =true
+                                Size: =10
+                                Tooltip: =
+                                Width: =Parent.Width - Self.X * 2
+                                X: =5
+                                Y: =40
+                                ZIndex: =2
+
+                            Slider1_9 As slider:
+                                Default: =Len(inpOS_Busca_13.Text) + Len(inpIdProduto_Busca_15.Text)
+                                Height: =32
+                                OnChange: |
+                                    =ClearCollect(colAtendimentoRealizado, 
+                                    If(cb_Reuniao_7.Selected.Nucleo = Blank(),Blank(),
+                                    Filter(dbAtendimentos, 
+                                        Nucleo = cb_Reuniao_7.Selected.Nucleo,
+                                        'Criado por'.Email = User().Email,
+                                        (IsBlank(inpOS_Busca_13.Text) || StartsWith(NomeCompleto, inpOS_Busca_13.Text)) && 
+                                        (IsBlank(inpIdProduto_Busca_15.Text) || StartsWith(CPF, inpIdProduto_Busca_15.Text)))
+                                    ))
+                                Visible: =false
+                                Width: =200
+                                ZIndex: =3
+
+                        cIDProdutoTable_20 As groupContainer.manualLayoutContainer:
+                            BorderColor: =RGBA(122, 111, 150, 1)
+                            BorderThickness: =1
+                            DropShadow: =DropShadow.None
+                            Height: =225
+                            LayoutMinHeight: =10
+                            LayoutMinWidth: =180
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =1
+                            PaddingLeft: =1
+                            PaddingRight: =1
+                            PaddingTop: =1
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =250
+                            ZIndex: =2
+
+                            Label6_573 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderStyle: =BorderStyle.None
+                                Font: =Font.Arial
+                                Height: |
+                                    =40
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =10
+                                Text: ="CPF"
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            inpIdProduto_Busca_15 As text:
+                                BorderColor: =RGBA(108, 187, 207, 1)
+                                BorderStyle: =BorderStyle.Dotted
+                                BorderThickness: =1
+                                Clear: =true
+                                Color: =Color.Black
+                                Default: =
+                                DisabledBorderColor: =
+                                DisabledColor: =
+                                DisabledFill: =
+                                Fill: =Color.White
+                                FocusedBorderThickness: =1
+                                Font: =Font.Arial
+                                Height: =35
+                                HintText: ="🔎"
+                                HoverBorderColor: =
+                                HoverColor: =
+                                HoverFill: =Color.White
+                                MaxLength: =14
+                                OnChange: =
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Reset: =true
+                                Size: =10
+                                Tooltip: =
+                                Width: =Parent.Width - Self.X * 2
+                                X: =5
+                                Y: =40
+                                ZIndex: =2
+
+                        cIDProdutoTable_21 As groupContainer.manualLayoutContainer:
+                            BorderColor: =RGBA(122, 111, 150, 1)
+                            BorderThickness: =1
+                            DropShadow: =DropShadow.None
+                            Height: =225
+                            LayoutMinHeight: =10
+                            LayoutMinWidth: =180
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =1
+                            PaddingLeft: =1
+                            PaddingRight: =1
+                            PaddingTop: =1
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =250
+                            ZIndex: =3
+
+                            Label6_574 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderStyle: =BorderStyle.None
+                                Font: =Font.Arial
+                                Height: |
+                                    =40
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =10
+                                Text: ="DATA"
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            DatePicker1 As datepicker:
+                                BorderColor: =RGBA(108, 187, 207, 1)
+                                BorderStyle: =BorderStyle.Dotted
+                                BorderThickness: =1
+                                Font: =Font.Arial
+                                Height: =35
+                                Size: =10
+                                Width: =Parent.Width - Self.X * 2
+                                X: =5
+                                Y: =40
+                                ZIndex: =2
+
+                    gal_EstadoCivil_23 As gallery.variableTemplateHeightGallery:
+                        '#CopilotOverlayLabel': ="Filtrada"
+                        BorderColor: =RGBA(122, 111, 150, 1)
+                        BorderThickness: =1
+                        DelayItemLoading: =true
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Parent.Height - Self.Y - 10
+                        Items: =SortByColumns(colAtendimentoRealizado, "DataAtendimento", SortOrder.Descending)
+                        Layout: =Layout.Vertical
+                        LayoutMinHeight: =287
+                        LayoutMinWidth: =320
+                        LoadingSpinner: =LoadingSpinner.Data
+                        TemplatePadding: =0
+                        TemplateSize: =50
+                        Width: =Parent.Width - Self.X*2
+                        X: =40
+                        Y: =40
+                        ZIndex: =3
+
+                        Container41_1 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Height: =Parent.TemplateHeight
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Container13_62 As groupContainer.horizontalAutoLayoutContainer:
+                                BorderColor: =RGBA(122, 111, 150, 1)
+                                BorderThickness: =1
+                                DropShadow: =DropShadow.None
+                                Fill: =Color.Transparent
+                                Height: =Parent.Height
+                                LayoutMode: =LayoutMode.Auto
+                                maximumHeight: =11360
+                                maximumWidth: =640
+                                PaddingBottom: =1
+                                PaddingLeft: =1
+                                PaddingRight: =1
+                                PaddingTop: =1
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                                Label6_590 As label:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(122, 111, 150, 1)
+                                    BorderThickness: =1
+                                    Font: =Font.Arial
+                                    Height: =Parent.Height
+                                    LayoutMinHeight: =30
+                                    LayoutMinWidth: =560
+                                    PaddingBottom: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =9
+                                    Text: =Upper(ThisItem.NomeCompleto)
+                                    Width: =200
+                                    ZIndex: =1
+
+                                Label6_591 As label:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(122, 111, 150, 1)
+                                    BorderThickness: =1
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    Height: =Parent.Height
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: =ThisItem.CPF
+                                    Width: =120
+                                    ZIndex: =2
+
+                                Label6_592 As label:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(122, 111, 150, 1)
+                                    BorderThickness: =1
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    Height: =Parent.Height
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: =ThisItem.DataAtendimento
+                                    Width: =120
+                                    ZIndex: =3
+
+                            Button7_1 As button:
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =Parent.Height
+                                HoverFill: =
+                                OnSelect: |
+                                    =Navigate('Tela Atendimento Edição Screen');
+                                    Set(locPP_EditAtendimentoGeral, ThisItem);
+                                    ClearCollect(colProdutoEncaminhamento, Filter(dbProdutos, idProduto = "P05"|| idProduto = "P06" ))
+                                Size: =24
+                                Text: =
+                                Width: =Parent.Width
+                                ZIndex: =2
+

@@ -1,0 +1,17 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |-
+        =Set(Autorizacao_Atendimento, 
+            If(LookUp(dbCadastroFuncionario, Email = User().Email, TipoAutorizacao) = "Master", true, 
+            If(LookUp(dbCadastroFuncionario, Email = User().Email, TipoAutorizacao) = "Social", true, 
+            If(LookUp(dbCadastroFuncionario, Email = User().Email, TipoAutorizacao) = "Social Nivel 2", true, 
+            If(LookUp(dbCadastroFuncionario, Email = User().Email, TipoAutorizacao) = "Social Nivel 3", true, false)))))
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

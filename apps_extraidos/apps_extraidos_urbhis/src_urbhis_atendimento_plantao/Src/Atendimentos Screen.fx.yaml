@@ -1,0 +1,831 @@
+"'Atendimentos Screen' As screen":
+    OnVisible: |-
+        =ClearCollect(
+                colPlantaoPlanejado,
+                Filter(dbOS, StatusOS = "Planejado" && IdProduto = "P04")
+        );
+
+    Container2 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        PaddingLeft: =10
+        PaddingRight: =10
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =2
+
+        Container1 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(112, 111, 111, 1)
+            FillPortions: =0
+            Height: =90
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =0
+            RadiusTopRight: |
+                =0
+            Width: =Parent.Width - Self.X * 2
+            X: =10
+            ZIndex: =1
+
+            Label1_2 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =Parent.Height
+                Size: =18
+                Text: ="PLANTÃO SOCIAL"
+                Width: =Parent.Width
+                ZIndex: =1
+
+            img_colab_7 As image:
+                BorderColor: =RGBA(112, 111, 111, 1)
+                BorderThickness: =2
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =70
+                HoverBorderColor: =
+                HoverFill: =
+                Image: =UsuáriosdoOffice365.UserPhoto(User().Email)
+                ImagePosition: =ImagePosition.Fill
+                PressedBorderColor: =
+                PressedFill: =
+                RadiusBottomLeft: =90
+                RadiusBottomRight: =90
+                RadiusTopLeft: =90
+                RadiusTopRight: =90
+                TabIndex: =-2
+                Width: =70
+                X: =10
+                Y: =10
+                ZIndex: =2
+
+            Image3_6 As image:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =70
+                Image: =logo_urbhis
+                RadiusBottomLeft: =90
+                RadiusBottomRight: =90
+                RadiusTopLeft: =90
+                RadiusTopRight: =90
+                Width: =70
+                X: =535
+                Y: =10
+                ZIndex: =3
+
+        Container3 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(112, 111, 111, 1)
+            FillPortions: =0
+            Height: =300
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            ZIndex: =2
+
+            cF_SingleText_11 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =Color.White
+                Height: =100
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMode: =LayoutMode.Auto
+                maximumHeight: =11360
+                maximumWidth: =640
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingRight: =5
+                PaddingTop: =1
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =10
+                ZIndex: =1
+
+                Label5_55 As label:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Stretch
+                    BorderColor: =
+                    Color: =Color.Black
+                    DisabledColor: =
+                    FillPortions: =1
+                    Font: =Font.Arial
+                    Height: =30
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =0
+                    Text: ="🔎 PLANTÃO DE ATENDIMENTO"
+                    Width: =200
+                    ZIndex: =1
+
+                cb_Reuniao_3 As combobox:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    BorderColor: =RGBA(108, 187, 207, 1)
+                    ChevronBackground: =RGBA(108, 187, 207, 1)
+                    DisplayFields: =["Plantao"]
+                    FillPortions: =1
+                    Font: =Font.Arial
+                    Height: =70
+                    InputTextPlaceholder: ="Selecionar Plantão"
+                    Items: =colPlantaoPlanejado.Plantao
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =10
+                    OnChange: |-
+                        =ClearCollect(
+                                colPlantaoPlanejado,
+                                Filter(dbOS, StatusOS = "Planejado" && IdProduto = "P04")
+                        );
+                    OnSelect: |
+                        =UpdateContext({ocultar_botao_atendimento:false});
+                        UpdateContext({locPP_HistoricoAtendimento:false});
+                        UpdateContext({locPP_Atendimento:false});
+                    PaddingBottom: =10
+                    PaddingLeft: =10
+                    PaddingRight: =10
+                    PaddingTop: =10
+                    SearchFields: =["Plantao"]
+                    SearchItems: =Search(colPlantaoPlanejado.Plantao,cb_Reuniao_3.SearchText,Plantao)
+                    SelectionFill: =RGBA(108, 187, 207, 1)
+                    SelectMultiple: =false
+                    Width: =273
+                    X: =20
+                    Y: =43
+                    ZIndex: =2
+
+            cF_SingleText_12 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =Color.White
+                Height: =100
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMode: =LayoutMode.Auto
+                maximumHeight: =11360
+                maximumWidth: =640
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingRight: =5
+                PaddingTop: =1
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =120
+                ZIndex: =2
+
+                Label5_59 As label:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Stretch
+                    BorderColor: =
+                    Color: =Color.Black
+                    DisabledColor: =
+                    FillPortions: =1
+                    Font: =Font.Arial
+                    Height: =30
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =560
+                    Text: ="🔎 PESQUISAR CPF"
+                    Width: =200
+                    ZIndex: =1
+
+                Container37 As groupContainer.manualLayoutContainer:
+                    BorderColor: =RGBA(108, 187, 207, 1)
+                    BorderThickness: =2
+                    DropShadow: =DropShadow.None
+                    Height: =225
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =0
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =2
+
+                    inpCPF_Busca_Mascara_1 As text:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Clear: =true
+                        Default: |-
+                            =With(
+                                {   Entrada: inpCPF_Busca_inicial_1.Text,
+                                    Len: Len(inpCPF_Busca_inicial_1.Text)
+                                },
+                                Concat(
+                                    ForAll(
+                                        Sequence(
+                                            Len,
+                                            1,
+                                            1
+                                        ),
+                                        {
+                                            ID: Value,
+                                            Caracter: Mid(
+                                                Entrada,
+                                                Value,
+                                                1
+                                            )
+                                        }
+                                    )
+                                    ,
+                            
+                                    Switch(ID
+                                    ,4,"."
+                                    ,7,"."
+                                    ,10, "-"
+                                    )
+                                    &Caracter
+                                )
+                            )
+                        DisabledBorderColor: =
+                        DisabledColor: =
+                        DisabledFill: =
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Font: =Font.Arial
+                        Height: =Parent.Height
+                        HoverBorderColor: =
+                        HoverColor: =
+                        HoverFill: =Color.White
+                        MaxLength: =14
+                        OnChange: =
+                        PressedBorderColor: =
+                        PressedColor: =
+                        PressedFill: =
+                        Reset: =true
+                        Size: =10
+                        Tooltip: =
+                        Width: =Parent.Width - 2
+                        X: =2
+                        ZIndex: =1
+
+                    inpCPF_Busca_inicial_1 As text:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(0, 0, 0, 0)
+                        Default: =
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Font: =Font.Arial
+                        Format: =TextFormat.Number
+                        Height: =Parent.Height
+                        HintText: ="000.000.000-00"
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        MaxLength: =11
+                        OnChange: =
+                        PressedBorderColor: =Color.Transparent
+                        PressedColor: =
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Reset: =true
+                        Tooltip: =
+                        Width: =Parent.Width - 2 
+                        X: =2
+                        ZIndex: =2
+
+            Button4_6 As button:
+                Fill: =RGBA(122, 111, 150, 1)
+                Font: =Font.Arial
+                Height: =60
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: |
+                    =If(
+                        IsBlank(cb_Reuniao_3.Selected.Plantao) || IsBlank(inpCPF_Busca_Mascara_1.Text),
+                        Notify("Selecione um Plantão e um CPF para começar o Atendimento", NotificationType.Information),
+                        ClearCollect(colBeneficiario, Filter(dbCadastroBeneficiario, CPF = inpCPF_Busca_Mascara_1.Text));
+                        UpdateContext({locPP_EditCadastro: First(colBeneficiario)});
+                        UpdateContext({ocultar_botao_atendimento: true});
+                        UpdateContext({locPP_HistoricoAtendimento: true});
+                        UpdateContext({locPP_HistoricoAtendimentoSelo:false});
+                        UpdateContext({locPP_Atendimento: false});
+                        UpdateContext({locPP_HistoricoEmergencial:false});
+                    //    ResetForm(FormCad_AtendimentoPlantao);;
+                        UpdateContext({locPP_AtendimentoPlantaoHistorico:false});
+                    );
+                Size: =13
+                Text: ="BUSCAR CPF"
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =230
+                ZIndex: =3
+
+        Container3_1 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(112, 111, 111, 1)
+            Height: =300
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            ZIndex: =3
+
+            Container4 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =60
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutGap: =10
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =10
+                ZIndex: =1
+
+                Button4_24 As button:
+                    Fill: =RGBA(122, 111, 150, 1)
+                    FillPortions: =1
+                    Font: =Font.Arial
+                    Height: =70
+                    HoverFill: =ColorFade(Self.Fill, -20%)
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =280
+                    OnSelect: |-
+                        =If(cb_Reuniao_3.Selected.Plantao = Blank(), Notify("Selecione um Plantão para começar o Atendimento", NotificationType.Information),
+                        Navigate('Tela Cadastro Screen');
+                        UpdateContext({locCadastrarBeneficiario:true});
+                        
+                        ClearCollect(colNucleoAscending, 
+                            SortByColumns(
+                                bdNucleos,
+                                "Nucleo", 
+                                SortOrder.Ascending
+                            )))
+                    Size: =13
+                    Text: ="CADASTRAR CPF"
+                    Width: =280
+                    ZIndex: =1
+
+                Button4_25 As button:
+                    Fill: =RGBA(122, 111, 150, 1)
+                    Font: =Font.Arial
+                    Height: =70
+                    HoverFill: =ColorFade(Self.Fill, -20%)
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =280
+                    OnSelect: |-
+                        =If(inpCPF_Busca_Mascara_1.Text = "", Notify("Selecione Beneficiario para começar o Atendimento", NotificationType.Information),
+                        ClearCollect(colBeneficiario, Filter(dbCadastroBeneficiario, CPF = inpCPF_Busca_Mascara_1.Text));
+                        Set(locPP_EditCadastro, First(colBeneficiario));
+                        UpdateContext({locPP_CPF:true});
+                        UpdateContext({locCadastrarBeneficiario:false});
+                        Navigate('Tela Edição Cadastro Screen'));
+                    Size: =13
+                    Text: ="EDITAR CADASTRO"
+                    Width: =280
+                    ZIndex: =2
+
+            Button4_26 As button:
+                Fill: =RGBA(122, 111, 150, 1)
+                Font: =Font.Arial
+                Height: =60
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: |
+                    =If(inpCPF_Busca_Mascara_1.Text = Blank() || First(colBeneficiario).NomeCompleto = Blank(), Notify("Selecione CPF para começar o Atendimento", NotificationType.Information),
+                    Navigate('Tela Atendimento Screen'));
+                    NewForm(FormCad_AtendimentoPlantao);
+                    ClearCollect(colProdutoEncaminhamento, Filter(dbProdutos, idProduto = "P05"|| idProduto = "P06" ))
+                Text: =If(locPP_AtendimentoPlantaoHistorico = true, "CONTINUAR ATENDIMENTO", "INICIAR ATENDIMENTO")
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =Parent.Height - Self.Height - 10
+                ZIndex: =3
+
+            Container7 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =50
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =120
+                ZIndex: =4
+
+                Label3_2 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Fill: =RGBA(108, 187, 207, 1)
+                    Font: =Font.Arial
+                    Height: =Parent.Height
+                    Size: =15
+                    Text: ="INFORMAÇÕES CADASTRAIS DO BENEFICIÁRIO"
+                    Width: =Parent.Width - Self.X * 2
+                    ZIndex: =1
+
+            Container8 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =70
+                LayoutGap: =10
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width- Self.X * 2
+                X: =10
+                Y: =180
+                ZIndex: =7
+
+                cF_Nome_1 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    Height: =70
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =0
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =290
+                    X: =10
+                    Y: =140
+                    ZIndex: =1
+
+                    Label5_63 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =0
+                        PaddingLeft: =0
+                        Size: =12
+                        Text: ="Nome Completo"
+                        Width: =200
+                        ZIndex: =1
+
+                    Label4_21 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        FillPortions: =1
+                        Height: =70
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Text: =First(colBeneficiario).NomeCompleto
+                        Width: =560
+                        ZIndex: =2
+
+                cF_CPF_7 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    Height: =70
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =285
+                    X: =cF_Nome_1.X + cF_Nome_1.Width + 25
+                    Y: =140
+                    ZIndex: =2
+
+                    Label5_64 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =0
+                        PaddingLeft: =0
+                        Size: =12
+                        Text: ="CPF"
+                        Width: =200
+                        ZIndex: =1
+
+                    Label4_22 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        FillPortions: =1
+                        Height: =70
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Text: =First(colBeneficiario).CPF
+                        Width: =560
+                        ZIndex: =2
+
+            Container8_1 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =70
+                LayoutGap: =10
+                LayoutMode: =LayoutMode.Auto
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width- Self.X * 2
+                X: =10
+                Y: =260
+                ZIndex: =8
+
+                cF_Email_2 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    Height: =70
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =285
+                    X: =20
+                    Y: =240
+                    ZIndex: =1
+
+                    Label5_71 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =0
+                        PaddingLeft: =0
+                        Size: =12
+                        Text: ="Núcleo"
+                        Width: =50
+                        ZIndex: =1
+
+                    Label4_29 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        FillPortions: =1
+                        Height: =70
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Text: =First(colBeneficiario).Nucleo
+                        Width: =560
+                        ZIndex: =2
+
+                cF_Telefone_2 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    Height: =70
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =185
+                    X: =cF_Email_2.X + cF_Email_2.Width + 25
+                    Y: =240
+                    ZIndex: =2
+
+                    Label5_72 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =50
+                        PaddingLeft: =0
+                        Size: =12
+                        Text: ="Selo"
+                        Width: =200
+                        ZIndex: =1
+
+                    Label4_30 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        FillPortions: =1
+                        Height: =70
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Text: =First(colBeneficiario).Selo
+                        Width: =560
+                        ZIndex: =2
+
+            Container8_2 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =70
+                LayoutGap: =10
+                LayoutMode: =LayoutMode.Auto
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width- Self.X * 2
+                X: =10
+                Y: =340
+                ZIndex: =9
+
+                cF_Email_3 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    Height: =70
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =285
+                    X: =20
+                    Y: =340
+                    ZIndex: =1
+
+                    Label5_74 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =0
+                        PaddingLeft: =0
+                        Size: =12
+                        Text: ="E-mail"
+                        Width: =50
+                        ZIndex: =1
+
+                    Label4_32 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        FillPortions: =1
+                        Height: =70
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =0
+                        Size: =10
+                        Text: =First(colBeneficiario).Email
+                        Width: =560
+                        ZIndex: =2
+
+                cF_Telefone_3 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =Color.White
+                    Height: =70
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =0
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =185
+                    X: =330
+                    Y: =340
+                    ZIndex: =2
+
+                    Label5_75 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =
+                        Color: =Color.Black
+                        DisabledColor: =
+                        Font: =Font.Arial
+                        Height: =30
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =50
+                        PaddingLeft: =0
+                        Size: =12
+                        Text: |-
+                            ="Telefone /  Celular
+                            "
+                        Width: =200
+                        ZIndex: =1
+
+                    Label4_33 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(108, 187, 207, 1)
+                        BorderThickness: =1
+                        FillPortions: =1
+                        Height: =70
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =50
+                        Size: =10
+                        Text: =First(colBeneficiario).TelefoneContato
+                        Width: =560
+                        ZIndex: =2
+
+            Button4_8 As button:
+                Fill: =RGBA(122, 111, 150, 1)
+                Font: =Font.Arial
+                Height: =50
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: =Navigate('Tela Historico Atendimentos')
+                Size: =13
+                Text: ="HISTÓRICO DE ATENDIMENTOS"
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                Y: =420
+                ZIndex: =10
+
