@@ -1,0 +1,418 @@
+Tela_Cadastro_Ruas As screen:
+
+    con_Geral_Cadastro_Ruas As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Tela_Novo_Formulario.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        LayoutOverflowY: =LayoutOverflow.Scroll
+        PaddingBottom: =varRecuo
+        PaddingLeft: =varRecuo
+        PaddingRight: =varRecuo
+        PaddingTop: =varRecuo
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Tela_Novo_Formulario.Width
+        ZIndex: =1
+
+        con_Superior_3 As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            FillPortions: =0
+            Height: =img_Consorcio_4.Height + varRecuo*2
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Width: =con_Geral_Cadastro_Ruas.Width - varRecuo*2
+            ZIndex: =1
+
+            img_Consorcio_4 As image:
+                Height: =50
+                Image: ='aplicação fundo claro'
+                PaddingTop: |
+                    =0
+                Width: |
+                    =con_Geral_Cadastro_Ruas.Width/3
+                X: =(con_Superior_3.Width/2) - (img_Consorcio_4.Width/2)
+                Y: =con_Superior_3.Y
+                ZIndex: =1
+
+            icn_Voltar_3 As icon.NextArrow:
+                Height: =img_Consorcio_4.Height
+                Icon: =Icon.NextArrow
+                OnSelect: |-
+                    =Navigate(Tela_Inicio);
+                    Set(varNucleo, cmb_Nucleo.Selected.Nucleo);
+                    Set(varNucleoID, LookUp(bdNucleos, Nucleo = cmb_Nucleo.Selected.Nucleo, ID));
+                    ClearCollect(colDb_Nucleos_Ruas, Filter(db_Nucleos_Ruas, NÚCLEO = varNucleo))
+                Rotation: |
+                    =180
+                Width: =icn_Voltar_3.Height
+                X: =con_Superior_3.X
+                Y: =con_Superior_3.Y
+                ZIndex: =2
+
+        con_Titulo_3 As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            FillPortions: =0
+            Height: =con_Superior_3.Height
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            PaddingBottom: =con_Geral_Cadastro_Ruas.PaddingBottom
+            PaddingLeft: =con_Geral_Cadastro_Ruas.PaddingLeft
+            PaddingRight: =con_Geral_Cadastro_Ruas.PaddingRight
+            PaddingTop: =con_Geral_Cadastro_Ruas.PaddingTop
+            Width: =con_Geral_Cadastro_Ruas.Width - varRecuo*2
+            ZIndex: =2
+
+            lbl_Titulo_4 As label:
+                Align: =Align.Center
+                AutoHeight: =true
+                DisplayMode: =DisplayMode.View
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                Height: =con_Titulo_3.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =16
+                Text: |-
+                    ="RUAS DO NÚCLEO
+                    "
+                    & cmb_Nucleo.Selected.Nucleo
+                Width: =con_Geral_Cadastro_Ruas.Width - varRecuo*2
+                Y: =(con_Titulo_3.Height/2) - (lbl_Titulo_4.Height/2)
+                ZIndex: =1
+
+        con_Inf_Rua As groupContainer.verticalAutoLayoutContainer:
+            FillPortions: =0
+            Height: |
+                =lbl_Logradouro_Cadastro.Height + txt_Logradouro_Cadastro.Height + btn_Salvar_Logradouro.Height + varRecuo*4
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =con_Geral_Novo_Formulario.Width - varRecuo*2
+            X: =10
+            Y: =670
+            ZIndex: =3
+
+            lbl_Logradouro_Cadastro As label:
+                AutoHeight: =true
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingBottom: =0
+                PaddingLeft: =varRecuo
+                PaddingRight: =varRecuo
+                PaddingTop: =0
+                Size: =14
+                Text: |-
+                    ="LOGRADOURO:"
+                Width: =con_Inf_Rua.Width - varRecuo*2
+                ZIndex: =1
+
+            txt_Logradouro_Cadastro As text:
+                BorderThickness: =1
+                Default: =varLogradouro.NOME_RUA
+                DisplayMode: =
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =30
+                HintText: ="Insira o nome do logradouro completo"
+                LayoutMinHeight: =70
+                LayoutMinWidth: =80
+                PaddingLeft: =5
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                Size: =14
+                Width: =con_Inf_Rua.Width - varRecuo*2
+                ZIndex: =3
+
+            con_btn_lodraouros As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =btn_Salvar_Logradouro.Height + varRecuo
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =con_Inf_Rua.Width - varRecuo*2
+                ZIndex: =6
+
+                btn_Salvar_Logradouro As button:
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Bold
+                    Height: =30
+                    OnSelect: |-
+                        =Patch(
+                            db_Nucleos_Ruas,
+                            If(IsBlank(varLogradouro), Defaults(db_Nucleos_Ruas), LookUp(db_Nucleos_Ruas, ID = varLogradouro.ID)),
+                            {
+                                NÚCLEO: LookUp(bdNucleos, Nucleo = cmb_Nucleo.Selected.Nucleo).Nucleo,
+                                ID_REF: LookUp(bdNucleos, Nucleo = cmb_Nucleo.Selected.Nucleo).ID,
+                                NOME_RUA: txt_Logradouro_Cadastro.Text
+                            }
+                        );
+                        Set(varLogradouro, Blank())
+                    Size: =14
+                    Text: =If(IsBlank(varLogradouro),"CADASTRAR LOGRADOURO","EDITAR LOGRADOURO")
+                    Width: =280
+                    X: =(con_btn_lodraouros.Width/2) - (btn_Salvar_Logradouro.Width/2)
+                    Y: =varRecuo/2
+                    ZIndex: =1
+
+                icn_limpar_logradouro As icon.Erase:
+                    Height: =btn_Salvar_Logradouro.Height
+                    Icon: =Icon.Erase
+                    OnSelect: =Set(varLogradouro, Blank())
+                    Width: =btn_Salvar_Logradouro.Height
+                    X: =570
+                    Y: =varRecuo/2
+                    ZIndex: =2
+
+        glr_Selecao_Ruas As gallery.variableTemplateHeightGallery:
+            '#CopilotOverlayLabel': ="Filtrada"
+            AlignInContainer: =AlignInContainer.Center
+            DelayItemLoading: =true
+            Items: =Sort(Filter(db_Nucleos_Ruas, ID_REF = varNucleoID), NOME_RUA, SortOrder.Ascending)
+            Layout: =Layout.Vertical
+            LayoutMinHeight: =287
+            LayoutMinWidth: =320
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =varRecuo
+            TemplateSize: =280
+            Width: =con_Selecao.Width
+            ZIndex: =5
+
+            con_Selecao_Geral_1 As groupContainer.verticalAutoLayoutContainer:
+                Height: =106
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMode: =LayoutMode.Auto
+                Width: =glr_Selecao_Ruas.Width - varRecuo*2
+                ZIndex: =1
+
+                con_Selecao_Rua As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =106
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                    LayoutMinHeight: =40
+                    LayoutMinWidth: =100
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =
+                    PaddingRight: =
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =con_Selecao_Geral_1.Width
+                    ZIndex: =1
+
+                    con_Selecao_Logradouro_2 As groupContainer.verticalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        FillPortions: =3.3
+                        Height: =106
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =50
+                        LayoutMinWidth: =50
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =varRecuo
+                        PaddingLeft: =varRecuo
+                        PaddingRight: =varRecuo
+                        PaddingTop: =varRecuo
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: |
+                            =(con_Selecao_Rua.Width)/1.5
+                        ZIndex: =2
+
+                        lbl_Nucleo_Titulos As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =20
+                            LayoutMinHeight: =70
+                            LayoutMinWidth: =560
+                            PaddingBottom: =varRecuo
+                            PaddingLeft: =varRecuo
+                            PaddingRight: =varRecuo
+                            PaddingTop: =varRecuo
+                            Size: =14
+                            Text: ="Logradouro"
+                            Width: =con_Selecao_Logradouro_2.Width
+                            X: =210
+                            Y: =129
+                            ZIndex: =2
+
+                        lbl_Logradouro_2 As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            Height: =20
+                            LayoutMinHeight: =70
+                            LayoutMinWidth: =560
+                            PaddingBottom: =varRecuo
+                            PaddingLeft: =varRecuo
+                            PaddingRight: =varRecuo
+                            PaddingTop: =0
+                            Size: =14
+                            Text: =ThisItem.NOME_RUA
+                            Width: =con_Selecao_Logradouro_2.Width
+                            X: =210
+                            Y: =129
+                            ZIndex: =3
+
+                    con_Selecao_Logradouros_Opcoes As groupContainer.verticalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(240, 240, 240, 1)
+                        FillPortions: =0.5
+                        Height: =106
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =50
+                        LayoutMinWidth: =50
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =varRecuo
+                        PaddingLeft: =varRecuo
+                        PaddingRight: =varRecuo
+                        PaddingTop: =varRecuo
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =(con_Selecao_Imovel.Width - con_Selecao_Imovel_1.Width - con_Selecao_Logradouro.Width)
+                        ZIndex: =3
+
+                        icn_Editar_1 As icon.Edit:
+                            Color: =RGBA(0, 123, 255, 1)
+                            FillPortions: =1
+                            Icon: =Icon.ListScrollWatchlist
+                            LayoutMinHeight: =15
+                            OnSelect: =Set(varLogradouro, ThisItem)
+                            PaddingBottom: =
+                            PaddingTop: =
+                            Width: =con_Selecao_Logradouros_Opcoes.Width
+                            ZIndex: =1
+
+                        icn_Deletar_1 As icon.Cancel:
+                            Color: =RGBA(255, 0, 0, 1)
+                            FillPortions: =1
+                            Icon: =Icon.Cancel
+                            LayoutMinHeight: =15
+                            OnSelect: |-
+                                =UpdateContext({contPopup_Selecao_Remover_Logradouro_ID: ThisItem.ID});
+                                UpdateContext({contPopup_Selecao_Remover_Logradouro: true})
+                            Width: =con_Selecao_Logradouros_Opcoes.Width
+                            ZIndex: =2
+
+    grp_PopUp_Edicao_Remover_Logradouro As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =7
+
+        rec_PopUp_Edicao_Background_1 As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.7)
+            Height: =Tela_Inicio.Height
+            Visible: =contPopup_Selecao_Remover_Logradouro
+            Width: =Tela_Inicio.Width
+            X: =
+            ZIndex: =2
+
+        rec_PopUp_Edicao_Caixa_1 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Tela_Inicio.Height/3
+            Visible: =contPopup_Selecao_Remover_Logradouro
+            Width: =Tela_Inicio.Width
+            X: =
+            Y: |
+                =(Tela_Inicio.Height/2) - (rec_PopUp_Edicao_Caixa_1.Height/2)
+            ZIndex: =3
+
+        lbl_PopUp_Edicao_Aviso_1 As label:
+            Align: =Align.Center
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =rec_PopUp_Edicao_Caixa_1.Height
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Size: =21
+            Text: ="EXCLUIR LOGRADOURO?"
+            Visible: =contPopup_Selecao_Remover_Logradouro
+            Width: =rec_PopUp_Edicao_Caixa_1.Width
+            X: =
+            Y: =(Tela_Inicio.Height/2) - (rec_PopUp_Edicao_Caixa_1.Height/2)
+            ZIndex: =4
+
+        btn_PopUp_Edicao_Não_1 As button:
+            Font: =Font.'Segoe UI'
+            Height: =55
+            OnSelect: |-
+                =UpdateContext({contPopup_Selecao_Remover_Logradouro: false})
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Size: =25
+            Text: ="NÃO"
+            Visible: =contPopup_Selecao_Remover_Logradouro
+            Width: |
+                =rec_PopUp_Edicao_Caixa_1.Width/2.5
+            X: =360
+            Y: =732
+            ZIndex: =5
+
+        btn_PopUp_Edicao_Sim_1 As button:
+            Font: =Font.'Segoe UI'
+            Height: =55
+            OnSelect: |-
+                =RemoveIf(db_Nucleos_Ruas, ID = contPopup_Selecao_Remover_Logradouro_ID);
+                UpdateContext({contPopup_Selecao_Remover_Logradouro_ID: Blank()});
+                UpdateContext({contPopup_Selecao_Remover_Logradouro: false})
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Size: =25
+            Text: ="SIM"
+            Visible: =contPopup_Selecao_Remover_Logradouro
+            Width: |
+                =rec_PopUp_Edicao_Caixa_1.Width/2.5
+            X: =72
+            Y: =732
+            ZIndex: =6
+

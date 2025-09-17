@@ -1,0 +1,158 @@
+{
+  "02db7e5a-e4e4-4042-883b-28ecdf5bf263": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Usuários do Office 365",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1767/1.0.1767.4332/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "UsuáriosdoOffice365"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "02db7e5a-e4e4-4042-883b-28ecdf5bf263"
+  },
+  "96f4df70-3a1c-495f-a00b-8549a3dbaaf7": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Excel Online (Business)",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1768/1.0.1768.4342/excelonlinebusiness/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_excelonlinebusiness",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "c2299b2c-c673-4ff3-913c-0acfb981a81d"
+    ],
+    "id": "96f4df70-3a1c-495f-a00b-8549a3dbaaf7"
+  },
+  "b8684927-ac0b-4681-8042-38d45c1c5d78": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write",
+      "providers/PowerPlatform.Governance/Operations/Delete"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1762/1.0.1762.4298/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://boninengenharialtda.sharepoint.com/sites/DESENVOLVIMENTODEAPPS": {
+        "datasetOverride": {
+          "description": "The SharePoint URL has been renamed from 'https://boninengenharialtda.sharepoint.com/sites/DESENVOLVIMENTODEAPPS' to 'https://boninengenharialtda.sharepoint.com/sites/BANCOURBHIS'",
+          "name": "https://boninengenharialtda.sharepoint.com/sites/BANCOURBHIS"
+        },
+        "dataSources": {
+          "bdNucleos": {
+            "tableName": "3caec41d-1707-44b5-9c00-9dc1acdac35a"
+          },
+          "db_Arrolamento": {
+            "tableName": "066d1922-c00e-49d1-9961-723e714ca524"
+          },
+          "db_Nucleos_Ruas": {
+            "tableName": "ba157f15-4317-46cd-b556-a2e7c7ab0d46"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "db_Arrolamento",
+      "bdNucleos",
+      "db_Nucleos_Ruas"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "c2299b2c-c673-4ff3-913c-0acfb981a81d"
+    ],
+    "id": "b8684927-ac0b-4681-8042-38d45c1c5d78"
+  },
+  "c2299b2c-c673-4ff3-913c-0acfb981a81d": {
+    "appActions": [
+      "Run"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Fluxos lógicos",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1766/1.0.1766.4325/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "96f4df70-3a1c-495f-a00b-8549a3dbaaf7": {
+          "value": "shared_excelonlinebusiness"
+        },
+        "b8684927-ac0b-4681-8042-38d45c1c5d78": {
+          "value": "shared_sharepointonline"
+        },
+        "c9da238c-3d75-449d-b4d7-0ca5031dff04": {
+          "value": "shared_office365"
+        },
+        "workflowDisplayName": {
+          "value": "Exportar - Arrolamento XLSX 2"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "5a1170a9-5b1f-4e36-9fc5-08233d7c745c"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_excelonlinebusiness": {
+          "value": "96f4df70-3a1c-495f-a00b-8549a3dbaaf7"
+        },
+        "shared_office365": {
+          "value": "c9da238c-3d75-449d-b4d7-0ca5031dff04"
+        },
+        "shared_sharepointonline": {
+          "value": "b8684927-ac0b-4681-8042-38d45c1c5d78"
+        },
+        "workflowDisplayName": {
+          "value": "Exportar - Arrolamento XLSX 2"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "5a1170a9-5b1f-4e36-9fc5-08233d7c745c"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "Exportar-ArrolamentoXLSX2"
+    ],
+    "dependencies": {
+      "shared_excelonlinebusiness": "96f4df70-3a1c-495f-a00b-8549a3dbaaf7",
+      "shared_office365": "c9da238c-3d75-449d-b4d7-0ca5031dff04",
+      "shared_sharepointonline": "b8684927-ac0b-4681-8042-38d45c1c5d78"
+    },
+    "dependents": [],
+    "id": "c2299b2c-c673-4ff3-913c-0acfb981a81d"
+  },
+  "c9da238c-3d75-449d-b4d7-0ca5031dff04": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1763/1.0.1763.4311/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "c2299b2c-c673-4ff3-913c-0acfb981a81d"
+    ],
+    "id": "c9da238c-3d75-449d-b4d7-0ca5031dff04"
+  }
+}

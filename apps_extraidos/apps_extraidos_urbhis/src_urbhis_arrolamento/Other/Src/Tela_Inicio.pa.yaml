@@ -1,0 +1,401 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Tela_Inicio:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - con_Geral:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Tela_Inicio.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Tela_Inicio.Width
+          Children:
+            - con_Cabecalho:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =170
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingBottom: =varRecuo
+                  PaddingLeft: =varRecuo
+                  PaddingRight: =varRecuo
+                  PaddingTop: =varRecuo
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =con_Geral.Width - con_Geral.PaddingLeft - con_Geral.PaddingRight
+                Children:
+                  - Container1:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - lbl_Titulo:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              DisplayMode: =DisplayMode.View
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =24
+                              Text: ="ARROLAMENTO"
+                              Width: =600
+                              Y: =110
+                        - Image2:
+                            Control: Image@2.2.3
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Height: =85
+                              Image: ='aplicação fundo claro'
+                              Width: =208
+                        - Image3:
+                            Control: Image@2.2.3
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Height: =85
+                              Image: ='São Paulo'
+                              Width: =256
+                              X: =343
+            - con_Botoes_Config:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =Max(btn_Novo_Logradouro.Height, btn_Exportar.Height) + (con_Geral.PaddingTop) + (con_Geral.PaddingBottom)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =If(btn_Novo_Logradouro.Visible = true, ((con_Botoes.Width) - (btn_Novo_Selo.Width) - (btn_Editar_Selo.Width))/3,0)
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  PaddingBottom: =varRecuo
+                  PaddingLeft: =varRecuo
+                  PaddingRight: =varRecuo
+                  PaddingTop: =varRecuo
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =con_Geral.Width - varRecuo*2
+                Children:
+                  - btn_Novo_Logradouro:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(56, 96, 178, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =50
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinWidth: =206
+                        OnSelect: |-
+                          =If(
+                              IsBlank(varNucleo), 
+                              UpdateContext({contPopup: true}),
+                              Navigate(Tela_Cadastro_Ruas))
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        RadiusBottomLeft: =4
+                        RadiusBottomRight: =4
+                        RadiusTopLeft: =4
+                        RadiusTopRight: =4
+                        Size: =16
+                        Text: ="LOGRADOURO"
+                        Visible: |-
+                          =//If(UsuáriosdoOffice365.UserProfileV2(User().Email).department = "Urbanístico"; true; false)
+                          true
+                        Width: =con_Botoes_Config.Width/3
+                        X: =40
+                        Y: =40
+                  - btn_Exportar:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(56, 96, 178, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =50
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinWidth: =206
+                        OnSelect: |+
+                          =Set(varEmail, User().Email);
+                          Set(varAssunto, cmb_Nucleo.Selected.Nucleo & " - Arrolamento");
+                          'Exportar-ArrolamentoXLSX2'.Run(varEmail, varAssunto);
+                          Notify(User().FullName & " Você receberá em seu e-mail o arquivo Excel", NotificationType.Information, 5000)
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        RadiusBottomLeft: =4
+                        RadiusBottomRight: =4
+                        RadiusTopLeft: =4
+                        RadiusTopRight: =4
+                        Size: =16
+                        Text: ="EXPORTAR"
+                        Visible: =false
+                        Width: =con_Botoes_Config.Width/3
+                        X: =40
+                        Y: =40
+            - con_Nucleo:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Start
+                  DropShadow: =DropShadow.None
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =20
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  PaddingLeft: =varRecuo
+                  PaddingRight: =varRecuo
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =con_Geral.Width - varRecuo*2
+                Children:
+                  - lbl_Nucleo:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Justify
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        DisplayMode: =DisplayMode.View
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =30
+                        LayoutMinWidth: =100
+                        PaddingBottom: =0
+                        PaddingLeft: =
+                        PaddingRight: =
+                        PaddingTop: |+
+                          =0
+                        Size: =16
+                        Text: ="NÚCLEO:"
+                        Width: =con_Nucleo.Width
+                  - cmb_Nucleo:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(56, 96, 178, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        DisplayFields: =["Nucleo"]
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =50
+                        HoverFill: =RGBA(186, 202, 226, 1)
+                        InputTextPlaceholder: ="Selecione o Núcleo"
+                        Items: =Filter(Sort(colDb_Nucleos, Nucleo, SortOrder.Ascending),Nucleo<>"DIVERSOS NÚCLEOS")
+                        LayoutMinWidth: =100
+                        OnChange: |-
+                          =Set(varNucleo, cmb_Nucleo.Selected.Nucleo);
+                          Set(varNucleoID, LookUp(bdNucleos, Nucleo = cmb_Nucleo.Selected.Nucleo, ID));
+                          ClearCollect(colDb_Nucleos_Ruas, Filter(db_Nucleos_Ruas, NÚCLEO = varNucleo))
+                        PaddingBottom: =0
+                        PaddingLeft: =varRecuo
+                        PaddingRight: =varRecuo
+                        PaddingTop: =0
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(0, 18, 107, 1)
+                        SearchFields: =["Nucleo"]
+                        SelectMultiple: =false
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(56, 96, 178, 1)
+                        Size: =16
+                        Width: =con_Nucleo.Width - varRecuo*2
+                        Y: =114
+            - con_Botoes:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =Max(btn_Novo_Selo.Height, btn_Editar_Selo.Height) + (con_Geral.PaddingTop) + (con_Geral.PaddingBottom)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =((con_Botoes.Width) - (btn_Novo_Selo.Width) - (btn_Editar_Selo.Width))/3
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  PaddingBottom: =varRecuo
+                  PaddingLeft: =varRecuo
+                  PaddingRight: =varRecuo
+                  PaddingTop: =varRecuo
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =con_Geral.Width - varRecuo*2
+                Children:
+                  - btn_Novo_Selo:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(56, 96, 178, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =50
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        OnSelect: |-
+                          =If(
+                              IsBlank(varNucleo), 
+                              UpdateContext({contPopup: true}),
+                              Navigate(Tela_Novo_Formulario)
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        RadiusBottomLeft: =4
+                        RadiusBottomRight: =4
+                        RadiusTopLeft: =4
+                        RadiusTopRight: =4
+                        Size: =16
+                        Text: ="NOVO SELO"
+                        Width: =con_Botoes.Width/3
+                        X: =40
+                        Y: =40
+                  - btn_Editar_Selo:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(56, 96, 178, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =50
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        OnSelect: |-
+                          =If(
+                              IsBlank(varNucleo), 
+                              UpdateContext({contPopup: true}),
+                              Navigate(Tela_Selos)
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        RadiusBottomLeft: =4
+                        RadiusBottomRight: =4
+                        RadiusTopLeft: =4
+                        RadiusTopRight: =4
+                        Size: =16
+                        Text: ="EDITAR SELO"
+                        Width: |+
+                          =con_Botoes.Width/3
+                        X: =40
+                        Y: =40
+      - rec_PopUp_Nucleo_Background:
+          Control: Rectangle@2.3.0
+          Group: grp_PopUp_Nucleo_Aviso
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(0, 0, 0, 0.7)
+            Height: =Tela_Inicio.Height
+            Visible: =contPopup
+            Width: =Tela_Inicio.Width
+      - rec_PopUp_Nucleo_Caixa:
+          Control: Rectangle@2.3.0
+          Group: grp_PopUp_Nucleo_Aviso
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Tela_Inicio.Height/3
+            Visible: =contPopup
+            Width: =Tela_Inicio.Width
+            Y: |+
+              =(Tela_Inicio.Height/2) - (rec_PopUp_Nucleo_Caixa.Height/2)
+      - lbl_PopUp_Nucleo_Aviso:
+          Control: Label@2.5.1
+          Group: grp_PopUp_Nucleo_Aviso
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =rec_PopUp_Nucleo_Caixa.Height
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Text: ="POR FAVOR, SELECIONE O NÚCLEO"
+            Visible: =contPopup
+            Width: =rec_PopUp_Nucleo_Caixa.Width
+            X: =rec_PopUp_Nucleo_Caixa.X
+            Y: =(Tela_Inicio.Height/2) - (rec_PopUp_Nucleo_Caixa.Height/2)
+      - btn_PopUp_Nucleo_Ok:
+          Control: Classic/Button@2.2.0
+          Group: grp_PopUp_Nucleo_Aviso
+          Properties:
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(56, 96, 178, 1)
+            Font: =Font.'Segoe UI'
+            Height: =55
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: |-
+              =UpdateContext({contPopup: false})
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Size: =25
+            Text: ="OK"
+            Visible: =contPopup
+            Width: =rec_PopUp_Nucleo_Caixa.Width/2
+            X: =(rec_PopUp_Nucleo_Caixa.Width/2) - (btn_PopUp_Nucleo_Ok.Width/2)
+            Y: =rec_PopUp_Nucleo_Caixa.Y + rec_PopUp_Nucleo_Caixa.Height - btn_PopUp_Nucleo_Ok.Height - 10

@@ -1,0 +1,731 @@
+Tela_Selos As screen:
+
+    con_Selecao As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Tela_Selos.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        LayoutOverflowY: =LayoutOverflow.Scroll
+        PaddingBottom: =varRecuo
+        PaddingLeft: =varRecuo
+        PaddingRight: =varRecuo
+        PaddingTop: =varRecuo
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Tela_Selos.Width
+        ZIndex: =1
+
+        con_Superior_1 As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            FillPortions: =0
+            Height: =img_Consorcio_2.Height + varRecuo*2
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Width: =con_Selecao.Width - varRecuo*2
+            ZIndex: =1
+
+            img_Consorcio_2 As image:
+                Height: =50
+                Image: ='aplicação fundo claro'
+                PaddingTop: |
+                    =0
+                Width: |
+                    =con_Selecao.Width/3
+                X: =(con_Superior_1.Width/2) - (img_Consorcio_2.Width/2)
+                Y: =con_Superior_1.Y
+                ZIndex: =1
+
+            icn_Voltar_1 As icon.NextArrow:
+                Height: =img_Consorcio_2.Height
+                Icon: =Icon.NextArrow
+                OnSelect: |-
+                    =Navigate(Tela_Inicio);
+                    Reset(drp_Perimetro_1);
+                    Reset(drp_Quadra);
+                    Reset(drp_Lote)
+                Rotation: |
+                    =180
+                Width: =icn_Voltar_1.Height
+                X: =con_Superior_1.X
+                Y: =con_Superior_1.Y
+                ZIndex: =2
+
+        con_Titulo_1 As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            FillPortions: =0
+            Height: =con_Superior_1.Height
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            PaddingBottom: =con_Selecao.PaddingBottom
+            PaddingLeft: =con_Selecao.PaddingLeft
+            PaddingRight: =con_Selecao.PaddingRight
+            PaddingTop: =con_Selecao.PaddingTop
+            Width: =con_Selecao.Width - varRecuo*2
+            ZIndex: =2
+
+            lbl_Titulo_2 As label:
+                Align: =Align.Center
+                AutoHeight: =true
+                DisplayMode: =DisplayMode.View
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                Height: =con_Titulo_1.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =16
+                Text: |-
+                    ="SELOS DO NÚCLEO
+                    "
+                    & cmb_Nucleo.Selected.Nucleo
+                Width: =con_Selecao.Width - varRecuo*2
+                Y: =(con_Titulo_1.Height/2) - (lbl_Titulo_2.Height/2)
+                ZIndex: =1
+
+        con_Selecao_Filtros As groupContainer.verticalAutoLayoutContainer:
+            FillPortions: =0
+            Height: =con_Selecao_Filtros_Titulos.Height + con_Selecao_Filtros_Opcoes.Height + varRecuo*2
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =varRecuo
+            PaddingTop: =varRecuo
+            ZIndex: =3
+
+            con_Selecao_Filtros_Titulos As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Max(lbl_Quadra_1.Height, lbl_Lote_1.Height)
+                LayoutGap: =10
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =varRecuo
+                PaddingRight: =varRecuo
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =con_Selecao_Filtros.Width
+                ZIndex: =1
+
+                lbl_Perimetro_2 As label:
+                    Align: =Align.Center
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.View
+                    FillPortions: =1
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Bold
+                    Height: =23
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =50
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: |-
+                        ="PERÍMETRO:"
+                    Width: =560
+                    ZIndex: =1
+
+                lbl_Quadra_1 As label:
+                    Align: =Align.Center
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.View
+                    FillPortions: =1
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Bold
+                    Height: =23
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =50
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: |-
+                        ="QUADRA:"
+                    Width: =560
+                    ZIndex: =2
+
+                lbl_Lote_1 As label:
+                    Align: =Align.Center
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.View
+                    FillPortions: =1
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Bold
+                    Height: =23
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =50
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: |-
+                        ="LOTE:"
+                    Width: =560
+                    ZIndex: =3
+
+            con_Selecao_Filtros_Opcoes As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Max(drp_Quadra.Height, drp_Lote.Height)
+                LayoutGap: =10
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =varRecuo
+                PaddingRight: =varRecuo
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =con_Selecao_Filtros.Width
+                ZIndex: =2
+
+                drp_Perimetro_1 As dropdown:
+                    BorderThickness: =1
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =30
+                    Items: =Sort(Distinct(Filter(db_Arrolamento, Nucleo = cmb_Nucleo.Selected.Nucleo), Perimetro), Value, SortOrder.Ascending)
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =100
+                    PaddingBottom: =con_Geral_Novo_Formulario.PaddingBottom
+                    PaddingLeft: =con_Geral_Novo_Formulario.PaddingLeft
+                    PaddingRight: =con_Geral_Novo_Formulario.PaddingRight
+                    PaddingTop: =con_Geral_Novo_Formulario.PaddingTop
+                    Size: =14
+                    Width: =lbl_Perimetro.Width
+                    ZIndex: =1
+
+                drp_Quadra As dropdown:
+                    BorderThickness: =1
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =30
+                    Items: =Sort(Distinct(Filter(db_Arrolamento, Nucleo = cmb_Nucleo.Selected.Nucleo, Perimetro = drp_Perimetro_1.SelectedText.Value), Quadra), Value, SortOrder.Ascending)
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =100
+                    PaddingBottom: =con_Geral_Novo_Formulario.PaddingBottom
+                    PaddingLeft: =con_Geral_Novo_Formulario.PaddingLeft
+                    PaddingRight: =con_Geral_Novo_Formulario.PaddingRight
+                    PaddingTop: =con_Geral_Novo_Formulario.PaddingTop
+                    Size: =14
+                    Width: =lbl_Perimetro.Width
+                    ZIndex: =2
+
+                drp_Lote As dropdown:
+                    BorderThickness: =1
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =30
+                    Items: =Sort(Distinct(Filter(db_Arrolamento, Nucleo = cmb_Nucleo.Selected.Nucleo, Quadra = drp_Quadra.SelectedText.Value), Lote), Value, SortOrder.Ascending)
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =100
+                    PaddingBottom: =con_Geral_Novo_Formulario.PaddingBottom
+                    PaddingLeft: =con_Geral_Novo_Formulario.PaddingLeft
+                    PaddingRight: =con_Geral_Novo_Formulario.PaddingRight
+                    PaddingTop: =con_Geral_Novo_Formulario.PaddingTop
+                    Size: =14
+                    Width: =lbl_Perimetro.Width
+                    ZIndex: =3
+
+        glr_Selecao As gallery.variableTemplateHeightGallery:
+            '#CopilotOverlayLabel': ="Filtrada"
+            AlignInContainer: =AlignInContainer.Center
+            DelayItemLoading: =true
+            Items: =Sort(Sort(Filter(db_Arrolamento, Nucleo = cmb_Nucleo.Selected.Nucleo, Perimetro = drp_Perimetro_1.SelectedText.Value, Quadra = drp_Quadra.SelectedText.Value, Lote = drp_Lote.SelectedText.Value),Bloco),Imovel)
+            Layout: =Layout.Vertical
+            LayoutMinHeight: =287
+            LayoutMinWidth: =320
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =varRecuo
+            TemplateSize: =280
+            Width: =con_Selecao.Width
+            ZIndex: =5
+
+            con_Selecao_Geral As groupContainer.verticalAutoLayoutContainer:
+                Height: =con_Selecao_Bloco.Height + con_Selecao_Imovel_2.Height
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMode: =LayoutMode.Auto
+                Width: =glr_Selecao.Width - varRecuo*2
+                ZIndex: =1
+
+                con_Selecao_Imovel As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Height: =Max(lbl_Bloco_inf.Height, lbl_Imovel_inf.Height)
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                    LayoutMinHeight: =40
+                    LayoutMinWidth: =100
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =
+                    PaddingRight: =
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =con_Selecao_Geral.Width
+                    ZIndex: =1
+
+                    con_Selecao_Imovel_1 As groupContainer.verticalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(240, 240, 240, 1)
+                        FillPortions: =0.8
+                        Height: =con_Selecao_Bloco.Height + con_Selecao_Imovel_2.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =50
+                        LayoutMinWidth: =50
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =varRecuo
+                        PaddingLeft: =
+                        PaddingTop: =varRecuo
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =(con_Selecao_Imovel.Width - con_Selecao_Logradouro.Width)/2.5
+                        ZIndex: =1
+
+                        con_Selecao_Bloco As groupContainer.verticalAutoLayoutContainer:
+                            AlignInContainer: =AlignInContainer.SetByContainer
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =lbl_Bloco_tit.Height + lbl_Bloco_inf.Height
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutJustifyContent: =LayoutJustifyContent.Center
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =con_Selecao_Imovel_1.Width
+                            ZIndex: =1
+
+                            lbl_Bloco_tit As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                FontWeight: =FontWeight.Semibold
+                                Height: =30
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =560
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: ="Bloco"
+                                Width: =con_Selecao_Bloco.Width
+                                X: =210
+                                Y: =129
+                                ZIndex: =1
+
+                            lbl_Bloco_inf As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                Height: =23
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =560
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: =If(IsBlank(ThisItem.Bloco),"-",ThisItem.Bloco)
+                                Width: =con_Selecao_Bloco.Width
+                                X: =210
+                                Y: =129
+                                ZIndex: =2
+
+                        con_Selecao_Imovel_2 As groupContainer.verticalAutoLayoutContainer:
+                            AlignInContainer: =AlignInContainer.SetByContainer
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =lbl_Imovel_tit.Height + lbl_Imovel_inf.Height
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutJustifyContent: =LayoutJustifyContent.Center
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =con_Selecao_Imovel_1.Width
+                            ZIndex: =2
+
+                            lbl_Imovel_tit As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                FontWeight: =FontWeight.Semibold
+                                Height: =30
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =20
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: ="Imóvel"
+                                Width: =100
+                                X: =324
+                                Y: =129
+                                ZIndex: =1
+
+                            lbl_Imovel_inf As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                Height: =23
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =40
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: =ThisItem.Imovel
+                                Width: =100
+                                X: =324
+                                Y: =129
+                                ZIndex: =2
+
+                    con_Selecao_Logradouro As groupContainer.verticalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Start
+                        FillPortions: =3.3
+                        Height: =con_Selecao_Logradouro_1.Height + con_Selecao_Ocupante.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =50
+                        LayoutMinWidth: =50
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =varRecuo
+                        PaddingLeft: =varRecuo
+                        PaddingRight: =varRecuo
+                        PaddingTop: =varRecuo
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: |
+                            =(con_Selecao_Imovel.Width)/1.5
+                        ZIndex: =2
+
+                        con_Selecao_Logradouro_1 As groupContainer.verticalAutoLayoutContainer:
+                            AlignInContainer: =AlignInContainer.SetByContainer
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =lbl_Logradouro_Titulos.Height + lbl_Logradouro_Opcoes.Height
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =con_Selecao_Logradouro.Width - varRecuo*2
+                            ZIndex: =1
+
+                            lbl_Logradouro_Titulos As label:
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                FontWeight: =FontWeight.Semibold
+                                Height: =20
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =560
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: ="Logradouro"
+                                Width: =con_Selecao_Logradouro_1.Width
+                                X: =210
+                                Y: =129
+                                ZIndex: =1
+
+                            lbl_Logradouro_Opcoes As label:
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                Height: =20
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =560
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: =If(IsBlank(ThisItem.Nome_Logradouro),"-",ThisItem.Nome_Logradouro & ", " & ThisItem.Numero)
+                                Width: =con_Selecao_Logradouro_1.Width
+                                X: =210
+                                Y: =129
+                                ZIndex: =2
+
+                        con_Selecao_Ocupante As groupContainer.verticalAutoLayoutContainer:
+                            AlignInContainer: =AlignInContainer.SetByContainer
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =lbl_Ocupante_Titulos.Height + lbl_Ocupante_Opcoes.Height
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutJustifyContent: =LayoutJustifyContent.Center
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =con_Selecao_Logradouro.Width - varRecuo*2
+                            ZIndex: =2
+
+                            lbl_Ocupante_Titulos As label:
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                FontWeight: =FontWeight.Semibold
+                                Height: =30
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =20
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: ="Ocupante"
+                                Width: =con_Selecao_Logradouro_1.Width
+                                X: =324
+                                Y: =129
+                                ZIndex: =1
+
+                            lbl_Ocupante_Opcoes As label:
+                                AutoHeight: =true
+                                Font: =Font.'Segoe UI'
+                                Height: =23
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =40
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =14
+                                Text: =If(IsBlank(ThisItem.Ocupante_Imovel),"-",ThisItem.Ocupante_Imovel)
+                                Width: =con_Selecao_Logradouro_1.Width
+                                X: =324
+                                Y: =129
+                                ZIndex: =2
+
+                    con_Selecao_Imovel_Vistorias As groupContainer.verticalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        DropShadow: =DropShadow.None
+                        FillPortions: =1.2
+                        Height: =Max(con_Selecao_Imovel_1.Height, con_Selecao_Logradouro.Height)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =50
+                        LayoutMinWidth: =50
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =varRecuo
+                        PaddingLeft: =varRecuo
+                        PaddingRight: =varRecuo
+                        PaddingTop: =varRecuo
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =(con_Selecao_Imovel.Width)/4
+                        ZIndex: =3
+
+                        Checkbox1_1 As checkbox:
+                            AlignInContainer: =AlignInContainer.Center
+                            CheckboxSize: =30
+                            Default: =If(IsBlank(ThisItem.Vistoria_2), false, true)
+                            DisplayMode: =DisplayMode.Disabled
+                            FillPortions: =1
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =85
+                            LayoutMinHeight: =20
+                            LayoutMinWidth: =280
+                            Size: =14
+                            Text: ="Vistoria 2"
+                            Width: =con_Selecao_Imovel_Vistorias.Width
+                            ZIndex: =2
+
+                        Checkbox1_2 As checkbox:
+                            AlignInContainer: =AlignInContainer.Center
+                            CheckboxSize: =30
+                            Default: =If(IsBlank(ThisItem.Vistoria_3), false, true)
+                            DisplayMode: =DisplayMode.Disabled
+                            FillPortions: =1
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =85
+                            LayoutMinHeight: =20
+                            LayoutMinWidth: =280
+                            Size: =14
+                            Text: ="Vistoria 3"
+                            Width: =con_Selecao_Imovel_Vistorias.Width
+                            ZIndex: =3
+
+                    con_Selecao_Imovel_Opcoes As groupContainer.verticalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(240, 240, 240, 1)
+                        FillPortions: =0.5
+                        Height: =Max(con_Selecao_Imovel_1.Height, con_Selecao_Logradouro.Height)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =50
+                        LayoutMinWidth: =50
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =varRecuo
+                        PaddingLeft: =varRecuo
+                        PaddingRight: =varRecuo
+                        PaddingTop: =varRecuo
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =(con_Selecao_Imovel.Width - con_Selecao_Imovel_1.Width - con_Selecao_Logradouro.Width)
+                        ZIndex: =4
+
+                        icn_Editar As icon.Edit:
+                            Color: =RGBA(0, 123, 255, 1)
+                            FillPortions: =1
+                            Icon: =Icon.ListScrollWatchlist
+                            LayoutMinHeight: =15
+                            OnSelect: |-
+                                =Set(varThisItem, ThisItem);
+                                Set(varNumero, If (ThisItem.Numero = "S/N", DisplayMode.Disabled, DisplayMode.Edit));
+                                Navigate(Tela_Editar_Formulario)
+                            PaddingBottom: =
+                            PaddingTop: =
+                            Width: =con_Selecao_Imovel_Opcoes.Width
+                            ZIndex: =1
+
+                        icn_Deletar As icon.Cancel:
+                            Color: =RGBA(255, 0, 0, 1)
+                            FillPortions: =1
+                            Icon: =Icon.Cancel
+                            LayoutMinHeight: =15
+                            OnSelect: |-
+                                =UpdateContext({contPopup_Selecao_Remover_ID: ThisItem.ID});
+                                UpdateContext({contPopup_Selecao_Remover: true})
+                            Width: =con_Selecao_Imovel_Opcoes.Width
+                            ZIndex: =2
+
+    grp_PopUp_Edicao_Remover As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =7
+
+        rec_PopUp_Edicao_Background As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.7)
+            Height: =Tela_Inicio.Height
+            Visible: =contPopup_Selecao_Remover
+            Width: =Tela_Inicio.Width
+            X: =
+            ZIndex: =2
+
+        rec_PopUp_Edicao_Caixa As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Tela_Inicio.Height/3
+            Visible: =contPopup_Selecao_Remover
+            Width: =Tela_Inicio.Width
+            X: =
+            Y: |
+                =(Tela_Inicio.Height/2) - (rec_PopUp_Edicao_Caixa.Height/2)
+            ZIndex: =3
+
+        lbl_PopUp_Edicao_Aviso As label:
+            Align: =Align.Center
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =rec_PopUp_Edicao_Caixa.Height
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Size: =21
+            Text: ="EXCLUIR SELO?"
+            Visible: =contPopup_Selecao_Remover
+            Width: =rec_PopUp_Edicao_Caixa.Width
+            X: =
+            Y: =(Tela_Inicio.Height/2) - (rec_PopUp_Edicao_Caixa.Height/2)
+            ZIndex: =4
+
+        btn_PopUp_Edicao_Não As button:
+            Font: =Font.'Segoe UI'
+            Height: =55
+            OnSelect: |-
+                =UpdateContext({contPopup_Selecao_Remover: false})
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Size: =25
+            Text: ="NÃO"
+            Visible: =contPopup_Selecao_Remover
+            Width: |
+                =rec_PopUp_Edicao_Caixa.Width/2.5
+            X: =384
+            Y: =732
+            ZIndex: =5
+
+        btn_PopUp_Edicao_Sim As button:
+            Font: =Font.'Segoe UI'
+            Height: =55
+            OnSelect: |-
+                =RemoveIf(db_Arrolamento, ID = contPopup_Selecao_Remover_ID);
+                UpdateContext({contPopup_Selecao_Remover_ID: Blank()});
+                UpdateContext({contPopup_Selecao_Remover: false})
+            PaddingBottom: =varRecuo
+            PaddingLeft: =varRecuo
+            PaddingRight: =varRecuo
+            PaddingTop: =varRecuo
+            Size: =25
+            Text: ="SIM"
+            Visible: =contPopup_Selecao_Remover
+            Width: |
+                =rec_PopUp_Edicao_Caixa.Width/2.5
+            X: =72
+            Y: =732
+            ZIndex: =6
+

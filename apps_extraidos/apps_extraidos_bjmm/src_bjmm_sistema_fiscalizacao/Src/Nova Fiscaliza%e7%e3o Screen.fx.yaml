@@ -1,0 +1,1670 @@
+"'Nova Fiscalização Screen' As screen":
+    OnVisible: |-
+        =ClearCollect(col_PerguntaFiscalizacaoID,
+        Filter(db_acomp_fiscalizacoes, id_fiscalizacao = Text(var_Nova_Fiscalizacao)))
+
+    cpm_Tela_Geral_5 As cpm_Tela_Geral:
+
+    Container2 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - 70
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X * 2
+        X: =10
+        ZIndex: =2
+
+        Container6 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =2
+
+            Label1_13 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =60
+                Size: =16
+                Text: ="NOVA FISCALIZAÇÃO"
+                Width: =Parent.Width - Self.X
+                Wrap: =false
+                ZIndex: =1
+
+            Timer_Loading As timer:
+                AutoStart: =varIniciarBICronometro
+                Duration: =3000
+                Height: =60
+                OnTimerEnd: |
+                    =Set(varIniciarBICronometro, false);
+                    Set(varPesquisaIniciar,false);
+                OnTimerStart: |
+                    =Set(varPesquisaIniciar,true);
+                Start: =true
+                Visible: =false
+                Width: =280
+                X: =340
+                ZIndex: =2
+
+            Timer_Loading_Conclusao As timer:
+                AutoStart: =varPesquisaConcluir
+                Duration: =3000
+                Height: =60
+                OnTimerEnd: |+
+                    =Set(varTelaPesquisaConcluir, false);
+                    Set(varPesquisaConcluir,false);
+                    Navigate('Contratos Screen');
+                    
+                OnTimerStart: |
+                    =Set(varTelaPesquisaConcluir,true);
+                Start: =true
+                Visible: =false
+                Width: =280
+                X: =340
+                ZIndex: =3
+
+        Container9_1 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(45, 65, 93, 1)
+            BorderThickness: =4
+            DropShadow: =DropShadow.Semilight
+            Height: =Parent.Height - Self.Y * 2
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - Self.X * 2
+            Y: =10
+            ZIndex: =4
+
+            Container11 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height - Self.Y
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =Parent.Width
+                Y: =40
+                ZIndex: =1
+
+                Container5_13 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =80
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - Self.X * 2
+                    X: =20
+                    Y: =865
+                    ZIndex: =1
+
+                    Label1_43 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =70
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Text: ="✅ CONCLUSÃO"
+                        Width: =100
+                        ZIndex: =1
+
+                    Button1_3 As button:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Font: =Font.Arial
+                        Height: =35
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =280
+                        OnSelect: |-
+                            =Set(varFinalizarFiscalizacao, true);
+                            Set(varFiscalizacaoEmpreendimento, LookUp(db_acomp_empreendimento_fiscalizacao, id_fiscalizacao = var_Nova_Fiscalizacao))
+                        Size: =12
+                        Text: ="CONCLUIR FISCALIZAÇÃO"
+                        Width: =280
+                        X: =4
+                        Y: =35
+                        ZIndex: =2
+
+                Gallery2_1 As gallery.variableTemplateHeightGallery:
+                    '#CopilotOverlayLabel': ="Filtrada"
+                    DelayItemLoading: =true
+                    Height: =Parent.Height - Self.Y - 100
+                    Items: =col_PerguntaFiscalizacaoID
+                    Layout: =Layout.Vertical
+                    LoadingSpinner: =LoadingSpinner.Data
+                    ShowScrollbar: =false
+                    TemplatePadding: =0
+                    TemplateSize: =1
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    Container10_5 As groupContainer.manualLayoutContainer:
+                        Height: =HtmlText1_6.Height + 7
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        Width: =Parent.Width - Self.X * 2
+                        X: =5
+                        ZIndex: =1
+
+                        HtmlText1_6 As htmlViewer:
+                            AutoHeight: =true
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =5
+                            HtmlText: |
+                                ="<div style='display:flex; flex-direction:row; width:100%; height:100%; font-family:Arial; font-size:15px; background:" &
+                                If(
+                                    ThisItem.conformidade.Value = "Conforme",
+                                    "#b2e8b2",   /* Verde neutro */
+                                If( 
+                                    ThisItem.conformidade.Value = "Não Conforme",
+                                    "#f28b82"   /* Vermelho claro */,
+                                    "#FFFFFF"    /* Branco padrão */
+                                )) &
+                                "; color:#2d415d; padding:10px; border-bottom:1px solid #ddd; gap:10px; border-radius:10px; align-items:center;'>
+                                
+                                
+                                    <!-- Esquerda: Número e Pergunta -->
+                                    <div style='width:65%; display:flex; flex-direction:row; padding-right:15px; text-align:justify;'>
+                                        <div style='font-size:15px; font-weight:bold; margin-bottom:4px;' >
+                                            " & Concatenate(
+                                                Right(ThisItem.id_pergunta_pesquisa, 2),
+                                                " - ",
+                                                LookUp(
+                                                    db_acomp_perguntas_pesquisas,
+                                                    id_pergunta_pesquisa = ThisItem.id_pergunta_pesquisa,
+                                                    pergunta
+                                                )
+                                            ) & "
+                                        </div>
+                                    </div>
+                                
+                                    <!-- Direita: Botões -->
+                                    <div style='display:flex; flex-direction:row; justify-content:space-between; align-items:center; width:220px;'>
+                                        <button style='width:65px; height:42px; background-color:#b4c4db; color:#2d415d; border:none; border-radius:6px; cursor:pointer; font-size:15px; font-weight:bold; display:flex; justify-content:center; align-items:center;'>C</button>
+                                        <button style='width:65px; height:42px; background-color:#b4c4db; color:#2d415d; border:none; border-radius:6px; cursor:pointer; font-size:15px; font-weight:bold; display:flex; justify-content:center; align-items:center;'>NC</button>
+                                        <button style='width:65px; height:42px; background-color:#b4c4db; color:#2d415d; border:none; border-radius:6px; cursor:pointer; font-size:15px; font-weight:bold; display:flex; justify-content:center; align-items:center;'>NV</button>
+                                    </div>
+                                
+                                </div>"
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =21
+                            Width: =Parent.Width - Self.X * 2
+                            Y: =7
+                            ZIndex: =1
+
+                        Button_C_1 As button:
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(0, 0, 0, 0)
+                            DisabledFill: =RGBA(0, 0, 0, 0)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: |+
+                                =HtmlText1_6.Height - 7
+                                
+                            HoverBorderColor: =
+                            HoverColor: =RGBA(0, 0, 0, 0)
+                            HoverFill: =
+                            OnSelect: |+
+                                =Patch(db_acomp_fiscalizacoes,
+                                    LookUp(db_acomp_fiscalizacoes, ID = ThisItem.ID),
+                                    {
+                                        conformidade: {Value: "Conforme"}
+                                    }
+                                );
+                                ClearCollect(col_PerguntaFiscalizacaoID,
+                                Filter(db_acomp_fiscalizacoes, id_fiscalizacao = Text(var_Nova_Fiscalizacao)))
+                                
+                            PressedBorderColor: =
+                            PressedColor: =
+                            PressedFill: =
+                            RadiusBottomLeft: =5
+                            RadiusBottomRight: =5
+                            RadiusTopLeft: =5
+                            RadiusTopRight: =5
+                            Size: =24
+                            Text: =
+                            Width: =65
+                            X: =390
+                            Y: =10
+                            ZIndex: =2
+
+                        Button_NC_1 As button:
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(0, 0, 0, 0)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =HtmlText1_6.Height - 7
+                            HoverBorderColor: =
+                            HoverColor: =RGBA(0, 0, 0, 0)
+                            HoverFill: =
+                            OnSelect: |
+                                =Set(var_PopRespostaForms, true);
+                                Set(var_PerguntaFiscalizacao, ThisItem);
+                            PressedBorderColor: =
+                            PressedColor: =
+                            PressedFill: =
+                            Size: =24
+                            Text: =
+                            Width: =62
+                            X: |
+                                =Button_C_1.X + Button_C_1.Width + 7
+                            Y: =10
+                            ZIndex: =3
+
+                        Button_NV_1 As button:
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(0, 0, 0, 0)
+                            DisabledFill: =RGBA(0, 0, 0, 0)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =HtmlText1_6.Height - 7
+                            HoverBorderColor: =
+                            HoverColor: =RGBA(0, 0, 0, 0)
+                            HoverFill: =
+                            OnSelect: |+
+                                =Patch(db_acomp_fiscalizacoes,
+                                    LookUp(db_acomp_fiscalizacoes, ID = ThisItem.ID),
+                                    {
+                                        conformidade: {Value: "NV"}
+                                    }
+                                );
+                                ClearCollect(col_PerguntaFiscalizacaoID,
+                                Filter(db_acomp_fiscalizacoes, id_fiscalizacao = Text(var_Nova_Fiscalizacao)))
+                                
+                            PressedBorderColor: =
+                            PressedColor: =
+                            PressedFill: =
+                            Size: =24
+                            Text: =
+                            Width: =62
+                            X: |+
+                                =Button_NC_1.X + Button_NC_1.Width + 12
+                                
+                            Y: |
+                                =10
+                            ZIndex: =4
+
+                Container12 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(237, 237, 237, 0.8)
+                    Height: =Parent.Height
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Visible: =var_PopRespostaForms
+                    Width: =Parent.Width
+                    ZIndex: =3
+
+                    Container13 As groupContainer.verticalAutoLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Parent.Height - Self.Y * 2
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMode: =LayoutMode.Auto
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width - Self.X * 2
+                        X: =40
+                        Y: =If(DataCardValue8.Selected.Value = "Não Conforme", 30, 200)
+                        ZIndex: =1
+
+                        Container6_5 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            FillPortions: =0
+                            Height: =90
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                            Label1_15 As label:
+                                Align: =Align.Center
+                                Color: =RGBA(255, 255, 255, 1)
+                                Fill: =RGBA(45, 65, 93, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Parent.Height
+                                Size: =14
+                                Text: =Upper(LookUp(db_acomp_perguntas_pesquisas, id_pergunta_pesquisa = var_PerguntaFiscalizacao.id_pergunta_pesquisa, pergunta))
+                                Width: =Parent.Width - Self.X
+                                ZIndex: =1
+
+                        Form1 As form:
+                            DataSource: =db_acomp_fiscalizacoes
+                            Height: =150
+                            Item: =var_PerguntaFiscalizacao
+                            LayoutMinHeight: =0
+                            LayoutMinWidth: =320
+                            NumberOfColumns: =2
+                            OnSuccess: |-
+                                =Set(var_PopRespostaForms, false);
+                                Set(var_PerguntaFiscalizacao, Blank())
+                            Width: =640
+                            ZIndex: =2
+
+                            conformidade_DataCard2 As typedDataCard.comboBoxEditCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="conformidade"
+                                Default: =ThisItem.conformidade
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_fiscalizacoes],DataSourceInfo.DisplayName,conformidade)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =78
+                                Required: =true
+                                Update: =DataCardValue8.Selected
+                                Width: =540
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                                DataCardKey9 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="CONFORMIDADE"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                DataCardValue8 As combobox:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    DefaultSelectedItems: |-
+                                        ={Value: "Não Conforme"}
+                                    DisabledColor: =RGBA(0, 0, 0, 1)
+                                    DisplayFields: =["Value"]
+                                    DisplayMode: =DisplayMode.Disabled
+                                    Font: =Font.Arial
+                                    Height: =37
+                                    Items: =Choices([@db_acomp_fiscalizacoes].conformidade)
+                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                    SearchFields: =["Value"]
+                                    SearchItems: =Choices(db_acomp_fiscalizacoes.conformidade,DataCardValue8.SearchText)
+                                    SelectMultiple: =false
+                                    Size: =12
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                                    ZIndex: =2
+
+                                ErrorMessage9 As label:
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue8.Y + DataCardValue8.Height
+                                    ZIndex: =3
+
+                                StarVisible9 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey9.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey9.Y
+                                    ZIndex: =4
+
+                            criticidade_DataCard1 As typedDataCard.comboBoxEditCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="criticidade"
+                                Default: =ThisItem.criticidade
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_fiscalizacoes],DataSourceInfo.DisplayName,criticidade)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                Required: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Update: =DataCardValue10.Selected
+                                Visible: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Width: =540
+                                X: =0
+                                Y: =1
+                                ZIndex: =1
+
+                                DataCardKey12 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="CRITICIDADE"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                DataCardValue10 As combobox:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    DefaultSelectedItems: =Parent.Default
+                                    DisplayFields: =["Value"]
+                                    DisplayMode: =Parent.DisplayMode
+                                    Font: =Font.Arial
+                                    Height: =37
+                                    Items: =Choices([@db_acomp_fiscalizacoes].criticidade)
+                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                    SearchFields: =["Value"]
+                                    SearchItems: =Choices(db_acomp_fiscalizacoes.criticidade,DataCardValue10.SearchText)
+                                    SelectMultiple: =false
+                                    Size: =12
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                                    ZIndex: =2
+
+                                ErrorMessage12 As label:
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue10.Y + DataCardValue10.Height
+                                    ZIndex: =3
+
+                                StarVisible12 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey12.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey12.Y
+                                    ZIndex: =4
+
+                            Anexos_DataCard1 As typedDataCard.attachmentsEditCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="{Attachments}"
+                                Default: =ThisItem.Anexos
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_fiscalizacoes],DataSourceInfo.DisplayName,'{Attachments}')
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =297
+                                Required: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Update: =DataCardValue2.Attachments
+                                Visible: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Width: =540
+                                X: =0
+                                Y: =2
+                                ZIndex: =1
+
+                                DataCardKey2 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: =Upper("Registro Fotográfico")
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                DataCardValue2 As attachments:
+                                    AddAttachmentText: ="Salvar Foto"
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    DisplayMode: =Parent.DisplayMode
+                                    Font: =Font.Arial
+                                    Height: =242
+                                    IsInDataCard: =true
+                                    Items: =Parent.Default
+                                    PaddingBottom: =5
+                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                    PaddingRight: =5
+                                    PaddingTop: =5
+                                    Size: =12
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                                    ZIndex: =2
+
+                                ErrorMessage2 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue2.Y + DataCardValue2.Height
+                                    ZIndex: =3
+
+                                StarVisible2 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey2.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey2.Y
+                                    ZIndex: =4
+
+                            prazo_conclusao_DataCard1 As typedDataCard.dateEditCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="prazo_conclusao"
+                                Default: =ThisItem.prazo_conclusao
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_fiscalizacoes],DataSourceInfo.DisplayName,prazo_conclusao)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                Required: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Update: =DataCardValue9.SelectedDate
+                                Visible: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Width: =540
+                                X: =0
+                                Y: =3
+                                ZIndex: =1
+
+                                DataCardKey11 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="PRAZO DE RESOLUÇÃO"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                DataCardValue9 As datepicker:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    DefaultDate: =Parent.Default
+                                    DisplayMode: =Parent.DisplayMode
+                                    EndYear: =Year(Today())+100
+                                    Font: =Font.Arial
+                                    Height: =37
+                                    IsEditable: =true
+                                    PaddingBottom: =0
+                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                    Size: =12
+                                    StartYear: =1899
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey11.Y + DataCardKey11.Height + 5
+                                    ZIndex: =2
+
+                                ErrorMessage11 As label:
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue9.Y + DataCardValue9.Height
+                                    ZIndex: =3
+
+                                StarVisible11 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey11.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey11.Y
+                                    ZIndex: =4
+
+                            observacao_fiscalizacao_DataCard1 As typedDataCard.textualEditCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="observacao_fiscalizacao"
+                                Default: =ThisItem.observacao_fiscalizacao
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_fiscalizacoes],DataSourceInfo.DisplayName,observacao_fiscalizacao)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =154
+                                MaxLength: =DataSourceInfo([@db_acomp_fiscalizacoes], DataSourceInfo.MaxLength, observacao_fiscalizacao)
+                                Required: =If(DataCardValue8.Selected.Value = "Não Conforme", true, false)
+                                Update: =DataCardValue11.Text
+                                Visible: =true
+                                Width: =540
+                                X: =0
+                                Y: =4
+                                ZIndex: =1
+
+                                DataCardKey13 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="OBSERVAÇÃO FISCALIZAÇÃO"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                DataCardValue11 As text:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    Default: =Parent.Default
+                                    DelayOutput: =true
+                                    DisplayMode: =Parent.DisplayMode
+                                    Font: =Font.Arial
+                                    Height: =101
+                                    MaxLength: =Parent.MaxLength
+                                    Mode: =TextMode.MultiLine
+                                    PaddingLeft: =5
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =10
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                                    ZIndex: =2
+
+                                ErrorMessage13 As label:
+                                    AutoHeight: =true
+                                    Font: =Font.Arial
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue11.Y + DataCardValue11.Height
+                                    ZIndex: =3
+
+                                StarVisible13 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey13.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey13.Y
+                                    ZIndex: =4
+
+                        Container6_6 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =3
+
+                            Container14 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Height: =Parent.Height - Self.Y * 2
+                                LayoutGap: =20
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingLeft: =30
+                                PaddingRight: =30
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Width: =Parent.Width
+                                Y: =5
+                                ZIndex: =2
+
+                                Button3 As button:
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =1
+                                    Height: =Parent.Height - Self.Y * 2
+                                    LayoutMinHeight: =70
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Set(var_PopRespostaForms, false);
+                                    Size: =12
+                                    Text: ="↩️ VOLTAR"
+                                    Width: =Parent.Width - Self.X * 2
+                                    X: =40
+                                    Y: =5
+                                    ZIndex: =1
+
+                                Button3_1 As button:
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =1
+                                    Height: =Parent.Height - Self.Y * 2
+                                    LayoutMinHeight: =70
+                                    LayoutMinWidth: =0
+                                    OnSelect: |
+                                        =SubmitForm(Form1);
+                                    Size: =12
+                                    Text: ="CONCLUIR ✅"
+                                    Width: =Parent.Width - Self.X * 2
+                                    X: =40
+                                    Y: =5
+                                    ZIndex: =2
+
+            Container6_1 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =40
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =Parent.Width
+                ZIndex: =3
+
+                Label1_14 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Fill: =RGBA(45, 65, 93, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =Parent.Height
+                    Size: =16
+                    Text: |-
+                        =Concatenate("FISCALIZAÇÃO : ", var_Nova_Fiscalizacao)
+                    Width: =Parent.Width - Self.X
+                    Wrap: =false
+                    ZIndex: =1
+
+            Container7_2 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =varFinalizarFiscalizacao
+                Width: =Parent.Width
+                ZIndex: =4
+
+                Container5_14 As groupContainer.horizontalAutoLayoutContainer:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =960
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - Self.X * 2
+                    X: =20
+                    Y: =20
+                    ZIndex: =1
+
+                    Label1_44 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =50
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =15
+                        Text: ="🏙️ CONCLUIR FISCALIZAÇÃO"
+                        Width: =100
+                        ZIndex: =1
+
+                    Container13_1 As groupContainer.horizontalAutoLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Parent.Height - Self.Y * 2
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =112
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width - Self.X * 2
+                        X: =40
+                        Y: =
+                        ZIndex: =2
+
+                        Form1_1 As form:
+                            AcceptsFocus: =false
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            BorderThickness: =1
+                            DataSource: =db_acomp_empreendimento_fiscalizacao
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =150
+                            Item: =varFiscalizacaoEmpreendimento
+                            LayoutMinHeight: =0
+                            LayoutMinWidth: =320
+                            NumberOfColumns: =1
+                            OnSuccess: |-
+                                =Set(var_PopRespostaForms, false);
+                                Set(var_PerguntaFiscalizacao, Blank())
+                            Width: =640
+                            ZIndex: =2
+
+                            liberado_obra_DataCard3 As typedDataCard.allowedValuesStringEditCard:
+                                AllowedValues: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao], DataSourceInfo.AllowedValues, liberado_obra)
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="liberado_obra"
+                                Default: =ThisItem.liberado_obra
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao],DataSourceInfo.DisplayName,liberado_obra)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =89
+                                Required: =false
+                                Update: =DataCardValue13.Selected.Value
+                                Width: =569
+                                X: =0
+                                Y: =0
+                                ZIndex: =1
+
+                                DataCardKey15 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="LIBERADO PRA OBRA?"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                ErrorMessage15 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue13.Y + DataCardValue13.Height
+                                    ZIndex: =3
+
+                                DataCardValue13 As combobox:
+                                    DisplayFields: =["Value"]
+                                    Font: =Font.Arial
+                                    IsSearchable: =false
+                                    Items: =["Sim", "Não"]
+                                    SearchFields: =["Value"]
+                                    SearchItems: =Search(["Sim","Não"],DataCardValue13.SearchText,Value)
+                                    SelectMultiple: =false
+                                    Size: =12
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey15.Y + DataCardKey15.Height + 5
+                                    ZIndex: =4
+
+                                StarVisible15 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey15.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey15.Y
+                                    ZIndex: =5
+
+                            id_pessoa_obra_DataCard3 As typedDataCard.allowedValuesStringEditCard:
+                                AllowedValues: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao], DataSourceInfo.AllowedValues, id_pessoa_obra)
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="id_fiscal_bjmm"
+                                Default: =ThisItem.id_pessoa_obra
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao],DataSourceInfo.DisplayName,id_pessoa_obra)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                Required: =false
+                                Update: =DataCardValue16.Selected.id_pessoa_obra
+                                Width: =569
+                                X: =0
+                                Y: =1
+                                ZIndex: =1
+
+                                DataCardKey19 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="RESPONSÁVEL DA ÁREA"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                ErrorMessage19 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue16.Y + DataCardValue16.Height
+                                    ZIndex: =3
+
+                                StarVisible19 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey19.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey19.Y
+                                    ZIndex: =4
+
+                                DataCardValue16 As combobox:
+                                    DisplayFields: =["nome"]
+                                    Font: =Font.Arial
+                                    InputTextPlaceholder: =
+                                    Items: =ShowColumns(Filter(db_cont_pessoas_obra, id_contrato = var_Contrato_Fiscalizacao.id_contrato), id_pessoa_obra, nome)
+                                    SearchFields: =["id_pessoa_obra"]
+                                    SearchItems: =Search(ShowColumns(Filter(db_cont_pessoas_obra,id_contrato=var_Contrato_Fiscalizacao.id_contrato),id_pessoa_obra,nome),DataCardValue16.SearchText,id_pessoa_obra)
+                                    Size: =12
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                                    ZIndex: =5
+
+                            assinatura_pessoa_obra_DataCard1 As typedDataCard.addLargePictureCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="assinatura_pessoa_obra"
+                                Default: =ThisItem.assinatura_pessoa_obra
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao],DataSourceInfo.DisplayName,assinatura_pessoa_obra)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                Required: =false
+                                Update: =Image8.Image
+                                Width: =569
+                                X: =0
+                                Y: =2
+                                ZIndex: =1
+
+                                DataCardKey17 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="ASSINATURA DO RESPONSÁVEL DA ÁREA"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                Image8 As image:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =AddPicture3.Height
+                                    Image: =If(IsBlank(AddPicture3.Image), Parent.Default, AddPicture3.Image)
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =AddPicture3.Width
+                                    X: =AddPicture3.X
+                                    Y: =AddPicture3.Y
+                                    ZIndex: =2
+
+                                ErrorMessage17 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =Image8.Y + Image8.Height
+                                    ZIndex: =4
+
+                                StarVisible17 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey17.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey17.Y
+                                    ZIndex: =5
+
+                                AddPicture3 As inkControl:
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Height: =180
+                                    Input: =1
+                                    ShowControls: =false
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                                    ZIndex: =6
+
+                                Icon1 As icon.Erase:
+                                    Height: =50
+                                    Icon: =Icon.Erase
+                                    OnSelect: =Reset(AddPicture3)
+                                    Width: =50
+                                    X: =489
+                                    Y: =43
+                                    ZIndex: =7
+
+                            id_fiscal_bjmm_DataCard2 As typedDataCard.allowedValuesStringEditCard:
+                                AllowedValues: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao], DataSourceInfo.AllowedValues, 'id_fiscal_bjmm (id_fiscal_bjmm0)')
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="id_fiscal_bjmm0"
+                                Default: =ThisItem.id_pessoa_obra
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao],DataSourceInfo.DisplayName,'id_fiscal_bjmm (id_fiscal_bjmm0)')
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                Required: =false
+                                Update: =DataCardValue18.Selected.CPF
+                                Width: =569
+                                X: =0
+                                Y: =3
+                                ZIndex: =1
+
+                                DataCardKey22 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="FISCAL GERENCIADORA"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                ErrorMessage22 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue18.Y + DataCardValue18.Height
+                                    ZIndex: =3
+
+                                StarVisible22 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey22.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey22.Y
+                                    ZIndex: =4
+
+                                DataCardValue18 As combobox:
+                                    DisplayFields: =["NomeCompleto"]
+                                    Font: =Font.Arial
+                                    InputTextPlaceholder: =
+                                    Items: =ShowColumns(dbCadastroFuncionario, CPF, NomeCompleto)
+                                    PaddingBottom: =10
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    PaddingTop: =10
+                                    SearchFields: =["NomeCompleto"]
+                                    SearchItems: =Search(ShowColumns(dbCadastroFuncionario,ID,NomeCompleto),DataCardValue18.SearchText,NomeCompleto)
+                                    Size: =12
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey22.Y + DataCardKey22.Height + 5
+                                    ZIndex: =5
+
+                            assinatura_fiscal_bjmm_DataCard2 As typedDataCard.addLargePictureCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="assinatura_fiscal_bjmm"
+                                Default: =ThisItem.assinatura_fiscal_bjmm
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao],DataSourceInfo.DisplayName,assinatura_fiscal_bjmm)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                Required: =false
+                                Update: =Image9.Image
+                                Width: =569
+                                X: =0
+                                Y: =4
+                                ZIndex: =1
+
+                                DataCardKey21 As label:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =48
+                                    Size: =12
+                                    Text: ="ASSINATURA DO FISCAL GERENCIADORA"
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                Image9 As image:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =AddPicture4.Height
+                                    Image: =If(IsBlank(AddPicture4.Image), Parent.Default, AddPicture4.Image)
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =AddPicture4.Width
+                                    X: =AddPicture4.X
+                                    Y: =AddPicture4.Y
+                                    ZIndex: =2
+
+                                ErrorMessage21 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =Image9.Y + Image9.Height
+                                    ZIndex: =4
+
+                                StarVisible21 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey21.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey21.Y
+                                    ZIndex: =5
+
+                                AddPicture4 As inkControl:
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Height: =180
+                                    ShowControls: =false
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey21.Y + DataCardKey21.Height + 5
+                                    ZIndex: =6
+
+                                Icon1_1 As icon:
+                                    Height: =50
+                                    Icon: =Icon.Erase
+                                    OnSelect: =Reset(AddPicture4)
+                                    Width: =50
+                                    X: =489
+                                    Y: =43
+                                    ZIndex: =7
+
+                            status_DataCard1 As typedDataCard.textualEditCard:
+                                BorderStyle: =BorderStyle.Solid
+                                DataField: ="status"
+                                Default: =ThisItem.status
+                                DisplayMode: =Parent.DisplayMode
+                                DisplayName: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao],DataSourceInfo.DisplayName,status)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =50
+                                MaxLength: =DataSourceInfo([@db_acomp_empreendimento_fiscalizacao], DataSourceInfo.MaxLength, status)
+                                Required: =false
+                                Update: =DataCardValue1.Text
+                                Visible: =false
+                                Width: =570
+                                X: =0
+                                Y: =5
+                                ZIndex: =1
+
+                                DataCardKey1 As label:
+                                    AutoHeight: =true
+                                    Height: =48
+                                    Size: =21
+                                    Text: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                                    ZIndex: =1
+
+                                DataCardValue1 As text:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    Default: ="Concluído"
+                                    DelayOutput: =true
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =70
+                                    MaxLength: =Parent.MaxLength
+                                    PaddingLeft: =5
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =21
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                                    ZIndex: =2
+
+                                ErrorMessage1 As label:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =24
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardValue1.Y + DataCardValue1.Height
+                                    ZIndex: =3
+
+                                StarVisible1 As label:
+                                    Align: =Align.Center
+                                    Height: =DataCardKey1.Height
+                                    Size: =21
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =30
+                                    Wrap: =false
+                                    Y: =DataCardKey1.Y
+                                    ZIndex: =4
+
+                        Container6_14 As groupContainer.manualLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =40
+                            LayoutMinHeight: =112
+                            LayoutMinWidth: =250
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            ZIndex: =3
+
+                            Container14_1 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Height: =Parent.Height - Self.Y * 2
+                                LayoutGap: =20
+                                LayoutMode: =LayoutMode.Auto
+                                maximumHeight: =11360
+                                maximumWidth: =640
+                                PaddingLeft: =30
+                                PaddingRight: =30
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Width: =Parent.Width
+                                Y: =5
+                                ZIndex: =1
+
+                                Button3_2 As button:
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =1
+                                    Height: =Parent.Height - Self.Y * 2
+                                    LayoutMinHeight: =70
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Set(varFinalizarFiscalizacao, false);
+                                    Size: =12
+                                    Text: ="↩️ VOLTAR"
+                                    Width: =Parent.Width - Self.X * 2
+                                    X: =40
+                                    Y: =5
+                                    ZIndex: =1
+
+                                Button3_3 As button:
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =1
+                                    Height: =Parent.Height - Self.Y * 2
+                                    LayoutMinHeight: =70
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                        =Set(varPesquisaConcluir, true);
+                                        Set(varFinalizarFiscalizacao, false);
+                                        SubmitForm(Form1_1);
+                                    Size: =12
+                                    Text: ="CONCLUIR ✅"
+                                    Width: =Parent.Width - Self.X * 2
+                                    X: =40
+                                    Y: =5
+                                    ZIndex: =2
+
+            Container7 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =varTelaPesquisaConcluir
+                Width: =Parent.Width
+                ZIndex: =5
+
+                img_loading_bonin_2 As image:
+                    Height: =70
+                    Image: ='Logo - Cohab'
+                    Width: =70
+                    X: =Parent.Width/2 - Self.Width/2
+                    Y: =Parent.Height/2 - Self.Height/2 - 5
+                    ZIndex: =1
+
+                img_loading_2 As image:
+                    BorderColor: =
+                    DisabledBorderColor: =
+                    DisabledFill: =
+                    FocusedBorderThickness: =0
+                    Height: =300
+                    Image: |-
+                        ="data:image/svg+xml;utf8, " & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: none; display: block; shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+                            <g transform='rotate(0 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.9166666666666666s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(30 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(60 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(90 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(120 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(150 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(180 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(210 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(240 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(270 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(300 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(330 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g>
+                            <!-- [ldio] generated by https://loading.io/ --></svg>
+                        ")
+                    Width: =300
+                    X: =Parent.Width/2 - Self.Width/2
+                    Y: =Parent.Height/2 - Self.Height/2
+                    ZIndex: =2
+
+                Label1_20 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    Size: =16
+                    Text: ="FISCALIZAÇÃO CONCLUÍDA"
+                    Width: =Parent.Width - Self.X
+                    Wrap: =false
+                    Y: =307
+                    ZIndex: =3
+
+            Container7_5 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =IsBlank(var_Nova_Fiscalizacao)
+                Width: =Parent.Width
+                ZIndex: =6
+
+            ctn_loading_1 As groupContainer.manualLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Visible: =varPesquisaIniciar
+                Width: =Parent.Width
+                ZIndex: =7
+
+                img_loading_bonin_1 As image:
+                    Height: =70
+                    Image: ='Logo - Cohab'
+                    Width: =70
+                    X: =Parent.Width/2 - Self.Width/2
+                    Y: =Parent.Height/2 - Self.Height/2 - 5
+                    ZIndex: =1
+
+                img_loading_1 As image:
+                    BorderColor: =
+                    DisabledBorderColor: =
+                    DisabledFill: =
+                    FocusedBorderThickness: =0
+                    Height: =300
+                    Image: |-
+                        ="data:image/svg+xml;utf8, " & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: none; display: block; shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+                            <g transform='rotate(0 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.9166666666666666s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(30 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(60 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(90 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(120 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(150 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(180 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(210 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(240 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(270 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(300 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g><g transform='rotate(330 50 50)'>
+                            <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                                <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate>
+                            </rect>
+                            </g>
+                            <!-- [ldio] generated by https://loading.io/ --></svg>
+                        ")
+                    Width: =300
+                    X: =Parent.Width/2 - Self.Width/2
+                    Y: =Parent.Height/2 - Self.Height/2
+                    ZIndex: =2
+

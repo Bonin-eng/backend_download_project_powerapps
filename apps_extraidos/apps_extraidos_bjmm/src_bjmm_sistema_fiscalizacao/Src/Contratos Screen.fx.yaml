@@ -1,0 +1,1203 @@
+"'Contratos Screen' As screen":
+    OnVisible: =Set(var_Nova_Fiscalizacao, Blank());
+
+    cpm_Tela_Geral_2 As cpm_Tela_Geral:
+        Height: =Parent.Height
+        Width: =Parent.Width
+
+    Container2_2 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - 70
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        maximumHeight: =11360
+        maximumWidth: =640
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X * 2
+        X: =10
+        ZIndex: =2
+
+        Container6_7 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Label1_16 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =60
+                Size: =16
+                Text: ="FISCALIZAÇÕES"
+                Width: =Parent.Width - Self.X
+                Wrap: =false
+                ZIndex: =1
+
+        Container9_2 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(45, 65, 93, 1)
+            BorderThickness: =2
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(45, 65, 93, 1)
+            Height: =Parent.Height - Self.Y * 2
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - Self.X * 2
+            Y: =10
+            ZIndex: =2
+
+            Gallery3_5 As gallery.variableTemplateHeightGallery:
+                '#CopilotOverlayLabel': ="Filtrada"
+                BorderColor: =
+                DelayItemLoading: =true
+                Height: =Parent.Height - Self.Y
+                Items: |-
+                    =SortByColumns(
+                        Filter(
+                            db_cont_empreendimento,
+                            IsBlank(TextInput1_14.Selected.n_contrato) || n_contrato = TextInput1_14.Selected.n_contrato,
+                            IsBlank(TextInput1_15.Selected.id_contrato_empreendimento) || id_contrato_empreendimento = TextInput1_15.Selected.id_contrato_empreendimento),
+                        "n_contrato",
+                        SortOrder.Ascending)
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                ShowScrollbar: =false
+                TemplateSize: =120
+                Width: =Parent.Width
+                Y: =170
+                ZIndex: =1
+
+                Gallery1_2 As gallery.variableTemplateHeightGallery:
+                    '#CopilotOverlayLabel': ="Filtrada"
+                    DelayItemLoading: =true
+                    Height: |-
+                        =If(varQuantidadeItens = 0,
+                        Self.AllItemsCount * 30 * 2 + (35 * varQuantidadeItens),
+                        Self.AllItemsCount * 35 * 2 + (35 * varQuantidadeItens + 20))
+                    Items: |-
+                        =SortByColumns(
+                            Filter(db_acomp_empreendimento_fiscalizacao, id_empreendimento = ThisItem.id_contrato_empreendimento),
+                            "data_fiscalizacao",
+                            SortOrder.Ascending)
+                    Layout: =Layout.Vertical
+                    LoadingSpinner: =LoadingSpinner.Data
+                    ShowScrollbar: =false
+                    TemplatePadding: =10
+                    TemplateSize: =50
+                    Visible: =varExpandido = ThisItem.id_contrato_empreendimento
+                    Width: =Parent.TemplateWidth-Self.X
+                    X: =1
+                    Y: =120
+                    ZIndex: =1
+
+                    Container7_3 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.Semilight
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Gallery1_2.TemplateHeight
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width - 10
+                        ZIndex: =1
+
+                        htmltxt_historico_1 As htmlViewer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            Fill: =RGBA(214, 223, 238, 1)
+                            Height: =Gallery1_2.TemplateHeight
+                            HtmlText: |
+                                ="<div style='width:100%; font-family:Arial; font-size:15px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                                
+                                  <!-- Nome -->
+                                  <div style='font-size:15px; font-weight:bold; margin-bottom:2px;'>
+                                    " & Concatenate(LookUp(db_acomp_tipo_pesquisa, id_tipo_pesquisa = ThisItem.id_tipo_pesquisa, tipo_pesquisa), " - ", ThisItem.data_fiscalizacao) & "
+                                  </div>
+                                
+                                <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                  <div style='font-size:12px; display:flex; gap:5px; margin-top:5px; flex-wrap:wrap; margin-bottom:2px'>
+                                    <div style='width:170px'><strong>SEI:</strong> " & ThisItem.latitude & "</div>
+                                  </div>
+                                </div>"
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =21
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                        Button4 As button:
+                            Color: =RGBA(0, 0, 0, 0)
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =Parent.Height
+                            HoverBorderColor: =
+                            HoverColor: =RGBA(0, 0, 0, 0)
+                            HoverFill: =
+                            OnSelect: |
+                                =Navigate('Nova Fiscalização Screen');
+                                Set(varIniciarBICronometro, true);
+                                Set(varFinalizarFiscalização, false);
+                                Set(var_Contrato_Fiscalizacao, ThisItem);
+                                Set(var_Nova_Fiscalizacao, ThisItem.id_fiscalizacao);
+                            PressedBorderColor: =
+                            PressedFill: =
+                            Size: =24
+                            Text: =
+                            Width: =Parent.Width
+                            ZIndex: =2
+
+                Container34_5 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.Semilight
+                    Height: =Parent.TemplateHeight
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingLeft: =20
+                    PaddingRight: =20
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - 10
+                    ZIndex: =2
+
+                    HtmlText1_3 As htmlViewer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Parent.Height
+                        HtmlText: |
+                            ="<div style='width:100%; font-family:Arial; font-size:15px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                            
+                              <!-- Nome -->
+                              <div style='font-size:18px; font-weight:bold; margin-bottom:2px;'>
+                                " & Concatenate(ThisItem.n_contrato, " - ", ThisItem.objeto_empreendimento) & "
+                              </div>
+                            
+                            <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                              <div style='font-size:15px; display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; margin-bottom:0px'>
+                                <div style='width:250px'><strong>Status:</strong> " & LookUp(db_cont_contrato, n_contrato = ThisItem.n_contrato, status_contrato.Value) & "</div>
+                                <div style='width:180px'><strong>UH's:</strong> " & ThisItem.n_unidade_habitacional & "</div>
+                              </div>
+                            <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                              <div style='font-size:15px; display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; margin-bottom:0px'>
+                                <div style='width:500px'><strong>Endereço:</strong> " & ThisItem.endereco & "</div>
+                              </div>
+                            </div>"
+                        Size: =21
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                    icoSeta_4 As icon:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =App.Theme.Colors.Darker30
+                        DisabledBorderColor: =
+                        DisabledColor: =RGBA(202, 202, 202, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        DisplayMode: =If(!IsEmpty(Filter(db_cont_empreendimento, n_contrato = ThisItem.n_contrato)), DisplayMode.Edit, DisplayMode.Disabled)
+                        FocusedBorderThickness: =0
+                        Height: |
+                            =50
+                        HoverColor: =ColorFade(Self.Color, 10%)
+                        HoverFill: =
+                        Icon: =If(varExpandido = ThisItem.id_contrato_empreendimento, Icon.ChevronDown, Icon.ChevronRight)
+                        OnSelect: |-
+                            =Set(varVisualizarEdicaoOrcamento, false);
+                            Set(varPopupConfirmacaoExclusao,false);
+                            Set(varPopupConfirmacaoAcao,false);
+                            UpdateContext({varExpandido: If(varExpandido = ThisItem.id_contrato_empreendimento, Blank(), ThisItem.id_contrato_empreendimento)});
+                            Set(varQuantidadeItens, 0);
+                            UpdateContext({varHistoricoExpandido: Blank()});
+                            
+                            Set(teste, ThisItem.n_contrato);
+                            
+                            If(Self.Icon = Icon.ChevronRight, 
+                                Set(varBordaOrcamento, true), Set(varBordaOrcamento, false))
+                        PaddingBottom: =10
+                        PaddingRight: =Self.Width-Self.Height
+                        PaddingTop: =10
+                        Width: =55
+                        X: =Parent.Width - Self.Width 
+                        Y: =60
+                        ZIndex: =2
+
+                    Image1 As image:
+                        Height: =50
+                        Image: =waze
+                        OnSelect: |-
+                            =Launch(
+                                "waze://?ll=" & Text(ThisItem.latitude) & "," & Text(ThisItem.longitude) & "&navigate=yes"
+                            )
+                        Visible: =If(IsBlank(ThisItem.latitude), false, true)
+                        Width: =55
+                        X: =414
+                        Y: =60
+                        ZIndex: =3
+
+                    Image3 As image:
+                        Height: =50
+                        Image: ='google-maps'
+                        OnSelect: |-
+                            =Launch(
+                                "https://www.google.com/maps/dir/?api=1&destination=" & Text(ThisItem.latitude) & "," & Text(ThisItem.longitude)
+                            )
+                        Visible: =If(IsBlank(ThisItem.latitude), false, true)
+                        Width: =55
+                        X: =488
+                        Y: =60
+                        ZIndex: =4
+
+            Container10_1 As groupContainer.horizontalAutoLayoutContainer:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =70
+                LayoutGap: =10
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMode: =LayoutMode.Auto
+                maximumHeight: =11360
+                maximumWidth: =640
+                PaddingLeft: =5
+                PaddingRight: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width + 2
+                Y: =10
+                ZIndex: =2
+
+                Container5_3 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =80
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =260
+                    ZIndex: =1
+
+                    Label1_33 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =70
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Text: ="📓 CONTRATO "
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_14 As combobox:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronDisabledBackground: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DefaultSelectedItems: =LookUp(db_cont_contrato, n_contrato = varContratoSelecionado)
+                        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(255, 255, 255, 1)
+                        DisplayFields: =["objeto_reduzido"]
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =Parent.Height
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(45, 65, 93, 1)
+                        InputTextPlaceholder: =
+                        Items: =ShowColumns(db_cont_contrato, objeto_reduzido, n_contrato) 
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnChange: =Reset(TextInput1_15);
+                        OnSelect: =
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        SearchFields: =["n_contrato"]
+                        SearchItems: =Search(ShowColumns(db_cont_contrato,objeto_reduzido,n_contrato),TextInput1_14.SearchText,n_contrato)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        SelectMultiple: =false
+                        Size: =12
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                Container5_4 As groupContainer.horizontalAutoLayoutContainer:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =80
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =260
+                    ZIndex: =2
+
+                    Label1_34 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =70
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Text: ="🏙️ EMPREENDIMENTO"
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_15 As combobox:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisplayFields: =["empreendimento"]
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =Parent.Height
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(45, 65, 93, 1)
+                        InputTextPlaceholder: =
+                        Items: =ShowColumns(Filter(db_cont_empreendimento, n_contrato = TextInput1_14.Selected.n_contrato),empreendimento, id_contrato_empreendimento)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnChange: =
+                        OnSelect: =
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        SearchFields: =["empreendimento"]
+                        SearchItems: =Search(ShowColumns(Filter(db_cont_empreendimento,n_contrato=TextInput1_14.Selected.n_contrato),empreendimento,id_contrato_empreendimento),TextInput1_15.SearchText,empreendimento)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        SelectMultiple: =false
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+            Container10_2 As groupContainer.horizontalAutoLayoutContainer:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =70
+                LayoutGap: =10
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMode: =LayoutMode.Auto
+                maximumHeight: =11360
+                maximumWidth: =640
+                PaddingLeft: =5
+                PaddingRight: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width
+                Y: =90
+                ZIndex: =3
+
+                Container5_5 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =80
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =260
+                    ZIndex: =1
+
+                    Label1_35 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =70
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Text: ="🔎 FICHA "
+                        Width: =100
+                        ZIndex: =1
+
+                    TextInput1_16 As combobox:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        DisplayFields: =["tipo_pesquisa"]
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =Parent.Height
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        InputTextPlaceholder: =
+                        Items: =ShowColumns(db_acomp_tipo_pesquisa, tipo_pesquisa, id_tipo_pesquisa) 
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnChange: =
+                        OnSelect: =
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        SearchFields: =["id_tipo_pesquisa"]
+                        SearchItems: =Search(ShowColumns(db_acomp_tipo_pesquisa,tipo_pesquisa,id_tipo_pesquisa),TextInput1_16.SearchText,id_tipo_pesquisa)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        SelectMultiple: =false
+                        Size: =12
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                Container5_10 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =80
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =0
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =260
+                    ZIndex: =2
+
+                    Label1_40 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =70
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Text: ="➕ NOVA FISCALIZAÇÃO"
+                        Width: =100
+                        ZIndex: =1
+
+                    Button1_1 As button:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Font: =Font.Arial
+                        Height: =35
+                        LayoutMinHeight: =70
+                        LayoutMinWidth: =280
+                        OnSelect: |-
+                            =Set(varPopupNovaFiscalização, true);
+                            Reset(ComboBox1);
+                            Reset(ComboBox1_1);
+                            Reset(ComboBox1_2);
+                            Reset(DatePicker1);
+                        Size: =12
+                        Text: ="NOVA PESQUISA"
+                        Width: =280
+                        X: =4
+                        Y: =35
+                        ZIndex: =2
+
+            Container16 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderThickness: =4
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(237, 237, 237, 0.9)
+                Height: =Parent.Height
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Visible: =varPopupNovaFiscalização
+                Width: =Parent.Width
+                ZIndex: =4
+
+                Container17 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.Semilight
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =820
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - Self.X * 2
+                    X: =10
+                    Y: =80
+                    ZIndex: =3
+
+                    Container6_9 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =730
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width - Self.X * 2
+                        X: =10
+                        Y: =70
+                        ZIndex: =1
+
+                        Container5_7 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =100
+                            ZIndex: =1
+
+                            Label1_37 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="🏙️ EMPREENDIMENTO"
+                                Width: =100
+                                ZIndex: =1
+
+                            ComboBox1_1 As combobox:
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                ChevronBackground: =RGBA(45, 65, 93, 1)
+                                DisplayFields: =["empreendimento"]
+                                Font: =Font.Arial
+                                Height: =38
+                                InputTextPlaceholder: ="Localizar itens"
+                                Items: =ShowColumns(Filter(db_cont_empreendimento, n_contrato = ComboBox1.Selected.n_contrato),empreendimento, id_contrato_empreendimento)
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =575
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                SearchFields: =["empreendimento"]
+                                SearchItems: =Search(ShowColumns(Filter(db_cont_empreendimento,n_contrato=ComboBox1.Selected.n_contrato),empreendimento,id_contrato_empreendimento),ComboBox1_1.SearchText,empreendimento)
+                                SelectionFill: =RGBA(45, 65, 93, 1)
+                                SelectMultiple: =false
+                                Size: =12
+                                Width: =Parent.Width - 20
+                                X: =114
+                                Y: =203
+                                ZIndex: =2
+
+                        Container5_6 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =10
+                            ZIndex: =2
+
+                            Label1_36 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="📓 CONTRATO "
+                                Width: =100
+                                ZIndex: =1
+
+                            ComboBox1 As combobox:
+                                AlignInContainer: =AlignInContainer.Start
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                ChevronBackground: =RGBA(45, 65, 93, 1)
+                                DisplayFields: =["objeto_reduzido"]
+                                Font: =Font.Arial
+                                Height: =38
+                                InputTextPlaceholder: ="Localizar itens"
+                                Items: =ShowColumns(db_cont_contrato, objeto_reduzido, n_contrato) 
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =575
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                SearchFields: =["n_contrato"]
+                                SearchItems: =Search(ShowColumns(db_cont_contrato,objeto_reduzido,n_contrato),ComboBox1.SearchText,n_contrato)
+                                SelectionFill: =RGBA(45, 65, 93, 1)
+                                SelectMultiple: =false
+                                Size: =12
+                                Width: |
+                                    =Parent.Width - 20
+                                X: =264
+                                Y: =185
+                                ZIndex: =2
+
+                        Container5_8 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =190
+                            ZIndex: =3
+
+                            Label1_38 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="🗓️ DATA DA FISCALIZAÇÃO"
+                                Width: =100
+                                ZIndex: =1
+
+                            DatePicker1 As datepicker:
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                CalendarHeaderFill: =App.Theme.Colors.Primary
+                                Color: =RGBA(45, 65, 93, 1)
+                                DisabledBorderColor: =RGBA(45, 65, 93, 1)
+                                Font: =Font.Arial
+                                Height: =37
+                                HoverDateFill: =App.Theme.Colors.Lighter70
+                                IconBackground: =RGBA(45, 65, 93, 1)
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =575
+                                maximumHeight: =1136
+                                maximumWidth: =640
+                                SelectedDateFill: =App.Theme.Colors.Primary
+                                Size: =12
+                                Width: =Parent.Width - 20
+                                X: =10
+                                Y: =351
+                                ZIndex: =2
+
+                        Container5_9 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =550
+                            ZIndex: =4
+
+                            Label1_39 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="🔎 SELECIONE A FISCALIZAÇÃO"
+                                Width: =100
+                                ZIndex: =1
+
+                            ComboBox1_2 As combobox:
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                ChevronBackground: =RGBA(45, 65, 93, 1)
+                                DisplayFields: =["tipo_pesquisa"]
+                                Font: =Font.Arial
+                                Height: =38
+                                InputTextPlaceholder: ="Localizar itens"
+                                Items: =ShowColumns(db_acomp_tipo_pesquisa, tipo_pesquisa, id_tipo_pesquisa) 
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =575
+                                PaddingBottom: =10
+                                PaddingLeft: =10
+                                PaddingRight: =10
+                                PaddingTop: =10
+                                SearchFields: =["id_tipo_pesquisa"]
+                                SearchItems: =Search(ShowColumns(db_acomp_tipo_pesquisa,tipo_pesquisa,id_tipo_pesquisa),ComboBox1_2.SearchText,id_tipo_pesquisa)
+                                SelectionFill: =RGBA(45, 65, 93, 1)
+                                SelectMultiple: =false
+                                Size: =12
+                                Width: =Parent.Width - 20
+                                X: =194
+                                Y: =377
+                                ZIndex: =2
+
+                        Container18 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGap: =30
+                            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =640
+                            ZIndex: =5
+
+                            Button1_2 As button:
+                                Fill: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =35
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =0
+                                OnSelect: =Set(varPopupNovaFiscalização, false)
+                                Size: =12
+                                Text: ="CANCELAR"
+                                Width: =280
+                                X: =10
+                                Y: =433
+                                ZIndex: =1
+
+                            Button1 As button:
+                                Fill: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =35
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =0
+                                OnSelect: |-
+                                    =If(IsBlank(ComboBox1_2.Selected.id_tipo_pesquisa) || IsBlank(ComboBox1.Selected.n_contrato) || IsBlank(ComboBox1_1.Selected.id_contrato_empreendimento),
+                                    
+                                    Notify("Reveja os campos de Contrato, Empreendimento ou Tipo da Pesquisa", NotificationType.Error),
+                                    
+                                    Set(Var_id_fiscalizacao, Concatenate("ACOMP-FISC-",ComboBox1_1.Selected.id_contrato_empreendimento, "-", ComboBox1_2.Selected.id_tipo_pesquisa,Upper(Left(GUID(), 7)),"-",Text(Today(), "ddmmyy")));
+                                    
+                                    Navigate('Nova Fiscalização Screen');
+                                    
+                                    Set(varPesquisaIniciar,true);
+                                    
+                                    ClearCollect(
+                                        colDadosParaPatch,
+                                        AddColumns(
+                                            Filter(
+                                                db_acomp_perguntas_pesquisas,
+                                                id_tipo_pesquisa = ComboBox1_2.Selected.id_tipo_pesquisa
+                                            ),
+                                            id_contrato, ComboBox1.Selected.n_contrato,    
+                                            id_empreendimento, ComboBox1_1.Selected.id_contrato_empreendimento,
+                                            data_fiscalizacao, DatePicker1.SelectedDate,
+                                            id_fiscalizacao, Var_id_fiscalizacao
+                                        )
+                                    );
+                                    
+                                    Patch(
+                                        db_acomp_empreendimento_fiscalizacao,
+                                        Defaults(db_acomp_empreendimento_fiscalizacao), 
+                                        {
+                                            id_contrato: ComboBox1.Selected.n_contrato, 
+                                            id_empreendimento: ComboBox1_1.Selected.id_contrato_empreendimento,
+                                            data_fiscalizacao: DatePicker1.SelectedDate,
+                                            id_tipo_pesquisa: ComboBox1_2.Selected.id_tipo_pesquisa,
+                                            id_fiscalizacao: Var_id_fiscalizacao,
+                                            status: "Aguardando Pesquisa",
+                                            setor: TextInput1.Text,
+                                            pavimento: TextInput1_1.Text,
+                                            unidade: TextInput1_2.Text,
+                                            bloco: TextInput1_3.Text,
+                                            latitude: Location.Latitude,
+                                            longitude: Location.Longitude
+                                        }
+                                    );
+                                    
+                                    ForAll(
+                                        colDadosParaPatch, 
+                                        Patch(
+                                            db_acomp_fiscalizacoes, 
+                                            Defaults(db_acomp_fiscalizacoes), 
+                                            {
+                                                id_contrato: ThisRecord.id_contrato,
+                                                id_empreendimento: ThisRecord.id_empreendimento,
+                                                id_tipo_pesquisa: ThisRecord.id_tipo_pesquisa,
+                                                id_pergunta_pesquisa: ThisRecord.id_pergunta_pesquisa,
+                                                data_fiscalizacao: ThisRecord.data_fiscalizacao,
+                                                id_fiscalizacao: ThisRecord.id_fiscalizacao
+                                            }
+                                        )
+                                    );
+                                    
+                                    Set(var_Nova_Fiscalizacao, Var_id_fiscalizacao);
+                                    
+                                    Set(varPesquisaIniciar,false);
+                                    
+                                    Set(varPopupNovaFiscalização, false))
+                                Size: =12
+                                Text: ="INICIAR PESQUISA"
+                                Width: =0
+                                X: =290
+                                Y: =433
+                                ZIndex: =2
+
+                        Container5_15 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =280
+                            ZIndex: =6
+
+                            Label1_45 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="🏙️ SETOR DA OBRA"
+                                Width: =100
+                                ZIndex: =1
+
+                            TextInput1 As text:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                Default: =
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Width: =560
+                                ZIndex: =2
+
+                        Container5_20 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =(Parent.Width - Self.X * 2 ) / 2 - 5
+                            X: =10
+                            Y: =370
+                            ZIndex: =7
+
+                            Label1_50 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="🏙️ PAVIMENTO"
+                                Width: =100
+                                ZIndex: =1
+
+                            TextInput1_1 As text:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                Default: =
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =70
+                                HintText: =""
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Width: =560
+                                ZIndex: =2
+
+                        Container5_21 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =275
+                            X: =295
+                            Y: =370
+                            ZIndex: =8
+
+                            Label1_51 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: ="🏙️ UNIDADE"
+                                Width: =100
+                                ZIndex: =1
+
+                            TextInput1_2 As text:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                Default: =
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =70
+                                HintText: =""
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Width: =560
+                                ZIndex: =2
+
+                        Container5_22 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =80
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingBottom: =5
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            Width: =Parent.Width - Self.X * 2
+                            X: =10
+                            Y: =460
+                            ZIndex: =9
+
+                            Label1_52 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(45, 65, 93, 1)
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =70
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                Size: =14
+                                Text: |-
+                                    ="🏙️ BLOCO
+                                    "
+                                Width: =100
+                                ZIndex: =1
+
+                            TextInput1_3 As text:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Stretch
+                                BorderColor: =RGBA(45, 65, 93, 1)
+                                BorderThickness: =3
+                                Default: =
+                                FillPortions: =1
+                                Font: =Font.Arial
+                                Height: =70
+                                HintText: =""
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Width: =560
+                                ZIndex: =2
+
+                    Container6_8 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width - Self.X * 2
+                        X: =10
+                        Y: =20
+                        ZIndex: =2
+
+                        Label1_17 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(255, 255, 255, 1)
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =Parent.Height
+                            Size: =16
+                            Text: ="NOVA FISCALIZAÇÃO"
+                            Width: =Parent.Width - Self.X
+                            Wrap: =false
+                            ZIndex: =1
+
