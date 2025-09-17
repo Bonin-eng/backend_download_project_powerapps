@@ -1,0 +1,620 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  gpj_cpn_tela:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      Eixo_X:
+        PropertyKind: Output
+        DisplayName: Eixo_X
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Eixo_Y:
+        PropertyKind: Output
+        DisplayName: Eixo_Y
+        Description: Uma propriedade personalizada
+        DataType: Number
+      EntradaMenu:
+        PropertyKind: Input
+        DisplayName: EntradaMenu
+        Description: Uma propriedade personalizada
+        DataType: Boolean
+        Default: =gblFecharMenu
+      FecharMenu:
+        PropertyKind: Output
+        DisplayName: Fechar Menu
+        Description: Se ativo minimiza o menu
+        DataType: Boolean
+      ListaDasTelas:
+        PropertyKind: Input
+        DisplayName: Lista das Telas
+        Description: Lista de todas as telas
+        DataType: Table
+        Default: =colTelas
+      Referencia_Height:
+        PropertyKind: Output
+        DisplayName: Referencia_Height
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusBottomLeft:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusBottomLeft
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusBottomRight:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusBottomRight
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusTopLeft:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusTopLeft
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusTopRight:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusTopRight
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_Width:
+        PropertyKind: Output
+        DisplayName: Referencia_Width
+        Description: Uma propriedade personalizada
+        DataType: Number
+    Properties:
+      Eixo_X: =ctn_conteudo.X
+      Eixo_Y: =ctn_conteudo.Y
+      FecharMenu: =gblFecharMenu
+      Height: =768
+      Referencia_Height: =ctn_conteudo.Height
+      Referencia_RadiusBottomLeft: =10
+      Referencia_RadiusBottomRight: =10
+      Referencia_RadiusTopLeft: =10
+      Referencia_RadiusTopRight: =10
+      Referencia_Width: =ctn_conteudo.Width
+      Width: =1366
+    Children:
+      - Html_Tamanho_Texto_Cabecalho_4:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.'Segoe UI'
+            Height: =768
+            HtmlText: |+
+              =$"<div style='
+                  display: inline-block;
+                  margin: 0px 0px;
+                  position: relative;
+                  transform: rotate(90deg);
+                  transform-origin: top left;
+                  white-space: nowrap;
+                  font-weight: bold;
+                  font-family: Segoe UI;
+              '>
+                  <span style='font-size:50px;'>" & 
+                      Left(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen4", NomeTela)), 1) & 
+                  "</span><span style='font-size:34px; margin-left:4px;'>" & 
+                      Mid(
+                          Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen4", NomeTela)),
+                          2,
+                          Len(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen4", NomeTela)))
+                      ) & 
+                  "</span>
+              </div>"
+
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =34
+            Width: =60
+            X: =20
+            Y: =20
+      - Html_Tamanho_Texto_Cabecalho_3:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.'Segoe UI'
+            Height: =768
+            HtmlText: |+
+              =$"<div style='
+                  display: inline-block;
+                  margin: 0px 0px;
+                  position: relative;
+                  transform: rotate(90deg);
+                  transform-origin: top left;
+                  white-space: nowrap;
+                  font-weight: bold;
+                  font-family: Segoe UI;
+              '>
+                  <span style='font-size:50px;'>" & 
+                      Left(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen3", NomeTela)), 1) & 
+                  "</span><span style='font-size:34px; margin-left:4px;'>" & 
+                      Mid(
+                          Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen3", NomeTela)),
+                          2,
+                          Len(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen3", NomeTela)))
+                      ) & 
+                  "</span>
+              </div>"
+
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =34
+            Width: =60
+      - Html_Tamanho_Texto_Cabecalho_2:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.'Segoe UI'
+            Height: =768
+            HtmlText: |+
+              =$"<div style='
+                  display: inline-block;
+                  margin: 0px 0px;
+                  position: relative;
+                  transform: rotate(90deg);
+                  transform-origin: top left;
+                  white-space: nowrap;
+                  font-weight: bold;
+                  font-family: Segoe UI;
+              '>
+                  <span style='font-size:50px;'>" & 
+                      Left(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen2", NomeTela)), 1) & 
+                  "</span><span style='font-size:34px; margin-left:4px;'>" & 
+                      Mid(
+                          Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen2", NomeTela)),
+                          2,
+                          Len(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen2", NomeTela)))
+                      ) & 
+                  "</span>
+              </div>"
+
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =34
+            Width: =60
+      - Html_Tamanho_Texto_Cabecalho_1:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.'Segoe UI'
+            Height: =768
+            HtmlText: |+
+              =$"<div style='
+                  display: inline-block;
+                  margin: 0px 0px;
+                  position: relative;
+                  transform: rotate(90deg);
+                  transform-origin: top left;
+                  white-space: nowrap;
+                  font-weight: bold;
+                  font-family: Segoe UI;
+              '>
+                  <span style='font-size:50px;'>" & 
+                      Left(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen1", NomeTela)), 1) & 
+                  "</span><span style='font-size:34px; margin-left:4px;'>" & 
+                      Mid(
+                          Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen1", NomeTela)),
+                          2,
+                          Len(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Screen1", NomeTela)))
+                      ) & 
+                  "</span>
+              </div>"
+
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =34
+            Width: =60
+      - Html_Tamanho_Texto_Cabecalho_Home:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.'Segoe UI'
+            Height: =768
+            HtmlText: |+
+              =$"<div style='
+                  display: inline-block;
+                  margin: 0px 0px;
+                  position: relative;
+                  transform: rotate(90deg);
+                  transform-origin: top left;
+                  white-space: nowrap;
+                  font-weight: bold;
+                  font-family: Segoe UI;
+              '>
+                  <span style='font-size:50px;'>" & 
+                      Left(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Home", NomeTela)), 1) & 
+                  "</span><span style='font-size:34px; margin-left:4px;'>" & 
+                      Mid(
+                          Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Home", NomeTela)),
+                          2,
+                          Len(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = "Home", NomeTela)))
+                      ) & 
+                  "</span>
+              </div>"
+
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =34
+            Width: =60
+      - Html_Tamanho_Texto_Cabecalho:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.'Segoe UI'
+            Height: =768
+            HtmlText: |+
+              =$"<div style='
+                  display: inline-block;
+                  margin: 0px 0px;
+                  position: relative;
+                  transform: rotate(90deg);
+                  transform-origin: top left;
+                  white-space: nowrap;
+                  font-weight: bold;
+                  font-family: Segoe UI;
+              '>
+                  <span style='font-size:50px;'>" & 
+                      Left(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela)), 1) & 
+                  "</span><span style='font-size:34px; margin-left:4px;'>" & 
+                      Mid(
+                          Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela)),
+                          2,
+                          Len(Upper(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela)))
+                      ) & 
+                  "</span>
+              </div>"
+
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =34
+            Width: =60
+      - ctn_conteudo:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(180, 196, 219, 1)
+            Height: =Parent.Height - Self.Y
+            RadiusBottomLeft: =0
+            RadiusBottomRight: |+
+              =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =ctn_cabecalho.Width
+            X: =ctn_cabecalho.X
+            Y: =ctn_cabecalho.Y + ctn_cabecalho.Height + 15
+      - ctn_cabecalho:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =RGBA(87, 107, 134, 1)
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(87, 107, 134, 1)
+            Height: =70
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: |+
+              =0
+            RadiusTopRight: |+
+              =0
+            Width: =Parent.Width - Self.X - 10
+            X: =ctn_min.X + ctn_min.Width + 10
+          Children:
+            - img_cabecalho:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =Parent.Height
+                  Image: |+
+                    ="data:image/svg+xml;utf-8," &
+                    EncodeUrl(
+                    "<svg viewBox='0 0 " & varTamanhoContainer & " " & ctn_cabecalho.Height & "' xmlns='http://www.w3.org/2000/svg'>
+                      <defs>
+                        <filter id='sombra'>
+                          <feDropShadow dx='1.5' dy='1.5' stdDeviation='1.5' flood-color='black' flood-opacity='0.9'/>
+                        </filter>
+                        <linearGradient id='bordaGradiente' x1='0%' y1='0%' x2='100%' y2='0%'>
+                          <stop offset='0%' style='stop-color:white; stop-opacity:1' />
+                          <stop offset='100%' style='stop-color:#cccccc; stop-opacity:0.4' />
+                        </linearGradient>
+                      </defs>
+
+                      <!-- Grupo do hexágono com alinhamento dinâmico -->
+                      <g transform='translate(" & Text(varTextoInicio - 30, "[$-en-US]0") & ", 5) scale(2.5)'>
+                        <path d='M21.5679 11.223C21.7255 11.5066 21.8042 11.6484 21.8351 11.7985C21.8625 11.9315 21.8625 12.0685 21.8351 12.2015C21.8042 12.3516 21.7255 12.4934 21.5679 12.777L17.4568 20.177C17.2904 20.4766 17.2072 20.6263 17.0889 20.7354C16.9842 20.8318 16.8601 20.9049 16.7249 20.9495C16.5721 21 16.4008 21 16.0582 21H7.94104C7.5984 21 7.42708 21 7.27428 20.9495C7.1391 20.9049 7.01502 20.8318 6.91033 20.7354C6.79199 20.6263 6.70879 20.4766 6.54239 20.177L2.43128 12.777C2.27372 12.4934 2.19494 12.3516 2.16406 12.2015C2.13672 12.0685 2.13672 11.9315 2.16406 11.7985C2.19494 11.6484 2.27372 11.5066 2.43128 11.223L6.54239 3.82297C6.70879 3.52345 6.79199 3.37369 6.91033 3.26463C7.01502 3.16816 7.1391 3.09515 7.27428 3.05048C7.42708 3 7.5984 3 7.94104 3L16.0582 3C16.4008 3 16.5721 3 16.7249 3.05049C16.8601 3.09515 16.9842 3.16816 17.0889 3.26463C17.2072 3.37369 17.2904 3.52345 17.4568 3.82297L21.5679 11.223Z'
+                              fill='#2d415d' stroke='url(#bordaGradiente)' stroke-width='0.9' />
+                      </g>
+
+                      <!-- Letra -->
+                      <text x='" & Text(varTextoInicio - 2, "[$-en-US]0") & "' y='53' font-size='50' font-family='Segoe UI' font-weight='bold'
+                            fill='white' filter='url(#sombra)' text-anchor='middle'>
+                        " & Upper(Left(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela) , 1)) & "
+                      </text>
+
+                      <!-- Texto -->
+                      <text x='" & Text(varTextoInicio + 14, "[$-en-US]0") & "' y='53' font-size='34' font-family='Segoe UI' font-weight='bold'
+                            fill='white' filter='url(#sombra)' text-anchor='start'>
+                        " & Upper(Mid(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela), 2, Len(LookUp(gpj_cpn_tela.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela)))) & "
+                      </text>
+                    </svg>"
+                    )
+                  Width: =Parent.Width
+      - ctn_min:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(45, 65, 93, 1)
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =10
+            RadiusTopLeft: |+
+              =0
+
+            RadiusTopRight: |+
+              =10
+            Width: =If(gblFecharMenu = true || IsBlank(gblFecharMenu), 70, 220)
+          Children:
+            - gpj_glr_itens:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  BorderColor: =RGBA(166, 166, 166, 1)
+                  BorderStyle: =BorderStyle.None
+                  FocusedBorderThickness: =1
+                  Height: =Parent.Height - Self.Y
+                  Items: =gpj_cpn_tela.ListaDasTelas
+                  OnSelect: =
+                  ShowScrollbar: =false
+                  TabIndex: =
+                  TemplatePadding: =0
+                  TemplateSize: =59
+                  Width: =Parent.Width
+                  Y: =lbl_nome.Y + lbl_nome.Height + 15
+                Children:
+                  - PartialCircle1:
+                      Control: PartialCircle@2.3.0
+                      Variant: HalfCircle
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(87, 107, 134, 1)
+                        Height: =icn_item.Height
+                        Visible: =ThisItem.Tela.Name = App.ActiveScreen.Name
+                        Width: =Self.Height
+                        X: =icn_item.X - 5
+                        Y: =icn_item.Y
+                  - Rectangle1:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(87, 107, 134, 1)
+                        Height: =PartialCircle1.Height
+                        OnSelect: =Select(Parent)
+                        Visible: =ThisItem.Tela.Name = App.ActiveScreen.Name
+                        Width: =Parent.Width - Self.X
+                        X: =PartialCircle1.X + (PartialCircle1.Width/2) - 1
+                        Y: =PartialCircle1.Y
+                  - Label9_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =Parent.TemplateHeight
+                        PaddingLeft: =60
+                        Size: =11
+                        Text: =ThisItem.NomeTela
+                        Visible: =Not(gpj_cpn_tela.FecharMenu || IsBlank(gblFecharMenu))
+                        Width: =Parent.TemplateWidth-Parent.X - Self.X
+                  - icn_item:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(255, 255, 255, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Height: =Parent.TemplateHeight
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Icon: =ThisItem.Icon
+                        OnSelect: =Navigate(ThisItem.Tela)
+                        PaddingBottom: =10
+                        PaddingRight: =Self.Width-40
+                        PaddingTop: =10
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Width: =Parent.TemplateWidth-Parent.X - Self.X
+                        X: =20
+                  - Img:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        BorderStyle: =BorderStyle.None
+                        Height: =Parent.TemplateHeight
+                        HoverBorderColor: =
+                        Image: =ThisItem.Icon
+                        OnSelect: =Navigate(ThisItem.Tela, ScreenTransition.Fade)
+                        PaddingBottom: =10
+                        PaddingRight: =Self.Width-40
+                        PaddingTop: =10
+                        PressedBorderColor: =
+                        TabIndex: =2
+                        Tooltip: =ThisItem.NomeTela
+                        Width: =Parent.TemplateWidth-Parent.X - Self.X
+                        X: =20
+            - lbl_nome:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  AutoHeight: =true
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =11
+                  Text: |
+                    =Left(User().FullName, Find(" ", User().FullName) - 1)
+                  Width: =Parent.Width
+                  Y: =img_colab.Y + img_colab.Height + img_bonin_menor.Y
+            - img_colab:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =2
+                  Fill: =RGBA(45, 65, 93, 1)
+                  Height: =img_bonin_menor.Height
+                  Image: =UsuáriosdoOffice365.UserPhoto(User().Email)
+                  ImagePosition: =ImagePosition.Fill
+                  RadiusBottomLeft: =90
+                  RadiusBottomRight: =90
+                  RadiusTopLeft: =90
+                  RadiusTopRight: =90
+                  Width: =img_bonin_menor.Width
+                  X: =(Parent.Width- Self.Width)/2
+                  Y: =100
+            - img_bonin_menor:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =40
+                  HoverBorderColor: =
+                  Image: ='Logo - Bonin Menor'
+                  OnSelect: =Set(gblFecharMenu, false)
+                  PressedBorderColor: =
+                  TabIndex: =2
+                  Visible: =gpj_cpn_tela.FecharMenu = true || IsBlank(gblFecharMenu)
+                  Width: =40
+                  X: =15
+                  Y: =Self.X-1
+            - img_bonin:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =85
+                  HoverBorderColor: =
+                  Image: ='Logo - Bonin'
+                  OnSelect: =Set(gblFecharMenu, true)
+                  PressedBorderColor: =
+                  TabIndex: =2
+                  Visible: =!img_bonin_menor.Visible
+                  Width: =185
+                  X: =15
+      - sld_alinhamento_txt_cabecalho:
+          Control: Classic/Slider@2.1.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =Len(Html_Tamanho_Texto_Cabecalho.HtmlText) + Len(Html_Tamanho_Texto_Cabecalho_1.HtmlText) + Len(Html_Tamanho_Texto_Cabecalho_2.HtmlText) + Len(Html_Tamanho_Texto_Cabecalho_3.HtmlText) + Len(Html_Tamanho_Texto_Cabecalho_4.HtmlText) + Len(gblFecharMenu)
+            OnChange: |+
+              =Set(varTamanhoContainer, ctn_cabecalho.Width);
+
+              ClearCollect(
+                  colLarguraCabecalho,
+                  Table(
+                      {
+                          Tela: "Home",
+                          Largura: Html_Tamanho_Texto_Cabecalho_Home.Height
+                      },
+                      {
+                          Tela: "Screen1",
+                          Largura: Html_Tamanho_Texto_Cabecalho_1.Height
+                      },
+                      {
+                          Tela: "Screen2",
+                          Largura: Html_Tamanho_Texto_Cabecalho_2.Height
+                      },
+                      {
+                          Tela: "Screen3",
+                          Largura: Html_Tamanho_Texto_Cabecalho_3.Height
+                      },
+                      {
+                          Tela: "Screen4",
+                          Largura: Html_Tamanho_Texto_Cabecalho_4.Height
+                      }
+                  )
+              );
+
+              // Posição de início (centralizando só o texto restante)
+              Set(
+                  varTextoInicio,
+                  15 + (ctn_cabecalho.Width / 2) - (LookUp(colLarguraCabecalho, Tela = App.ActiveScreen.Name, Largura) / 2)
+              )
+            ValueFill: =RGBA(0, 18, 107, 1)
+            Visible: =false
+            X: =85
+            Y: =728

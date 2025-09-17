@@ -1,0 +1,68 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpCabecalhoTelas:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      TítuloDaTela:
+        PropertyKind: Input
+        DisplayName: Título da Tela
+        Description: Título que será utilizado na tela
+        DataType: Text
+        Default: ="Texto"
+    Properties:
+      Height: =86
+      Width: =1366
+    Children:
+      - ctn_CaelhoTelas:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(5, 28, 61, 1)
+            Height: =Parent.Height - 12
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingLeft: =8
+            PaddingRight: =8
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 12
+            X: =(Parent.Width - Self.Width)/2
+            Y: =(Parent.Height - Self.Height)/2
+          Children:
+            - img_Bonin:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  FocusedBorderThickness: =1
+                  Height: =Parent.Height
+                  Image: ='Logo - Bonin Branco'
+                  Width: |+
+                    =100
+            - lbl_titulo:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Font: =Font.Arial
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  Size: =24
+                  Text: =Upper(cmpCabecalhoTelas.TítuloDaTela)
+                  Width: =Parent.Width
+            - img_Cosan:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =Parent.Height
+                  Image: =Cosan
+                  X: =Parent.Width - Self.Width - 5

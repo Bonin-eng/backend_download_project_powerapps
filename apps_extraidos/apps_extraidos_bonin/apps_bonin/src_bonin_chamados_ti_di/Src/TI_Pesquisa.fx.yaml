@@ -1,0 +1,1093 @@
+TI_Pesquisa As screen:
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: =Set(varAnimarSVG, GUID());
+
+    Container30_3 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(243, 244, 246, 1)
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =3
+
+        Container31_3 As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =20
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =15
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =15
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container32_3 As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                FillPortions: =0
+                Height: =75
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =1
+
+                lbl_titulo_4 As label:
+                    Align: =Align.Center
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Bold
+                    Height: =Parent.Height
+                    Size: =18
+                    Text: ="PESQUISA DE SATISFAÇÃO DE CHAMADOS DE T.I."
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+            Container33_3 As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(255, 255, 255, 1)
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =2
+
+                Container34_3 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =20
+                    PaddingLeft: =20
+                    PaddingRight: =20
+                    PaddingTop: =20
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    lbl_subtitulo_5 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.None
+                        FontWeight: =FontWeight.Bold
+                        Size: =16
+                        Text: ="✨ Sua opinião faz a diferença! Avaliar o atendimento nos ajuda a evoluir e melhorar continuamente nossos serviços."
+                        Width: =Parent.Width - Container34_3.PaddingLeft - Container34_3.PaddingRight
+                        ZIndex: =1
+
+                    lbl_subtitulo_7 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(77, 77, 77, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Size: =16
+                        Text: ="📋 Confira abaixo os atendimentos que aguardam sua avaliação."
+                        Width: =Parent.Width - Container34_3.PaddingLeft - Container34_3.PaddingRight
+                        ZIndex: =2
+
+                    div_ti_op_6 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        ZIndex: =3
+
+                        gal_TI_NPS As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            BorderStyle: =BorderStyle.None
+                            DelayItemLoading: =true
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =Parent.Height - Self.Y
+                            Items: |-
+                                =SortByColumns(
+                                    AddColumns(
+                                        Filter(
+                                            ShowColumns(
+                                                col_db_nps_infra,
+                                                ID_Referencia,
+                                                Tk_TicketID,
+                                                Tk_Status_NPS,
+                                                Tk_Solicitante
+                                            ),
+                                            Tk_Solicitante = VarUsuario.Email,
+                                            Tk_Status_NPS = "Aguardando Pesquisa"
+                                        ),
+                                        Tk_Tipo_Ticket,
+                                        LookUp(
+                                            colTiposRequisicaoTI,
+                                            Tipo_Ticket = LookUp(
+                                                col_db_tickets_infra,
+                                                Tk_Ticket = Tk_TicketID,
+                                                Tk_Tipo_Ticket
+                                            ),
+                                            Requisicao
+                                        ),
+                                        Tk_Atendente,
+                                        LookUp(
+                                            col_db_tickets_infra,
+                                            Tk_Ticket = Tk_TicketID,
+                                            Tk_Atendente
+                                        ),
+                                        Tk_Data_Abertura,
+                                        LookUp(
+                                            col_db_tickets_infra,
+                                            Tk_Ticket = Tk_TicketID,
+                                            Tk_Data_Abertura
+                                        ),
+                                        Tk_Descricao_Ocorrencia,
+                                        LookUp(
+                                            col_db_tickets_infra,
+                                            Tk_Ticket = Tk_TicketID,
+                                            Tk_Descricao_Ocorrencia
+                                        )
+                                    ),
+                                    "Tk_Data_Abertura",
+                                    SortOrder.Ascending
+                                )
+                            Layout: =Layout.Vertical
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplatePadding: =0
+                            TemplateSize: =10
+                            Width: =Parent.Width - div_ti_op_6.PaddingLeft - div_ti_op_6.PaddingRight
+                            X: =Parent.Width/2 - Self.Width/2
+                            ZIndex: =1
+
+                            HtmlText1 As htmlViewer:
+                                AutoHeight: =true
+                                Height: =10
+                                HtmlText: |+
+                                    =With(
+                                        {
+                                            _t: ThisItem,
+                                            _dtConc: LookUp(col_db_eventos_infra, Tk_TicketID = ThisItem.Tk_TicketID && Tk_Tipo_Evento.Value = "Concluído", Tk_Data_Termino_Evento)
+                                        },
+                                        With({
+                                            _atNome: If(IsBlank(_t.Tk_Atendente.Value), "Não atribuído", UsuáriosdoOffice365.UserProfileV2(_t.Tk_Atendente.Value).displayName)
+                                        },
+                                    "
+                                    <div style='width:100%; display:flex; flex-direction:column; background:#F9FAFB;
+                                                 border:1px solid #E5E7EB; border-radius:12px;
+                                                 padding:6px; margin-bottom:6px; font-family: Segoe UI, sans-serif;
+                                                 box-sizing:border-box;'>
+                                    
+                                      <!-- 
+                                        LINHA 1: INFORMAÇÕES PRINCIPAIS
+                                        - Agora é um container flex com 4 colunas de largura percentual para garantir o alinhamento.
+                                      -->
+                                      <div style='display:flex; align-items:flex-start; width:100%; font-size:14px; gap:16px;'>
+                                        
+                                        <!-- Coluna 1: Ticket (25% da largura) -->
+                                        <div style='display:flex; align-items:center; gap:8px; width:25%;'>
+                                            <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line><polyline points='10 9 9 9 8 9'></polyline></svg>") & "' width='18' height='18' />
+                                            <div style='min-width:0;'>
+                                                <span style='color:#6B7280; font-size:12px;'>Ticket</span><br>
+                                                <div style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>
+                                                  <strong style='color:#1F2937;'>" & _t.Tk_TicketID & " (" & _t.Tk_Tipo_Ticket & ")</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Coluna 2: Atendente (35% da largura) -->
+                                        <div style='display:flex; align-items:center; gap:8px; width:35%;'>
+                                            <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>") & "' width='18' height='18' />
+                                            <div style='min-width:0;'>
+                                                <span style='color:#6B7280; font-size:12px;'>Atendente</span><br>
+                                                <div style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>
+                                                  <strong style='color:#1F2937;'>" & _atNome & "</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Coluna 3: Abertura (20% da largura) -->
+                                        <div style='display:flex; align-items:center; gap:8px; width:20%;'>
+                                            <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>") & "' width='18' height='18' />
+                                            <div>
+                                                <span style='color:#6B7280; font-size:12px;'>Abertura</span><br>
+                                                <strong style='color:#1F2937;'>" & If(IsBlank(_t.Tk_Data_Abertura), "-", Text(_t.Tk_Data_Abertura, "[$-pt-BR]dd/mm/yy")) & "</strong>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Coluna 4: Conclusão (20% da largura) -->
+                                        <div style='display:flex; align-items:center; gap:8px; width:20%;'>
+                                            <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>") & "' width='18' height='18' />
+                                            <div>
+                                                <span style='color:#6B7280; font-size:12px;'>Conclusão</span><br>
+                                                <strong style='color:#1F2937;'>" & If(IsBlank(_dtConc), "-", Text(_dtConc, "[$-pt-BR]dd/mm/yy")) & "</strong>
+                                            </div>
+                                        </div>
+                                    
+                                      </div>
+                                    
+                                      <!-- 
+                                        LINHA 2: DESCRIÇÃO
+                                      -->
+                                      <div style='margin-top:6px; padding-top:6px; border-top:1px solid #E5E7EB; color:#4B5563; font-size:14px; line-height:1.5;'>
+                                        <strong style='color:#1F2937;'>Descrição:</strong> " & PlainText(_t.Tk_Descricao_Ocorrencia) & "
+                                      </div>
+                                    </div>
+                                    "
+                                    ))
+                                    
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                            Button3_4 As button:
+                                BorderStyle: =BorderStyle.None
+                                Color: =RGBA(0, 0, 0, 0)
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                Fill: =RGBA(0, 0, 0, 0)
+                                Height: =HtmlText1.Height - 8
+                                HoverFill: =ColorFade(RGBA(166, 166, 166, 0.2), 20%)
+                                OnSelect: |
+                                    =UpdateContext({
+                                        NPSTicketTI: LookUp(db_nps_infra, ID_Referencia = ThisItem.ID_Referencia),
+                                        PesquisaSatisfacaoTI:true}
+                                    );
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                PressedFill: =Color.Transparent
+                                Text: =
+                                Width: =Parent.Width
+                                ZIndex: =2
+
+    Image_TI_back_3 As image:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        Fill: =Color.Transparent
+        FocusedBorderThickness: =0
+        Height: =75
+        HoverBorderColor: =
+        HoverFill: =
+        Image: |
+            =With(
+              {
+                SVG_Animado: "
+            <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='2.5 0 20 24' fill='#ffffff' customattr='" & varAnimarSVG & "'>
+              <path
+                fill='#ffffff'
+                d='M14.008 17.692a.857.857 0 001.317-1.098L11.495 12l3.829-4.594a.857.857 0 00-1.317-1.098L9.73 11.44a.85.85 0 00-.208.56.854.854 0 00.208.56l4.277 5.132z'>
+                <animateTransform
+                  attributeName='transform'
+                  type='translate'
+                  values='0 0; -2 0; 0 0'
+                  keyTimes='0;0.5;1'
+                  dur='1s'
+                  repeatCount='1'
+                  fill='freeze'
+                  begin='0s'
+                />
+              </path>
+            </svg>
+            "
+              },
+              "data:image/svg+xml;utf8," & EncodeUrl(SVG_Animado)
+            )
+        OnSelect: =Navigate(Home, Transition.Pop)
+        PressedBorderColor: =
+        PressedFill: =
+        TabIndex: =1
+        Width: =40
+        X: =15
+        Y: =16
+        ZIndex: =4
+
+    Container1_1 As groupContainer.horizontalAutoLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(240, 240, 240, 1)
+        Height: =Parent.Height - Self.Y - 15
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =10
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =10
+        PaddingLeft: =10
+        PaddingRight: =10
+        PaddingTop: =10
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Visible: =PesquisaSatisfacaoTI
+        Width: =Parent.Width - 16*2
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =104
+        ZIndex: =5
+
+        Container5 As groupContainer.verticalAutoLayoutContainer:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =47*2+11
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Container3_4 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =47
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =1
+                PaddingTop: =1
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =1
+
+                ctn_ti_div_9 As groupContainer.manualLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Height: =45
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =1
+
+                Container2_4 As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    Height: =45
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                    LayoutMinHeight: =40
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    Width: =Parent.Width/4
+                    ZIndex: =2
+
+                    lbl_TI_Chamados_8 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        FillPortions: =2
+                        FontWeight: =FontWeight.Semibold
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =12
+                        Text: =LookUp(colTiposRequisicaoTI, Tipo_Ticket = LookUp(col_db_tickets_infra, Tk_Ticket = NPSTicketTI.Tk_TicketID, Tk_Tipo_Ticket), Requisicao)
+                        Underline: =true
+                        ZIndex: =3
+
+                ctn_ti_div_10 As groupContainer.manualLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Height: =45
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =3
+
+            Container3_2 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =47
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =1
+                PaddingTop: =1
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =2
+
+                ctn_ti_div_5 As groupContainer.manualLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Height: =45
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =1
+
+                Container2_2 As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    Height: =45
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                    LayoutMinHeight: =40
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    Width: =Parent.Width/4
+                    ZIndex: =2
+
+                    lbl_TI_Chamados_4 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        FontWeight: =FontWeight.Semibold
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =12
+                        Text: |-
+                            ="TICKET: " & NPSTicketTI.Tk_TicketID
+                        ZIndex: =1
+
+                    ctn_div_2 As groupContainer.manualLayoutContainer:
+                        AlignInContainer: =AlignInContainer.Center
+                        Fill: =RGBA(240, 240, 240, 1)
+                        FillPortions: =0
+                        Height: =30
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        Width: =1
+                        ZIndex: =2
+
+                    lbl_TI_Chamados_6 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        FillPortions: =1
+                        FontWeight: =FontWeight.Semibold
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =12
+                        Text: |-
+                            ="ATENDENTE: " & Char(13) & If(IsBlank(LookUp(col_db_tickets_infra, Tk_Ticket = NPSTicketTI.Tk_TicketID, Tk_Atendente.Value)), "Não atribuído", UsuáriosdoOffice365.UserProfileV2(LookUp(col_db_tickets_infra, Tk_Ticket = NPSTicketTI.Tk_TicketID, Tk_Atendente.Value)).displayName)
+                        ZIndex: =5
+
+                ctn_ti_div_6 As groupContainer.manualLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Height: =45
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =3
+
+        Container6_1 As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.Center
+            Fill: =RGBA(255, 255, 255, 0.2)
+            FillPortions: =0
+            Height: =250
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Width: =Parent.Width/4 - 10
+            ZIndex: =3
+
+            Form_TI_NPS_Chamados As form:
+                AcceptsFocus: =false
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DataSource: =db_nps_infra
+                DefaultMode: =If(!IsBlank(NPSTicketTI), FormMode.Edit, FormMode.New)
+                Height: =220
+                Item: =NPSTicketTI
+                NumberOfColumns: =12
+                OnSuccess: |-
+                    =// Carrega lista db_nps_infra do SharePoint em lotes
+                    Set(VarLote, 1000);
+                    Set(PrimeiraLinha, First(SortByColumns(db_nps_infra, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+                    Set(UltimaLinha, First(SortByColumns(db_nps_infra, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+                    Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+                    ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+                    ClearCollect(col_db_nps_infra, Filter(db_nps_infra, false));
+                    
+                    ForAll(
+                        SeqLotes As item,
+                        With(
+                            {
+                                limInf: item.Value * VarLote + PrimeiraLinha,
+                                limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                            },
+                            Collect(
+                                col_db_nps_infra,
+                                Filter(
+                                db_nps_infra,
+                                ID_Referencia >= limInf && ID_Referencia <= limSup,
+                                Tk_Solicitante = VarUsuario.Email
+                                )
+                            )
+                        )
+                    );
+                    
+                    Notify("🎉 Obrigado por responder à nossa pesquisa de satisfação! Sua avaliação é muito importante para nós.", NotificationType.Success, 3000);
+                    
+                    UpdateContext({
+                        NPSTicketTI: Blank(),
+                        PesquisaSatisfacaoTI: false
+                        }
+                    );
+                    ResetForm(Form_TI_NPS_Chamados);
+                    EditForm(Form_TI_NPS_Chamados);
+                Width: =Parent.Width
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =1
+
+                NPS_Solucao_DataCard2 As typedDataCard.allowedValuesStringEditCard:
+                    AllowedValues: =DataSourceInfo([@db_nps_infra], DataSourceInfo.AllowedValues, NPS_Solucao)
+                    AutoHeight: =true
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    BorderThickness: =0
+                    ContentLanguage: =""
+                    DataField: ="NPS_Solucao"
+                    Default: =ThisItem.NPS_Solucao
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@db_nps_infra],DataSourceInfo.DisplayName,NPS_Solucao)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    LayoutHeight: =0
+                    LayoutWidth: =0
+                    LayoutX: =0
+                    LayoutY: =0
+                    maximumHeight: =7680
+                    maximumWidth: =1366
+                    minimumHeight: =20
+                    minimumWidth: =20
+                    Required: =true
+                    Update: =DataCardValue24.Selected.Value
+                    Visible: =true
+                    Width: =Parent.Width
+                    WidthFit: =false
+                    X: =0
+                    Y: =0
+                    ZIndex: =1
+
+                    DataCardKey24 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =11
+                        Text: ="SOLUÇÃO"
+                        Width: =Parent.Width - 20
+                        Wrap: =false
+                        X: =10
+                        ZIndex: =1
+
+                    Container7_1 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =30
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: |
+                            =Parent.Width - 20
+                        X: =10
+                        Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                        ZIndex: =2
+
+                        DataCardValue24 As combobox:
+                            BorderColor: =If(IsBlank(SP_Resumo_Problema_DataCard1.Error), SP_Resumo_Problema_DataCard1.BorderColor, Color.Red)
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =0
+                            ChevronBackground: =RGBA(45, 65, 93, 1)
+                            ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                            DefaultSelectedItems: =SP_Resumo_Problema_DataCard1.Default
+                            DisplayFields: =["Value"]
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: =1
+                            Height: =30
+                            InputTextPlaceholder: ="Selecione o nível de satisfação"
+                            Items: =["INSATISFEITO","ACEITAVEL","SATISFEITO"]
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            PressedFill: =RGBA(45, 65, 93, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Search(["INSATISFEITO","ACEITAVEL","SATISFEITO"],DataCardValue24.SearchText,Value)
+                            SelectionColor: =RGBA(240, 240, 240, 1)
+                            SelectionFill: =RGBA(45, 65, 93, 1)
+                            SelectMultiple: =false
+                            Size: =11
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                    ErrorMessage24 As label:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(168, 0, 0, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: |
+                            =Parent.Width - 20
+                        X: =10
+                        Y: =DataCardValue24.Y + DataCardValue24.Height
+                        ZIndex: =3
+
+                    StarVisible24 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =DataCardKey24.Height
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =11
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =10
+                        Wrap: =false
+                        Y: =DataCardKey24.Y
+                        ZIndex: =4
+
+                NPS_Avaliacao_Atendimento_DataCard2 As typedDataCard.ratingEditCard:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    BorderThickness: =0
+                    ContentLanguage: =""
+                    DataField: ="NPS_Avaliacao_Atendimento"
+                    Default: =ThisItem.NPS_Avaliacao_Atendimento
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@db_nps_infra],DataSourceInfo.DisplayName,NPS_Avaliacao_Atendimento)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    LayoutHeight: =0
+                    LayoutWidth: =0
+                    LayoutX: =0
+                    LayoutY: =0
+                    Max: =5
+                    maximumHeight: =7680
+                    maximumWidth: =1366
+                    minimumHeight: =20
+                    minimumWidth: =20
+                    Required: =true
+                    Update: =DataCardValue26.Value
+                    Visible: =true
+                    Width: =Parent.Width
+                    WidthFit: =false
+                    X: =3
+                    Y: =0
+                    ZIndex: =2
+
+                    DataCardKey26 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =11
+                        Text: ="AVALIAÇÃO DA SOLUÇÃO"
+                        Width: =Parent.Width - 20
+                        Wrap: =false
+                        X: =10
+                        ZIndex: =1
+
+                    DataCardValue26 As rating:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Height: =28
+                        Max: =Parent.Max
+                        RatingFill: =RGBA(45, 65, 93, 1)
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey26.Y + DataCardKey26.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage26 As label:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(168, 0, 0, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: |
+                            =Parent.Width - 20
+                        X: =10
+                        Y: =DataCardValue26.Y + DataCardValue26.Height
+                        ZIndex: =3
+
+                    StarVisible26 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =DataCardKey26.Height
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =11
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =10
+                        Wrap: =false
+                        Y: =DataCardKey26.Y
+                        ZIndex: =4
+
+                NPS_Agilidade_DataCard2 As typedDataCard.ratingEditCard:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    BorderThickness: =0
+                    ContentLanguage: =""
+                    DataField: ="NPS_Agilidade"
+                    Default: =ThisItem.NPS_Agilidade
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@db_nps_infra],DataSourceInfo.DisplayName,NPS_Agilidade)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    LayoutHeight: =0
+                    LayoutWidth: =0
+                    LayoutX: =0
+                    LayoutY: =0
+                    Max: =5
+                    maximumHeight: =7680
+                    maximumWidth: =1366
+                    minimumHeight: =20
+                    minimumWidth: =20
+                    Required: =true
+                    Update: =DataCardValue28.Value
+                    Visible: =true
+                    Width: =Parent.Width
+                    WidthFit: =false
+                    X: =6
+                    Y: =0
+                    ZIndex: =3
+
+                    DataCardKey28 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =11
+                        Text: ="AGILIDADE"
+                        Width: =Parent.Width - 20
+                        Wrap: =false
+                        X: =10
+                        ZIndex: =1
+
+                    DataCardValue28 As rating:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        Height: =28
+                        Max: =Parent.Max
+                        RatingFill: =RGBA(45, 65, 93, 1)
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey28.Y + DataCardKey28.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage28 As label:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(168, 0, 0, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: |
+                            =Parent.Width - 20
+                        X: =10
+                        Y: =DataCardValue28.Y + DataCardValue28.Height
+                        ZIndex: =3
+
+                    StarVisible28 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =DataCardKey28.Height
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =11
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =10
+                        Wrap: =false
+                        Y: =DataCardKey28.Y
+                        ZIndex: =4
+
+                Tk_Status_NPS_DataCard1 As typedDataCard.textualEditCard:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    BorderThickness: =0
+                    ContentLanguage: =""
+                    DataField: ="Tk_Status_NPS"
+                    Default: =ThisItem.Tk_Status_NPS
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@db_nps_infra],DataSourceInfo.DisplayName,Tk_Status_NPS)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    LayoutHeight: =0
+                    LayoutWidth: =0
+                    LayoutX: =0
+                    LayoutY: =0
+                    maximumHeight: =7680
+                    maximumWidth: =1366
+                    MaxLength: =DataSourceInfo([@db_nps_infra], DataSourceInfo.MaxLength, Tk_Status_NPS)
+                    minimumHeight: =20
+                    minimumWidth: =20
+                    Required: =false
+                    Update: =DataCardValue21.Text
+                    Visible: =false
+                    Width: =Parent.Width
+                    WidthFit: =false
+                    X: =9
+                    Y: =0
+                    ZIndex: =4
+
+                    DataCardKey21 As label:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =11
+                        Text: ="STATUS"
+                        Width: =Parent.Width - 20
+                        Wrap: =false
+                        X: =10
+                        ZIndex: =1
+
+                    DataCardValue21 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Default: ="Pesquisa Concluída"
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        Height: =30
+                        HintText: =""
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        Size: =11
+                        TabIndex: =-2
+                        Width: |
+                            =Parent.Width - 20
+                        X: =10
+                        Y: =DataCardKey21.Y + DataCardKey21.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage21 As label:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(168, 0, 0, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: |
+                            =Parent.Width - 20
+                        X: =10
+                        Y: =DataCardValue21.Y + DataCardValue21.Height
+                        ZIndex: =3
+
+                    StarVisible21 As label:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(45, 65, 93, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =DataCardKey21.Height
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Size: =11
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =10
+                        Wrap: =false
+                        Y: =DataCardKey21.Y
+                        ZIndex: =4
+
+        Container3_3 As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =47
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =1
+            PaddingTop: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =4
+
+            ctn_ti_div_7 As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.Start
+                DropShadow: =DropShadow.None
+                Height: =45
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =1
+
+            Container2_3 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                Fill: =RGBA(255, 255, 255, 1)
+                FillPortions: =0
+                Height: =45
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =10
+                LayoutJustifyContent: =LayoutJustifyContent.End
+                LayoutMinHeight: =40
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingRight: =10
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Width: =Parent.Width/4
+                ZIndex: =2
+
+                Button2_1 As button:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderThickness: =1
+                    Color: =RGBA(45, 65, 93, 1)
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FocusedBorderThickness: =1
+                    Height: =30
+                    HoverFill: =ColorFade(Self.Color, 20%)
+                    OnSelect: |
+                        =UpdateContext({
+                            NPSTicketTI: Blank(),
+                            PesquisaSatisfacaoTI: false
+                            }
+                        );
+                        ResetForm(Form_TI_NPS_Chamados);
+                        EditForm(Form_TI_NPS_Chamados);
+                    PressedFill: =ColorFade(Self.Color, 10%)
+                    Size: =12
+                    Text: ="CANCELAR"
+                    Width: =120
+                    ZIndex: =1
+
+                Button3_1 As button:
+                    Fill: =RGBA(45, 65, 93, 1)
+                    FocusedBorderThickness: =1
+                    Height: =30
+                    HoverFill: =ColorFade(Self.Fill, -20%)
+                    OnSelect: |-
+                        =If(
+                            !Form_TI_NPS_Chamados.Valid,
+                            Notify("Preencha todos os campos obrigatórios",NotificationType.Warning,3000),
+                            SubmitForm(Form_TI_NPS_Chamados);
+                        )
+                    PressedColor: =Self.Color
+                    PressedFill: =ColorFade(Self.Fill, 10%)
+                    Size: =12
+                    Text: ="RESPONDER PESQUISA"
+                    Width: =200
+                    ZIndex: =2
+
+            ctn_ti_div_8 As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.Start
+                DropShadow: =DropShadow.None
+                Height: =45
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =3
+

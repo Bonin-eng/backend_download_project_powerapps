@@ -1,0 +1,1894 @@
+"'CADASTRO DE PS SCREEN' As screen":
+    Fill: =RGBA(45, 65, 93, 1)
+    OnVisible: |+
+        =ClearCollect(colPrestacaoServicoTotal,
+            AddColumns(
+                GroupBy(sigd_prestadores_servicos,
+                id_contrato,
+                ps_agrupado),
+                soma_prestadores,
+                Sum(ps_agrupado,valor_total_ps)))
+        
+
+    Container1_4 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =1
+
+        Container2_4 As groupContainer.manualLayoutContainer:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =100
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =2
+
+            Label6_189 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(122, 111, 150, 1)
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =Parent.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =25
+                Text: ="CONTROLE DE PRESTADORES DE SERVIÇO"
+                Width: =Parent.Width
+                ZIndex: =3
+
+            Image2_4 As image:
+                Image: =Logo
+                Width: =285.25
+                ZIndex: =4
+
+        Container3_4 As groupContainer.manualLayoutContainer:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =5
+
+            Container4_4 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =Parent.Width
+                ZIndex: =6
+
+                cmpMenuLateral_5 As cmpMenuLateral:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =640
+                    Width: =If(cmpMenuLateral_5.FecharMenu = true, 95, 210)
+
+                Container18_4 As groupContainer.manualLayoutContainer:
+                    BorderStyle: =BorderStyle.None
+                    DropShadow: =DropShadow.None
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =7
+
+                    Container2_10 As groupContainer.horizontalAutoLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =8
+
+                        Container3_8 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Fill: =RGBA(45, 65, 93, 1)
+                            FillPortions: =0
+                            Height: =70
+                            LayoutGap: =10
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =5
+                            PaddingLeft: =5
+                            PaddingTop: =5
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =9
+
+                            Container5_26 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                FillPortions: =0
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMinHeight: |
+                                    =0
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =5
+                                PaddingLeft: =5
+                                PaddingRight: =5
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =200
+                                ZIndex: =10
+
+                                Label1_146 As label:
+                                    Align: =Align.Justify
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =0
+                                    Size: =10
+                                    Text: ="🔎 RAZÃO SOCIAL "
+                                    Width: =100
+                                    ZIndex: =11
+
+                                Container20_5 As groupContainer.manualLayoutContainer:
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    BorderThickness: =2
+                                    DropShadow: =DropShadow.None
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =5
+                                    RadiusBottomRight: =5
+                                    RadiusTopLeft: =5
+                                    RadiusTopRight: =5
+                                    Width: =0
+                                    ZIndex: =12
+
+                                    TextInput1_21 As combobox:
+                                        AccessibleLabel: =
+                                        DisplayFields: =["razao_social"]
+                                        Height: =Parent.Height
+                                        InputTextPlaceholder: ="Localizar itens"
+                                        Items: =sigd_cadastro_prestadores_servicos.razao_social
+                                        OnChange: =
+                                        OnSelect: =
+                                        SearchFields: =["razao_social"]
+                                        SearchItems: =Search(sigd_cadastro_prestadores_servicos.razao_social,TextInput1_21.SearchText,razao_social)
+                                        SelectMultiple: =false
+                                        Size: =11
+                                        Width: =Parent.Width
+                                        ZIndex: =13
+
+                            Container5_27 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(255, 255, 255, 1)
+                                FillPortions: =0
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMinHeight: |
+                                    =0
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =5
+                                PaddingLeft: =5
+                                PaddingRight: =5
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =300
+                                X: =40
+                                Y: =40
+                                ZIndex: =14
+
+                                Label1_147 As label:
+                                    Align: =Align.Justify
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =0
+                                    Size: =10
+                                    Text: ="🔎 GESTOR RESPONSÁVEL"
+                                    Width: =100
+                                    ZIndex: =15
+
+                                Container20_6 As groupContainer.manualLayoutContainer:
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    BorderThickness: =2
+                                    DropShadow: =DropShadow.None
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =5
+                                    RadiusBottomRight: =5
+                                    RadiusTopLeft: =5
+                                    RadiusTopRight: =5
+                                    Width: =0
+                                    ZIndex: =16
+
+                                    TextInput1_22 As combobox:
+                                        AccessibleLabel: =
+                                        DisplayFields: =["Value"]
+                                        Height: =Parent.Height
+                                        InputTextPlaceholder: ="Localizar itens"
+                                        Items: =Distinct(ForAll(Contratos, Responsavel).DisplayName,DisplayName)
+                                        OnChange: =
+                                        OnSelect: =
+                                        SearchFields: =["Value"]
+                                        SearchItems: =Search(Distinct(ForAll(Contratos,Responsavel).DisplayName,DisplayName),TextInput1_22.SearchText,Value)
+                                        SelectMultiple: =false
+                                        Size: =11
+                                        Width: =Parent.Width
+                                        ZIndex: =17
+
+                            Container37_1 As groupContainer.manualLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                LayoutMinHeight: =0
+                                LayoutMinWidth: =0
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                ZIndex: =18
+
+                                Button4_58 As button:
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    Height: =43
+                                    HoverFill: =ColorFade(Self.Fill, -20%)
+                                    OnSelect: =Set(varCadastrarContratoPS, true);
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="CADASTRAR NOVO PRESTADOR"
+                                    Width: =380
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =9
+                                    ZIndex: =19
+
+                        Container4_9 As groupContainer.manualLayoutContainer:
+                            BorderStyle: =BorderStyle.None
+                            DropShadow: =DropShadow.None
+                            LayoutMinHeight: =100
+                            LayoutMinWidth: =250
+                            RadiusBottomLeft: =10
+                            RadiusBottomRight: =10
+                            RadiusTopLeft: =10
+                            RadiusTopRight: =10
+                            ZIndex: =20
+
+                            Container8_16 As groupContainer.horizontalAutoLayoutContainer:
+                                DropShadow: =DropShadow.None
+                                Fill: =RGBA(45, 65, 93, 1)
+                                Height: =Parent.Height
+                                LayoutDirection: =LayoutDirection.Vertical
+                                LayoutMode: =LayoutMode.Auto
+                                PaddingBottom: =5
+                                PaddingLeft: =5
+                                PaddingRight: =5
+                                PaddingTop: =5
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Width: =Parent.Width
+                                ZIndex: =21
+
+                                Gallery3_7 As gallery.variableTemplateHeightGallery:
+                                    '#CopilotOverlayLabel': ="Filtrada"
+                                    BorderColor: =
+                                    DelayItemLoading: =true
+                                    Height: =Parent.Height
+                                    Items: |-
+                                        =Filter(sigd_cadastro_prestadores_servicos, 
+                                            (IsBlank(TextInput1_21.Selected.razao_social) || razao_social = TextInput1_21.Selected.razao_social))
+                                    Layout: =Layout.Vertical
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =320
+                                    LoadingSpinner: =LoadingSpinner.Data
+                                    ShowScrollbar: =false
+                                    TemplateSize: =75
+                                    Width: =Parent.Width
+                                    ZIndex: =22
+
+                                    Container34_7 As groupContainer.manualLayoutContainer:
+                                        DropShadow: =DropShadow.Semilight
+                                        Height: =Parent.TemplateHeight
+                                        PaddingLeft: =20
+                                        PaddingRight: =20
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        Width: =Parent.Width - 10
+                                        ZIndex: =23
+
+                                        HtmlText1_6 As htmlViewer:
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =Parent.Height
+                                            HtmlText: |-
+                                                ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>" &
+                                                    "" &
+                                                    "<div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>" &
+                                                        Coalesce(ThisItem.razao_social, "-") & " - " & Coalesce(ThisItem.cnpj, "-") &
+                                                    "</div>" &
+                                                
+                                                    "" &
+                                                    "<div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>" &
+                                                
+                                                        "<div style='flex:1'><strong>Nome Representante:</strong> " & Coalesce(ThisItem.nome_representante, "-") & "</div>" &
+                                                
+                                                        "<div style='flex:1'><strong>Telefone:</strong> " & Coalesce(ThisItem.telefone_contato, "-") & "</div>" &
+                                                
+                                                        "<div style='flex:1'><strong>E-mail:</strong> " & Coalesce(ThisItem.email_contato, "-") & "</div>" &
+                                                    "</div>" &
+                                                "</div>"
+                                            Width: =Parent.Width
+                                            ZIndex: =24
+
+                                        Button6 As button:
+                                            BorderThickness: =0
+                                            Color: =RGBA(0, 0, 0, 0)
+                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                            Fill: =RGBA(0, 0, 0, 0)
+                                            Height: =Parent.Height
+                                            HoverColor: =RGBA(0, 0, 0, 0)
+                                            HoverFill: =
+                                            OnSelect: =Set(varVisualizarContratoPS, true)
+                                            Text: =
+                                            Width: =Parent.Width
+                                            ZIndex: =25
+
+                            Container19_2 As groupContainer.manualLayoutContainer:
+                                Fill: =RGBA(227, 234, 243, 0.7)
+                                Height: =Parent.Height
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Visible: =varVisualizarContratoPS
+                                Width: =Parent.Width
+                                ZIndex: =30
+
+                                Container35_2 As groupContainer.verticalAutoLayoutContainer:
+                                    BorderColor: =RGBA(227, 234, 243, 1)
+                                    BorderThickness: =2
+                                    DropShadow: =DropShadow.Bold
+                                    Fill: =RGBA(227, 234, 243, 1)
+                                    Height: |
+                                        =640
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =10
+                                    LayoutMode: =LayoutMode.Auto
+                                    PaddingBottom: =5
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    PaddingTop: =10
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =1200    
+                                    X: =Parent.Width / 6
+                                    Y: =30
+                                    ZIndex: =31
+
+                                    Container36_6 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        FillPortions: =0
+                                        Height: =50
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        ZIndex: =32
+
+                                        Label6_190 As label:
+                                            Align: =Align.Center
+                                            BorderColor: =RGBA(122, 111, 150, 1)
+                                            BorderStyle: =BorderStyle.None
+                                            Color: =RGBA(255, 255, 255, 1)
+                                            Font: =Font.Arial
+                                            FontWeight: =FontWeight.Bold
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =15
+                                            Text: =Concatenate("PRESTADOR DE SERVIÇO - ", Upper(varPSSelect.razao_social_ps))
+                                            Width: =Parent.Width
+                                            ZIndex: =33
+
+                                    Container36_7 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Height: =70
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        ZIndex: =34
+
+                                        FormPS_Edicao_2 As form:
+                                            DataSource: =sigd_prestadores_servicos
+                                            FocusedBorderThickness: =5
+                                            Height: =Parent.Height
+                                            Item: =varPSSelect
+                                            NumberOfColumns: =4
+                                            Width: =Parent.Width
+                                            ZIndex: =35
+
+                                            id_contrato_DataCard2_2 As typedDataCard.allowedValuesStringEditCard:
+                                                AllowedValues: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.AllowedValues, id_contrato)
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="id_contrato"
+                                                Default: =ThisItem.id_contrato
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,id_contrato)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =DataCardValue41_2.Selected.idContrato
+                                                Width: =125
+                                                X: =0
+                                                Y: =0
+                                                ZIndex: =36
+
+                                                StarVisible40_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey40_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey40_2.Y
+                                                    ZIndex: =37
+
+                                                DataCardKey40_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="CONTRATO BONIN"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =38
+
+                                                DataCardValue41_2 As dropdown:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    Items: =Contratos.idContrato
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey40_2.Y + DataCardKey40_2.Height + 5
+                                                    ZIndex: =39
+
+                                                ErrorMessage40_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue41_2.Y + DataCardValue41_2.Height
+                                                    ZIndex: =40
+
+                                            centro_custo_DataCard1_2 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="centro_custo"
+                                                Default: =ThisItem.centro_custo
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,centro_custo)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.MaxLength, centro_custo)
+                                                Required: =false
+                                                Update: =DataCardValue37_2.Text
+                                                Width: =125
+                                                X: =1
+                                                Y: =0
+                                                ZIndex: =41
+
+                                                StarVisible36_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey36_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey36_2.Y
+                                                    ZIndex: =42
+
+                                                DataCardKey36_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="CENTRO DE CUSTO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =43
+
+                                                DataCardValue37_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =LookUp(Contratos, idContrato = DataCardValue41_2.Selected.idContrato, Referencia)
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey36_2.Y + DataCardKey36_2.Height + 5
+                                                    ZIndex: =44
+
+                                                ErrorMessage36_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue37_2.Y + DataCardValue37_2.Height
+                                                    ZIndex: =45
+
+                                            objeto_contratual_DataCard1_2 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="objeto_contratual"
+                                                Default: =ThisItem.objeto_contratual
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,objeto_contratual)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =66
+                                                MaxLength: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.MaxLength, objeto_contratual)
+                                                Required: =false
+                                                Update: =DataCardValue29_2.Text
+                                                Width: =125
+                                                X: =2
+                                                Y: =0
+                                                ZIndex: =46
+
+                                                StarVisible28_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey28_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey28_2.Y
+                                                    ZIndex: =47
+
+                                                DataCardKey28_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="OBJETO CONTRATUAL"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =48
+
+                                                DataCardValue29_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey28_2.Y + DataCardKey28_2.Height + 5
+                                                    ZIndex: =49
+
+                                                ErrorMessage28_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue29_2.Y + DataCardValue29_2.Height
+                                                    ZIndex: =50
+
+                                            razao_social_ps_DataCard1_1 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="razao_social_ps"
+                                                Default: =ThisItem.razao_social_ps
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,razao_social_ps)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.MaxLength, razao_social_ps)
+                                                Required: =false
+                                                Update: =DataCardValue31_1.Text
+                                                Width: =125
+                                                X: =3
+                                                Y: =0
+                                                ZIndex: =51
+
+                                                StarVisible30_1 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey30_1.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey30_1.Y
+                                                    ZIndex: =52
+
+                                                DataCardKey30_1 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="RAZÃO SOCIAL"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =53
+
+                                                DataCardValue31_1 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey30_1.Y + DataCardKey30_1.Height + 5
+                                                    ZIndex: =54
+
+                                                ErrorMessage30_1 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue31_1.Y + DataCardValue31_1.Height
+                                                    ZIndex: =55
+
+                                            cnpj_ps_DataCard1_2 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="cnpj_ps"
+                                                Default: =ThisItem.cnpj_ps
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,cnpj_ps)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.MaxLength, cnpj_ps)
+                                                Required: =false
+                                                Update: =DataCardValue32_2.Text
+                                                Width: =125
+                                                X: =0
+                                                Y: =1
+                                                ZIndex: =56
+
+                                                StarVisible31_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey31_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey31_2.Y
+                                                    ZIndex: =57
+
+                                                DataCardKey31_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="CNPJ"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =58
+
+                                                DataCardValue32_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey31_2.Y + DataCardKey31_2.Height + 5
+                                                    ZIndex: =59
+
+                                                ErrorMessage31_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue32_2.Y + DataCardValue32_2.Height
+                                                    ZIndex: =60
+
+                                            valor_total_ps_DataCard1_2 As typedDataCard.numberEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="valor_total_ps"
+                                                Default: =ThisItem.valor_total_ps
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,valor_total_ps)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =Value(DataCardValue33_2.Text)
+                                                Width: =125
+                                                X: =1
+                                                Y: =1
+                                                ZIndex: =61
+
+                                                StarVisible32_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey32_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey32_2.Y
+                                                    ZIndex: =62
+
+                                                DataCardKey32_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="VALOR DO CONTRATO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =63
+
+                                                DataCardValue33_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Format: =TextFormat.Number
+                                                    Height: =28
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey32_2.Y + DataCardKey32_2.Height + 5
+                                                    ZIndex: =64
+
+                                                ErrorMessage32_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue33_2.Y + DataCardValue33_2.Height
+                                                    ZIndex: =65
+
+                                            data_solicitacao_DataCard1_2 As typedDataCard.dateEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="data_solicitacao"
+                                                Default: =ThisItem.data_solicitacao
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,data_solicitacao)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =DataCardValue35_2.SelectedDate
+                                                Width: =125
+                                                X: =2
+                                                Y: =1
+                                                ZIndex: =66
+
+                                                StarVisible34_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey34_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey34_2.Y
+                                                    ZIndex: =67
+
+                                                DataCardKey34_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="DATA DA SOLICITAÇÃO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =68
+
+                                                DataCardValue35_2 As datepicker:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    DefaultDate: =Parent.Default
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    EndYear: =Year(Today())+100
+                                                    Height: =28
+                                                    IsEditable: =true
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                    Size: =10
+                                                    StartYear: =1899
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey34_2.Y + DataCardKey34_2.Height + 5
+                                                    ZIndex: =69
+
+                                                ErrorMessage34_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue35_2.Y + DataCardValue35_2.Height
+                                                    ZIndex: =70
+
+                                            data_aprovacao_DataCard1_1 As typedDataCard.dateEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="data_aprovacao"
+                                                Default: =ThisItem.data_aprovacao
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,data_aprovacao)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =DataCardValue36_1.SelectedDate
+                                                Width: =125
+                                                X: =3
+                                                Y: =1
+                                                ZIndex: =71
+
+                                                StarVisible35_1 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey35_1.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey35_1.Y
+                                                    ZIndex: =72
+
+                                                DataCardKey35_1 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="DATA APROVAÇÃO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =73
+
+                                                DataCardValue36_1 As datepicker:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    DefaultDate: =Parent.Default
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    EndYear: =Year(Today())+100
+                                                    Height: =28
+                                                    IsEditable: =true
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                    Size: =10
+                                                    StartYear: =1899
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey35_1.Y + DataCardKey35_1.Height + 5
+                                                    ZIndex: =74
+
+                                                ErrorMessage35_1 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue36_1.Y + DataCardValue36_1.Height
+                                                    ZIndex: =75
+
+                                            prazo_mes_DataCard1_2 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="prazo_mes"
+                                                Default: =ThisItem.prazo_mes
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,prazo_mes)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.MaxLength, prazo_mes)
+                                                Required: =false
+                                                Update: =DataCardValue42_2.Text
+                                                Width: =125
+                                                X: =0
+                                                Y: =2
+                                                ZIndex: =76
+
+                                                StarVisible41_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey41_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey41_2.Y
+                                                    ZIndex: =77
+
+                                                DataCardKey41_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="PRAZO EM MESES"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =78
+
+                                                DataCardValue42_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey41_2.Y + DataCardKey41_2.Height + 5
+                                                    ZIndex: =79
+
+                                                ErrorMessage41_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue42_2.Y + DataCardValue42_2.Height
+                                                    ZIndex: =80
+
+                                            prazo_dia_DataCard1_2 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="prazo_dia"
+                                                Default: =ThisItem.prazo_dia
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,prazo_dia)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_prestadores_servicos], DataSourceInfo.MaxLength, prazo_dia)
+                                                Required: =false
+                                                Update: =DataCardValue43_2.Text
+                                                Width: =125
+                                                X: =1
+                                                Y: =2
+                                                ZIndex: =81
+
+                                                StarVisible42_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey42_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey42_2.Y
+                                                    ZIndex: =82
+
+                                                DataCardKey42_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="PRAZO EM DIAS"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =83
+
+                                                DataCardValue43_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey42_2.Y + DataCardKey42_2.Height + 5
+                                                    ZIndex: =84
+
+                                                ErrorMessage42_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue43_2.Y + DataCardValue43_2.Height
+                                                    ZIndex: =85
+
+                                            tipo_pagamento_DataCard1_2 As typedDataCard.comboBoxEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="tipo_pagamento"
+                                                Default: =ThisItem.tipo_pagamento
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,tipo_pagamento)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =DataCardValue38_2.Selected
+                                                Width: =125
+                                                X: =2
+                                                Y: =2
+                                                ZIndex: =86
+
+                                                StarVisible37_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey37_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey37_2.Y
+                                                    ZIndex: =87
+
+                                                DataCardKey37_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="TIPO DO PAGAMENTO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =88
+
+                                                DataCardValue38_2 As combobox:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    DefaultSelectedItems: =Parent.Default
+                                                    DisplayFields: =["Value"]
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    Items: =Choices([@sigd_prestadores_servicos].tipo_pagamento)
+                                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                    SearchFields: =["Value"]
+                                                    SearchItems: =Choices(sigd_prestadores_servicos.tipo_pagamento,DataCardValue38_2.SearchText)
+                                                    SelectMultiple: =false
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey37_2.Y + DataCardKey37_2.Height + 5
+                                                    ZIndex: =89
+
+                                                ErrorMessage37_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue38_2.Y + DataCardValue38_2.Height
+                                                    ZIndex: =90
+
+                                            valor_mensal_DataCard1_2 As typedDataCard.numberEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="valor_mensal"
+                                                Default: =ThisItem.valor_mensal
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,valor_mensal)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =Value(DataCardValue34_2.Text)
+                                                Visible: =If(DataCardValue38_2.Selected.Value = "Único", false, true)
+                                                Width: =125
+                                                X: =3
+                                                Y: =2
+                                                ZIndex: =91
+
+                                                StarVisible33_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey33_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey33_2.Y
+                                                    ZIndex: =92
+
+                                                DataCardKey33_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="VALOR MENSAL"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =93
+
+                                                DataCardValue34_2 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Format: =TextFormat.Number
+                                                    Height: =28
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey33_2.Y + DataCardKey33_2.Height + 5
+                                                    ZIndex: =94
+
+                                                ErrorMessage33_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue34_2.Y + DataCardValue34_2.Height
+                                                    ZIndex: =95
+
+                                            Anexos_DataCard1_2 As typedDataCard.attachmentsEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="{Attachments}"
+                                                Default: =ThisItem.Anexos
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_prestadores_servicos],DataSourceInfo.DisplayName,Anexos)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                Required: =false
+                                                Update: =DataCardValue44_2.Attachments
+                                                Width: =125
+                                                X: =0
+                                                Y: =3
+                                                ZIndex: =96
+
+                                                StarVisible43_2 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey43_2.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey43_2.Y
+                                                    ZIndex: =97
+
+                                                DataCardKey43_2 As label:
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="ANEXO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =98
+
+                                                DataCardValue44_2 As attachments:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =112
+                                                    IsInDataCard: =true
+                                                    Items: =Parent.Default
+                                                    PaddingBottom: =5
+                                                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                    PaddingRight: =5
+                                                    PaddingTop: =5
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey43_2.Y + DataCardKey43_2.Height + 5
+                                                    ZIndex: =99
+
+                                                ErrorMessage43_2 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue44_2.Y + DataCardValue44_2.Height
+                                                    ZIndex: =100
+
+                                    Container36_8 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        FillPortions: =0
+                                        Height: =40
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        ZIndex: =101
+
+                                        Button5_4 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: =Set(varVisualizarContratoPS,false);
+                                            Text: ="Fechar"
+                                            X: =30
+                                            Y: =5
+                                            ZIndex: =102
+
+                                        Button5_5 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |-
+                                                =SubmitForm(FormPS_Edicao_2);
+                                                Set(varVisualizarContratoPS,false)
+                                            Text: ="Salvar"
+                                            X: =Parent.Width - Self.Width - 30
+                                            Y: =5
+                                            ZIndex: =103
+
+                            Container19_3 As groupContainer.manualLayoutContainer:
+                                Fill: =RGBA(227, 234, 243, 0.8)
+                                Height: =Parent.Height
+                                RadiusBottomLeft: =10
+                                RadiusBottomRight: =10
+                                RadiusTopLeft: =10
+                                RadiusTopRight: =10
+                                Visible: =varCadastrarContratoPS
+                                Width: =Parent.Width
+                                ZIndex: =104
+
+                                Container35_3 As groupContainer.horizontalAutoLayoutContainer:
+                                    BorderColor: =RGBA(227, 234, 243, 1)
+                                    BorderThickness: =2
+                                    DropShadow: =DropShadow.Bold
+                                    Fill: =RGBA(227, 234, 243, 1)
+                                    Height: =550
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =10
+                                    LayoutMode: =LayoutMode.Auto
+                                    PaddingBottom: =5
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    PaddingTop: =10
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =1200
+                                    X: =Parent.Width / 6
+                                    Y: =50
+                                    ZIndex: =105
+
+                                    Container36_9 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        FillPortions: =0
+                                        Height: =50
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        ZIndex: =106
+
+                                        Label6_191 As label:
+                                            Align: =Align.Center
+                                            BorderColor: =RGBA(122, 111, 150, 1)
+                                            BorderStyle: =BorderStyle.None
+                                            Color: =RGBA(255, 255, 255, 1)
+                                            Font: =Font.Arial
+                                            FontWeight: =FontWeight.Bold
+                                            Height: =Parent.Height
+                                            PaddingBottom: =0
+                                            PaddingLeft: =0
+                                            PaddingRight: =0
+                                            PaddingTop: =0
+                                            Size: =15
+                                            Text: =Concatenate("CADASTRAR NOVO PRESTADOR DE SERVIÇO")
+                                            Width: =Parent.Width
+                                            ZIndex: =107
+
+                                    Container36_10 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        Height: =70
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        ZIndex: =108
+
+                                        FormPS_Edicao_3 As form:
+                                            AcceptsFocus: =false
+                                            DataSource: =sigd_cadastro_prestadores_servicos
+                                            DefaultMode: =FormMode.New
+                                            FocusedBorderThickness: =5
+                                            Height: =Parent.Height
+                                            NumberOfColumns: =4
+                                            Width: =Parent.Width
+                                            ZIndex: =109
+
+                                            razao_social_DataCard1 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="razao_social"
+                                                Default: =ThisItem.razao_social
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_cadastro_prestadores_servicos],DataSourceInfo.DisplayName,razao_social)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_cadastro_prestadores_servicos], DataSourceInfo.MaxLength, razao_social)
+                                                Required: =false
+                                                Update: =DataCardValue47.Text
+                                                Width: =295
+                                                X: =0
+                                                Y: =0
+                                                ZIndex: =110
+
+                                                DataCardKey46 As label:
+                                                    Align: =Align.Center
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="RAZÃO SOCIAL"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =1
+
+                                                DataCardValue47 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =28
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey46.Y + DataCardKey46.Height + 5
+                                                    ZIndex: =2
+
+                                                ErrorMessage46 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue47.Y + DataCardValue47.Height
+                                                    ZIndex: =3
+
+                                                StarVisible46 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey46.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey46.Y
+                                                    ZIndex: =4
+
+                                            cnpj_DataCard1 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="cnpj"
+                                                Default: =ThisItem.cnpj
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_cadastro_prestadores_servicos],DataSourceInfo.DisplayName,cnpj)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_cadastro_prestadores_servicos], DataSourceInfo.MaxLength, cnpj)
+                                                Required: =false
+                                                Update: =DataCardValue48.Text
+                                                Width: =295
+                                                X: =1
+                                                Y: =0
+                                                ZIndex: =110
+
+                                                DataCardKey47 As label:
+                                                    Align: =Align.Center
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="CNPJ"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =1
+
+                                                DataCardValue48 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey47.Y + DataCardKey47.Height + 5
+                                                    ZIndex: =2
+
+                                                ErrorMessage47 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue48.Y + DataCardValue48.Height
+                                                    ZIndex: =3
+
+                                                StarVisible47 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey47.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey47.Y
+                                                    ZIndex: =4
+
+                                            nome_representante_DataCard1 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="nome_representante"
+                                                Default: =ThisItem.nome_representante
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_cadastro_prestadores_servicos],DataSourceInfo.DisplayName,nome_representante)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_cadastro_prestadores_servicos], DataSourceInfo.MaxLength, nome_representante)
+                                                Required: =false
+                                                Update: =DataCardValue49.Text
+                                                Width: =590
+                                                X: =2
+                                                Y: =0
+                                                ZIndex: =110
+
+                                                DataCardKey48 As label:
+                                                    Align: =Align.Center
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="NOME REPRESENTANTE"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =1
+
+                                                DataCardValue49 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey48.Y + DataCardKey48.Height + 5
+                                                    ZIndex: =2
+
+                                                ErrorMessage48 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue49.Y + DataCardValue49.Height
+                                                    ZIndex: =3
+
+                                                StarVisible48 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey48.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey48.Y
+                                                    ZIndex: =4
+
+                                            telefone_contato_DataCard1 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="telefone_contato"
+                                                Default: =ThisItem.telefone_contato
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_cadastro_prestadores_servicos],DataSourceInfo.DisplayName,telefone_contato)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_cadastro_prestadores_servicos], DataSourceInfo.MaxLength, telefone_contato)
+                                                Required: =false
+                                                Update: =DataCardValue50.Text
+                                                Width: =295
+                                                X: =0
+                                                Y: =1
+                                                ZIndex: =110
+
+                                                DataCardKey49 As label:
+                                                    Align: =Align.Center
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="TELEFONE DE CONTATO"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =1
+
+                                                DataCardValue50 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey49.Y + DataCardKey49.Height + 5
+                                                    ZIndex: =2
+
+                                                ErrorMessage49 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue50.Y + DataCardValue50.Height
+                                                    ZIndex: =3
+
+                                                StarVisible49 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey49.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey49.Y
+                                                    ZIndex: =4
+
+                                            email_contato_DataCard1 As typedDataCard.textualEditCard:
+                                                BorderStyle: =BorderStyle.Solid
+                                                DataField: ="email_contato"
+                                                Default: =ThisItem.email_contato
+                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayName: =DataSourceInfo([@sigd_cadastro_prestadores_servicos],DataSourceInfo.DisplayName,email_contato)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =50
+                                                MaxLength: =DataSourceInfo([@sigd_cadastro_prestadores_servicos], DataSourceInfo.MaxLength, email_contato)
+                                                Required: =false
+                                                Update: =DataCardValue51.Text
+                                                Width: =590
+                                                X: =1
+                                                Y: =1
+                                                ZIndex: =110
+
+                                                DataCardKey50 As label:
+                                                    Align: =Align.Center
+                                                    AutoHeight: =true
+                                                    Color: =RGBA(255, 255, 255, 1)
+                                                    Height: =34
+                                                    Size: =11
+                                                    Text: ="E-MAIL"
+                                                    Width: =Parent.Width - 60
+                                                    Wrap: =false
+                                                    X: =30
+                                                    Y: =10
+                                                    ZIndex: =1
+
+                                                DataCardValue51 As text:
+                                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                    Default: =Parent.Default
+                                                    DelayOutput: =true
+                                                    DisplayMode: =Parent.DisplayMode
+                                                    Height: =28
+                                                    MaxLength: =Parent.MaxLength
+                                                    PaddingLeft: =5
+                                                    RadiusBottomLeft: =0
+                                                    RadiusBottomRight: =0
+                                                    RadiusTopLeft: =0
+                                                    RadiusTopRight: =0
+                                                    Size: =10
+                                                    Tooltip: =Parent.DisplayName
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardKey50.Y + DataCardKey50.Height + 5
+                                                    ZIndex: =2
+
+                                                ErrorMessage50 As label:
+                                                    AutoHeight: =true
+                                                    Height: =10
+                                                    Live: =Live.Assertive
+                                                    PaddingBottom: =0
+                                                    PaddingLeft: =0
+                                                    PaddingRight: =0
+                                                    PaddingTop: =0
+                                                    Text: =Parent.Error
+                                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                    Width: =Parent.Width - 60
+                                                    X: =30
+                                                    Y: =DataCardValue51.Y + DataCardValue51.Height
+                                                    ZIndex: =3
+
+                                                StarVisible50 As label:
+                                                    Align: =Align.Center
+                                                    Height: =DataCardKey50.Height
+                                                    Text: ="*"
+                                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                    Width: =30
+                                                    Wrap: =false
+                                                    Y: =DataCardKey50.Y
+                                                    ZIndex: =4
+
+                                    Container36_11 As groupContainer.manualLayoutContainer:
+                                        Fill: =RGBA(45, 65, 93, 1)
+                                        FillPortions: =0
+                                        Height: =40
+                                        LayoutMinHeight: =100
+                                        LayoutMinWidth: =250
+                                        RadiusBottomLeft: =10
+                                        RadiusBottomRight: =10
+                                        RadiusTopLeft: =10
+                                        RadiusTopRight: =10
+                                        ZIndex: =170
+
+                                        Button5_6 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: =Set(varCadastrarContratoPS,false);
+                                            Text: ="Fechar"
+                                            X: =30
+                                            Y: =5
+                                            ZIndex: =171
+
+                                        Button5_7 As button:
+                                            Color: =RGBA(45, 65, 93, 1)
+                                            Fill: =RGBA(255, 255, 255, 1)
+                                            Height: =Parent.Height - Self.Y * 2
+                                            OnSelect: |-
+                                                =SubmitForm(FormPS_Edicao_3);
+                                                Set(varCadastrarContratoPS,false)
+                                            Text: ="Cadastrar Novo Prestador"
+                                            Width: =250
+                                            X: =Parent.Width - Self.Width - 30
+                                            Y: =5
+                                            ZIndex: =172
+

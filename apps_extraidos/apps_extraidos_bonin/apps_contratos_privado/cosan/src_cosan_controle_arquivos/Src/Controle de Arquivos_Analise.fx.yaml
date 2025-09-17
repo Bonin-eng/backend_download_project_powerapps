@@ -1,0 +1,396 @@
+"'Controle de Arquivos_Analise' As screen":
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: |-
+        = UpdateContext({VarPopupConclusão: false});
+         UpdateContext({VarPopupCadastrar: false});
+
+    ctn_Arquivos_Geral_Analise As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.Semilight
+        Height: =Parent.Height - Self.Y - 6
+        LayoutGap: =5
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Width: =Parent.Width - 12
+        X: =(Parent.Width - Self.Width)/2
+        Y: =cmpCabecalhoTelas_3.Y + cmpCabecalhoTelas_3.Height
+        ZIndex: =2
+
+        cmpMenuLateral_3 As cmpMenuLateral:
+            Height: =Parent.Height
+            LayoutMinHeight: =640
+            LayoutMinWidth: =640
+            Width: =If(cmpMenuLateral_3.FecharMenu = true, 85, 220)
+            Y: =65
+
+        ctn_Arquivos_Secundario_Analise As groupContainer.verticalAutoLayoutContainer:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            ZIndex: =2
+
+            ctn_Arquivos_btn_Filtros_1 As groupContainer.horizontalAutoLayoutContainer:
+                Fill: =RGBA(234, 238, 244, 1)
+                FillPortions: =0
+                Height: =30
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =5
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =30
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =5
+                PaddingRight: =5
+                Visible: =If(VarPopupConclusão = true || VarPopupCadastrar = true, false,true)
+                ZIndex: =5
+
+                txt_search_1 As text:
+                    BorderColor: =App.Theme.Colors.Darker40
+                    BorderThickness: =1
+                    Clear: =true
+                    Default: =
+                    FocusedBorderThickness: =1
+                    Font: =App.Theme.Font
+                    Height: =25
+                    HintText: ="🔎 Digite o nome do arquivo para filtrar"
+                    HoverBorderColor: =App.Theme.Colors.Darker40
+                    HoverFill: =App.Theme.Colors.Lighter70
+                    PaddingBottom: =0
+                    PaddingLeft: =5
+                    PaddingTop: =0
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Size: =8
+                    Width: =250
+                    ZIndex: =1
+
+                ComboBox1_5 As combobox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderThickness: =1
+                    ChevronBackground: =RGBA(45, 65, 93, 1)
+                    ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                    DisplayFields: =["Value"]
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =25
+                    InputTextPlaceholder: ="Filtrar Etapa"
+                    Items: =Sort(Distinct(Controle_Entrada_Arquivos.Etapa, Etapa.Value), "Value", SortOrder.Ascending)
+                    LayoutMinWidth: =50
+                    PressedFill: =RGBA(45, 65, 93, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =Search(Sort(Distinct(Controle_Entrada_Arquivos.Etapa,Etapa.Value),"Value",SortOrder.Ascending),ComboBox1_5.SearchText,Value)
+                    SelectionFill: =RGBA(45, 65, 93, 1)
+                    SelectMultiple: =false
+                    Size: =8
+                    ZIndex: =2
+
+                ComboBox1_7 As combobox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderThickness: =1
+                    ChevronBackground: =RGBA(45, 65, 93, 1)
+                    ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                    DisplayFields: =["Value"]
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =25
+                    InputTextPlaceholder: ="Filtrar Disciplina"
+                    Items: =Sort(Distinct(Controle_Entrada_Arquivos.Disciplina, Disciplina.Value), "Value", SortOrder.Ascending)
+                    LayoutMinWidth: =50
+                    PressedFill: =RGBA(45, 65, 93, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =Search(Sort(Distinct(Controle_Entrada_Arquivos.Disciplina,Disciplina.Value),"Value",SortOrder.Ascending),ComboBox1_7.SearchText,Value)
+                    SelectionFill: =RGBA(45, 65, 93, 1)
+                    SelectMultiple: =false
+                    Size: =8
+                    ZIndex: =3
+
+                ComboBox1_8 As combobox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderThickness: =1
+                    ChevronBackground: =RGBA(45, 65, 93, 1)
+                    ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                    DisplayFields: =["Value"]
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =25
+                    InputTextPlaceholder: ="Filtrar Analista"
+                    Items: =Sort(Distinct(Controle_Entrada_Arquivos.Analista, Analista), "Value", SortOrder.Ascending)
+                    LayoutMinWidth: =50
+                    PressedFill: =RGBA(45, 65, 93, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =Search(Sort(Distinct(Controle_Entrada_Arquivos.Analista,Analista),"Value",SortOrder.Ascending),ComboBox1_8.SearchText,Value)
+                    SelectionFill: =RGBA(45, 65, 93, 1)
+                    SelectMultiple: =false
+                    Size: =8
+                    ZIndex: =4
+
+                ComboBox1_6 As combobox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderThickness: =1
+                    ChevronBackground: =RGBA(45, 65, 93, 1)
+                    ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                    DisplayFields: =["Value"]
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =25
+                    InputTextPlaceholder: ="Filtrar Projetista"
+                    Items: =Sort(Distinct(Controle_Entrada_Arquivos.Projetista, Projetista), "Value", SortOrder.Ascending)
+                    LayoutMinWidth: =50
+                    PressedFill: =RGBA(45, 65, 93, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =Search(Sort(Distinct(Controle_Entrada_Arquivos.Projetista,Projetista),"Value",SortOrder.Ascending),ComboBox1_6.SearchText,Value)
+                    SelectionFill: =RGBA(45, 65, 93, 1)
+                    SelectMultiple: =false
+                    Size: =8
+                    ZIndex: =5
+
+                ComboBox1_9 As combobox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderThickness: =1
+                    ChevronBackground: =RGBA(45, 65, 93, 1)
+                    ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                    DefaultSelectedItems: =["Em análise"]
+                    DisplayFields: =["Value"]
+                    FillPortions: =1
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =25
+                    InputTextPlaceholder: ="Filtrar Status"
+                    Items: =Sort(Distinct(Controle_Entrada_Arquivos.Status, Status.Value), "Value", SortOrder.Ascending)
+                    LayoutMinWidth: =50
+                    PressedFill: =RGBA(45, 65, 93, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =Search(Sort(Distinct(Controle_Entrada_Arquivos.Status,Status.Value),"Value",SortOrder.Ascending),ComboBox1_9.SearchText,Value)
+                    SelectionFill: =RGBA(45, 65, 93, 1)
+                    SelectMultiple: =false
+                    Size: =8
+                    ZIndex: =6
+
+            gal_Arquivos_1 As gallery.variableTemplateHeightGallery:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DelayItemLoading: =true
+                Items: |
+                    =SortByColumns(
+                        Search(
+                        Filter(
+                            Controle_Entrada_Arquivos,
+                            (IsBlank(ComboBox1_5.Selected.Value) || Etapa.Value = ComboBox1_5.Selected.Value) &&
+                            (IsBlank(ComboBox1_6.Selected.Value) || Projetista = ComboBox1_6.Selected.Value) &&
+                            (IsBlank(ComboBox1_7.Selected.Value) || Disciplina.Value = ComboBox1_7.Selected.Value) &&
+                            (IsBlank(ComboBox1_8.Selected.Value) || Analista = ComboBox1_8.Selected.Value) &&
+                            (IsBlank(ComboBox1_9.Selected.Value) || Status.Value = ComboBox1_9.Selected.Value)
+                        ),txt_search_1.Text, Referencia),
+                        "Data_entrada",
+                        SortOrder.Descending
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =320
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplatePadding: =0
+                TemplateSize: =280
+                ZIndex: =111
+
+                HtmlText1_1 As htmlViewer:
+                    AutoHeight: =true
+                    HtmlText: |
+                        ="<div style='
+                          background:#fff;
+                          border-radius:10px;
+                          box-shadow:0 1px 4px rgba(44,62,80,0.10);
+                          padding:5px 5px;
+                          margin-left:5px;
+                          margin-right:20px;
+                          display:flex;
+                          flex-direction:column;
+                          font-family:Segoe UI, Arial, sans-serif;
+                          font-size:11px;
+                          color:#273651;
+                        '>
+                        
+                          <!-- 1ª linha: Arquivo, Assunto, Status, Botão -->
+                          <div style='display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px; align-items:center;'>
+                            <!-- ARQUIVO -->
+                            <div style='flex:1 1 25%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#2258a5; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Arquivo:
+                                <span style='font-weight:700; color:#222;'> " & ThisItem.Referencia & "</span>
+                              </span>
+                            </div>
+                            <!-- ASSUNTO -->
+                            <div style='flex:2 1 40%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#3182ce; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Assunto:
+                                <span style='font-weight:700; color:#222;'> " & Upper(ThisItem.Assunto) & "</span>
+                              </span>
+                            </div>
+                            <!-- STATUS -->
+                            <div style='flex:1 1 20%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#387c37; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Status:
+                                <span style='
+                                  background:#e6f8e4;
+                                  color:#2b6844;
+                                  border-radius:5px;
+                                  padding:1.5px 7px;
+                                  font-size:11px;
+                                  font-weight:700;
+                                  display:inline-block;
+                                '>
+                                  " & ThisItem.Status.Value & "
+                                </span>
+                              </span>
+                            </div>
+                            <!-- BOTÃO DOWNLOAD -->
+                            <div style='margin-left:auto; display:flex; align-items:center;'>
+                              <div style='
+                                background:transparent;
+                                color:#1a4e8a;
+                                padding:4px 10px;
+                                border-radius:5px;
+                                font-weight:600;
+                                font-size:11px;
+                                width:80px;
+                                text-align:center;
+                              '></div>
+                            </div>
+                          </div>
+                        
+                          <!-- 2ª linha: Disciplina, Analista, Etapa, Botão -->
+                          <div style='display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px; align-items:center;'>
+                            <!-- DISCIPLINA -->
+                            <div style='flex:1 1 25%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#174d36; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Disciplina:
+                                <span style='color:#222;'> " & ThisItem.Disciplina.Value & "</span>
+                              </span>
+                            </div>
+                            <!-- ANALISTA -->
+                            <div style='flex:2 1 40%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#b93d6c; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Analista:
+                                <span style='color:#222;'> " & ThisItem.Analista & "</span>
+                              </span>
+                            </div>
+                            <!-- ETAPA -->
+                            <div style='flex:1 1 20%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#254d90; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Etapa:
+                                <span style='color:#254d90;'> " & ThisItem.Etapa.Value & "</span>
+                              </span>
+                            </div>
+                            <!-- BOTÃO DOWNLOAD -->
+                            <div style='margin-left:auto; display:flex; align-items:center;'>
+                              <div style='
+                                background:#d0e6ff;
+                                color:#1a4e8a;
+                                padding:4px 10px;
+                                border-radius:5px;
+                                font-weight:600;
+                                font-size:11px;
+                                width:80px;
+                                text-align:center;
+                              '>⬇️ Baixar</div>
+                            </div>
+                          </div>
+                        
+                          <!-- 3ª linha: Entrada, Revisão, Dias, Botão -->
+                          <div style='display:flex; flex-wrap:wrap; gap:5px; align-items:center;'>
+                            <!-- ENTRADA -->
+                            <div style='flex:1 1 25%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#1d3359; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Entrada:
+                                <span style='color:#1d3359;'> " & If(
+                                  !IsBlank(ThisItem.Data_entrada),
+                                  Text(ThisItem.Data_entrada, "[$-pt-BR]dd/mm/yyyy"),
+                                  "<span style=\'color:#b0b0b0; font-style:italic;\'>-</span>"
+                                ) & "</span>
+                              </span>
+                            </div>
+                            <!-- REVISÃO -->
+                            <div style='flex:2 1 40%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#7847b8; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                Revisão:
+                                <span style='color:#7847b8;'> R" & Text(ThisItem.Revisao,"00") & "</span>
+                              </span>
+                            </div>
+                            <!-- DIAS -->
+                            <div style='flex:1 1 20%; display:flex; flex-direction:column;'>
+                              <span style='font-weight:600; color:#e47b1a; font-size:11px; display:flex; align-items:center; gap:2px;'>
+                                " & If(ThisItem.Status.Value = "Em análise","Dias em análise: ", "Dias de análise: ") & "
+                                <span style='color:#e47b1a;'> " & If(ThisItem.Status.Value = "Em análise", DateDiff(ThisItem.Data_entrada, Today(), TimeUnit.Days), ThisItem.Dias) & "</span>
+                              </span>
+                            </div>
+                            <!-- BOTÃO EDITAR -->
+                            <div style='margin-left:auto; display:flex; align-items:center;'>
+                              <div style='
+                                background:trasparent;
+                                color:#a02a57;
+                                padding:4px 10px;
+                                border-radius:5px;
+                                font-weight:600;
+                                font-size:11px;
+                                width:80px;
+                                text-align:center;
+                              '></div>
+                            </div>
+                          </div>
+                        
+                        </div>"
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Width: =Parent.Width
+                    ZIndex: =3
+
+                Button1_4 As button:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =0
+                    DisabledColor: =RGBA(0, 0, 0, 0)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =21
+                    HoverColor: =RGBA(0, 0, 0, 0)
+                    HoverFill: =
+                    OnSelect: |-
+                        =ForAll(
+                            LookUp(Controle_Entrada_Anexos, ID_Referencia = ThisItem.ID).Anexos As anexo,
+                            Launch(
+                                "https://boninengenharialtda.sharepoint.com/sites/cosan/_layouts/download.aspx?SourceUrl=" & anexo.AbsoluteUri
+                            )
+                        )
+                    PressedColor: =
+                    PressedFill: =
+                    RadiusBottomLeft: =4
+                    RadiusBottomRight: =4
+                    RadiusTopLeft: =4
+                    RadiusTopRight: =4
+                    Text: =
+                    Tooltip: ="Clique aqui para baixar"
+                    Width: =100
+                    X: =Parent.Width - Self.Width - 25
+                    Y: =HtmlText1_1.Height/2 - Self.Height/2
+                    ZIndex: =4
+
+    cmpCabecalhoTelas_3 As cmpCabecalhoTelas:
+        TítuloDaTela: ="Arquivos para Análise"
+        ZIndex: =4
+

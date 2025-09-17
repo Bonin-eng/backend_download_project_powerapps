@@ -1,0 +1,52 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |+
+        =Set(loc_PropostaPrivada, false);
+        ClearCollect(
+                colTelas,
+                    Table(
+                        {NomeTela: "Propostas", Tela: 'Propostas Públicas Screen', Icon: Icon.Home}
+        ));
+        
+        ClearCollect(Col_Propostas_Publicas,
+        Filter(Proposta, Item_Preferencia.Value = "Sim", StartsWith(idProposta, "P.0")));
+        
+        ClearCollect(Col_Propostas_Privadas,
+        Filter(Proposta, Item_Preferencia.Value = "Sim", StartsWith(idProposta, "P.1")));
+        
+        ClearCollect(colPropostas, Col_Propostas_Publicas);
+        
+        ClearCollect(
+            ColLoteRecentes,
+            ForAll(
+                GroupBy(
+                    Historico_Propostas,
+                    IdPropostaLote,
+                    GrupoPropostas
+                ),
+                First(
+                    SortByColumns(GrupoPropostas, "Data", SortOrder.Descending)
+                )
+            )
+        );
+        
+        ClearCollect(
+            ColTeste,
+            First(
+                SortByColumns(Historico_Propostas,
+                    "Data",
+                    SortOrder.Descending
+                )
+            )
+        );
+        
+    StartScreen: =
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

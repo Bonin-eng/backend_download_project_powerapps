@@ -1,0 +1,54 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    OnStart: |-
+      =Set(VarVisibilidadeInicial, false);
+      ClearCollect(ColPerfilUsuarios, ShowColumns(Controle_de_Analistas, Nome, Email, Perfil_visualizacao), ShowColumns(Controle_de_Projetistas, Nome, Email, Perfil_visualizacao));
+      Set(VarPerfilUsuario, LookUp(ColPerfilUsuarios, Email = User().Email, Perfil_visualizacao.Value));
+      If(VarPerfilUsuario = "Gestão",
+          // Usuário tem permissão total: todas as telas
+          ClearCollect(
+              colTelas,
+              Table(
+                  {NomeTela: "Controle de Arquivos", Tela: 'Controle de Arquivos', Icon: Icon.DocumentWithContent},
+                  {NomeTela: "Controle de Analistas", Tela: 'Controle de Analistas', Icon: Icon.People},
+                  {NomeTela: "Controle de Projetistas", Tela: 'Controle de Projetistas', Icon: Icon.OfficeBuilding},
+                  {NomeTela: "Arquivos para Análise", Tela: 'Controle de Arquivos_Analise', Icon: Icon.Document},
+                  {NomeTela: "Arquivos Analisados", Tela:  'Controle de Arquivos_Analisados', Icon: Icon.DockCheckProperties}
+              )
+          ),
+      If(VarPerfilUsuario = "Analista",
+          // Usuário tem permissão total: todas as telas
+          ClearCollect(
+              colTelas,
+              Table(
+                  {NomeTela: "Arquivos para Análise", Tela: 'Controle de Arquivos_Analise', Icon: Icon.Document}
+              )
+          ),
+      If(VarPerfilUsuario = "Projetista",
+          // Usuário tem permissão total: todas as telas
+          ClearCollect(
+              colTelas,
+              Table(
+                  {NomeTela: "Arquivos Analisados", Tela:  'Controle de Arquivos_Analisados', Icon: Icon.DockCheckProperties}
+              )
+          ),
+      If(VarPerfilUsuario = "Cliente",
+          // Usuário tem permissão total: todas as telas
+          ClearCollect(
+              colTelas,
+              Table(
+                  {NomeTela: "Arquivos para Análise", Tela: 'Controle de Arquivos_Analise', Icon: Icon.Document},
+                  {NomeTela: "Arquivos Analisados", Tela:  'Controle de Arquivos_Analisados', Icon: Icon.DockCheckProperties}
+              )
+          ))))) ;
+
+      Set(VarAlturaCaixas, 25);
+    Theme: =PowerAppsTheme

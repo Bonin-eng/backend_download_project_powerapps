@@ -1,0 +1,714 @@
+Screen4 As screen:
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: |-
+        =ClearCollect(ColColaboradoresAutomacao, ShowColumns(Filter(GPJ_Colaboradores, Ativo = true), ID_Referencia, Nome, Email, Nome_Empresa, CNPJ));
+        ClearCollect(ColFinanceiroAutomacao, ShowColumns(Filter(GPJ_Colaboradores, Ativo = true), ID_Referencia, Nome, Email, Nome_Empresa, CNPJ));
+        UpdateContext({ VarCtnDados3: true});
+        UpdateContext({ VarCtnDadosAutomacao: false});
+        UpdateContext({ VarCtnFinanceiroAutomacao: false});
+        UpdateContext({ColFinanceiroAutomacao_Tratado: Blank()})
+
+    Timer1_3 As timer:
+        AutoStart: =VarTemporizador4
+        Duration: =0.1
+        Fill: =RGBA(45, 65, 93, 1)
+        Font: =Font.'Segoe UI'
+        HoverFill: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+        OnTimerEnd: |
+            =Set(VarTemporizador4, false);
+            Navigate(Home);
+        Visible: =false
+        X: =85
+        Y: =728
+        ZIndex: =1
+
+    gpj_cpn_tela_4 As gpj_cpn_tela:
+        ChildTabPriority: =true
+        ContentLanguage: =""
+        EnableChildFocus: =true
+        Fill: =
+        Visible: =true
+        ZIndex: =2
+
+    ctn_financeiro_automacao As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =gpj_cpn_tela_4.Referencia_Height
+        RadiusBottomLeft: =gpj_cpn_tela_4.Referencia_RadiusBottomLeft
+        RadiusBottomRight: =gpj_cpn_tela_4.Referencia_RadiusBottomRight
+        RadiusTopLeft: =gpj_cpn_tela_4.Referencia_RadiusTopLeft
+        RadiusTopRight: =gpj_cpn_tela_4.Referencia_RadiusTopRight
+        Visible: =VarCtnFinanceiroAutomacao
+        Width: =gpj_cpn_tela_4.Referencia_Width
+        X: =gpj_cpn_tela_4.Eixo_X
+        Y: =gpj_cpn_tela_4.Eixo_Y
+        ZIndex: =3
+
+        ctn_cabecalho_lancamentos_automacao_1 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(87, 107, 134, 1)
+            Height: =50
+            RadiusBottomLeft: |
+                =0
+            RadiusBottomRight: |
+                =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =1
+
+            lbl_cabecalho_13 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(45, 65, 93, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                Height: =50
+                Size: =16
+                Text: =Upper("Financeiro")
+                Width: =Parent.Width
+                ZIndex: =1
+
+            img_save_11 As image:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.Dashed
+                Height: =48
+                Image: |-
+                    =LookUp(
+                                    ColIconesMenus,
+                                    Nome = "email"
+                                ).SVG
+                OnSelect: |-
+                    =GPJ_BONIN_AUTOMACAO_FINANCEIRO_EMAIL.Run(
+                        JSON(DropColumns(VarLancamentosAutomacaoFinanceiro, Checkbox1_2, HtmlText1_4), JSONFormat.IncludeBinaryData)
+                    );
+                    Notify("Os e-mails foram enviados", NotificationType.Success, 3000);
+                    Clear(VarLancamentosAutomacaoFinanceiro)
+                TabIndex: =2
+                Width: =48
+                X: =img_ctl_close_4.X - Self.Width - 10
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =2
+
+            chk_cc_Km_2 As checkbox:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.None
+                CheckboxBorderColor: =RGBA(45, 65, 93, 1)
+                CheckboxSize: =30
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Height: =40
+                HoverBorderColor: =
+                HoverColor: =RGBA(45, 65, 93, 1)
+                HoverFill: =
+                OnCheck: =ClearCollect(VarLancamentosAutomacaoFinanceiro, glr_dados_lancamentos_automacao_1.AllItems)
+                OnUncheck: =Clear(VarLancamentosAutomacaoFinanceiro)
+                PressedBorderColor: =
+                PressedFill: =
+                Size: =8
+                Text: ="Selecionar Todos"
+                Width: =130
+                X: =img_save_11.X - Self.Width - 24
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =3
+
+            cmb_filtro_colab_5 As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DisplayFields: =["Mes_Tratado"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =25
+                InputTextPlaceholder: ="Selecionar mês"
+                IsSearchable: =false
+                Items: =AddColumns(Distinct(SortByColumns(ShowColumns(GPJ_Historico_Mensal, Mes_Referencia), "Mes_Referencia", SortOrder.Descending), Mes_Referencia), Mes_Tratado, Text(Value, "mmmmm/yyyy"))
+                OnChange: |-
+                    =// 1️⃣ Carrega os históricos lançados do mês selecionado para uma Collection local
+                    ClearCollect(
+                        ColHistoricoAutomacao,
+                        Filter(
+                            GPJ_Historico_Mensal,
+                            Mes_Referencia = cmb_filtro_colab_5.Selected.Value,
+                            Ativo = true,
+                            NF = true || RD = true || CONF = true
+                        )
+                    );
+                    ClearCollect(
+                        ColFinanceiroAutomacao_Tratado,
+                        ShowColumns(
+                            AddColumns(
+                                ColHistoricoAutomacao As historico,
+                                Nome_Tratado,
+                                LookUp(
+                                    ColFinanceiroAutomacao,
+                                    ID_Referencia = historico.ID_Referencia_Colaboradores,
+                                    Nome
+                                ),
+                                Ref_ID_NF,
+                                LookUp(
+                                    GPJ_Historico_Anexos,
+                                    ID_Referencia_Historico_Mensal = historico.ID_Referencia && Tipo_Anexo.Value = "NF" && 'Tem anexos' = true,
+                                    ID_Referencia
+                                ),
+                                Ref_ID_RD,
+                                LookUp(
+                                    GPJ_Historico_Anexos,
+                                    ID_Referencia_Historico_Mensal = historico.ID_Referencia && Tipo_Anexo.Value = "RD" && 'Tem anexos' = true,
+                                    ID_Referencia
+                                ),
+                                Ref_ID_CONF,
+                                LookUp(
+                                    GPJ_Historico_Anexos,
+                                    ID_Referencia_Historico_Mensal = historico.ID_Referencia && Tipo_Anexo.Value = "CONF" && 'Tem anexos' = true,
+                                    ID_Referencia
+                                )
+                            ),
+                            Mes_Referencia,
+                            ID_Referencia,
+                            Nome_Tratado,
+                            NF,
+                            RD,
+                            CONF,
+                            Ref_ID_NF,
+                            Ref_ID_RD,
+                            Ref_ID_CONF,
+                            Nota,
+                            Total_RD,
+                            Comissoes,
+                            Total_Geral
+                        )
+                    );
+                    
+                    Clear(ColHistoricoAutomacao)
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Mes_Tratado"]
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Width: =120
+                X: =10
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =4
+
+            img_ctl_close_4 As image:
+                BorderColor: =RGBA(45, 68, 93, 1)
+                Height: =32
+                Image: |-
+                    =LookUp(
+                        ColIconesMenus,
+                        Nome = "close"
+                    ).SVG
+                OnSelect: |
+                    =UpdateContext({ VarCtnFinanceiroAutomacao: false});
+                    UpdateContext({ VarCtnDados3: true});
+                TabIndex: =2
+                Width: =32
+                X: =Parent.Width - Self.Width - 15
+                Y: =(Parent.Height - Self.Height)/2
+                ZIndex: =5
+
+        ctn_dados_gal_lancamentos_automacao_1 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =gpj_cpn_tela_1.Referencia_Height - ctn_cabecalho_lancamentos_automacao_1.Height
+            RadiusBottomLeft: =gpj_cpn_tela_1.Referencia_RadiusBottomLeft
+            RadiusBottomRight: =gpj_cpn_tela_1.Referencia_RadiusBottomRight
+            RadiusTopLeft: =gpj_cpn_tela_1.Referencia_RadiusTopLeft
+            RadiusTopRight: =gpj_cpn_tela_1.Referencia_RadiusTopRight
+            Width: =gpj_cpn_tela_1.Referencia_Width
+            Y: =ctn_cabecalho_lancamentos_automacao_1.Y + ctn_cabecalho_lancamentos_automacao_1.Height
+            ZIndex: =2
+
+            glr_dados_lancamentos_automacao_1 As gallery.variableTemplateHeightGallery:
+                '#CopilotOverlayLabel': ="Filtrada"
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DelayItemLoading: =true
+                Height: =Parent.Height
+                Items: =SortByColumns(If(!IsBlank(cmb_filtro_colab_5.Selected), ColFinanceiroAutomacao_Tratado), "Nome_Tratado", SortOrder.Ascending)
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplateSize: =280
+                Width: =Parent.Width
+                ZIndex: =1
+
+                HtmlText1_4 As htmlViewer:
+                    AutoHeight: =true
+                    Font: =Font.'Segoe UI'
+                    Height: =280
+                    HtmlText: |-
+                        ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                        
+                            <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>" & ThisItem.Nome_Tratado & "</div>
+                        
+                            <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Total Geral:</strong> R$ " & Text(ThisItem.Total_Geral, "[$-pt-BR]#.##0,00") & "</div>
+                            <div style='flex:1'><strong>Emissão Nota:</strong> " & If(ThisItem.NF, "Sim", "Não") & "</div>
+                            <div style='flex:1'><strong>Emissão RD:</strong> " & If(ThisItem.RD, "Sim", "Não") & "</div>
+                            <div style='flex:1'><strong>Emissão CONF:</strong> " & If(ThisItem.CONF, "Sim", "Não") & "</div>
+                        
+                            </div>
+                        
+                        </div>"
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Width: =Parent.Width - (Parent.TemplatePadding*2) 
+                    ZIndex: =1
+
+                Checkbox1_2 As checkbox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    CheckboxBorderColor: =RGBA(45, 65, 93, 1)
+                    CheckboxSize: =25
+                    Default: =ThisItem.ID_Referencia in VarLancamentosAutomacaoFinanceiro.ID_Referencia
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =40
+                    HoverColor: =RGBA(45, 65, 93, 1)
+                    OnCheck: |
+                        =Collect(VarLancamentosAutomacaoFinanceiro, ThisItem);
+                    OnUncheck: |
+                        =RemoveIf(VarLancamentosAutomacaoFinanceiro, ID_Referencia = ThisItem.ID_Referencia);
+                    PaddingLeft: =25/4
+                    PaddingTop: =25/4
+                    Text: =
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =40
+                    X: =HtmlText1_4.X + HtmlText1_4.Width - 48
+                    ZIndex: =2
+
+    ctn_dados_automacao As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =gpj_cpn_tela_4.Referencia_Height
+        RadiusBottomLeft: =gpj_cpn_tela_4.Referencia_RadiusBottomLeft
+        RadiusBottomRight: =gpj_cpn_tela_4.Referencia_RadiusBottomRight
+        RadiusTopLeft: =gpj_cpn_tela_4.Referencia_RadiusTopLeft
+        RadiusTopRight: =gpj_cpn_tela_4.Referencia_RadiusTopRight
+        Visible: =VarCtnDadosAutomacao
+        Width: =gpj_cpn_tela_4.Referencia_Width
+        X: =gpj_cpn_tela_4.Eixo_X
+        Y: =gpj_cpn_tela_4.Eixo_Y
+        ZIndex: =4
+
+        ctn_cabecalho_lancamentos_automacao As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(87, 107, 134, 1)
+            Height: =50
+            RadiusBottomLeft: |
+                =0
+            RadiusBottomRight: |
+                =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =134
+
+            lbl_cabecalho_12 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(45, 65, 93, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                Height: =50
+                Size: =16
+                Text: =Upper("Novos Lançamentos")
+                Width: =Parent.Width
+                ZIndex: =135
+
+            img_save_10 As image:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.Dashed
+                Height: =48
+                Image: |-
+                    =LookUp(
+                                    ColIconesMenus,
+                                    Nome = "email"
+                                ).SVG
+                OnSelect: |-
+                    =GPJ_BONIN_AUTOMACAO_EMAIL.Run(
+                        JSON(DropColumns(VarLancamentosAutomacao, Checkbox1_1, HtmlText1_3), JSONFormat.IncludeBinaryData)
+                    );
+                    Notify("Os e-mails foram enviados", NotificationType.Success, 3000);
+                    Clear(VarLancamentosAutomacao)
+                TabIndex: =2
+                Width: =48
+                X: =img_ctl_close_3.X - Self.Width - 10
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =136
+
+            chk_cc_Km_1 As checkbox:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.None
+                CheckboxBorderColor: =RGBA(45, 65, 93, 1)
+                CheckboxSize: =30
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Height: =40
+                HoverBorderColor: =
+                HoverColor: =RGBA(45, 65, 93, 1)
+                HoverFill: =
+                OnCheck: =ClearCollect(VarLancamentosAutomacao, glr_dados_lancamentos_automacao.AllItems)
+                OnUncheck: =Clear(VarLancamentosAutomacao)
+                PressedBorderColor: =
+                PressedFill: =
+                Size: =8
+                Text: ="Selecionar Todos"
+                Width: =130
+                X: =img_save_10.X - Self.Width - 24
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =138
+
+            cmb_filtro_colab_2 As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DefaultSelectedItems: =
+                DisplayFields: =["Mes_Tratado"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =25
+                InputTextPlaceholder: ="Selecionar mês"
+                IsSearchable: =false
+                Items: =AddColumns(Distinct(SortByColumns(ShowColumns(GPJ_Historico_Mensal, Mes_Referencia), "Mes_Referencia", SortOrder.Descending), Mes_Referencia), Mes_Tratado, Text(Value, "mmmmm/yyyy"))
+                OnChange: |-
+                    =// 1️⃣ Carrega os históricos lançados do mês selecionado para uma Collection local
+                    ClearCollect(
+                        ColHistoricoAutomacao,
+                        Filter(
+                            GPJ_Historico_Mensal,
+                            Mes_Referencia = cmb_filtro_colab_2.Selected.Value,
+                            Ativo = true
+                        )
+                    );
+                    ClearCollect(
+                        ColColaboradoresAutomacao_Tratado,
+                        ShowColumns(
+                            AddColumns(
+                                ColHistoricoAutomacao As historico,
+                                Nome_Tratado,
+                                LookUp(
+                                    ColColaboradoresAutomacao,
+                                    ID_Referencia = historico.ID_Referencia_Colaboradores,
+                                    Nome
+                                ),
+                                Nome_Empresa,
+                                LookUp(
+                                    ColColaboradoresAutomacao,
+                                    ID_Referencia = historico.ID_Referencia_Colaboradores,
+                                    Nome_Empresa
+                                ),
+                                CNPJ,
+                                LookUp(
+                                    ColColaboradoresAutomacao,
+                                    ID_Referencia = historico.ID_Referencia_Colaboradores,
+                                    CNPJ
+                                ),
+                                Email,
+                                LookUp(
+                                    ColColaboradoresAutomacao,
+                                    ID_Referencia = historico.ID_Referencia_Colaboradores,
+                                    Email
+                                )
+                            ),
+                            Mes_Referencia,
+                            Email,
+                            Nome_Tratado,
+                            Nome_Empresa,
+                            CNPJ,
+                            Nota,
+                            RT,
+                            KM,
+                            Plano,
+                            Alimentacao,
+                            Outros,
+                            Comissoes,
+                            Total_RD,
+                            Total_Geral
+                        )
+                    );
+                    
+                    Clear(ColHistoricoAutomacao)
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Mes_Tratado"]
+                SearchItems: =Search(AddColumns(Distinct(SortByColumns(ShowColumns(GPJ_Historico_Mensal,Mes_Referencia),"Mes_Referencia",SortOrder.Descending),Mes_Referencia),Mes_Tratado,Text(Value,"mmmmm/yyyy")),cmb_filtro_colab_2.SearchText,Mes_Tratado)
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Width: =120
+                X: =10
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =139
+
+            img_ctl_close_3 As image:
+                BorderColor: =RGBA(45, 68, 93, 1)
+                Height: =32
+                Image: |-
+                    =LookUp(
+                        ColIconesMenus,
+                        Nome = "close"
+                    ).SVG
+                OnSelect: |
+                    =UpdateContext({ VarCtnDadosAutomacao: false});
+                    UpdateContext({ VarCtnDados3: true});
+                TabIndex: =2
+                Width: =32
+                X: =Parent.Width - Self.Width - 15
+                Y: =(Parent.Height - Self.Height)/2
+                ZIndex: =140
+
+        ctn_dados_gal_lancamentos_automacao As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =gpj_cpn_tela_1.Referencia_Height - ctn_cabecalho_lancamentos_automacao.Height
+            RadiusBottomLeft: =gpj_cpn_tela_1.Referencia_RadiusBottomLeft
+            RadiusBottomRight: =gpj_cpn_tela_1.Referencia_RadiusBottomRight
+            RadiusTopLeft: =gpj_cpn_tela_1.Referencia_RadiusTopLeft
+            RadiusTopRight: =gpj_cpn_tela_1.Referencia_RadiusTopRight
+            Width: =gpj_cpn_tela_1.Referencia_Width
+            Y: =ctn_cabecalho_lancamentos_automacao.Y + ctn_cabecalho_lancamentos_automacao.Height
+            ZIndex: =166
+
+            glr_dados_lancamentos_automacao As gallery.variableTemplateHeightGallery:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DelayItemLoading: =true
+                Height: =Parent.Height
+                Items: =SortByColumns(If(!IsBlank(cmb_filtro_colab_2.Selected), ColColaboradoresAutomacao_Tratado), "Nome_Tratado", SortOrder.Ascending)
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplateSize: =280
+                Width: =Parent.Width
+                ZIndex: =167
+
+                HtmlText1_3 As htmlViewer:
+                    AutoHeight: =true
+                    Font: =Font.'Segoe UI'
+                    Height: =280
+                    HtmlText: |-
+                        ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                        
+                            <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>" & ThisItem.Nome_Tratado & "</div>
+                        
+                            <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                <div style='flex:1'><strong>Empresa:</strong> " & ThisItem.Nome_Empresa & "</div>
+                                <div style='flex:1'><strong>CNPJ:</strong> " & ThisItem.CNPJ & "</div>
+                                <div style='flex:1'><strong>E-mail:</strong> " & ThisItem.Email & "</div>
+                                <div style='flex:1'><strong>Nota:</strong> R$ " & Text(ThisItem.Nota, "[$-pt-BR]#.##0,00") & "</div>
+                            </div>
+                        
+                            <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                <div style='flex:1'><strong>RT:</strong> R$ " & Text(ThisItem.RT, "[$-pt-BR]#.##0,00") & "</div>
+                                <div style='flex:1'><strong>KM:</strong> R$ " & Text(ThisItem.KM, "[$-pt-BR]#.##0,00") & "</div>
+                                <div style='flex:1'><strong>Plano:</strong> R$ " & Text(ThisItem.Plano, "[$-pt-BR]#.##0,00") & "</div>
+                                <div style='flex:1'><strong>Alimentação:</strong> R$ " & Text(ThisItem.Alimentacao, "[$-pt-BR]#.##0,00") & "</div>
+                            </div>
+                        
+                            <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                                <div style='flex:1'><strong>Outros:</strong> R$ " & Text(ThisItem.Outros, "[$-pt-BR]#.##0,00") & "</div>
+                                <div style='flex:1'><strong>Comissões:</strong> R$ " & Text(ThisItem.Comissoes, "[$-pt-BR]#.##0,00") & "</div>
+                                <div style='flex:1'><strong>Total RD:</strong> " & Text(ThisItem.Total_RD, "[$-pt-BR]#.##0,00") & "</div>
+                                <div style='flex:1'><strong>Total Geral:</strong> " & Text(ThisItem.Total_Geral, "[$-pt-BR]#.##0,00") & "</div>
+                            </div>
+                        
+                        </div>"
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Width: =Parent.Width - (Parent.TemplatePadding*2) 
+                    ZIndex: =169
+
+                Checkbox1_1 As checkbox:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    CheckboxBorderColor: =RGBA(45, 65, 93, 1)
+                    CheckboxSize: =25
+                    Default: =ThisItem.CNPJ in VarLancamentosAutomacao.CNPJ
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    Height: =40
+                    HoverColor: =RGBA(45, 65, 93, 1)
+                    OnCheck: |
+                        =Collect(VarLancamentosAutomacao, ThisItem);
+                    OnUncheck: |
+                        =RemoveIf(VarLancamentosAutomacao, CNPJ = ThisItem.CNPJ);
+                    PaddingLeft: =25/4
+                    PaddingTop: =25/4
+                    Text: =
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =40
+                    X: =HtmlText1_3.X + HtmlText1_3.Width - 48
+                    ZIndex: =170
+
+    ctn_dados_3 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Height: =gpj_cpn_tela_4.Referencia_Height
+        RadiusBottomLeft: =gpj_cpn_tela_4.Referencia_RadiusBottomLeft
+        RadiusBottomRight: =gpj_cpn_tela_4.Referencia_RadiusBottomRight
+        RadiusTopLeft: =gpj_cpn_tela_4.Referencia_RadiusTopLeft
+        RadiusTopRight: =gpj_cpn_tela_4.Referencia_RadiusTopRight
+        Visible: =VarCtnDados3
+        Width: =gpj_cpn_tela_4.Referencia_Width
+        X: =gpj_cpn_tela_4.Eixo_X
+        Y: =gpj_cpn_tela_4.Eixo_Y
+        ZIndex: =5
+
+        Label3_1 As label:
+            Align: =Align.Center
+            AutoHeight: =true
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Semibold
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =15
+            Text: |-
+                ="E-mail
+                Financeiro"
+            Width: =img_automacao_financeiro.Width
+            X: =img_automacao_financeiro.X
+            Y: =img_automacao_financeiro.Y + img_automacao_financeiro.Height
+            ZIndex: =1
+
+        img_automacao_financeiro As image:
+            BorderColor: =RGBA(45, 68, 93, 1)
+            BorderStyle: =BorderStyle.Dashed
+            Height: =128
+            Image: |-
+                =LookUp(
+                    ColIconesMenus,
+                    Nome = "finance"
+                ).SVG
+            OnSelect: |
+                =UpdateContext({ VarCtnFinanceiroAutomacao: true});
+                UpdateContext({ VarCtnDadosAutomacao: false});
+                UpdateContext({ VarCtnDados3: false});
+            TabIndex: =2
+            Width: =128
+            X: =img_automacao_colaboradores.X*2 + Self.Width
+            Y: =Parent.Height/2 - Self.Height/2
+            ZIndex: =2
+
+        Label3 As label:
+            Align: =Align.Center
+            AutoHeight: =true
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Semibold
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =15
+            Text: |-
+                ="E-mail
+                PJ"
+            Width: =img_automacao_colaboradores.Width
+            X: =img_automacao_colaboradores.X
+            Y: =img_automacao_colaboradores.Y + img_automacao_colaboradores.Height
+            ZIndex: =3
+
+        img_automacao_colaboradores As image:
+            BorderColor: =RGBA(45, 68, 93, 1)
+            BorderStyle: =BorderStyle.Dashed
+            Height: =128
+            Image: |-
+                =LookUp(
+                    ColIconesMenus,
+                    Nome = "group_person"
+                ).SVG
+            OnSelect: |-
+                =UpdateContext({ VarCtnDadosAutomacao: true});
+                UpdateContext({ VarCtnDados3: false});
+                UpdateContext({ VarCtnFinanceiroAutomacao: false});
+            TabIndex: =2
+            Width: =128
+            X: =(Parent.Width - Self.Width*2)/3
+            Y: =Parent.Height/2 - Self.Height/2
+            ZIndex: =4
+
+    ctn_loading_4 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(45, 65, 93, 1)
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =VarInicial
+        Width: =Parent.Width
+        ZIndex: =6
+
+        img_loading_bonin_4 As image:
+            Height: =40
+            Image: ='Logo - Bonin Menor'
+            Width: =40
+            X: =Parent.Width/2 - Self.Width/2
+            Y: |
+                =Parent.Height/2 - Self.Height/2 + 1
+            ZIndex: =1
+
+        img_loading_4 As image:
+            BorderColor: =
+            DisabledBorderColor: =
+            DisabledFill: =
+            FocusedBorderThickness: =0
+            Height: =200
+            Image: |-
+                ="data:image/svg+xml;utf8, " & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: none; display: block; shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+                    <g transform='rotate(0 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.9166666666666666s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(30 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(60 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(90 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(120 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(150 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(180 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(210 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(240 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(270 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(300 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(330 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g>
+                    <!-- [ldio] generated by https://loading.io/ --></svg>
+                ")
+            Width: =200
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =Parent.Height/2 - Self.Height/2
+            ZIndex: =2
+

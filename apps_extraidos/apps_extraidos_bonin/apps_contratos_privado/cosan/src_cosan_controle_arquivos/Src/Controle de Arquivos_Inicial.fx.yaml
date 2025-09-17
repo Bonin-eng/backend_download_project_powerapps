@@ -1,0 +1,41 @@
+"'Controle de Arquivos_Inicial' As screen":
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: |-
+        =UpdateContext({VarPopupConclusão: false});
+        UpdateContext({VarPopupCadastrar: false});
+        Set(VarVisibilidadeInicial, true);
+
+    ctn_Arquivos_Geral_1 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.Semilight
+        Height: =Parent.Height - Self.Y - 6
+        LayoutGap: =5
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Width: =Parent.Width - 12
+        X: =(Parent.Width - Self.Width)/2
+        Y: =cmpCabecalhoTelas_6.Y + cmpCabecalhoTelas_6.Height
+        ZIndex: =6
+
+        cmpMenuLateral_6 As cmpMenuLateral:
+            ChildTabPriority: =true
+            ContentLanguage: =""
+            EnableChildFocus: =true
+            Height: =Parent.Height
+            LayoutMinHeight: =640
+            LayoutMinWidth: =640
+            Visible: =true
+            Width: =If(cmpMenuLateral_6.FecharMenu = true, 85, 220)
+            Y: =65
+
+    cmpCabecalhoTelas_6 As cmpCabecalhoTelas:
+        ChildTabPriority: =true
+        ContentLanguage: =""
+        EnableChildFocus: =true
+        TítuloDaTela: ="Controle de Arquivos"
+        Visible: =true
+        Y: =6
+        ZIndex: =7
+

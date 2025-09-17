@@ -1,0 +1,131 @@
+cmpMenuLateral As CanvasComponent:
+    FecharMenu: =gblFecharMenu
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =800
+    ListaDasTelas: =colTelas
+    Width: =If(cmpMenuLateral.FecharMenu = true, 85, 220)
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    htmlFundo_1 As htmlViewer:
+        Fill: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        Height: =Parent.Height
+        HtmlText: |-
+            ="<div style='
+                background-color; #2d415d;
+                height: "&Self.Height-11&"px;
+                border-radius: 0px 10px 10px 0px;
+                margin: 5px 5px 5px 0px;
+                box-shadow: 1px 1px gray;'
+            ></div>"
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Width: =Parent.Width
+        ZIndex: =1
+
+    Gallery3_1 As gallery.galleryVertical:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderStyle: =BorderStyle.None
+        DelayItemLoading: =true
+        Fill: =RGBA(255, 255, 255, 1)
+        FocusedBorderThickness: =1
+        Height: =Parent.Height-Self.Y - 15
+        Items: =cmpMenuLateral.ListaDasTelas
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =
+        ShowScrollbar: =false
+        TabIndex: =
+        TemplateSize: =59
+        Width: =Parent.Width-Self.X-15
+        Y: =81
+        ZIndex: =2
+
+        Separator2_2 As rectangle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(230, 230, 230, 1)
+            FocusedBorderThickness: =1
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth-Parent.X
+            Y: =54
+            ZIndex: =1
+
+        Label9_1 As label:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =1
+            Color: =RGBA(43, 65, 86, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =1
+            Font: =Font.Arial
+            Height: =Parent.TemplateHeight
+            PaddingLeft: =60
+            Text: =ThisItem.NomeTela
+            Visible: =Not(cmpMenuLateral.FecharMenu)
+            Width: =Parent.TemplateWidth-Parent.X
+            ZIndex: =2
+
+        Icon3_1 As icon.Lock:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Color: =RGBA(43, 65, 86, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(220, 220, 220, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =If(App.ActiveScreen = ThisItem.Tela, RGBA(45,65,93,0.2), RGBA(0,0,0,0))
+            FocusedBorderThickness: =1
+            Height: =Parent.TemplateHeight
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+            HoverFill: =RGBA(204, 228, 246, 0.3)
+            Icon: =ThisItem.Icon
+            OnSelect: =If(Not(gblFecharMenu), Navigate(ThisItem.Tela), Set(gblFecharMenu, !gblFecharMenu))
+            PaddingBottom: =10
+            PaddingRight: =Self.Width-40
+            PaddingTop: =10
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Width: =Parent.TemplateWidth-Parent.X
+            ZIndex: =3
+
+    Label8_1 As label:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =1
+        Color: =RGBA(43, 65, 86, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =1
+        Font: =Font.Arial
+        Text: ="Menu"
+        Visible: =Not(cmpMenuLateral.FecharMenu)
+        X: =55
+        Y: =12
+        ZIndex: =3
+
+    Icon2_1 As icon.Hamburger:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Color: =RGBA(43, 65, 86, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(220, 220, 220, 1)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =1
+        Height: =40
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Hamburger
+        OnSelect: =Set(gblFecharMenu, !gblFecharMenu)
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        TabIndex: =0
+        Width: =55
+        Y: =12
+        ZIndex: =4
+

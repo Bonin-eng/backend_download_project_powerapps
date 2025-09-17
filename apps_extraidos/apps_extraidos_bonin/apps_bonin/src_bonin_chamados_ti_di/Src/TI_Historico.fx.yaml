@@ -1,0 +1,368 @@
+TI_Historico As screen:
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: =Set(varAnimarSVG, GUID());
+
+    Container30_2 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(243, 244, 246, 1)
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =2
+
+        Container31_2 As groupContainer.horizontalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =20
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =15
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =15
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container32_2 As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                FillPortions: =0
+                Height: =75
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =1
+
+                lbl_titulo_3 As label:
+                    Align: =Align.Center
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Bold
+                    Height: =Parent.Height
+                    Size: =18
+                    Text: ="HISTÓRICO DE CHAMADOS DE T.I."
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+            Container33_2 As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(255, 255, 255, 1)
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                ZIndex: =2
+
+                Container34_2 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutGap: =20
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =20
+                    PaddingLeft: =20
+                    PaddingRight: =20
+                    PaddingTop: =20
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    lbl_subtitulo_6 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(77, 77, 77, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Size: =16
+                        Text: ="📋 Confira abaixo os atendimentos que você solicitou."
+                        Width: =Parent.Width - Container34_2.PaddingLeft - Container34_2.PaddingRight
+                        ZIndex: =2
+
+                    div_ti_op_5 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        ZIndex: =3
+
+                        gal_TI_Historico As gallery.variableTemplateHeightGallery:
+                            '#CopilotOverlayLabel': ="Filtrada"
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            BorderStyle: =BorderStyle.None
+                            DelayItemLoading: =true
+                            Fill: =RGBA(255, 255, 255, 1)
+                            Height: =Parent.Height - Self.Y
+                            Items: |-
+                                =SortByColumns(
+                                    Filter(
+                                        AddColumns(
+                                            ShowColumns(
+                                                col_db_tickets_infra,
+                                                Tk_Ticket,
+                                                Tk_Tipo_Ticket,
+                                                Tk_Data_Abertura,
+                                                Tk_Status_Ticket,
+                                                Tk_Atendente,
+                                                Tk_Descricao_Ocorrencia,
+                                                Tk_Email_Solicitante
+                                            ),
+                                            Tk_Tipo_Requisicao,
+                                            LookUp(
+                                                colTiposRequisicaoTI,
+                                                Tipo_Ticket = Tipo_Ticket,
+                                                Requisicao
+                                            )
+                                        ),
+                                        Tk_Email_Solicitante = VarUsuario.Email
+                                    ),
+                                    "Data_Abertura",
+                                    SortOrder.Descending
+                                )
+                            Layout: =Layout.Vertical
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplatePadding: =0
+                            TemplateSize: =280
+                            Width: =Parent.Width - div_ti_op_5.PaddingLeft - div_ti_op_5.PaddingRight
+                            X: =Parent.Width/2 - Self.Width/2
+                            ZIndex: =1
+
+                            Container4 As groupContainer.manualLayoutContainer:
+                                BorderStyle: =BorderStyle.None
+                                DropShadow: =DropShadow.None
+                                Height: =HtmlText1_2.Height + If(HtmlText1_3.Visible, HtmlText1_3.Height, 0)
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Width: =Parent.Width
+                                ZIndex: =1
+
+                                HtmlText1_3 As htmlViewer:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    HtmlText: |
+                                        =First(Filter(colHtmlEventos, Ticket = ThisItem.Ticket)).HtmlCompleto
+                                    OnSelect: =
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Visible: =varTicketExpandido = ThisItem.Ticket
+                                    Width: =Parent.Width
+                                    Y: =HtmlText1_2.Height
+                                    ZIndex: =1
+
+                                HtmlText1_2 As htmlViewer:
+                                    AutoHeight: =true
+                                    Height: =10
+                                    HtmlText: |+
+                                        =With(
+                                            {
+                                                _t: ThisItem,
+                                                _dtConc: LookUp(col_db_eventos_infra, Tk_TicketID = ThisItem.Ticket, Tk_Data_Termino_Evento)
+                                            },
+                                            With({
+                                                _atNome: If(IsBlank(_t.Tk_Atendente.Value), "Não atribuído", UsuáriosdoOffice365.UserProfileV2(_t.Tk_Atendente.Value).displayName)
+                                            },
+                                        "
+                                        <div style='width:100%; display:flex; flex-direction:column; background:#F9FAFB;
+                                                     border:1px solid #E5E7EB; border-radius:12px;
+                                                     padding:6px; margin-bottom:6px; font-family: Segoe UI, sans-serif;
+                                                     box-sizing:border-box;'>
+                                        
+                                          <!-- 
+                                            LINHA 1: INFORMAÇÕES PRINCIPAIS
+                                            - Agora é um container flex com 4 colunas de largura percentual para garantir o alinhamento.
+                                          -->
+                                          <div style='display:flex; align-items:flex-start; width:100%; font-size:14px; gap:16px;'>
+                                            
+                                            <!-- Coluna 1: Ticket (25% da largura) -->
+                                            <div style='display:flex; align-items:center; gap:8px; width:25%;'>
+                                                <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line><polyline points='10 9 9 9 8 9'></polyline></svg>") & "' width='18' height='18' />
+                                                <div style='min-width:0;'>
+                                                    <span style='color:#6B7280; font-size:12px;'>Ticket</span><br>
+                                                    <div style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>
+                                                      <strong style='color:#1F2937;'>" & _t.Ticket & " (" & _t.Tk_Tipo_Requisicao & ")</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <!-- Coluna 2: Atendente (35% da largura) -->
+                                            <div style='display:flex; align-items:center; gap:8px; width:35%;'>
+                                                <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>") & "' width='18' height='18' />
+                                                <div style='min-width:0;'>
+                                                    <span style='color:#6B7280; font-size:12px;'>Atendente</span><br>
+                                                    <div style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>
+                                                      <strong style='color:#1F2937;'>" & _atNome & "</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <!-- Coluna 3: Abertura (20% da largura) -->
+                                            <div style='display:flex; align-items:center; gap:8px; width:20%;'>
+                                                <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>") & "' width='18' height='18' />
+                                                <div>
+                                                    <span style='color:#6B7280; font-size:12px;'>Abertura</span><br>
+                                                    <strong style='color:#1F2937;'>" & If(IsBlank(_t.Data_Abertura), "-", Text(_t.Data_Abertura, "[$-pt-BR]dd/mm/yy")) & "</strong>
+                                                </div>
+                                            </div>
+                                        
+                                            <!-- Coluna 4: Conclusão (20% da largura) -->
+                                            <div style='display:flex; align-items:center; gap:8px; width:20%;'>
+                                                <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>") & "' width='18' height='18' />
+                                                <div>
+                                                    <span style='color:#6B7280; font-size:12px;'>Conclusão</span><br>
+                                                    <strong style='color:#1F2937;'>" & If(IsBlank(_dtConc), "-", Text(_dtConc, "[$-pt-BR]dd/mm/yy")) & "</strong>
+                                                </div>
+                                            </div>
+                                        
+                                            <!-- Coluna 5: Status (20% da largura) -->
+                                            <div style='display:flex; align-items:center; gap:8px; width:20%;'>
+                                                <img src='data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'></circle><path d='M9 12l2 2l4-4'></path></svg>") & "' width='18' height='18' />
+                                                <div>
+                                                    <span style='color:#6B7280; font-size:12px;'>Status</span><br>
+                                                    <strong style='color:#1F2937;'>" & _t.Status_Ticket & "</strong>
+                                                </div>
+                                            </div>
+                                        
+                                          </div>
+                                        
+                                          <!-- 
+                                            LINHA 2: DESCRIÇÃO
+                                          -->
+                                          <div style='margin-top:6px; margin-right:35px; padding-top:6px; border-top:1px solid #E5E7EB; color:#4B5563; font-size:14px; line-height:1.5;'>
+                                            <strong style='color:#1F2937; '>Descrição:</strong> " & PlainText(_t.Descricao_Ocorrencia) & "
+                                          </div>
+                                        </div>
+                                        "
+                                        ))
+                                        
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Width: =Parent.Width
+                                    ZIndex: =2
+
+                                icn_expandir As icon:
+                                    BorderColor: =App.Theme.Colors.Darker40
+                                    Color: =App.Theme.Colors.Darker30
+                                    Height: =24
+                                    Icon: |
+                                        =If(varTicketExpandido = ThisItem.Ticket, Icon.ChevronUp, Icon.ChevronDown)
+                                    OnSelect: |
+                                        =UpdateContext({
+                                            varTicketExpandido: If(varTicketExpandido = ThisItem.Ticket, Blank(), ThisItem.Ticket),
+                                            colEventos: SortByColumns(Filter(col_db_eventos_infra, Tk_TicketID = ThisItem.Ticket), "Tk_Data_Inicio_Evento", SortOrder.Ascending)
+                                        });
+                                        ClearCollect(
+                                            colHtmlEventos,
+                                            {
+                                                Ticket: ThisItem.Ticket,
+                                                HtmlCompleto:
+                                                    Concat(
+                                                        colEventos,
+                                                        "<div style='width:60%; margin: 0 auto 8px auto; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:10px; padding:8px 10px; font-family: Segoe UI, sans-serif; box-sizing:border-box; font-size:13px;'>
+                                                            <div style='display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap;'>
+                                                                <div style='min-width:130px; flex:1 1 130px; margin-bottom:4px;'>
+                                                                    <span style='color:#6B7280; font-size:11px;'>Tipo do Evento</span><br>
+                                                                    <strong style='color:#2563EB;'>" & Tk_Tipo_Evento.Value & "</strong>
+                                                                </div>
+                                                                <div style='min-width:110px; flex:1 1 110px; margin-bottom:4px;'>
+                                                                    <span style='color:#6B7280; font-size:11px;'>Início</span><br>
+                                                                    <strong>" & If(IsBlank(Tk_Data_Inicio_Evento), "-", Text(Tk_Data_Inicio_Evento, "[$-pt-BR]dd/mm/yyyy")) & "</strong>
+                                                                </div>
+                                                                <div style='min-width:110px; flex:1 1 110px; margin-bottom:4px;'>
+                                                                    <span style='color:#6B7280; font-size:11px;'>Término</span><br>
+                                                                    <strong>" & If(IsBlank(Tk_Data_Termino_Evento), "-", Text(Tk_Data_Termino_Evento, "[$-pt-BR]dd/mm/yyyy")) & "</strong>
+                                                                </div>
+                                                                <div style='min-width:120px; flex:1 1 120px; margin-bottom:4px;'>
+                                                                    <span style='color:#6B7280; font-size:11px;'>Criado por</span><br>
+                                                                    <strong>" & 'Criado por'.DisplayName & "</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div style='margin-top:4px; color:#4B5563; font-size:13px;'>
+                                                                <span style='color:#6B7280;'>Observação:</span>
+                                                                <span>" & If(IsBlank(Observação), "<span style='color:#9CA3AF;'>(sem observação)</span>", PlainText(Observação)) & "</span>
+                                                            </div>
+                                                            " & If(
+                                                                !IsBlank(Tk_Motivo_Cancelamento),
+                                                                "<div style='margin-top:2px; color:#DC2626; font-size:13px;'><span style='color:#6B7280;'>Motivo cancelamento:</span> <span>" & PlainText(Tk_Motivo_Cancelamento) & "</span></div>",
+                                                                ""
+                                                            ) & "
+                                                        </div>"
+                                                    )
+                                            }
+                                        )
+                                    Width: =24
+                                    X: =Parent.Width - Self.Width - 10
+                                    Y: =HtmlText1_2.Height - Self.Height - 10
+                                    ZIndex: =3
+
+    Image_TI_back_2 As image:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        Fill: =Color.Transparent
+        FocusedBorderThickness: =0
+        Height: =75
+        HoverBorderColor: =
+        HoverFill: =
+        Image: |
+            =With(
+              {
+                SVG_Animado: "
+            <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='2.5 0 20 24' fill='#ffffff' customattr='" & varAnimarSVG & "'>
+              <path
+                fill='#ffffff'
+                d='M14.008 17.692a.857.857 0 001.317-1.098L11.495 12l3.829-4.594a.857.857 0 00-1.317-1.098L9.73 11.44a.85.85 0 00-.208.56.854.854 0 00.208.56l4.277 5.132z'>
+                <animateTransform
+                  attributeName='transform'
+                  type='translate'
+                  values='0 0; -2 0; 0 0'
+                  keyTimes='0;0.5;1'
+                  dur='1s'
+                  repeatCount='1'
+                  fill='freeze'
+                  begin='0s'
+                />
+              </path>
+            </svg>
+            "
+              },
+              "data:image/svg+xml;utf8," & EncodeUrl(SVG_Animado)
+            )
+        OnSelect: =Navigate(Home, Transition.Pop)
+        PressedBorderColor: =
+        PressedFill: =
+        TabIndex: =1
+        Width: =40
+        X: =15
+        Y: =16
+        ZIndex: =3
+

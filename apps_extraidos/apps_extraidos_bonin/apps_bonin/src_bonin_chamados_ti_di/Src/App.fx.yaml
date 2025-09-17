@@ -1,0 +1,265 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |
+        =Set(VarUsuario,
+            {
+                Nome: User().FullName,
+                Email: User().Email,
+                Empresa: Upper(Left(Index(Split(Index(Split(User().Email,"@"),2).Value,"."),1).Value,1))&Lower(Mid(Index(Split(Index(Split(User().Email,"@"),2).Value,"."),1).Value,2))
+            }
+        );
+        
+        // Base de chamados de T.I.
+        // Primeiro, cria a Collection sem o SLA:
+        With({Status_TI: "Aberto"},
+            ClearCollect(
+                colTiposRequisicaoTI_Base,
+                {Codigo: "ENC", Requisicao: "EQUIPAMENTOS NOVOS COLABORADORES",      Tipo_Ticket: "Contratações Colaboradores",                                      Tipo_Card: "NC", Status_Ticket: Status_TI},
+                {Codigo: "RCS", Requisicao: "REQUISIÇÃO DE CONTRATAÇÃO DE SOFTWARE", Tipo_Ticket: "Contratações Softwares",                                          Tipo_Card: "CS", Status_Ticket: Status_TI},
+                {Codigo: "RIM", Requisicao: "REQUISIÇÃO DE IMPRESSORA",              Tipo_Ticket: "Impressora",                                                      Tipo_Card: "IP", Status_Ticket: Status_TI},
+                {Codigo: "RIT", Requisicao: "REQUISIÇÃO DE INTERVENÇÃO TÉCNICA",     Tipo_Ticket: "Suporte Implementações de soluções e modificações estruturais",   Tipo_Card: "",   Status_Ticket: Status_TI},
+                {Codigo: "RLA", Requisicao: "REQUISIÇÃO DE LIBERAÇÃO DE ACESSO",     Tipo_Ticket: "Liberação de Acesso",                                             Tipo_Card: "LA", Status_Ticket: Status_TI},
+                {Codigo: "RSI", Requisicao: "REQUISIÇÃO DE SUPORTE A INFRA",         Tipo_Ticket: "Infra (Rede/Queda/Lentidão)",                                     Tipo_Card: "IF", Status_Ticket: Status_TI},
+                {Codigo: "RST", Requisicao: "REQUISIÇÃO DE SUPORTE TÉCNICO",         Tipo_Ticket: "Suporte Final",                                                   Tipo_Card: "SP", Status_Ticket: Status_TI}
+            );
+        
+            // Depois, adiciona o campo SLA usando AddColumns:
+            ClearCollect(colTiposRequisicaoTI,
+                AddColumns(
+                    colTiposRequisicaoTI_Base As item,
+                    Sla,
+                    LookUp(db_Tipo_Ticket, Tk_Tipo_Ticket = item.Tipo_Ticket && Departamento.Value = "Infra", SLA_dia)
+                )
+            );
+        
+            // Limpa a Collection sem o SLA
+            Clear(colTiposRequisicaoTI_Base)
+        );
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Base de chamados de D.I.
+        // Primeiro, cria a Collection sem o SLA:
+        With({Status_DI: "Aberto"},
+            ClearCollect(
+                colTiposRequisicaoDI_Base,
+                {Codigo: "CTD", Requisicao: "CONSULTA TÉCNICA DE DESENVOLVIMENTO",			Tipo_Ticket: "CONSULTA TÉCNICA DE DESENVOLVIMENTO",			Tipo_Card: "CTD", Status_Ticket: Status_DI},
+                {Codigo: "RAM", Requisicao: "REQUISIÇÃO DE AJUSTE E MELHORIA",				Tipo_Ticket: "REQUISIÇÃO DE AJUSTE E MELHORIA",				Tipo_Card: "RAM", Status_Ticket: Status_DI},
+                {Codigo: "RCA", Requisicao: "REQUISIÇÃO DE CREDENCIAMENTO EM APLICATIVO",	Tipo_Ticket: "REQUISIÇÃO DE CREDENCIAMENTO EM APLICATIVO",	Tipo_Card: "RCA", Status_Ticket: Status_DI},
+                {Codigo: "RDA", Requisicao: "REQUISIÇÃO DE DESENVOLVIMENTO DE APLICATIVO",	Tipo_Ticket: "REQUISIÇÃO DE DESENVOLVIMENTO DE APLICATIVO",	Tipo_Card: "RDA", Status_Ticket: Status_DI},
+                {Codigo: "RDB", Requisicao: "REQUISIÇÃO DE DESENVOLVIMENTO DE BI",			Tipo_Ticket: "REQUISIÇÃO DE DESENVOLVIMENTO DE BI",			Tipo_Card: "RDB", Status_Ticket: Status_DI},
+                {Codigo: "RET", Requisicao: "REQUISIÇÃO DE ESCLARECIMENTO TÉCNICO",			Tipo_Ticket: "REQUISIÇÃO DE ESCLARECIMENTO TÉCNICO",		Tipo_Card: "RET", Status_Ticket: Status_DI},
+                {Codigo: "RIA", Requisicao: "REQUISIÇÃO DE IMPLEMENTAÇÃO DE AUTOMAÇÃO",		Tipo_Ticket: "REQUISIÇÃO DE IMPLEMENTAÇÃO DE AUTOMAÇÃO",	Tipo_Card: "RIA", Status_Ticket: Status_DI}
+            );
+        
+            // Depois, adiciona o campo SLA usando AddColumns:
+            ClearCollect(colTiposRequisicaoDI,
+                AddColumns(
+                    colTiposRequisicaoDI_Base As item,
+                    Sla,
+                    LookUp(db_Tipo_Ticket, Tk_Tipo_Ticket = item.Tipo_Ticket && Departamento.Value = "Dev", SLA_dia)
+                )
+            );
+        
+            // Limpa a Collection sem o SLA
+            Clear(colTiposRequisicaoDI_Base)
+        );
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Carrega lista db_tickets_infra do SharePoint em lotes
+        Set(VarLote, 1000);
+        Set(PrimeiraLinha, First(SortByColumns(db_tickets_infra, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+        Set(UltimaLinha, First(SortByColumns(db_tickets_infra, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+        ClearCollect(col_db_tickets_infra, Filter(db_tickets_infra, false));
+        
+        ForAll(
+            SeqLotes As item,
+            With(
+                {
+                    limInf: item.Value * VarLote + PrimeiraLinha,
+                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                },
+                Collect(
+                    col_db_tickets_infra,
+                    Filter(
+                    db_tickets_infra,
+                    ID_Referencia >= limInf && ID_Referencia <= limSup,
+                    Tk_Email_Solicitante = VarUsuario.Email
+                    )
+                )
+            )
+        );
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Carrega lista db_eventos_infra do SharePoint em lotes
+        Set(VarLote, 1000);
+        Set(PrimeiraLinha, First(SortByColumns(db_eventos_infra, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+        Set(UltimaLinha, First(SortByColumns(db_eventos_infra, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+        ClearCollect(col_db_eventos_infra, Filter(db_eventos_infra, false));
+        
+        ForAll(
+            SeqLotes As item,
+            With(
+                {
+                    limInf: item.Value * VarLote + PrimeiraLinha,
+                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                },
+                Collect(
+                    col_db_eventos_infra_completo,
+                    Filter(
+                    db_eventos_infra,
+                    ID_Referencia >= limInf && ID_Referencia <= limSup
+                    )
+                )
+            )
+        );
+        
+        ClearCollect(
+            col_db_eventos_infra,
+            Filter(
+                col_db_eventos_infra_completo,
+                Tk_TicketID in col_db_tickets_infra.Ticket
+            )
+        );
+        
+        Clear(col_db_eventos_infra_completo);
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Carrega lista db_nps_infra do SharePoint em lotes
+        Set(VarLote, 1000);
+        Set(PrimeiraLinha, First(SortByColumns(db_nps_infra, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+        Set(UltimaLinha, First(SortByColumns(db_nps_infra, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+        ClearCollect(col_db_nps_infra, Filter(db_nps_infra, false));
+        
+        ForAll(
+            SeqLotes As item,
+            With(
+                {
+                    limInf: item.Value * VarLote + PrimeiraLinha,
+                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                },
+                Collect(
+                    col_db_nps_infra,
+                    Filter(
+                    db_nps_infra,
+                    ID_Referencia >= limInf && ID_Referencia <= limSup,
+                    Tk_Solicitante = VarUsuario.Email
+                    )
+                )
+            )
+        );
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Carrega lista db_tickets_dev do SharePoint em lotes
+        Set(VarLote, 1000);
+        Set(PrimeiraLinha, First(SortByColumns(db_tickets_dev, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+        Set(UltimaLinha, First(SortByColumns(db_tickets_dev, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+        ClearCollect(col_db_tickets_dev, Filter(db_tickets_dev, false));
+        
+        ForAll(
+            SeqLotes As item,
+            With(
+                {
+                    limInf: item.Value * VarLote + PrimeiraLinha,
+                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                },
+                Collect(
+                    col_db_tickets_dev,
+                    Filter(
+                    db_tickets_dev,
+                    ID_Referencia >= limInf && ID_Referencia <= limSup,
+                    Tk_Email_Solicitante = VarUsuario.Email
+                    )
+                )
+            )
+        );
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Carrega lista db_eventos_dev do SharePoint em lotes
+        Set(VarLote, 1000);
+        Set(PrimeiraLinha, First(SortByColumns(db_eventos_dev, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+        Set(UltimaLinha, First(SortByColumns(db_eventos_dev, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+        ClearCollect(col_db_eventos_dev, Filter(db_eventos_dev, false));
+        
+        ForAll(
+            SeqLotes As item,
+            With(
+                {
+                    limInf: item.Value * VarLote + PrimeiraLinha,
+                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                },
+                Collect(
+                    col_db_eventos_dev_completo,
+                    Filter(
+                    db_eventos_dev,
+                    ID_Referencia >= limInf && ID_Referencia <= limSup
+                    )
+                )
+            )
+        );
+        
+        ClearCollect(
+            col_db_eventos_dev,
+            Filter(
+                col_db_eventos_dev_completo,
+                Tk_TicketID in col_db_tickets_dev.Tk_Ticket
+            )
+        );
+        
+        Clear(col_db_eventos_dev_completo);
+        
+        // ----------------------------------------------------------------------------------- //
+        
+        // Carrega lista db_nps_dev do SharePoint em lotes
+        Set(VarLote, 1000);
+        Set(PrimeiraLinha, First(SortByColumns(db_nps_dev, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+        Set(UltimaLinha, First(SortByColumns(db_nps_dev, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+        ClearCollect(col_db_nps_dev, Filter(db_nps_dev, false));
+        
+        ForAll(
+            SeqLotes As item,
+            With(
+                {
+                    limInf: item.Value * VarLote + PrimeiraLinha,
+                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                },
+                Collect(
+                    col_db_nps_dev,
+                    Filter(
+                    db_nps_dev,
+                    ID_Referencia >= limInf && ID_Referencia <= limSup,
+                    Tk_Solicitante = VarUsuario.Email
+                    )
+                )
+            )
+        );
+        
+        // ----------------------------------------------------------------------------------- //
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

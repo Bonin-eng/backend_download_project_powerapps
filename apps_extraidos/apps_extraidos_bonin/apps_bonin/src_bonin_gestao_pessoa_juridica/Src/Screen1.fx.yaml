@@ -1,0 +1,2688 @@
+Screen1 As screen:
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: =
+
+    Timer1 As timer:
+        AutoPause: =false
+        AutoStart: =VarTemporizador1
+        Duration: =0.1
+        Fill: =RGBA(45, 65, 93, 1)
+        Font: =Font.'Segoe UI'
+        HoverFill: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+        OnTimerEnd: |-
+            =UpdateContext({VarCtnDadosGal: true});
+            Set(VarTemporizador2, true);
+            Navigate(Screen2);
+            Set(VarTemporizador1, false);
+        Visible: =false
+        X: =85
+        Y: =728
+        ZIndex: =1
+
+    gpj_cpn_tela_1 As gpj_cpn_tela:
+        ZIndex: =2
+
+    ctn_dados As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =gpj_cpn_tela_1.Referencia_Height
+        RadiusBottomLeft: =gpj_cpn_tela_1.Referencia_RadiusBottomLeft
+        RadiusBottomRight: =gpj_cpn_tela_1.Referencia_RadiusBottomRight
+        RadiusTopLeft: =gpj_cpn_tela_1.Referencia_RadiusTopLeft
+        RadiusTopRight: =gpj_cpn_tela_1.Referencia_RadiusTopRight
+        Width: =gpj_cpn_tela_1.Referencia_Width
+        X: =gpj_cpn_tela_1.Eixo_X
+        Y: =gpj_cpn_tela_1.Eixo_Y
+        ZIndex: =3
+
+        ctn_dados_form As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =gpj_cpn_tela_1.Referencia_Height - ctn_cabecalho_colaborador.Height
+            RadiusBottomLeft: =gpj_cpn_tela_1.Referencia_RadiusBottomLeft
+            RadiusBottomRight: =gpj_cpn_tela_1.Referencia_RadiusBottomRight
+            RadiusTopLeft: =gpj_cpn_tela_1.Referencia_RadiusTopLeft
+            RadiusTopRight: =gpj_cpn_tela_1.Referencia_RadiusTopRight
+            Visible: =VarCtnDadosForm
+            Width: =gpj_cpn_tela_1.Referencia_Width
+            Y: =ctn_cabecalho_colaborador.Y + ctn_cabecalho_colaborador.Height
+            ZIndex: =4
+
+            frm_novo_cadastro As form:
+                AcceptsFocus: =false
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                DataSource: =GPJ_Colaboradores
+                DefaultMode: =If(!IsBlank(VarEditItem_Colaborador), FormMode.Edit ,FormMode.New)
+                Height: =ctn_dados_form.Height - Self.Y - 97
+                Item: =LookUp(GPJ_Colaboradores, ID_Referencia = VarEditItem_Colaborador.ID_Referencia)
+                NumberOfColumns: =4
+                OnSuccess: |
+                    =// Atualiza campo ID_Referencia com o próprio ID
+                    Patch(
+                        GPJ_Colaboradores,
+                        LookUp(GPJ_Colaboradores, ID = frm_novo_cadastro.LastSubmit.ID),
+                        {
+                            ID_Referencia: frm_novo_cadastro.LastSubmit.ID
+                        }
+                    );
+                    
+                    // Se houver um colaborador anterior (VarAttItem_Colaborador)
+                    If(
+                        !IsBlank(VarAttItem_Colaborador),
+                        Concurrent(
+                            // 1️⃣ Atualiza o antigo colaborador: desativa e encerra
+                            Patch(
+                                GPJ_Colaboradores,
+                                VarAttItem_Colaborador,
+                                {
+                                    Ativo: false,
+                                    Encerramento_Contrato: DataCardValue15.SelectedDate
+                                }
+                            ),
+                    
+                            // 2️⃣ Atualiza o novo colaborador: limpa Encerramento_Contrato
+                            Patch(
+                                GPJ_Colaboradores,
+                                LookUp(GPJ_Colaboradores, ID = frm_novo_cadastro.LastSubmit.ID),
+                                {
+                                    Ativo: true,
+                                    Encerramento_Contrato: Blank()
+                                }
+                            )
+                        )
+                    );
+                    
+                    // Limpa as variáveis
+                    If(
+                        !IsBlank(VarAttItem_Colaborador),
+                        UpdateContext({VarAttItem_Colaborador: Blank()})
+                    );
+                    
+                    If(
+                        !IsBlank(VarEditItem_Colaborador),
+                        UpdateContext({VarEditItem_Colaborador: Blank()})
+                    );
+                    
+                    UpdateContext({VarValor_Base: Blank()});
+                    UpdateContext({VarNomeColaborador: Blank()});
+                    ResetForm(frm_novo_cadastro);
+                    UpdateContext({VarCtnDadosForm: false});
+                    UpdateContext({VarCtnDadosGal: true});
+                    
+                    // 🚀 Notificação de sucesso
+                    Notify(
+                        "Cadastro concluído com sucesso!", 
+                        NotificationType.Success, 
+                        2000
+                    )
+                Width: =ctn_dados_form.Width - 30
+                X: =(Parent.Width - Self.Width)/2
+                Y: =Self.X
+                ZIndex: =1
+
+                Email_DataCard1 As typedDataCard.textualEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Email"
+                    Default: =ThisItem.Email
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Email)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.MaxLength, Email)
+                    Required: =false
+                    Update: =DataCardValue7.Text
+                    Width: =309
+                    X: =2
+                    Y: =0
+                    ZIndex: =1
+
+                    ctn_back_form_47 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage7.Y + ErrorMessage7.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey7 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="E-mail"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue7 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), VarEditItem_Colaborador.Email, If(!IsBlank(VarAttItem_Colaborador), VarAttItem_Colaborador.Email, Parent.Default))
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage7 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue7.Y + DataCardValue7.Height
+                        ZIndex: =4
+
+                    StarVisible7 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey7.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey7.Y
+                        ZIndex: =5
+
+                Telefone_DataCard1 As typedDataCard.textualEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Telefone"
+                    Default: =ThisItem.Telefone
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Telefone)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.MaxLength, Telefone)
+                    Required: =false
+                    Update: =DataCardValue13.Text
+                    Width: =309
+                    X: =3
+                    Y: =0
+                    ZIndex: =1
+
+                    ctn_back_form_48 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage13.Y + ErrorMessage13.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey13 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue13 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: |
+                            =With(
+                                {
+                                    Entrada: DataCardValue13_1.Text,
+                                    Len: Len(DataCardValue13_1.Text)
+                                },
+                                Concat(
+                                    ForAll(
+                                        Sequence(
+                                            Len,
+                                            1,
+                                            1
+                                        ),
+                                        {
+                                            ID: Value,
+                                            Caracter: Mid(
+                                                Entrada,
+                                                Value,
+                                                1
+                                            )
+                                        }
+                                    ),
+                                    If(
+                                        // Se tiver 11 dígitos, formata como celular
+                                        Len = 11,
+                                        Switch(
+                                            ID,
+                                            1,"(" & Caracter,   // insere "(" antes do primeiro dígito
+                                            2,Caracter & ")",   // insere ")" logo após o segundo dígito
+                                            7,Caracter & "-",   // insere "-" após o sétimo dígito
+                                            Caracter            // se não estiver nessas posições, só retorna o caractere
+                                        ),
+                                        // Se tiver 10 dígitos, formata como fixo
+                                        Switch(
+                                            ID,
+                                            1,"(" & Caracter,
+                                            2,Caracter & ")",
+                                            6,Caracter & "-",
+                                            Caracter
+                                        )
+                                    )
+                                )
+                            )
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        TabIndex: =-2
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                        ZIndex: =3
+
+                    DataCardValue13_1 As text:
+                        BorderColor: =
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =If(IsBlank(Self.Text), RGBA(0, 0, 0, 1), RGBA(0, 0, 0, 0))
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), Substitute(Substitute(Substitute(VarEditItem_Colaborador.Telefone,"(",""),")",""),"-",""), If(!IsBlank(VarAttItem_Colaborador), Substitute(Substitute(Substitute(VarAttItem_Colaborador.Telefone,"(",""),")",""),"-",""), Parent.Default))
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        DisplayMode: =Parent.DisplayMode
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Format: =TextFormat.Number
+                        Height: =30
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        MaxLength: =11
+                        PaddingLeft: =5
+                        PressedBorderColor: =
+                        PressedColor: =
+                        PressedFill: =
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =12
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                        ZIndex: =4
+
+                    ErrorMessage13 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue13.Y + DataCardValue13.Height
+                        ZIndex: =5
+
+                    StarVisible13 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey13.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey13.Y
+                        ZIndex: =6
+
+                ID_Tipo_Colaborador_DataCard2 As typedDataCard.allowedValuesNumberEditCard:
+                    AllowedValues: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.AllowedValues, ID_Tipo_Colaborador)
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="ID_Tipo_Colaborador"
+                    Default: =ThisItem.ID_Tipo_Colaborador
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,ID_Tipo_Colaborador)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue18.Selected.ID_Referencia
+                    Width: =Parent.Width/4
+                    X: =0
+                    Y: =2
+                    ZIndex: =1
+
+                    ctn_back_form_3 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage18.Y + ErrorMessage18.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey18 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Tipo de Colaborador"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue18 As dropdown:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), LookUp(GPJ_OP_Tipo_Colaborador, ID_Referencia = Parent.Default, Tipo_Colaborador), If(!IsBlank(VarAttItem_Colaborador), LookUp(GPJ_OP_Tipo_Colaborador, ID_Referencia = VarAttItem_Colaborador.ID_Tipo_Colaborador, Tipo_Colaborador), Parent.Default))
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        Items: =SortByColumns(ShowColumns(Filter(GPJ_OP_Tipo_Colaborador, Ativo = true), Tipo_Colaborador, ID_Referencia), "Tipo_Colaborador", SortOrder.Ascending)
+                        PressedFill: =RGBA(45, 65, 93, 1)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage18 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue18.Y + DataCardValue18.Height
+                        ZIndex: =4
+
+                    StarVisible18 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey18.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey18.Y
+                        ZIndex: =5
+
+                ID_Contrato_DataCard2 As typedDataCard.allowedValuesNumberEditCard:
+                    AllowedValues: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.AllowedValues, ID_Contrato)
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="ID_Contrato"
+                    Default: =ThisItem.ID_Contrato
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,ID_Contrato)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue21.Selected.ID_Referencia
+                    Width: =Parent.Width/4
+                    X: =1
+                    Y: =2
+                    ZIndex: =1
+
+                    ctn_back_form_4 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage21.Y + ErrorMessage21.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey21 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Contrato"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue21 As dropdown:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), LookUp(GPJ_OP_Contrato_Atuacao, ID_Referencia = Parent.Default, Contrato_Atuacao), If(!IsBlank(VarAttItem_Colaborador), LookUp(GPJ_OP_Contrato_Atuacao, ID_Referencia = VarAttItem_Colaborador.ID_Contrato, Contrato_Atuacao), Parent.Default))
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        Items: =SortByColumns(ShowColumns(Filter(GPJ_OP_Contrato_Atuacao, Ativo = true), Contrato_Atuacao, ID_Referencia), "Contrato_Atuacao", SortOrder.Ascending)
+                        PressedFill: =RGBA(45, 65, 93, 1)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey21.Y + DataCardKey21.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage21 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue21.Y + DataCardValue21.Height
+                        ZIndex: =4
+
+                    StarVisible21 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey21.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey21.Y
+                        ZIndex: =5
+
+                ID_Atuacao_DataCard2 As typedDataCard.allowedValuesNumberEditCard:
+                    AllowedValues: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.AllowedValues, ID_Atuacao)
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="ID_Atuacao"
+                    Default: =ThisItem.ID_Atuacao
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,ID_Atuacao)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue20.Selected.ID_Referencia
+                    Width: =Parent.Width/4
+                    X: =2
+                    Y: =2
+                    ZIndex: =1
+
+                    ctn_back_form_5 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage20.Y + ErrorMessage20.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey20 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Atuação"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue20 As dropdown:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), LookUp(GPJ_OP_Contrato_Atuacao, ID_Referencia = Parent.Default, Contrato_Atuacao), If(!IsBlank(VarAttItem_Colaborador), LookUp(GPJ_OP_Contrato_Atuacao, ID_Referencia = VarAttItem_Colaborador.ID_Atuacao, Contrato_Atuacao), Parent.Default))
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        Items: =SortByColumns(ShowColumns(Filter(GPJ_OP_Contrato_Atuacao, Ativo = true), Contrato_Atuacao, ID_Referencia), "Contrato_Atuacao", SortOrder.Ascending)
+                        PressedFill: =RGBA(45, 65, 93, 1)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey20.Y + DataCardKey20.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage20 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue20.Y + DataCardValue20.Height
+                        ZIndex: =4
+
+                    StarVisible20 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey20.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey20.Y
+                        ZIndex: =5
+
+                Regime_DataCard1 As typedDataCard.comboBoxEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Regime"
+                    Default: =ThisItem.Regime
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Regime)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue23.Selected
+                    Width: =Parent.Width/4
+                    X: =3
+                    Y: =2
+                    ZIndex: =1
+
+                    ctn_back_form_6 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage23.Y + ErrorMessage23.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey23 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue23 As combobox:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                        DefaultSelectedItems: =If(!IsBlank(VarEditItem_Colaborador), Parent.Default, If(!IsBlank(VarAttItem_Colaborador), VarAttItem_Colaborador.Regime, Parent.Default))
+                        DisplayFields: =["Value"]
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        IsSearchable: =false
+                        Items: =Choices([@GPJ_Colaboradores].Regime)
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        PressedFill: =RGBA(45, 65, 93, 1)
+                        SearchFields: =["Value"]
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        SelectMultiple: =false
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                        ZIndex: =4
+
+                    ErrorMessage23 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue23.Y + DataCardValue23.Height
+                        ZIndex: =5
+
+                    StarVisible23 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey23.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey23.Y
+                        ZIndex: =6
+
+                ID_Tipo_RT_DataCard2 As typedDataCard.allowedValuesNumberEditCard:
+                    AllowedValues: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.AllowedValues, ID_Tipo_RT)
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="ID_Tipo_RT"
+                    Default: =ThisItem.ID_Tipo_RT
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,ID_Tipo_RT)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue19.Selected.ID_Referencia
+                    Width: =Parent.Width/4
+                    X: =0
+                    Y: =3
+                    ZIndex: =1
+
+                    ctn_back_form_7 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage19.Y + ErrorMessage19.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey19 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Tipo de RT"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue19 As dropdown:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), LookUp(GPJ_OP_RT, ID_Referencia = Parent.Default, Tipo_RT ), If(!IsBlank(VarAttItem_Colaborador), LookUp(GPJ_OP_RT, ID_Referencia = VarAttItem_Colaborador.ID_Tipo_RT, Tipo_RT), Parent.Default))
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        Items: =SortByColumns(ShowColumns(Filter(GPJ_OP_RT, Ativo = true), Tipo_RT, ID_Referencia), "Tipo_RT", SortOrder.Ascending)
+                        PressedFill: =RGBA(45, 65, 93, 1)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage19 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue19.Y + DataCardValue19.Height
+                        ZIndex: =4
+
+                    StarVisible19 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey19.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey19.Y
+                        ZIndex: =5
+
+                ID_Tipo_Alimentacao_DataCard2 As typedDataCard.allowedValuesNumberEditCard:
+                    AllowedValues: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.AllowedValues, ID_Tipo_Alimentacao)
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="ID_Tipo_Alimentacao"
+                    Default: =ThisItem.ID_Tipo_Alimentacao
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,ID_Tipo_Alimentacao)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue17.Selected.ID_Referencia
+                    Width: =Parent.Width/4
+                    X: =1
+                    Y: =3
+                    ZIndex: =1
+
+                    ctn_back_form_8 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage17.Y + ErrorMessage17.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey17 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Tipo de Alimentação"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue17 As dropdown:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(45, 65, 93, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                        Default: |
+                            =// Definindo a tabela formatada com AddColumns
+                            With(
+                                {
+                                    tabelaAlimentacao:
+                                        AddColumns(
+                                            ShowColumns(
+                                                GPJ_OP_Tipo_Alimentacao,
+                                                ID_Referencia,
+                                                ID_Tipo_Colaborador
+                                            ),
+                                            Tipo_Colaborador,
+                                            LookUp(
+                                                GPJ_OP_Tipo_Colaborador,
+                                                ID_Referencia = ID_Tipo_Colaborador,
+                                                Tipo_Colaborador
+                                            )
+                                        )
+                                },
+                                
+                                // Lógica principal do If
+                                If(
+                                    !IsBlank(VarEditItem_Colaborador) && !IsBlank(Parent.Default),
+                                    LookUp(
+                                        tabelaAlimentacao,
+                                        ID_Referencia = Parent.Default,
+                                        Tipo_Colaborador
+                                    ),
+                                    If(
+                                        !IsBlank(VarAttItem_Colaborador) && !IsBlank(VarAttItem_Colaborador.ID_Tipo_Alimentacao),
+                                        LookUp(
+                                            tabelaAlimentacao,
+                                            ID_Referencia = VarAttItem_Colaborador.ID_Tipo_Alimentacao,
+                                            Tipo_Colaborador
+                                        ),
+                                        "Não se aplica"
+                                    )
+                                )
+                            )
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        Items: |-
+                            =Table(
+                            AddColumns(ShowColumns(GPJ_OP_Tipo_Alimentacao, ID_Referencia, ID_Tipo_Colaborador), Tipo_Colaborador, LookUp(GPJ_OP_Tipo_Colaborador, ID_Referencia = ID_Tipo_Colaborador, 
+                            Tipo_Colaborador)), {ID_Referencia: Blank(), ID_Tipo_Colaborador: Blank(), Tipo_Colaborador: "Não se aplica"})
+                        PressedFill: =RGBA(45, 65, 93, 1)
+                        SelectionFill: =RGBA(45, 65, 93, 1)
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage17 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue17.Y + DataCardValue17.Height
+                        ZIndex: =4
+
+                    StarVisible17 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey17.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey17.Y
+                        ZIndex: =5
+
+                Base_DataCard1 As typedDataCard.numberEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Base"
+                    Default: =ThisItem.Base
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Base)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =Value(DataCardValue14.Text)
+                    Width: =Parent.Width/4
+                    X: =2
+                    Y: =3
+                    ZIndex: =1
+
+                    ctn_back_form_9 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage14.Y + ErrorMessage14.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey14 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Remuneração Base"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue14 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: =VarValor_Base
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Format: =TextFormat.Number
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        OnChange: |-
+                            =UpdateContext({VarValor_Base: Text(Value(DataCardValue14.Text), "[$-pt-BR]R$ #.##0,00")})
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey14.Y + DataCardKey14.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage14 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue14.Y + DataCardValue14.Height
+                        ZIndex: =4
+
+                    StarVisible14 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey14.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey14.Y
+                        ZIndex: =5
+
+                Ativo_DataCard6 As typedDataCard.toggleEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Ativo"
+                    Default: =ThisItem.Ativo
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Ativo)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue6.Value
+                    Visible: =!IsBlank(VarEditItem_Colaborador)
+                    Width: =If(Self.Visible, 309, 0)
+                    X: =2
+                    Y: =4
+                    ZIndex: =1
+
+                    ctn_back_form_29 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage9.Y + ErrorMessage9.Height - 8
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey6 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Cadastro Ativo"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue6 As toggleSwitch:
+                        BorderColor: |
+                            =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =IsBlank(DataCardValue15.SelectedDate)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 1)
+                        DisabledColor: =RGBA(0, 0, 0, 1)
+                        FalseText: ="Não"
+                        Font: =Font.'Segoe UI'
+                        Size: =12
+                        Tooltip: =Parent.DisplayName
+                        TrueFill: =RGBA(45, 65, 93, 1)
+                        TrueText: ="Sim"
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage6 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue6.Y + DataCardValue6.Height
+                        ZIndex: =4
+
+                    StarVisible6 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey6.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey6.Y
+                        ZIndex: =5
+
+                    ctn_back_form_50 As groupContainer.manualLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =ErrorMessage9.Y + ErrorMessage9.Height - 8
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =6
+
+                Encerramento_Contrato_DataCard1 As typedDataCard.dateEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Encerramento_Contrato"
+                    Default: =ThisItem.Encerramento_Contrato
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Encerramento_Contrato)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue15.SelectedDate
+                    Visible: =!IsBlank(VarEditItem_Colaborador)
+                    Width: =If(Self.Visible, 309, 0)
+                    X: =2
+                    Y: =4
+                    ZIndex: =1
+
+                    ctn_back_form_49 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage15.Y + ErrorMessage15.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey15 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Encerramento do Contrato"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue15 As datepicker:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        DefaultDate: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        EndYear: =Year(Today())+100
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        IconBackground: =RGBA(45, 65, 93, 1)
+                        IsEditable: =true
+                        PaddingBottom: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        Size: =10
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey15.Y + DataCardKey15.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage15 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue15.Y + DataCardValue15.Height
+                        ZIndex: =4
+
+                    StarVisible15 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey15.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey15.Y
+                        ZIndex: =5
+
+                Competencia_Atualizacao_DataCard1 As typedDataCard.dateEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Competencia_Atualizacao"
+                    Default: =ThisItem.Competencia_Atualizacao
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Competencia_Atualizacao)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue52.SelectedDate
+                    Visible: =!IsBlank(VarAttItem_Colaborador)
+                    Width: =309
+                    X: =3
+                    Y: =4
+                    ZIndex: =1
+
+                    ctn_back_form_57 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage15.Y + ErrorMessage15.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey52 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Competência da Atualização"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue52 As datepicker:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        DefaultDate: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        EndYear: =Year(Today())+100
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        IconBackground: =RGBA(45, 65, 93, 1)
+                        IsEditable: =true
+                        PaddingBottom: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        Size: =10
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey52.Y + DataCardKey52.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage52 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue52.Y + DataCardValue52.Height
+                        ZIndex: =4
+
+                    StarVisible52 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey52.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey52.Y
+                        ZIndex: =5
+
+                Nome_DataCard1 As typedDataCard.textualEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Nome"
+                    Default: =ThisItem.Nome
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Nome)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.MaxLength, Nome)
+                    Required: =false
+                    Update: =Upper(DataCardValue1.Text)
+                    Width: =Parent.Width/2
+                    WidthFit: =false
+                    X: =0
+                    Y: =0
+                    ZIndex: =2
+
+                    ctn_back_form As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage1.Y + ErrorMessage1.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey1 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue1 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: =VarNomeColaborador
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        OnChange: |-
+                            =UpdateContext({VarNomeColaborador: Upper(DataCardValue1.Text)})
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage1 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue1.Y + DataCardValue1.Height
+                        ZIndex: =4
+
+                    StarVisible1 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey1.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey1.Y
+                        ZIndex: =5
+
+                Nome_Empresa_DataCard1 As typedDataCard.textualEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Nome_Empresa"
+                    Default: =ThisItem.Nome_Empresa
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Nome_Empresa)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.MaxLength, Nome_Empresa)
+                    Required: =false
+                    Update: =DataCardValue10.Text
+                    Width: |
+                        =Parent.Width/2
+                    X: =0
+                    Y: =1
+                    ZIndex: =2
+
+                    ctn_back_form_1 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage10.Y + ErrorMessage10.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey10 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Nome da Empresa"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue10 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), VarEditItem_Colaborador.Nome_Empresa, If(!IsBlank(VarAttItem_Colaborador), VarAttItem_Colaborador.Nome_Empresa, Parent.Default))
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage10 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue10.Y + DataCardValue10.Height
+                        ZIndex: =4
+
+                    StarVisible10 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey10.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey10.Y
+                        ZIndex: =5
+
+                CNPJ_DataCard1 As typedDataCard.textualEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="CNPJ"
+                    Default: =ThisItem.CNPJ
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,CNPJ)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.MaxLength, CNPJ)
+                    Required: =false
+                    Update: =DataCardValue2.Text
+                    Width: =Parent.Width/4
+                    X: =2
+                    Y: =1
+                    ZIndex: =2
+
+                    ctn_back_form_2 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage2.Y + ErrorMessage2.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey2 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue2 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: |
+                            =With(
+                                {   
+                                    Entrada: DataCardValue2_1.Text,
+                                    Len: Len(DataCardValue2_1.Text)
+                                },
+                                Concat(
+                                    ForAll(
+                                        Sequence(
+                                            Len,
+                                            1,
+                                            1
+                                        ),
+                                        {
+                                            ID: Value,
+                                            Caracter: Mid(
+                                                Entrada,
+                                                Value,
+                                                1
+                                            )
+                                        }
+                                    ),
+                                    Switch(
+                                        ID,
+                                        3, ".",
+                                        6, ".",
+                                        9, "/",
+                                        13, "-"
+                                    ) & Caracter
+                                )
+                            )
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        TabIndex: =-1
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                        ZIndex: =3
+
+                    DataCardValue2_1 As text:
+                        BorderColor: =
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =If(IsBlank(Self.Text), RGBA(0, 0, 0, 1), RGBA(0, 0, 0, 0))
+                        Default: =If(!IsBlank(VarEditItem_Colaborador), Substitute(Substitute(Substitute(VarEditItem_Colaborador.CNPJ,".",""),"/",""),"-",""), If(!IsBlank(VarAttItem_Colaborador), Substitute(Substitute(Substitute(VarAttItem_Colaborador.CNPJ,".",""),"/",""),"-",""), Parent.Default))
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        DisplayMode: =Parent.DisplayMode
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Format: =TextFormat.Number
+                        Height: =30
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        MaxLength: =14
+                        PaddingLeft: =5
+                        PressedBorderColor: =
+                        PressedColor: =
+                        PressedFill: =
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =12
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                        ZIndex: =4
+
+                    ErrorMessage2 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue2.Y + DataCardValue2.Height
+                        ZIndex: =5
+
+                    StarVisible2 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey2.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey2.Y
+                        ZIndex: =6
+
+                Nascimento_DataCard1 As typedDataCard.dateEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Nascimento"
+                    Default: =ThisItem.Nascimento
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Nascimento)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue4.SelectedDate
+                    Width: =Parent.Width/4
+                    X: =3
+                    Y: =1
+                    ZIndex: =2
+
+                    ctn_back_form_11 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage4.Y + ErrorMessage4.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey4 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Nascimento"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue4 As datepicker:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        DefaultDate: =If(!IsBlank(VarAttItem_Colaborador),  VarAttItem_Colaborador.Nascimento, Parent.Default)
+                        DisplayMode: =Parent.DisplayMode
+                        EndYear: =Year(Today())+100
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        IconBackground: =RGBA(45, 65, 93, 1)
+                        IsEditable: =true
+                        PaddingBottom: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        Size: =10
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage4 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue4.Y + DataCardValue4.Height
+                        ZIndex: =4
+
+                    StarVisible4 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey4.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey4.Y
+                        ZIndex: =5
+
+                Admissao_DataCard1 As typedDataCard.dateEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Admissao"
+                    Default: =ThisItem.Admissao
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Admissao)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue3.SelectedDate
+                    Width: =Parent.Width/4
+                    X: =3
+                    Y: =3
+                    ZIndex: =2
+
+                    ctn_back_form_10 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage3.Y + ErrorMessage3.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey3 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Admissão"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue3 As datepicker:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        DefaultDate: =If(!IsBlank(VarAttItem_Colaborador),  VarAttItem_Colaborador.Admissao, Parent.Default)
+                        DisplayMode: =Parent.DisplayMode
+                        EndYear: =Year(Today())+100
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        IconBackground: =RGBA(45, 65, 93, 1)
+                        IsEditable: =true
+                        PaddingBottom: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        Size: =10
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage3 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue3.Y + DataCardValue3.Height
+                        ZIndex: =4
+
+                    StarVisible3 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey3.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey3.Y
+                        ZIndex: =5
+
+                Custo_Bonin_DataCard1 As typedDataCard.toggleEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Custo_Bonin"
+                    Default: =ThisItem.Custo_Bonin
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Custo_Bonin)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue9.Value
+                    Width: =Parent.Width/4
+                    X: =0
+                    Y: =4
+                    ZIndex: =2
+
+                    ctn_back_form_12 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage9.Y + ErrorMessage9.Height - 8
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey9 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Custo Bonin"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue9 As toggleSwitch:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderStyle: =BorderStyle.None
+                        Default: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        FalseText: ="Não"
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Size: =12
+                        Tooltip: =Parent.DisplayName
+                        TrueFill: =RGBA(45, 65, 93, 1)
+                        TrueText: ="Sim"
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage9 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue9.Y + DataCardValue9.Height
+                        ZIndex: =4
+
+                    StarVisible9 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey9.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey9.Y
+                        ZIndex: =5
+
+                Plano_Medico_DataCard1 As typedDataCard.toggleEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Plano_Medico"
+                    Default: =ThisItem.Plano_Medico
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Plano_Medico)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue8.Value
+                    Width: =Parent.Width/4
+                    X: =1
+                    Y: =4
+                    ZIndex: =2
+
+                    ctn_back_form_13 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage8.Y + ErrorMessage8.Height - 8
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey8 As label:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Plano Médico"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue8 As toggleSwitch:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderStyle: =BorderStyle.None
+                        Default: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        FalseText: ="Não"
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Size: =12
+                        Tooltip: =Parent.DisplayName
+                        TrueFill: =RGBA(45, 65, 93, 1)
+                        TrueText: ="Sim"
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage8 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue8.Y + DataCardValue8.Height
+                        ZIndex: =4
+
+                    StarVisible8 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey8.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey8.Y
+                        ZIndex: =5
+
+                Observacao_DataCard1 As typedDataCard.textualEditCard:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Observacao"
+                    Default: =ThisItem.Observacao
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@GPJ_Colaboradores],DataSourceInfo.DisplayName,Observacao)
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@GPJ_Colaboradores], DataSourceInfo.MaxLength, Observacao)
+                    Required: =false
+                    Update: =DataCardValue5.Text
+                    Width: =Parent.Width
+                    X: =0
+                    Y: =5
+                    ZIndex: =2
+
+                    ctn_back_form_14 As groupContainer.manualLayoutContainer:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =ErrorMessage5.Y + ErrorMessage5.Height - 10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width - 10
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =(Parent.Height - Self.Height)/2
+                        ZIndex: =1
+
+                    DataCardKey5 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        Size: =12
+                        Text: ="Observação"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =2
+
+                    DataCardValue5 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =1
+                        Default: =If(!IsBlank(VarAttItem_Colaborador),  VarAttItem_Colaborador.Observacao, Parent.Default)
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        Height: =30
+                        HoverBorderColor: =RGBA(45, 65, 93, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =10
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey5.Y + DataCardKey5.Height + 5
+                        ZIndex: =3
+
+                    ErrorMessage5 As label:
+                        AutoHeight: =true
+                        Font: =Font.'Segoe UI'
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue5.Y + DataCardValue5.Height
+                        ZIndex: =4
+
+                    StarVisible5 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(45, 65, 93, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =DataCardKey5.Height
+                        Size: =12
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey5.Y
+                        ZIndex: =5
+
+            img_clean As image:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.Dashed
+                Height: =48
+                Image: |-
+                    =LookUp(
+                        ColIconesMenus,
+                        Nome = "clean"
+                    ).SVG
+                OnSelect: |
+                    =UpdateContext({VarNomeColaborador: Blank()});
+                    If(!IsBlank(VarEditItem_Colaborador), UpdateContext({VarEditItem_Colaborador: Blank()}), If(!IsBlank(VarAttItem_Colaborador),
+                    UpdateContext({VarAttItem_Colaborador: Blank()})));
+                    UpdateContext({VarValor_Base: Blank()});
+                    ResetForm(frm_novo_cadastro);
+                TabIndex: =2
+                Width: =48
+                X: =frm_novo_cadastro.X + (frm_novo_cadastro.Width / 2) + 12
+                Y: =frm_novo_cadastro.Y + frm_novo_cadastro.Height
+                ZIndex: =2
+
+            img_save As image:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.Dashed
+                Height: =48
+                Image: |-
+                    =LookUp(
+                                    ColIconesMenus,
+                                    Nome = "save"
+                                ).SVG
+                OnSelect: =SubmitForm(frm_novo_cadastro)
+                TabIndex: =2
+                Width: =48
+                X: =frm_novo_cadastro.X + (frm_novo_cadastro.Width / 2) - Self.Width - 12
+                Y: =frm_novo_cadastro.Y + frm_novo_cadastro.Height
+                ZIndex: =3
+
+        ctn_dados_gal As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =gpj_cpn_tela_1.Referencia_Height - ctn_cabecalho_colaborador.Height
+            RadiusBottomLeft: =gpj_cpn_tela_1.Referencia_RadiusBottomLeft
+            RadiusBottomRight: =gpj_cpn_tela_1.Referencia_RadiusBottomRight
+            RadiusTopLeft: =gpj_cpn_tela_1.Referencia_RadiusTopLeft
+            RadiusTopRight: =gpj_cpn_tela_1.Referencia_RadiusTopRight
+            Visible: =VarCtnDadosGal
+            Width: =gpj_cpn_tela_1.Referencia_Width
+            Y: =ctn_cabecalho_colaborador.Y + ctn_cabecalho_colaborador.Height
+            ZIndex: =5
+
+            glr_dados_colaboradores As gallery.variableTemplateHeightGallery:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                DelayItemLoading: =true
+                Height: =Parent.Height
+                Items: |
+                    =Filter(
+                        SortByColumns(
+                            GPJ_Colaboradores,
+                            "Ativo", SortOrder.Descending,
+                            "Nome", SortOrder.Ascending
+                        ),
+                        
+                        // Filtros dinâmicos
+                        If(
+                            !IsBlank(cmb_filtro_colab.Selected.Value),
+                            Nome = cmb_filtro_colab.Selected.Value,
+                            true
+                        ),
+                        
+                        If(
+                            !IsBlank(cbm_filtro_tipo_colab.Selected.Value),
+                            ID_Tipo_Colaborador = cbm_filtro_tipo_colab.Selected.Value,
+                            true
+                        ),
+                        
+                        If(
+                            !IsBlank(cbm_filtro_tipo_contrato.Selected.Value),
+                            ID_Contrato = cbm_filtro_tipo_contrato.Selected.Value,
+                            true
+                        ),
+                        
+                        If(
+                            !IsBlank(cbm_filtro_tipo_atuacao.Selected.Value),
+                            ID_Atuacao = cbm_filtro_tipo_atuacao.Selected.Value,
+                            true
+                        ),
+                    
+                        If(
+                            !IsBlank(cbm_filtro_tipo_ativo.Selected.Value),
+                            Ativo = cbm_filtro_tipo_ativo.Selected.Value,
+                            true
+                        )
+                    )
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplatePadding: =
+                TemplateSize: =280
+                Width: =Parent.Width
+                ZIndex: =3
+
+                HtmlText1 As htmlViewer:
+                    AutoHeight: =true
+                    Font: =Font.'Segoe UI'
+                    Height: =280
+                    HtmlText: |+
+                        ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+                        
+                          <!-- Nome -->
+                          <div style='font-size:14px; font-weight:bold; margin-bottom:2px;'>
+                            " & ThisItem.Nome & "
+                          </div>
+                        
+                          <!-- Linha 1: Empresa, CNPJ, Tipo, Contrato -->
+                          <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Empresa:</strong> " & ThisItem.Nome_Empresa & "</div>
+                            <div style='flex:1'><strong>CNPJ:</strong> " & ThisItem.CNPJ & "</div>
+                            <div style='flex:1'><strong>E-mail:</strong> " & ThisItem.Email & "</div>
+                            <div style='flex:1'><strong>Telefone:</strong> " & ThisItem.Telefone & "</div>
+                          </div>
+                        
+                          <!-- Linha 2: Atuação, Custo, Regime, Tipo Alimentação -->
+                          <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Tipo:</strong> " & LookUp(GPJ_OP_Tipo_Colaborador, ID_Referencia = ThisItem.ID_Tipo_Colaborador, Tipo_Colaborador) & "</div>
+                            <div style='flex:1'><strong>Contrato:</strong> " & LookUp(GPJ_OP_Contrato_Atuacao, ID_Referencia = ThisItem.ID_Contrato, Contrato_Atuacao) & "</div>
+                            <div style='flex:1'><strong>Atuação:</strong> " & LookUp(GPJ_OP_Contrato_Atuacao, ID_Referencia = ThisItem.ID_Atuacao, Contrato_Atuacao) & "</div>
+                            <div style='flex:1'><strong>Custo Bonin:</strong> " & If(ThisItem.Custo_Bonin, "Sim", "Não") & "</div>
+                          </div>
+                        
+                          <!-- Linha 3: Plano Médico, Admissão, Nascimento, Idade -->
+                          <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Regime:</strong> " & ThisItem.Regime.Value & "</div>
+                            <div style='flex:1'><strong>Tipo Alimentação:</strong> " & LookUp(GPJ_OP_Tipo_Colaborador, ID_Referencia = LookUp(GPJ_OP_Tipo_Alimentacao, ID_Referencia = ThisItem.ID_Tipo_Alimentacao, ID_Tipo_Colaborador), Tipo_Colaborador) & "</div>
+                            <div style='flex:1'><strong>Plano Médico:</strong> " & If(ThisItem.Plano_Medico, "Sim", "Não") & "</div>
+                            <div style='flex:1'><strong>Admissão:</strong> " & Text(ThisItem.Admissao, "dd/mm/yyyy") & "</div>
+                          </div>
+                        
+                          <!-- Linha 4: Base, RT, Ativo (com um espaço vazio para alinhar) -->
+                            <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Nascimento:</strong> " & Text(ThisItem.Nascimento, "dd/mm/yyyy") & "</div>
+                            <div style='flex:1'><strong>Idade:</strong> " & DateDiff(ThisItem.Nascimento, Today(), TimeUnit.Years) & " anos</div>
+                            <div style='flex:1'><strong>Base:</strong> R$ " & Text(ThisItem.Base, "[$-pt-BR]#.##0,00") & "</div>
+                            <div style='flex:1'><strong>RT:</strong> " & LookUp(GPJ_OP_RT, ID_Referencia = ThisItem.ID_Tipo_RT, Tipo_RT) & "</div>
+                        
+                          </div>
+                        
+                        <!-- Última linha: observação ocupa 100% -->
+                        <div style='display:flex; gap:20px; flex-wrap:wrap; margin-bottom:2px; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Ativo:</strong> " & If(ThisItem.Ativo, "Sim", "Não") & "</div>" &
+                            
+                            If(
+                                IsBlank(ThisItem.Encerramento_Contrato),
+                                
+                                // Se Encerramento em branco ➔ só Observação grande
+                                "<div style='flex:3.14'><strong>Observação:</strong> " & If(IsBlank(ThisItem.Observacao), "-", ThisItem.Observacao) & "</div>",
+                                
+                                // Se Encerramento preenchido ➔ Encerramento + Observação lado a lado
+                                "<div style='flex:1'><strong>Encerramento do Contrato:</strong> " & ThisItem.Encerramento_Contrato & "</div>" &
+                                "<div style='flex:2.08'><strong>Observação:</strong> " & If(IsBlank(ThisItem.Observacao), "-", ThisItem.Observacao) & "</div>"
+                            )
+                        
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Width: =Parent.Width - (Parent.TemplatePadding*2) - img_edit_5.Width
+                    ZIndex: =1
+
+                img_update_5 As image:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    Height: =40
+                    Image: |-
+                        =LookUp(
+                            ColIconesMenus,
+                            Nome = "update"
+                        ).SVG
+                    OnSelect: |
+                        =UpdateContext({VarEditItem_Colaborador: Blank()});
+                        UpdateContext(
+                            {
+                                VarAttItem_Colaborador: ThisItem,
+                                VarValor_Base: Text(
+                                    ThisItem.Base,
+                                    "[$-pt-BR]R$ #.##0,00"
+                                ),
+                                VarNomeColaborador: ThisItem.Nome
+                            }
+                        );
+                        UpdateContext({VarCtnDadosGal: false});
+                        UpdateContext({VarCtnDadosForm: true});
+                    TabIndex: |
+                        =2
+                    Tooltip: ="Atualizar item"
+                    Width: =40
+                    X: =Parent.Width - 48 - 5
+                    Y: =img_edit_5.Y + img_edit_5.Height + img_edit_5.Y
+                    ZIndex: =2
+
+                img_edit_5 As image:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    Height: =40
+                    Image: |-
+                        =LookUp(
+                            ColIconesMenus,
+                            Nome = "edit"
+                        ).SVG
+                    OnSelect: |
+                        =UpdateContext({VarAttItem_Colaborador: Blank()});
+                        UpdateContext(
+                            {
+                                VarEditItem_Colaborador: ThisItem,
+                                VarValor_Base: Text(
+                                    ThisItem.Base,
+                                    "[$-pt-BR]R$ #.##0,00"
+                                ),
+                                VarNomeColaborador: ThisItem.Nome
+                            }
+                        );
+                        UpdateContext({VarCtnDadosGal: false});
+                        UpdateContext({VarCtnDadosForm: true});
+                    PaddingBottom: =2
+                    PaddingTop: =2
+                    TabIndex: =2
+                    Tooltip: ="Editar item"
+                    Width: =40
+                    X: =Parent.Width - 48 - 5
+                    Y: =(HtmlText1.Height - (Self.Height*2))/3 - 5/2
+                    ZIndex: =3
+
+        ctn_cabecalho_colaborador As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(87, 107, 134, 1)
+            Height: =50
+            RadiusBottomLeft: |
+                =0
+            RadiusBottomRight: |
+                =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width
+            ZIndex: =6
+
+            lbl_cabecalho_6 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(45, 65, 93, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                Height: =50
+                Size: =16
+                Text: =If(!IsBlank(VarEditItem_Colaborador), Upper("Editar Cadastro"), If(!IsBlank(VarAttItem_Colaborador), Upper("Atualizar Cadastro"), Upper("Novo Cadastro")))
+                Visible: =Image1_1.Visible
+                Width: =Parent.Width
+                ZIndex: =1
+
+            Image1 As image:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.Dashed
+                Height: =48
+                Image: |-
+                    =LookUp(
+                        ColIconesMenus,
+                        Nome = "add_person"
+                    ).SVG
+                OnSelect: |
+                    =UpdateContext(
+                        {
+                            VarEditItem_Colaborador: Blank(),
+                            VarAttItem_Colaborador: Blank(),
+                            VarValor_Base: Blank(),
+                            VarNomeColaborador: Blank()
+                        }
+                    );
+                    ResetForm(frm_novo_cadastro);
+                    UpdateContext({VarCtnDadosForm: true});
+                    UpdateContext({VarCtnDadosGal: false});
+                TabIndex: =2
+                Visible: =!VarCtnDadosForm
+                Width: =48
+                X: =Image1_1.X
+                Y: =(Parent.Height - Self.Height) / 2
+                ZIndex: =2
+
+            Image1_1 As image:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderStyle: =BorderStyle.Dashed
+                Height: =48
+                Image: |-
+                    =LookUp(
+                        ColIconesMenus,
+                        Nome = "group_person"
+                    ).SVG
+                OnSelect: |+
+                    =UpdateContext({VarCtnDadosForm: false});
+                    UpdateContext({VarCtnDadosGal: true});
+                    UpdateContext(
+                        {
+                            VarEditItem_Colaborador: Blank(),
+                            VarAttItem_Colaborador: Blank(),
+                            VarValor_Base: Blank(),
+                            VarNomeColaborador: Blank()
+                        }
+                    )
+                    
+                TabIndex: =2
+                Visible: =!VarCtnDadosGal
+                Width: =48
+                X: =Parent.Width - Self.Width - 10
+                Y: =(Parent.Height - Self.Height) / 2
+                ZIndex: =3
+
+            cmb_filtro_colab As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DisplayFields: =["Value"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =20
+                InputTextPlaceholder: ="Filtrar nome"
+                Items: =SortByColumns(Distinct(GPJ_Colaboradores.Nome, Nome), "Value", SortOrder.Ascending)
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Search(SortByColumns(Distinct(GPJ_Colaboradores.Nome,Nome),"Value",SortOrder.Ascending),cmb_filtro_colab.SearchText,Value)
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Visible: =VarCtnDadosGal
+                Width: =250
+                X: =10
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =4
+
+            cbm_filtro_tipo_colab As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DisplayFields: =["Tipo_Colaborador"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =20
+                InputTextPlaceholder: ="Filtrar tipo"
+                Items: =SortByColumns(AddColumns(Distinct(GPJ_Colaboradores.ID_Tipo_Colaborador, ID_Tipo_Colaborador), Tipo_Colaborador, LookUp(GPJ_OP_Tipo_Colaborador, Value = ID_Referencia, Tipo_Colaborador)), "Tipo_Colaborador", SortOrder.Ascending)
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Tipo_Colaborador"]
+                SearchItems: =Search(SortByColumns(AddColumns(Distinct(GPJ_Colaboradores.ID_Tipo_Colaborador,ID_Tipo_Colaborador),Tipo_Colaborador,LookUp(GPJ_OP_Tipo_Colaborador,Value=ID_Referencia,Tipo_Colaborador)),"Tipo_Colaborador",SortOrder.Ascending),cbm_filtro_tipo_colab.SearchText,Tipo_Colaborador)
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Visible: =VarCtnDadosGal
+                Width: =150
+                X: =cmb_filtro_colab.X + cmb_filtro_colab.Width + cmb_filtro_colab.X
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =5
+
+            cbm_filtro_tipo_contrato As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DisplayFields: =["Tipo_Contrato"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =20
+                InputTextPlaceholder: ="Filtrar contrato"
+                Items: =SortByColumns(AddColumns(Distinct(GPJ_Colaboradores.ID_Contrato, ID_Contrato), Tipo_Contrato, LookUp(GPJ_OP_Contrato_Atuacao, Value = ID_Referencia, Contrato_Atuacao)), "Tipo_Contrato", SortOrder.Ascending)
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Tipo_Contrato"]
+                SearchItems: =Search(SortByColumns(AddColumns(Distinct(GPJ_Colaboradores.ID_Contrato,ID_Contrato),Tipo_Contrato,LookUp(GPJ_OP_Contrato_Atuacao,Value=ID_Referencia,Contrato_Atuacao)),"Tipo_Contrato",SortOrder.Ascending),cbm_filtro_tipo_contrato.SearchText,Tipo_Contrato)
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Visible: =VarCtnDadosGal
+                Width: =150
+                X: =cbm_filtro_tipo_colab.X + cbm_filtro_tipo_colab.Width + cmb_filtro_colab.X
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =6
+
+            cbm_filtro_tipo_atuacao As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DisplayFields: =["Tipo_Atuacao"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =20
+                InputTextPlaceholder: ="Filtrar atuação"
+                Items: =SortByColumns(AddColumns(Distinct(GPJ_Colaboradores.ID_Atuacao, ID_Atuacao), Tipo_Atuacao, LookUp(GPJ_OP_Contrato_Atuacao, Value = ID_Referencia, Contrato_Atuacao)), "Tipo_Atuacao", SortOrder.Ascending)
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Tipo_Atuacao"]
+                SearchItems: =Search(SortByColumns(AddColumns(Distinct(GPJ_Colaboradores.ID_Atuacao,ID_Atuacao),Tipo_Atuacao,LookUp(GPJ_OP_Contrato_Atuacao,Value=ID_Referencia,Contrato_Atuacao)),"Tipo_Atuacao",SortOrder.Ascending),cbm_filtro_tipo_atuacao.SearchText,Tipo_Atuacao)
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Visible: =VarCtnDadosGal
+                Width: =150
+                X: =cbm_filtro_tipo_contrato.X + cbm_filtro_tipo_contrato.Width + cmb_filtro_colab.X
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =7
+
+            cbm_filtro_tipo_ativo As combobox:
+                BorderColor: =
+                BorderThickness: =1
+                ChevronBackground: =RGBA(45, 65, 93, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                DisplayFields: =["Value_Tratado"]
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                Height: =20
+                InputTextPlaceholder: ="Filtrar ativo"
+                Items: =AddColumns(SortByColumns(Distinct(GPJ_Colaboradores.Ativo, Ativo), "Value", SortOrder.Ascending), Value_Tratado, If(Value, "Sim", "Não"))
+                PressedFill: =RGBA(45, 65, 93, 1)
+                SearchFields: =["Value_Tratado"]
+                SearchItems: =Search(AddColumns(SortByColumns(Distinct(GPJ_Colaboradores.Ativo,Ativo),"Value",SortOrder.Ascending),Value_Tratado,If(Value,"Sim","Não")),cbm_filtro_tipo_ativo.SearchText,Value_Tratado)
+                SelectionFill: =RGBA(45, 65, 93, 1)
+                SelectMultiple: =false
+                Size: =8
+                Visible: =VarCtnDadosGal
+                Width: =150
+                X: =cbm_filtro_tipo_atuacao.X + cbm_filtro_tipo_atuacao.Width + cmb_filtro_colab.X
+                Y: =Parent.Height/2 - Self.Height/2
+                ZIndex: =8
+
+    ctn_loading_1 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(45, 65, 93, 1)
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =VarInicial
+        Width: =Parent.Width
+        ZIndex: =4
+
+        img_loading_bonin_1 As image:
+            Height: =40
+            Image: ='Logo - Bonin Menor'
+            Width: =40
+            X: =Parent.Width/2 - Self.Width/2
+            Y: |
+                =Parent.Height/2 - Self.Height/2 + 1
+            ZIndex: =1
+
+        img_loading_1 As image:
+            BorderColor: =
+            DisabledBorderColor: =
+            DisabledFill: =
+            FocusedBorderThickness: =0
+            Height: =200
+            Image: |-
+                ="data:image/svg+xml;utf8, " & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: none; display: block; shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+                    <g transform='rotate(0 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.9166666666666666s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(30 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(60 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(90 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(120 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(150 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(180 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(210 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(240 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(270 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(300 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g><g transform='rotate(330 50 50)'>
+                    <rect x='47' y='24' rx='3' ry='6' width='6' height='12' fill='#348FFD'>
+                        <animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate>
+                    </rect>
+                    </g>
+                    <!-- [ldio] generated by https://loading.io/ --></svg>
+                ")
+            Width: =200
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =Parent.Height/2 - Self.Height/2
+            ZIndex: =2
+
+    tmr_loading As timer:
+        AutoPause: =false
+        AutoStart: =true
+        Duration: =3000
+        Fill: =RGBA(45, 65, 93, 1)
+        HoverFill: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+        OnTimerEnd: |
+            =Set(
+                VarInicial, 
+                false
+            );
+        OnTimerStart: =
+        Visible: =false
+        X: =40
+        Y: =40
+        ZIndex: =5
+

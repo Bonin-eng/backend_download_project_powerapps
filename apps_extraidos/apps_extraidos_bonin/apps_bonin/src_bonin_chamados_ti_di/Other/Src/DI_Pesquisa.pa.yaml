@@ -1,0 +1,1242 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  DI_Pesquisa:
+    Properties:
+      LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+      OnVisible: =Set(varAnimarSVG, GUID());
+    Children:
+      - Container30_4:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(243, 244, 246, 1)
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - Container31_4:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =20
+                  PaddingBottom: =15
+                  PaddingLeft: =15
+                  PaddingRight: =15
+                  PaddingTop: =15
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                Children:
+                  - Container32_4:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.Semilight
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =0
+                        Height: =75
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - lbl_titulo_5:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              BorderStyle: =BorderStyle.None
+                              Color: =RGBA(255, 255, 255, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =Parent.Height
+                              Size: =18
+                              Text: ="PESQUISA DE SATISFAÇÃO DE CHAMADOS DE D.I."
+                              Width: =Parent.Width
+                  - Container33_4:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.Semilight
+                        Fill: =RGBA(255, 255, 255, 1)
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - Container34_4:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Height: =Parent.Height
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =20
+                              PaddingBottom: =20
+                              PaddingLeft: =20
+                              PaddingRight: =20
+                              PaddingTop: =20
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width
+                            Children:
+                              - lbl_subtitulo_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Bold
+                                    Size: =16
+                                    Text: ="✨ Sua opinião faz a diferença! Avaliar o atendimento nos ajuda a evoluir e melhorar continuamente nossos serviços."
+                                    Width: =Parent.Width - Container34_4.PaddingLeft - Container34_4.PaddingRight
+                              - lbl_subtitulo_9:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(77, 77, 77, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Size: =16
+                                    Text: |-
+                                      ="📋 Confira abaixo os atendimentos que aguardam sua avaliação."
+                                    Width: =Parent.Width - Container34_4.PaddingLeft - Container34_4.PaddingRight
+                              - div_ti_op_7:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    PaddingLeft: =5
+                                    PaddingRight: =5
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - gal_DI_NPS:
+                                        Control: Gallery@2.15.0
+                                        Variant: VariableHeight
+                                        Properties:
+                                          BorderColor: =RGBA(45, 65, 93, 1)
+                                          BorderStyle: =BorderStyle.None
+                                          Fill: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.Height - Self.Y
+                                          Items: |-
+                                            =SortByColumns(
+                                                AddColumns(
+                                                    Filter(
+                                                        ShowColumns(
+                                                            col_db_nps_dev,
+                                                            ID_Referencia,
+                                                            Tk_TicketID,
+                                                            Tk_Status_NPS,
+                                                            Tk_Solicitante
+                                                        ),
+                                                        Tk_Solicitante = VarUsuario.Email,
+                                                        Tk_Status_NPS = "Aguardando Pesquisa"
+                                                    ),
+                                                    Tk_Tipo_Ticket,
+                                                    LookUp(
+                                                        colTiposRequisicaoDI,
+                                                        Tipo_Ticket = LookUp(
+                                                            col_db_tickets_dev,
+                                                            Tk_Ticket = Tk_TicketID,
+                                                            Tk_Tipo_Ticket
+                                                        ),
+                                                        Requisicao
+                                                    ),
+                                                    Tk_Atendente,
+                                                    LookUp(
+                                                        col_db_tickets_dev,
+                                                        Tk_Ticket = Tk_TicketID,
+                                                        Tk_Atendente
+                                                    ),
+                                                    Tk_Data_Abertura,
+                                                    LookUp(
+                                                        col_db_tickets_dev,
+                                                        Tk_Ticket = Tk_TicketID,
+                                                        Tk_Data_Abertura
+                                                    ),
+                                                    Tk_Descricao_Ocorrencia,
+                                                    LookUp(
+                                                        col_db_tickets_dev,
+                                                        Tk_Ticket = Tk_TicketID,
+                                                        Tk_Descricao_Ocorrencia
+                                                    )
+                                                ),
+                                                "Tk_Data_Abertura",
+                                                SortOrder.Ascending
+                                            )
+                                          ShowScrollbar: =false
+                                          TemplatePadding: =0
+                                          TemplateSize: =10
+                                          Width: =Parent.Width - div_ti_op_7.PaddingLeft - div_ti_op_7.PaddingRight
+                                          X: =Parent.Width/2 - Self.Width/2
+                                        Children:
+                                          - HtmlText1_1:
+                                              Control: HtmlViewer@2.1.0
+                                              Properties:
+                                                AutoHeight: =true
+                                                Font: =Font.'Open Sans'
+                                                Height: =10
+                                                HtmlText: "=With(\n    {\n        _t: ThisItem,\n        _dtConc: LookUp(col_db_eventos_dev, Tk_TicketID = ThisItem.Tk_TicketID && Tk_Tipo_Evento.Value = \"Concluído\", Tk_Data_Termino_Evento)\n    },\n    With({\n        _atNome: If(IsBlank(_t.Tk_Atendente.Value), \"Não atribuído\", UsuáriosdoOffice365.UserProfileV2(_t.Tk_Atendente.Value).displayName)\n    },\n\"\n<div style='width:100%; display:flex; flex-direction:column; background:#F9FAFB;\n             border:1px solid #E5E7EB; border-radius:12px;\n             padding:6px; margin-bottom:6px; font-family: Segoe UI, sans-serif;\n             box-sizing:border-box;'>\n\n  <!-- \n    LINHA 1: INFORMAÇÕES PRINCIPAIS\n    - Agora é um container flex com 4 colunas de largura percentual para garantir o alinhamento.\n  -->\n  <div style='display:flex; align-items:flex-start; width:100%; font-size:14px; gap:16px;'>\n    \n    <!-- Coluna 1: Ticket (25% da largura) -->\n    <div style='display:flex; align-items:center; gap:8px; width:25%;'>\n        <img src='data:image/svg+xml,\" & EncodeUrl(\"<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line><polyline points='10 9 9 9 8 9'></polyline></svg>\") & \"' width='18' height='18' />\n        <div style='min-width:0;'>\n            <span style='color:#6B7280; font-size:12px;'>Ticket</span><br>\n            <div style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>\n              <strong style='color:#1F2937;'>\" & _t.Tk_TicketID & \" (\" & _t.Tk_Tipo_Ticket & \")</strong>\n            </div>\n        </div>\n    </div>\n\n    <!-- Coluna 2: Atendente (35% da largura) -->\n    <div style='display:flex; align-items:center; gap:8px; width:35%;'>\n        <img src='data:image/svg+xml,\" & EncodeUrl(\"<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>\") & \"' width='18' height='18' />\n        <div style='min-width:0;'>\n            <span style='color:#6B7280; font-size:12px;'>Atendente</span><br>\n            <div style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>\n              <strong style='color:#1F2937;'>\" & _atNome & \"</strong>\n            </div>\n        </div>\n    </div>\n\n    <!-- Coluna 3: Abertura (20% da largura) -->\n    <div style='display:flex; align-items:center; gap:8px; width:20%;'>\n        <img src='data:image/svg+xml,\" & EncodeUrl(\"<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>\") & \"' width='18' height='18' />\n        <div>\n            <span style='color:#6B7280; font-size:12px;'>Abertura</span><br>\n            <strong style='color:#1F2937;'>\" & If(IsBlank(_t.Tk_Data_Abertura), \"-\", Text(_t.Tk_Data_Abertura, \"[$-pt-BR]dd/mm/yy\")) & \"</strong>\n        </div>\n    </div>\n\n    <!-- Coluna 4: Conclusão (20% da largura) -->\n    <div style='display:flex; align-items:center; gap:8px; width:20%;'>\n        <img src='data:image/svg+xml,\" & EncodeUrl(\"<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4B5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>\") & \"' width='18' height='18' />\n        <div>\n            <span style='color:#6B7280; font-size:12px;'>Conclusão</span><br>\n            <strong style='color:#1F2937;'>\" & If(IsBlank(_dtConc), \"-\", Text(_dtConc, \"[$-pt-BR]dd/mm/yy\")) & \"</strong>\n        </div>\n    </div>\n\n  </div>\n\n  <!-- \n    LINHA 2: DESCRIÇÃO\n  -->\n  <div style='margin-top:6px; padding-top:6px; border-top:1px solid #E5E7EB; color:#4B5563; font-size:14px; line-height:1.5;'>\n    <strong style='color:#1F2937;'>Descrição:</strong> \" & PlainText(_t.Tk_Descricao_Ocorrencia) & \"\n  </div>\n</div>\n\"\n))\n\n"
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Width: =Parent.Width
+                                          - Button3_5:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderColor: =ColorFade(Self.Fill, -15%)
+                                                BorderStyle: =BorderStyle.None
+                                                Color: =RGBA(0, 0, 0, 0)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Font: =Font.'Open Sans'
+                                                Height: =HtmlText1_1.Height - 8
+                                                HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =ColorFade(RGBA(166, 166, 166, 0.2), 20%)
+                                                OnSelect: |
+                                                  =UpdateContext({
+                                                      NPSTicketDI: LookUp(db_nps_dev, ID_Referencia = ThisItem.ID_Referencia),
+                                                      PesquisaSatisfacaoDI:true}
+                                                  );
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                PressedBorderColor: =Self.Fill
+                                                PressedColor: =Self.Fill
+                                                PressedFill: =Color.Transparent
+                                                Text: =
+                                                Width: =Parent.Width
+      - Container1_2:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(240, 240, 240, 1)
+            Height: =Parent.Height - Self.Y - 15
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Visible: =PesquisaSatisfacaoDI
+            Width: =Parent.Width - 16*2
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =104
+          Children:
+            - Container5_1:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =47+1
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - Container3_6:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =47
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        PaddingBottom: =1
+                        PaddingTop: =1
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - ctn_ti_div_13:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
+                              DropShadow: =DropShadow.None
+                              Height: =45
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                        - Container2_6:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =45
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                              LayoutMinHeight: =40
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Width: =Parent.Width/2
+                            Children:
+                              - lbl_TI_Chamados_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =12
+                                    Text: |-
+                                      ="TICKET: " & NPSTicketDI.Tk_TicketID
+                              - ctn_div_3:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(240, 240, 240, 1)
+                                    FillPortions: =0
+                                    Height: =30
+                                    Width: =1
+                              - lbl_TI_Chamados_10:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    FillPortions: =2
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =12
+                                    Text: =LookUp(colTiposRequisicaoDI, Tipo_Ticket = LookUp(col_db_tickets_dev, Tk_Ticket = NPSTicketDI.Tk_TicketID, Tk_Tipo_Ticket), Requisicao)
+                                    Underline: =true
+                              - ctn_div_4:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(240, 240, 240, 1)
+                                    FillPortions: =0
+                                    Height: =30
+                                    Width: =1
+                              - lbl_TI_Chamados_7:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =12
+                                    Text: |-
+                                      ="ATENDENTE: " & Char(13) & If(IsBlank(LookUp(col_db_tickets_dev, Tk_Ticket = NPSTicketDI.Tk_TicketID, Tk_Atendente.Value)), "Não atribuído", UsuáriosdoOffice365.UserProfileV2(LookUp(col_db_tickets_dev, Tk_Ticket = NPSTicketDI.Tk_TicketID, Tk_Atendente.Value)).displayName)
+                        - ctn_ti_div_14:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
+                              DropShadow: =DropShadow.None
+                              Height: =45
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+            - Container6_2:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  Fill: =RGBA(255, 255, 255, 0.2)
+                  FillPortions: =0
+                  Height: =655
+                  RadiusBottomLeft: =5
+                  RadiusBottomRight: =5
+                  RadiusTopLeft: =5
+                  RadiusTopRight: =5
+                  Width: =Parent.Width/2 - 10
+                Children:
+                  - Form_DI_NPS_Chamados:
+                      Control: Form@2.4.4
+                      Variant: Classic
+                      Layout: Vertical
+                      Properties:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        DataSource: =db_nps_dev
+                        DefaultMode: =If(!IsBlank(NPSTicketDI), FormMode.Edit, FormMode.New)
+                        Height: =Parent.Height
+                        Item: =NPSTicketDI
+                        NumberOfColumns: =12
+                        OnSuccess: |
+                          =// Carrega lista db_nps_dev do SharePoint em lotes
+                          Set(VarLote, 1000);
+                          Set(PrimeiraLinha, First(SortByColumns(db_nps_dev, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+                          Set(UltimaLinha, First(SortByColumns(db_nps_dev, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+                          Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+                          ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+                          ClearCollect(col_db_nps_dev, Filter(db_nps_dev, false));
+
+                          ForAll(
+                              SeqLotes As item,
+                              With(
+                                  {
+                                      limInf: item.Value * VarLote + PrimeiraLinha,
+                                      limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                                  },
+                                  Collect(
+                                      col_db_nps_dev,
+                                      Filter(
+                                      db_nps_dev,
+                                      ID_Referencia >= limInf && ID_Referencia <= limSup,
+                                      Tk_Solicitante = VarUsuario.Email
+                                      )
+                                  )
+                              )
+                          );
+
+                          // ----------------------------------------------------------------------------------- //
+
+                          Notify("🎉 Obrigado por responder à nossa pesquisa de satisfação! Sua avaliação é muito importante para nós.", NotificationType.Success, 3000);
+
+                          UpdateContext({
+                              NPSTicketDI: Blank(),
+                              PesquisaSatisfacaoDI: false
+                              }
+                          );
+                          ResetForm(Form_DI_NPS_Chamados);
+                          EditForm(Form_DI_NPS_Chamados);
+                        Width: =Parent.Width
+                      Children:
+                        - Tk_Satisfacao_Solucao_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicRatingEdit
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Satisfacao_Solucao"
+                              Default: =ThisItem.Tk_Satisfacao_Solucao
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Satisfacao_Solucao)
+                              Required: =true
+                              Update: =DataCardValue29.Value
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                            Children:
+                              - DataCardKey29:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="Quanto você está satisfeito com o suporte e as soluções desenvolvidas pela equipe?"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue29:
+                                  Control: Rating@2.1.0
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    Default: =0
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =28
+                                    Max: =10
+                                    RatingFill: =RGBA(45, 65, 93, 1)
+                                    Width: =Parent.Width - 150
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =DataCardKey29.Y + DataCardKey29.Height + 5
+                              - Label1_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue29.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Totalmente Satisfeito"
+                                    Width: =100
+                                    X: =Parent.Width - Self.Width -5
+                                    Y: =DataCardValue29.Y
+                              - Label1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue29.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Totalmente Insatisfeito"
+                                    Width: =100
+                                    X: =5
+                                    Y: =DataCardValue29.Y
+                              - StarVisible29:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: |
+                                      =DataCardKey29.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: |
+                                      =DataCardKey29.Y
+                        - Tk_Satisfacao_Prazo_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicRatingEdit
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Satisfacao_Prazo"
+                              Default: =ThisItem.Tk_Satisfacao_Prazo
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Satisfacao_Prazo)
+                              Required: =true
+                              Update: =DataCardValue30.Value
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =1
+                            Children:
+                              - DataCardKey30:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="Quanto você sentiu que sua demanda foi atendida dentro do prazo esperado?"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue30:
+                                  Control: Rating@2.1.0
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    Default: =0
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =28
+                                    Max: =10
+                                    RatingFill: =RGBA(45, 65, 93, 1)
+                                    Width: =Parent.Width - 150
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =DataCardKey30.Y + DataCardKey30.Height + 5
+                              - Label2_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue30.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Prazo Excelente"
+                                    Width: =100
+                                    X: =Parent.Width - Self.Width -5
+                                    Y: =DataCardValue30.Y
+                              - Label2_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue30.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Prazo Inadequado"
+                                    Width: =100
+                                    X: =5
+                                    Y: =DataCardValue30.Y
+                              - StarVisible30:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardKey30.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: =DataCardKey30.Y
+                        - Tk_Satisfacao_Comunicacao_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicRatingEdit
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Satisfacao_Comunicacao"
+                              Default: =ThisItem.Tk_Satisfacao_Comunicacao
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Satisfacao_Comunicacao)
+                              Required: =true
+                              Update: =DataCardValue31.Value
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =2
+                            Children:
+                              - DataCardKey31:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="Quanto o nível de comunicação e acompanhamento durante o desenvolvimento da solução atendeu às suas expectativas?"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue31:
+                                  Control: Rating@2.1.0
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    Default: =0
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =28
+                                    Max: =10
+                                    RatingFill: =RGBA(45, 65, 93, 1)
+                                    Width: =Parent.Width - 150
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =DataCardKey31.Y + DataCardKey31.Height + 5
+                              - Label3_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue31.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Acima da Expectativa"
+                                    Width: =100
+                                    X: =Parent.Width - Self.Width -5
+                                    Y: =DataCardValue31.Y
+                              - Label3_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue31.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Abaixo da Expectativa"
+                                    Width: =100
+                                    X: =5
+                                    Y: =DataCardValue31.Y
+                              - StarVisible31:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardKey31.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: =DataCardKey31.Y
+                        - Tk_Satisfacao_PDCA_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicRatingEdit
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Satisfacao_PDCA"
+                              Default: =ThisItem.Tk_Satisfacao_PDCA
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Satisfacao_PDCA)
+                              Required: =true
+                              Update: =DataCardValue32.Value
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =3
+                            Children:
+                              - DataCardKey32:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="Quanto você percebeu melhorias nos processos após a implementação da solução?"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue32:
+                                  Control: Rating@2.1.0
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    Default: =0
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =28
+                                    Max: =10
+                                    RatingFill: =RGBA(45, 65, 93, 1)
+                                    Width: =Parent.Width - 150
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =DataCardKey32.Y + DataCardKey32.Height + 5
+                              - Label4_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue32.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Grande Melhoria"
+                                    Width: =100
+                                    X: =Parent.Width - Self.Width -5
+                                    Y: =DataCardValue32.Y
+                              - Label4_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardValue31.Height
+                                    PaddingBottom: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: ="Nenhuma Melhoria"
+                                    Width: =100
+                                    X: =5
+                                    Y: =DataCardValue31.Y
+                              - StarVisible32:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardKey32.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: =DataCardKey32.Y
+                        - Tk_Opinicao_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicRichTextEditorEdit
+                            IsLocked: true
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Opinicao"
+                              Default: =ThisItem.Tk_Opinicao
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Opinicao)
+                              Height: =195
+                              Required: =false
+                              Update: =DataCardValue34.HtmlText
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =4
+                            Children:
+                              - DataCardKey34:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="Qual foi o principal motivo da sua nota?"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue34:
+                                  Control: RichTextEditor@2.7.0
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    Default: =Parent.Default
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =155
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey34.Y + DataCardKey34.Height + 5
+                              - ErrorMessage30:
+                                  Control: Label@2.5.1
+                                  MetadataKey: ErrorMessage
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(168, 0, 0, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: |
+                                      =Parent.Width - 20
+                                    X: =10
+                                    Y: =DataCardValue34.Y + DataCardValue34.Height
+                              - StarVisible34:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldRequired
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardKey34.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: =DataCardKey34.Y
+                        - Tk_Melhoria_Atendimento_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicRichTextEditorEdit
+                            IsLocked: true
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Melhoria_Atendimento"
+                              Default: =ThisItem.Tk_Melhoria_Atendimento
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Melhoria_Atendimento)
+                              Height: =195
+                              Required: =false
+                              Update: =DataCardValue33.HtmlText
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =5
+                            Children:
+                              - DataCardKey33:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="Como podemos melhorar nosso atendimento e desenvolvimento de soluções?"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue33:
+                                  Control: RichTextEditor@2.7.0
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    Default: =Parent.Default
+                                    DisplayMode: =Parent.DisplayMode
+                                    Height: =155
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey33.Y + DataCardKey33.Height + 5
+                              - ErrorMessage29:
+                                  Control: Label@2.5.1
+                                  MetadataKey: ErrorMessage
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(168, 0, 0, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: |
+                                      =Parent.Width - 20
+                                    X: =10
+                                    Y: =DataCardValue33.Y + DataCardValue33.Height
+                              - StarVisible33:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldRequired
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardKey33.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: =DataCardKey33.Y
+                        - Tk_Status_NPS_DataCard2:
+                            Control: TypedDataCard@1.0.7
+                            Variant: ClassicTextualEdit
+                            IsLocked: true
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              DataField: ="Tk_Status_NPS"
+                              Default: =ThisItem.Tk_Status_NPS
+                              DisplayName: =DataSourceInfo([@db_nps_dev],DataSourceInfo.DisplayName,Tk_Status_NPS)
+                              MaxLength: =DataSourceInfo([@db_nps_dev], DataSourceInfo.MaxLength, Tk_Status_NPS)
+                              Required: =false
+                              Update: =DataCardValue23.Text
+                              Visible: =false
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =6
+                            Children:
+                              - DataCardKey23:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldName
+                                  Properties:
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =11
+                                    Text: ="STATUS"
+                                    Width: =Parent.Width - 20
+                                    Wrap: =false
+                                    X: =10
+                              - DataCardValue23:
+                                  Control: Classic/TextInput@2.3.2
+                                  MetadataKey: FieldValue
+                                  Properties:
+                                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                    BorderThickness: =1
+                                    Default: ="Pesquisa Concluída"
+                                    DelayOutput: =true
+                                    DisplayMode: =Parent.DisplayMode
+                                    FocusedBorderThickness: =1
+                                    Font: =Font.'Open Sans'
+                                    Height: =30
+                                    HoverBorderColor: =RGBA(45, 65, 93, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    MaxLength: =Parent.MaxLength
+                                    PaddingLeft: =5
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =11
+                                    Tooltip: =Parent.DisplayName
+                                    Width: =Parent.Width - 60
+                                    X: =30
+                                    Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                              - ErrorMessage23:
+                                  Control: Label@2.5.1
+                                  MetadataKey: ErrorMessage
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(168, 0, 0, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =10
+                                    Live: =Live.Assertive
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =Parent.Error
+                                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                    Width: |
+                                      =Parent.Width - 20
+                                    X: =10
+                                    Y: =DataCardValue23.Y + DataCardValue23.Height
+                              - StarVisible23:
+                                  Control: Label@2.5.1
+                                  MetadataKey: FieldRequired
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =DataCardKey23.Height
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Size: =11
+                                    Text: ="*"
+                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                    Width: =10
+                                    Wrap: =false
+                                    Y: =DataCardKey23.Y
+            - Container3_7:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =47
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  PaddingBottom: =1
+                  PaddingTop: =1
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - ctn_ti_div_15:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Start
+                        DropShadow: =DropShadow.None
+                        Height: =45
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                  - Container2_7:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =45
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutMinHeight: =40
+                        PaddingRight: =10
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Width: =Parent.Width/2
+                      Children:
+                        - Button2_2:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(45, 65, 93, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(45, 65, 93, 1)
+                              DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FocusedBorderThickness: =1
+                              Font: =Font.'Open Sans'
+                              Height: =30
+                              HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =ColorFade(Self.Color, 20%)
+                              OnSelect: |
+                                =UpdateContext({
+                                    NPSTicketDI: Blank(),
+                                    PesquisaSatisfacaoDI: false
+                                    }
+                                );
+                                ResetForm(Form_DI_NPS_Chamados);
+                                EditForm(Form_DI_NPS_Chamados);
+                              PressedBorderColor: =Self.Fill
+                              PressedColor: =Self.Fill
+                              PressedFill: =ColorFade(Self.Color, 10%)
+                              Size: =12
+                              Text: ="CANCELAR"
+                              Width: =120
+                        - Button3_2:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =ColorFade(Self.Fill, -15%)
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                              Fill: =RGBA(45, 65, 93, 1)
+                              FocusedBorderThickness: =1
+                              Font: =Font.'Open Sans'
+                              Height: =30
+                              HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =ColorFade(Self.Fill, -20%)
+                              OnSelect: |-
+                                =If(
+                                    !Form_DI_NPS_Chamados.Valid,
+                                    Notify("Preencha todos os campos obrigatórios",NotificationType.Warning,3000),
+                                    SubmitForm(Form_DI_NPS_Chamados);
+                                )
+                              PressedBorderColor: =Self.Fill
+                              PressedFill: =ColorFade(Self.Fill, 10%)
+                              Size: =12
+                              Text: ="RESPONDER PESQUISA"
+                              Width: =200
+                  - ctn_ti_div_16:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Start
+                        DropShadow: =DropShadow.None
+                        Height: =45
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+      - Image_DI_back_3:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =Color.Transparent
+            FocusedBorderThickness: =0
+            Height: =75
+            HoverBorderColor: =
+            HoverFill: =
+            Image: |
+              =With(
+                {
+                  SVG_Animado: "
+              <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='2.5 0 20 24' fill='#ffffff' customattr='" & varAnimarSVG & "'>
+                <path
+                  fill='#ffffff'
+                  d='M14.008 17.692a.857.857 0 001.317-1.098L11.495 12l3.829-4.594a.857.857 0 00-1.317-1.098L9.73 11.44a.85.85 0 00-.208.56.854.854 0 00.208.56l4.277 5.132z'>
+                  <animateTransform
+                    attributeName='transform'
+                    type='translate'
+                    values='0 0; -2 0; 0 0'
+                    keyTimes='0;0.5;1'
+                    dur='1s'
+                    repeatCount='1'
+                    fill='freeze'
+                    begin='0s'
+                  />
+                </path>
+              </svg>
+              "
+                },
+                "data:image/svg+xml;utf8," & EncodeUrl(SVG_Animado)
+              )
+            OnSelect: =Navigate(Home, Transition.Pop)
+            PressedBorderColor: =
+            PressedFill: =
+            TabIndex: =1
+            Width: =40
+            X: =15
+            Y: =16

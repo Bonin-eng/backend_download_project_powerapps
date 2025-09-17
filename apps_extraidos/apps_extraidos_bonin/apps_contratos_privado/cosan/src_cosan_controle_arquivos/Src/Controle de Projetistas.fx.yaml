@@ -1,0 +1,896 @@
+"'Controle de Projetistas' As screen":
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+
+    ctn_Projetistas_Geral As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y - 6
+        LayoutGap: =5
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Width: =Parent.Width - 12
+        X: =(Parent.Width - Self.Width)/2
+        Y: =cmpCabecalhoTelas_1.Y + cmpCabecalhoTelas_1.Height
+        ZIndex: =1
+
+        cmpMenuLateral_4 As cmpMenuLateral:
+            Height: =Parent.Height
+            LayoutMinHeight: =640
+            LayoutMinWidth: =640
+            Width: =If(cmpMenuLateral_4.FecharMenu = true, 85, 220)
+            Y: =65
+
+        ctn_Projetistas_Secundario As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =5
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =6
+
+            ctn_Projetistas_frm As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(234, 238, 244, 1)
+                FillPortions: =0
+                Height: =80
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: |
+                    =10
+                RadiusBottomRight: |
+                    =10
+                RadiusTopLeft: |
+                    =10
+                RadiusTopRight: =0
+                ZIndex: =1
+
+                frm_Projetistas As form:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    DataSource: =Controle_de_Projetistas
+                    DefaultMode: =If(IsBlank(VarID), FormMode.New, FormMode.Edit)
+                    FocusedBorderThickness: =1
+                    Height: =75
+                    Item: =LookUp(Controle_de_Projetistas, ID = VarID.ID)
+                    NumberOfColumns: =12
+                    OnSuccess: |-
+                        =ResetForm(frm_Projetistas);
+                        UpdateContext({VarID: Blank()})
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Nome_DataCard1_2 As typedDataCard.textualEditCard:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Nome"
+                        Default: =ThisItem.Nome
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@Controle_de_Analistas],DataSourceInfo.DisplayName,Nome)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@Controle_de_Analistas], DataSourceInfo.MaxLength, Nome)
+                        Required: =false
+                        Update: =DataCardValue11_2.Text
+                        Width: =Parent.Width/5.5
+                        X: =0
+                        Y: =0
+                        ZIndex: =9
+
+                        StarVisible11_2 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            Height: =DataCardKey11_2.Height
+                            Size: =8
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =10
+                            Wrap: =false
+                            Y: =DataCardKey11_2.Y
+                            ZIndex: =10
+
+                        DataCardKey11_2 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =8
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            Wrap: =false
+                            X: =5
+                            Y: =10
+                            ZIndex: =11
+
+                        DataCardValue11_2 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            BorderThickness: =1
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: =1
+                            Font: =Font.'Segoe UI'
+                            Height: =VarAlturaCaixas
+                            HoverBorderColor: =RGBA(45, 65, 93, 1)
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =8
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardKey11_2.Y + DataCardKey11_2.Height + 5
+                            ZIndex: =12
+
+                        ErrorMessage11_2 As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =8
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardValue11_2.Y + DataCardValue11_2.Height
+                            ZIndex: =13
+
+                    Email_DataCard1_2 As typedDataCard.textualEditCard:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Email"
+                        Default: =ThisItem.Email
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@Controle_de_Analistas],DataSourceInfo.DisplayName,Email)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@Controle_de_Analistas], DataSourceInfo.MaxLength, Email)
+                        Required: =false
+                        Update: =DataCardValue12_2.Text
+                        Width: =Parent.Width/5.5
+                        X: =1
+                        Y: =0
+                        ZIndex: =14
+
+                        StarVisible12_2 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            Height: =DataCardKey12_2.Height
+                            Size: =8
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =10
+                            Wrap: =false
+                            Y: =DataCardKey12_2.Y
+                            ZIndex: =15
+
+                        DataCardKey12_2 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =8
+                            Text: ="E-mail"
+                            Width: =Parent.Width - 10
+                            Wrap: =false
+                            X: =5
+                            Y: =10
+                            ZIndex: =16
+
+                        DataCardValue12_2 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            BorderThickness: =1
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: =1
+                            Font: =Font.'Segoe UI'
+                            Height: =VarAlturaCaixas
+                            HoverBorderColor: =RGBA(45, 65, 93, 1)
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =8
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardKey12_2.Y + DataCardKey12_2.Height + 5
+                            ZIndex: =17
+
+                        ErrorMessage12_2 As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =8
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardValue12_2.Y + DataCardValue12_2.Height
+                            ZIndex: =18
+
+                    Telefone_DataCard1_2 As typedDataCard.textualEditCard:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Telefone"
+                        Default: =ThisItem.Telefone
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@Controle_de_Analistas],DataSourceInfo.DisplayName,Telefone)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@Controle_de_Analistas], DataSourceInfo.MaxLength, Telefone)
+                        Required: =false
+                        Update: =DataCardValue13_2_mascara.Text
+                        Width: =Parent.Width/5.5
+                        X: =2
+                        Y: =0
+                        ZIndex: =19
+
+                        DataCardKey13_2 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =8
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            Wrap: =false
+                            X: =5
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue13_2_mascara As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            BorderThickness: =1
+                            Default: |
+                                =With(
+                                    {
+                                        Entrada: DataCardValue13_2_inicial.Text,
+                                        Len: Len(DataCardValue13_2_inicial.Text)
+                                    },
+                                    Concat(
+                                        ForAll(
+                                            Sequence(
+                                                Len,
+                                                1,
+                                                1
+                                            ),
+                                            {
+                                                ID: Value,
+                                                Caracter: Mid(
+                                                    Entrada,
+                                                    Value,
+                                                    1
+                                                )
+                                            }
+                                        ),
+                                        If(
+                                            // Se tiver 11 dígitos, formata como celular
+                                            Len = 11,
+                                            Switch(
+                                                ID,
+                                                1,"(" & Caracter,   // insere "(" antes do primeiro dígito
+                                                2,Caracter & ")",   // insere ")" logo após o segundo dígito
+                                                7,Caracter & "-",   // insere "-" após o sétimo dígito
+                                                Caracter            // se não estiver nessas posições, só retorna o caractere
+                                            ),
+                                            // Se tiver 10 dígitos, formata como fixo
+                                            Switch(
+                                                ID,
+                                                1,"(" & Caracter,
+                                                2,Caracter & ")",
+                                                6,Caracter & "-",
+                                                Caracter
+                                            )
+                                        )
+                                    )
+                                )
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: =1
+                            Font: =Font.'Segoe UI'
+                            Height: =VarAlturaCaixas
+                            HoverBorderColor: =RGBA(45, 65, 93, 1)
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =8
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardKey13_2.Y + DataCardKey13_2.Height + 5
+                            ZIndex: =2
+
+                        DataCardValue13_2_inicial As text:
+                            BorderColor: =
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =0
+                            Color: =RGBA(0, 0, 0, 0)
+                            Default: =If(IsBlank(VarID.Telefone), Blank(),Substitute(Substitute(Substitute(VarID.Telefone,"(",""),")",""),"-",""))
+                            DelayOutput: =true
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(0, 0, 0, 0)
+                            DisabledFill: =RGBA(0, 0, 0, 0)
+                            DisplayMode: =Parent.DisplayMode
+                            Fill: =RGBA(0, 0, 0, 0)
+                            FocusedBorderThickness: =1
+                            Font: =Font.'Segoe UI'
+                            Format: =TextFormat.Number
+                            Height: =VarAlturaCaixas
+                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                            HoverColor: =RGBA(0, 0, 0, 0)
+                            HoverFill: =RGBA(0, 0, 0, 0)
+                            MaxLength: =11
+                            PaddingLeft: =5
+                            PressedBorderColor: =
+                            PressedColor: =
+                            PressedFill: =
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =9
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardKey13_2.Y + DataCardKey13_2.Height + 5
+                            ZIndex: =3
+
+                        ErrorMessage13_2 As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =8
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardValue13_2_mascara.Y + DataCardValue13_2_mascara.Height
+                            ZIndex: =4
+
+                        StarVisible13_2 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            Height: =DataCardKey13_2.Height
+                            Size: =8
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =10
+                            Wrap: =false
+                            Y: =DataCardKey13_2.Y
+                            ZIndex: =5
+
+                    Disciplina_DataCard2_2 As typedDataCard.comboBoxMultiSelectEditCard:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Disciplina"
+                        Default: =ThisItem.Disciplina
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@Controle_de_Analistas],DataSourceInfo.DisplayName,Disciplina)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue7_2.SelectedItems
+                        Width: =Parent.Width/5.5
+                        X: =3
+                        Y: =0
+                        ZIndex: =24
+
+                        StarVisible7_2 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            Height: =DataCardKey7_2.Height
+                            Size: =8
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey7_2.Y
+                            ZIndex: =25
+
+                        DataCardKey7_2 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =8
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            Wrap: =false
+                            X: =5
+                            Y: =10
+                            ZIndex: =26
+
+                        DataCardValue7_2 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            BorderThickness: =1
+                            ChevronBackground: =RGBA(45, 65, 93, 1)
+                            ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                            DefaultSelectedItems: =Parent.Default
+                            DisplayFields: =["Value"]
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: =1
+                            Font: =Font.'Segoe UI'
+                            Height: =25
+                            Items: =Choices([@Controle_de_Analistas].Disciplina)
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            PressedFill: =RGBA(45, 65, 93, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Choices(Controle_de_Analistas.Disciplina,DataCardValue7_2.SearchText)
+                            SelectionFill: =RGBA(45, 65, 93, 1)
+                            Size: =8
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardKey7_2.Y + DataCardKey7_2.Height + 5
+                            ZIndex: =27
+
+                        ErrorMessage7_2 As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =8
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardValue7_2.Y + DataCardValue7_2.Height
+                            ZIndex: =28
+
+                    Perfil_visualizacao_DataCard1_2 As typedDataCard.comboBoxEditCard:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Perfil_visualizacao"
+                        Default: =ThisItem.Perfil_visualizacao
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@Controle_de_Analistas],DataSourceInfo.DisplayName,Perfil_visualizacao)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue15_2.Selected
+                        Width: =Parent.Width/5.5
+                        X: =4
+                        Y: =0
+                        ZIndex: =29
+
+                        StarVisible15_2 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            Height: =DataCardKey15_2.Height
+                            Size: =8
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =10
+                            Wrap: =false
+                            Y: =DataCardKey15_2.Y
+                            ZIndex: =30
+
+                        DataCardKey15_2 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =8
+                            Text: ="Perfil de Visualização"
+                            Width: =Parent.Width - 10
+                            Wrap: =false
+                            X: =5
+                            Y: =10
+                            ZIndex: =31
+
+                        DataCardValue15_2 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            BorderThickness: =1
+                            ChevronBackground: =RGBA(45, 65, 93, 1)
+                            ChevronHoverBackground: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                            DefaultSelectedItems: =["Projetista"]
+                            DisplayFields: =["Value"]
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: =1
+                            Font: =Font.'Segoe UI'
+                            Height: =VarAlturaCaixas
+                            Items: =Choices([@Controle_de_Analistas].Perfil_visualizacao)
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            PressedFill: =RGBA(45, 65, 93, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Choices(Controle_de_Analistas.Perfil_visualizacao,DataCardValue15_2.SearchText)
+                            SelectionFill: =RGBA(45, 65, 93, 1)
+                            SelectMultiple: =false
+                            Size: =8
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardKey15_2.Y + DataCardKey15_2.Height + 5
+                            ZIndex: =32
+
+                        ErrorMessage15_2 As label:
+                            AutoHeight: =true
+                            Font: =Font.'Segoe UI'
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =8
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: |
+                                =Parent.Width - 10
+                            X: =5
+                            Y: =DataCardValue15_2.Y + DataCardValue15_2.Height
+                            ZIndex: =33
+
+                icn_Projetistas_limpar As icon.Save:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    Color: =RGBA(45, 65, 93, 1)
+                    Height: =30
+                    Icon: =Icon.Erase
+                    OnSelect: |-
+                        =ResetForm(frm_Projetistas);
+                        UpdateContext({VarID: Blank()})
+                    TabIndex: =1
+                    Width: =30
+                    X: =Parent.Width - 55
+                    Y: =40
+                    ZIndex: =2
+
+                icn_Projetistas_salvar As icon.Save:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    Color: =RGBA(45, 65, 93, 1)
+                    Height: =30
+                    Icon: =Icon.Save
+                    OnSelect: |
+                        =SubmitForm(frm_Projetistas);
+                    TabIndex: =1
+                    Width: =30
+                    X: =Parent.Width - 55
+                    Y: =2.5
+                    ZIndex: =3
+
+            ctn_Projetistas_gal As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =2
+
+                gal_Projetistas As gallery.variableTemplateHeightGallery:
+                    BorderColor: =RGBA(45, 65, 93, 1)
+                    DelayItemLoading: =true
+                    Height: =Parent.Height
+                    Items: =SortByColumns(Controle_de_Projetistas, "Nome", SortOrder.Ascending)
+                    Layout: =Layout.Vertical
+                    LoadingSpinner: =LoadingSpinner.Data
+                    TemplatePadding: =0
+                    TemplateSize: =280
+                    Width: =Parent.Width
+                    ZIndex: =37
+
+                    Rectangle3_1 As rectangle:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =1
+                        OnSelect: =Select(Parent)
+                        Width: =Parent.Width
+                        Y: =ctn_Projetistas.Y + ctn_Projetistas.Height + 5
+                        ZIndex: =1
+
+                    ctn_Projetistas As groupContainer.manualLayoutContainer:
+                        Height: =Max(lbl_telefone_value_2.Y + lbl_telefone_value_2.Height, lbl_disciplina_value_2.Y + lbl_disciplina_value_2.Height) + 5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width - 2
+                        X: =(Parent.Width - Self.Width)/2
+                        Y: =Self.X/2
+                        ZIndex: =2
+
+                        lbl_nome_value_2 As label:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =30
+                            PaddingLeft: =20
+                            Size: =14
+                            Text: =ThisItem.Nome
+                            Width: =Parent.Width
+                            Y: =
+                            ZIndex: =39
+
+                        rct_gal_Analistas_1 As rectangle:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Height: =1
+                            Width: =Parent.Width
+                            Y: =lbl_nome_value_2.Y + lbl_nome_value_2.Height + 1
+                            ZIndex: =40
+
+                        icn_email_1 As icon.Mail:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Color: =RGBA(45, 65, 93, 1)
+                            DisplayMode: =DisplayMode.View
+                            Height: =24
+                            Icon: =Icon.Mail
+                            Width: =24
+                            X: =20
+                            Y: =rct_gal_Analistas_1.Y + (rct_gal_Analistas_1.Height*2)
+                            ZIndex: =41
+
+                        lbl_email_2 As label:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =icn_email_1.Height
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: |-
+                                ="E-mail:"
+                            Width: =(Parent.Width-20)/3.5
+                            X: =icn_email_1.X + icn_email_1.Width
+                            Y: =icn_email_1.Y
+                            ZIndex: =42
+
+                        lbl_disciplina_2 As label:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =lbl_email_2.Height
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: |-
+                                ="Disciplina:"
+                            Width: =(Parent.Width-20)/3
+                            X: =lbl_email_2.X + Max(lbl_email_2.Width, lbl_email_value_2.Width, lbl_telefone_2.Width, lbl_telefone_value_2.Width)
+                            Y: =icn_email_1.Y
+                            ZIndex: =43
+
+                        lbl_perfil_2 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =lbl_email_2.Height
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: |-
+                                ="Perfil:"
+                            Width: =(Parent.Width-20)/4
+                            X: =lbl_disciplina_value_2.X + lbl_disciplina_value_2.Width + 40
+                            Y: =icn_email_1.Y
+                            ZIndex: =44
+
+                        icn_gal_Analistas_editar_1 As icon.Edit:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Color: =RGBA(45, 65, 93, 1)
+                            Height: =30
+                            Icon: =Icon.Edit
+                            OnSelect: |-
+                                =UpdateContext({VarID: ThisItem})
+                            Width: =30
+                            X: =Parent.Width - Self.Width - 25
+                            Y: =rct_gal_Analistas_1.Y + rct_gal_Analistas_1.Height + 12
+                            ZIndex: =45
+
+                        lbl_perfil_value_2 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: =ThisItem.Perfil_visualizacao.Value
+                            Width: =(Parent.Width-20)/4
+                            X: =lbl_perfil_2.X
+                            Y: =lbl_perfil_2.Y + lbl_perfil_2.Height
+                            ZIndex: =46
+
+                        lbl_email_value_2 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: =ThisItem.Email
+                            Width: =(Parent.Width-20)/3.5
+                            X: =lbl_email_2.X
+                            Y: =lbl_email_2.Y + lbl_email_2.Height
+                            ZIndex: =47
+
+                        lbl_disciplina_value_2 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: =Concat(ThisItem.Disciplina, Value, " | ")
+                            Width: =(Parent.Width-20)/3
+                            X: =lbl_email_2.X + Max(lbl_email_2.Width, lbl_email_value_2.Width, lbl_telefone_2.Width, lbl_telefone_value_2.Width)
+                            Y: =lbl_disciplina_2.Y + lbl_disciplina_2.Height
+                            ZIndex: =48
+
+                        icn_telefone_1 As icon.Phone:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Color: =RGBA(45, 65, 93, 1)
+                            DisplayMode: =DisplayMode.View
+                            Height: =24
+                            Icon: =Icon.Phone
+                            Width: =24
+                            X: =icn_email_1.X
+                            Y: =lbl_email_value_2.Y + lbl_email_value_2.Height
+                            ZIndex: =49
+
+                        lbl_telefone_2 As label:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            FontWeight: =FontWeight.Semibold
+                            Height: =icn_telefone_1.Height
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: |-
+                                ="Telefone:"
+                            Width: =(Parent.Width-20)/3.5
+                            X: =lbl_email_2.X
+                            Y: =icn_telefone_1.Y
+                            ZIndex: =50
+
+                        icn_gal_Analistas_deletar_1 As icon.Edit:
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Color: =RGBA(45, 65, 93, 1)
+                            Height: =30
+                            Icon: =Icon.Trash
+                            OnSelect: |-
+                                =UpdateContext({VarIDRemover: ThisItem.ID});
+                                UpdateContext({VarVisibilidadePopUp: true})
+                            Width: =30
+                            X: =Parent.Width - Self.Width - 25
+                            Y: =icn_gal_Analistas_editar_1.Y + icn_gal_Analistas_editar_1.Height + 12
+                            ZIndex: =51
+
+                        lbl_telefone_value_2 As label:
+                            AutoHeight: =true
+                            BorderColor: =RGBA(45, 65, 93, 1)
+                            Font: =Font.'Segoe UI'
+                            PaddingBottom: =0
+                            PaddingTop: =0
+                            Size: =12
+                            Text: =ThisItem.Telefone
+                            Width: =(Parent.Width-20)/3.5
+                            X: =lbl_email_2.X
+                            Y: =lbl_telefone_2.Y + lbl_telefone_2.Height
+                            ZIndex: =52
+
+    cmpCabecalhoTelas_4 As cmpCabecalhoTelas:
+        TítuloDaTela: ="Controle de projetistas"
+        ZIndex: =2
+
+    ctn_Projetistas_popup_deletar As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(0, 0, 0, 0.7)
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =VarVisibilidadePopUp
+        Width: =Parent.Width
+        ZIndex: =3
+
+        ctn_Projetistas_popup_deletar_2 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height/5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width/4
+            X: =(Parent.Width/2) - (Self.Width/2)
+            Y: =(Parent.Height/2) - (Self.Height/2)
+            ZIndex: =1
+
+            icn_Projetistas_popup_fechar As icon.Cancel:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                Color: =RGBA(45, 65, 93, 1)
+                Height: =30
+                Icon: =Icon.Cancel
+                OnSelect: |-
+                    =UpdateContext({VarVisibilidadePopUp: false});
+                    UpdateContext({VarIDRemover: Blank()})
+                Width: =30
+                X: =Parent.Width - Self.Width - 5
+                Y: =5
+                ZIndex: =2
+
+            lbl_Projetistas_popup_texto As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(45, 65, 93, 1)
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Size: =12
+                Text: ="Gostaria de deletar este analista?"
+                Width: =Parent.Width
+                Y: =(Parent.Height/2) - (Self.Height/2)
+                ZIndex: =3
+
+            btn_Projetistas_popup_sim As button:
+                Fill: =RGBA(45, 65, 93, 1)
+                Font: =Font.'Segoe UI'
+                HoverFill: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                OnSelect: |-
+                    =RemoveIf(Controle_de_Projetistas, ID = VarIDRemover);
+                    UpdateContext({VarVisibilidadePopUp: false});
+                    UpdateContext({VarIDRemover: Blank()});
+                    UpdateContext({VarID: Blank()})
+                Text: ="SIM"
+                Width: =100
+                X: =35
+                Y: =Parent.Height - Self.Height - 10
+                ZIndex: =4
+
+            btn_Projetistas_popup_nao As button:
+                Fill: =RGBA(45, 65, 93, 1)
+                Font: =Font.'Segoe UI'
+                HoverFill: =ColorFade(RGBA(45, 65, 93, 1), -20%)
+                OnSelect: |-
+                    =UpdateContext({VarVisibilidadePopUp: false});
+                    UpdateContext({VarIDRemover: Blank()})
+                Text: ="NÃO"
+                Width: =100
+                X: =205
+                Y: =Parent.Height - Self.Height - 10
+                ZIndex: =5
+
