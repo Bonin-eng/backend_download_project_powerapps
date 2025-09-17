@@ -1,0 +1,99 @@
+cpm_Tela_Geral As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =1136
+    ListaDasTelas: =colTelas
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Container1_1 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =1
+
+        Container4_1 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(237, 237, 237, 0.8)
+            Height: =225
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Container5_1 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =60
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Width: =Parent.Width - Self.X * 2
+                X: =10
+                ZIndex: =2
+
+        Gallery1 As gallery.galleryHorizontal:
+            '#CopilotOverlayLabel': ="Filtrada"
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DelayItemLoading: =true
+            Fill: =RGBA(45, 65, 93, 1)
+            FillPortions: =0
+            Height: =60
+            Items: =cpm_Tela_Geral.ListaDasTelas
+            LayoutMinHeight: =287
+            LayoutMinWidth: =0
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplatePadding: =10
+            TemplateSize: |-
+                =Parent.Width/4
+                 - 12
+            Transition: =Transition.Push
+            Width: =Parent.Width
+            WrapCount: =0
+            Y: =979
+            ZIndex: =3
+
+            Container3_2 As groupContainer.manualLayoutContainer:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =Parent.TemplateHeight- 3
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.TemplateWidth
+                ZIndex: =4
+
+                Icon3 As icon:
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    Color: =RGBA(45, 65, 93, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(220, 220, 220, 1)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    Fill: =If(App.ActiveScreen = ThisItem.Tela, RGBA(45,65,93,0.2), RGBA(0,0,0,0))
+                    FocusedBorderThickness: =4
+                    Height: =Parent.Height
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverFill: =RGBA(204, 228, 246, 0.3)
+                    Icon: =ThisItem.Icon
+                    OnSelect: =If(Not(gblFecharMenu), Navigate(ThisItem.Tela, ScreenTransition.UnCover), Set(gblFecharMenu, !gblFecharMenu))
+                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                    PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedFill: =RGBA(0, 0, 0, 0)
+                    Width: =Parent.Width
+                    ZIndex: =5
+

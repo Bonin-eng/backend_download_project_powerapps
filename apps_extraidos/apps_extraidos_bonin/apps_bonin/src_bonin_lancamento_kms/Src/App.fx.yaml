@@ -1,0 +1,26 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |-
+        =Set(VarTemporizadorInicio, true);
+        
+        Set(varUsuario, LookUp(sigd_colaboradores, email = User().Email));
+        
+        Set(varAcessoNegado, IsBlank(varUsuario.email));
+        
+        ClearCollect(
+                colTelas,
+                    Table(
+                        {NomeTela: "Home", Tela: 'Home Screen', Icon: Icon.Hamburger},
+                        {NomeTela: "Lançamento", Tela: 'Lançamento KM Screen', Icon: Icon.Cars},
+                        {NomeTela: "Contatos", Tela: 'Contato Screen', Icon: Icon.People},
+                        {NomeTela: "Edição", Tela: 'Perfil Screen', Icon: Icon.AddDocument}
+                    ));
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

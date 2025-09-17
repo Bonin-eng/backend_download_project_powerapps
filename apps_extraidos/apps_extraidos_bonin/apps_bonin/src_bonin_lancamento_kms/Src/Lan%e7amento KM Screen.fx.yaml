@@ -1,0 +1,3082 @@
+"'Lançamento KM Screen' As screen.'phoneLayout_HeaderAndForm_ver3.0'":
+
+    cpm_Tela_Geral_2 As cpm_Tela_Geral:
+
+    cLançar As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - 60
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        maximumHeight: =11360
+        maximumWidth: =640
+        Visible: =If(varEditarViagem, false, true)
+        Width: =Parent.Width - Self.X * 2
+        X: =10
+        ZIndex: =2
+
+        Container6_5 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Label1_13 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =60
+                Size: =16
+                Text: ="NOVO LANÇAMENTO"
+                Width: =Parent.Width - Self.X
+                Wrap: =false
+                ZIndex: =1
+
+        Container6_7 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            DropShadow: =DropShadow.None
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =3
+
+            Container9_1 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderThickness: =2
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height - Self.Y * 2
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                Y: =10
+                ZIndex: =1
+
+                Container13 As groupContainer.horizontalAutoLayoutContainer:
+                    BorderColor: =RGBA(255, 255, 255, 1)
+                    BorderThickness: =5
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =Parent.Height - Self.Y * 2
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - Self.X * 2
+                    X: =10
+                    Y: |
+                        =10
+                    ZIndex: =1
+
+                    Container6_8 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutMinHeight: =112
+                        LayoutMinWidth: =250
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        Label1_15 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(255, 255, 255, 1)
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =Parent.Height
+                            Size: =12
+                            Text: ="LANÇAMENTO DE UMA NOVA VIAGEM"
+                            Width: =Parent.Width - Self.X
+                            ZIndex: =1
+
+                    Form_lancamento_viagem As form:
+                        AcceptsFocus: =false
+                        DataSource: =sigd_frota_lancamentos
+                        DefaultMode: =FormMode.New
+                        Height: =150
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =320
+                        NumberOfColumns: =2
+                        OnSuccess: =Navigate('Home Screen')
+                        Width: =640
+                        ZIndex: =2
+
+                        motivo_viagem_DataCard2 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="motivo_viagem"
+                            Default: =ThisItem.motivo_viagem
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,motivo_viagem)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, motivo_viagem)
+                            Required: =true
+                            Update: =DataCardValue9.Text
+                            Width: =600
+                            X: =0
+                            Y: =0
+                            ZIndex: =1
+
+                            DataCardKey9 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="MOTIVO DA VIAGEM"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue9 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage9 As label:
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue9.Y + DataCardValue9.Height
+                                ZIndex: =3
+
+                            StarVisible9 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey9.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey9.Y
+                                ZIndex: =4
+
+                        data_viagem_DataCard2 As typedDataCard.dateEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="data_viagem"
+                            Default: =ThisItem.data_viagem
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,data_viagem)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =true
+                            Update: =DataCardValue10.SelectedDate
+                            Width: =600
+                            X: =0
+                            Y: =1
+                            ZIndex: =1
+
+                            DataCardKey10 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="DATA DA VIAGEM"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue10 As datepicker:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                DisplayMode: =Parent.DisplayMode
+                                EndYear: =Year(Today())+100
+                                Font: =Font.Arial
+                                IsEditable: =true
+                                PaddingBottom: =0
+                                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                Size: =12
+                                StartYear: =1899
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage10 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue10.Y + DataCardValue10.Height
+                                ZIndex: =3
+
+                            StarVisible10 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey10.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey10.Y
+                                ZIndex: =4
+
+                        placa_veiculo_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="placa_veiculo"
+                            Default: =ThisItem.placa_veiculo
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,placa_veiculo)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, placa_veiculo)
+                            Required: =true
+                            Update: =DataCardValue1.Text
+                            Width: =300
+                            X: =0
+                            Y: =2
+                            ZIndex: =1
+
+                            DataCardKey1 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="PLACA DO VEÍCULO"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage1 As label:
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue1.Y + DataCardValue1.Height
+                                ZIndex: =3
+
+                            StarVisible1 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey1.Y
+                                ZIndex: =4
+
+                        centro_custo_viagem_DataCard4 As typedDataCard.allowedValuesStringEditCard:
+                            AllowedValues: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.AllowedValues, centro_custo_viagem)
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="centro_custo_viagem"
+                            Default: =ThisItem.centro_custo_viagem
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,centro_custo_viagem)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =false
+                            Update: =DataCardValue22.Selected.referencia
+                            Width: =300
+                            X: =1
+                            Y: =2
+                            ZIndex: =1
+
+                            DataCardKey24 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="CENTRO DE CUSTO"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue22 As dropdown:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =LookUp(sigd_contratos, ID_Contrato = varUsuario.id_contrato, referencia)
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Items: =ShowColumns(sigd_contratos, referencia)
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey24.Y + DataCardKey24.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage24 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue22.Y + DataCardValue22.Height
+                                ZIndex: =3
+
+                            StarVisible24 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey24.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey24.Y
+                                ZIndex: =4
+
+                        local_saida_DataCard2 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="local_saida"
+                            Default: =ThisItem.local_saida
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,local_saida)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, local_saida)
+                            Required: =true
+                            Update: =DataCardValue12.Text
+                            Width: =300
+                            X: =0
+                            Y: =3
+                            ZIndex: =1
+
+                            DataCardKey12 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="LOCAL SAÍDA"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue12 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage12 As label:
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue12.Y + DataCardValue12.Height
+                                ZIndex: =3
+
+                            StarVisible12 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey12.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey12.Y
+                                ZIndex: =4
+
+                        local_chegada_DataCard2 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="local_chegada"
+                            Default: =ThisItem.local_chegada
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,local_chegada)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, local_chegada)
+                            Required: =false
+                            Update: =DataCardValue13.Text
+                            Width: =300
+                            X: =1
+                            Y: =3
+                            ZIndex: =1
+
+                            DataCardKey13 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="LOCAL CHEGADA"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue13 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage13 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue13.Y + DataCardValue13.Height
+                                ZIndex: =3
+
+                            StarVisible13 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey13.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey13.Y
+                                ZIndex: =4
+
+                        odometro_inicial_DataCard2 As typedDataCard.numberEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="odometro_inicial"
+                            Default: =ThisItem.odometro_inicial
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,odometro_inicial)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =true
+                            Update: =Value(DataCardValue15.Text)
+                            Width: =300
+                            X: =0
+                            Y: =4
+                            ZIndex: =1
+
+                            DataCardKey15 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="ODÔMETRO INICIAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue15 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Format: =TextFormat.Number
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey15.Y + DataCardKey15.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage15 As label:
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue15.Y + DataCardValue15.Height
+                                ZIndex: =3
+
+                            StarVisible15 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey15.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey15.Y
+                                ZIndex: =4
+
+                        odometro_final_DataCard1 As typedDataCard.numberEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="odometro_final"
+                            Default: =ThisItem.odometro_final
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,odometro_final)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =false
+                            Update: =Value(DataCardValue14.Text)
+                            Width: =300
+                            X: =1
+                            Y: =4
+                            ZIndex: =1
+
+                            DataCardKey14 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="ODÔMETRO FINAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue14 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Format: =TextFormat.Number
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey14.Y + DataCardKey14.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage14 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue14.Y + DataCardValue14.Height
+                                ZIndex: =3
+
+                            StarVisible14 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey14.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey14.Y
+                                ZIndex: =4
+
+                        img_odometro_inicial_DataCard1 As typedDataCard.addLargePictureCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="img_odometro_inicial"
+                            Default: =ThisItem.img_odometro_inicial
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,img_odometro_inicial)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =true
+                            Update: =Image2.Image
+                            Width: =300
+                            X: =0
+                            Y: =5
+                            ZIndex: =1
+
+                            DataCardKey19 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="IMAGEM ODÔMETRO INICIAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            Image2 As image:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =AddPicture2.Height
+                                Image: =If(IsBlank(AddPicture2.Media), Parent.Default, AddPicture2.Media)
+                                Tooltip: =Parent.DisplayName
+                                Width: =AddPicture2.Width
+                                X: =AddPicture2.X
+                                Y: =AddPicture2.Y
+                                ZIndex: =2
+
+                            AddPicture2 As addMedia:
+                                Font: =Font.Arial
+                                Height: =150
+                                Size: =12
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                                ZIndex: =3
+
+                            ErrorMessage19 As label:
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =12
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =Image2.Y + Image2.Height
+                                ZIndex: =4
+
+                            StarVisible19 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey19.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey19.Y
+                                ZIndex: =5
+
+                        img_odometro_final_DataCard1 As typedDataCard.addLargePictureCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="img_odometro_final"
+                            Default: =ThisItem.img_odometro_final
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,img_odometro_final)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            Required: =false
+                            Update: =Image1.Image
+                            Width: =300
+                            X: =1
+                            Y: =5
+                            ZIndex: =1
+
+                            DataCardKey18 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="IMAGEM ODÔMETRO FINAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            Image1 As image:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =AddPicture1.Height
+                                Image: =If(IsBlank(AddPicture1.Media), Parent.Default, AddPicture1.Media)
+                                Tooltip: =Parent.DisplayName
+                                Width: =AddPicture1.Width
+                                X: =AddPicture1.X
+                                Y: =AddPicture1.Y
+                                ZIndex: =2
+
+                            AddPicture1 As addMedia:
+                                Font: =Font.Arial
+                                Height: =150
+                                Size: =12
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                                ZIndex: =3
+
+                            ErrorMessage18 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =Image1.Y + Image1.Height
+                                ZIndex: =4
+
+                            StarVisible18 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey18.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey18.Y
+                                ZIndex: =5
+
+                        observacao_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="observacao"
+                            Default: =ThisItem.observacao
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,observacao)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =149
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, observacao)
+                            Required: =false
+                            Update: =DataCardValue18.Text
+                            Width: =600
+                            X: =0
+                            Y: =6
+                            ZIndex: =1
+
+                            DataCardKey17 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="OBSERVAÇÃO"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue18 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Height: =135
+                                MaxLength: =Parent.MaxLength
+                                Mode: =TextMode.MultiLine
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage17 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue18.Y + DataCardValue18.Height
+                                ZIndex: =3
+
+                            StarVisible17 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey17.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey17.Y
+                                ZIndex: =4
+
+                        id_referencia_condutor_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="id_referencia_condutor"
+                            Default: =ThisItem.id_referencia_condutor
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,id_referencia_condutor)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, id_referencia_condutor)
+                            Required: =false
+                            Update: =DataCardValue23.Text
+                            Visible: =false
+                            Width: =300
+                            X: =0
+                            Y: =7
+                            ZIndex: =1
+
+                            DataCardKey25 As label:
+                                AutoHeight: =true
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue23 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =varUsuario.ID_Referencia
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage25 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue23.Y + DataCardValue23.Height
+                                ZIndex: =3
+
+                            StarVisible25 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey25.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey25.Y
+                                ZIndex: =4
+
+                        id_contrato_condutor_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="id_contrato_condutor"
+                            Default: =ThisItem.id_contrato_condutor
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,id_contrato_condutor)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, id_contrato_condutor)
+                            Required: =false
+                            Update: =DataCardValue24.Text
+                            Visible: =false
+                            Width: =300
+                            X: =1
+                            Y: =7
+                            ZIndex: =1
+
+                            DataCardKey26 As label:
+                                AutoHeight: =true
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue24 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =varUsuario.id_contrato
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey26.Y + DataCardKey26.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage26 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue24.Y + DataCardValue24.Height
+                                ZIndex: =3
+
+                            StarVisible26 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey26.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey26.Y
+                                ZIndex: =4
+
+                        latitude_saida_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="latitude_saida"
+                            Default: =ThisItem.latitude_saida
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,latitude_saida)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, latitude_saida)
+                            Required: =false
+                            Update: =DataCardValue26.Text
+                            Visible: =false
+                            Width: =300
+                            X: =0
+                            Y: =8
+                            ZIndex: =1
+
+                            DataCardKey28 As label:
+                                AutoHeight: =true
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue26 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Location.Latitude
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey28.Y + DataCardKey28.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage28 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue26.Y + DataCardValue26.Height
+                                ZIndex: =3
+
+                            StarVisible28 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey28.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey28.Y
+                                ZIndex: =4
+
+                        longitude_saida_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="longitude_saida"
+                            Default: =ThisItem.longitude_saida
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,longitude_saida)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, longitude_saida)
+                            Required: =false
+                            Update: =DataCardValue27.Text
+                            Visible: =false
+                            Width: =300
+                            X: =1
+                            Y: =8
+                            ZIndex: =1
+
+                            DataCardKey29 As label:
+                                AutoHeight: =true
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue27 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Location.Longitude
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey29.Y + DataCardKey29.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage29 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue27.Y + DataCardValue27.Height
+                                ZIndex: =3
+
+                            StarVisible29 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey29.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey29.Y
+                                ZIndex: =4
+
+                    Container6_9 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =0
+                        Height: =40
+                        LayoutMinHeight: =112
+                        LayoutMinWidth: =250
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        ZIndex: =3
+
+                        Container14 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Height: =Parent.Height - Self.Y * 2
+                            LayoutGap: =20
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingLeft: =30
+                            PaddingRight: =30
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            Y: =5
+                            ZIndex: =1
+
+                            Button3 As button:
+                                Color: =RGBA(45, 65, 93, 1)
+                                Fill: =RGBA(255, 255, 255, 1)
+                                FillPortions: =1
+                                Height: =Parent.Height - Self.Y * 2
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =0
+                                OnSelect: =Navigate('Home Screen')
+                                Size: =12
+                                Text: ="↩️ VOLTAR"
+                                Width: =Parent.Width - Self.X * 2
+                                X: =40
+                                Y: =5
+                                ZIndex: =1
+
+                            Button3_1 As button:
+                                Color: =RGBA(45, 65, 93, 1)
+                                Fill: =RGBA(255, 255, 255, 1)
+                                FillPortions: =1
+                                Height: =Parent.Height - Self.Y * 2
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =0
+                                OnSelect: |
+                                    =SubmitForm(Form_lancamento_viagem);
+                                Size: =12
+                                Text: ="CONCLUIR ✅"
+                                Width: =Parent.Width - Self.X * 2
+                                X: =40
+                                Y: =5
+                                ZIndex: =2
+
+    cEditar As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - 60
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        maximumHeight: =11360
+        maximumWidth: =640
+        Visible: =If(varEditarViagem, true, false)
+        Width: =Parent.Width - Self.X * 2
+        X: =10
+        ZIndex: =3
+
+        Container6_6 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Label1_14 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =60
+                Size: =16
+                Text: ="VIAGEM CADASTRADA"
+                Width: =Parent.Width - Self.X
+                Wrap: =false
+                ZIndex: =1
+
+        Container6_10 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            DropShadow: =DropShadow.None
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =2
+
+            Container9_2 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(45, 65, 93, 1)
+                BorderThickness: =2
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =Parent.Height - Self.Y * 2
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                Y: =10
+                ZIndex: =1
+
+                Container13_1 As groupContainer.horizontalAutoLayoutContainer:
+                    BorderColor: =RGBA(255, 255, 255, 1)
+                    BorderThickness: =5
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =Parent.Height - Self.Y * 2
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMode: =LayoutMode.Auto
+                    maximumHeight: =11360
+                    maximumWidth: =640
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =Parent.Width - Self.X * 2
+                    X: =10
+                    Y: |
+                        =10
+                    ZIndex: =1
+
+                    Container6_11 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutMinHeight: =112
+                        LayoutMinWidth: =250
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        Label1_16 As label:
+                            Align: =Align.Center
+                            Color: =RGBA(255, 255, 255, 1)
+                            Fill: =RGBA(45, 65, 93, 1)
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =Parent.Height
+                            Size: =12
+                            Text: =Concatenate(varViagemSelecionada.motivo_viagem, " - ", varViagemSelecionada.data_viagem)
+                            Width: =Parent.Width - Self.X
+                            ZIndex: =1
+
+                    Form_lancamento_viagem_1 As form:
+                        AcceptsFocus: =false
+                        DataSource: =sigd_frota_lancamentos
+                        Height: =150
+                        Item: =varViagemSelecionada
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =320
+                        NumberOfColumns: =2
+                        OnSuccess: =
+                        Width: =640
+                        ZIndex: =2
+
+                        motivo_viagem_DataCard2_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="motivo_viagem"
+                            Default: =ThisItem.motivo_viagem
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,motivo_viagem)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, motivo_viagem)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue9_2.Text
+                            Visible: =true
+                            Width: =600
+                            WidthFit: =false
+                            X: =0
+                            Y: =0
+                            ZIndex: =1
+
+                            DataCardKey9_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="MOTIVO DA VIAGEM"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue9_2 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey9_2.Y + DataCardKey9_2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage9_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue9_2.Y + DataCardValue9_2.Height
+                                ZIndex: =3
+
+                            StarVisible9_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey9_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey9_2.Y
+                                ZIndex: =4
+
+                        placa_veiculo_DataCard2 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="placa_veiculo"
+                            Default: =ThisItem.placa_veiculo
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,placa_veiculo)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, placa_veiculo)
+                            Required: =false
+                            Update: =DataCardValue2.Text
+                            Width: =300
+                            X: =0
+                            Y: =2
+                            ZIndex: =1
+
+                            DataCardKey2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="PLACA DO VEÍCULO"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue2 As text:
+                                Align: =Align.Center
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage2 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue2.Y + DataCardValue2.Height
+                                ZIndex: =3
+
+                            StarVisible2 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey2.Y
+                                ZIndex: =4
+
+                        latitude_chegada_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="latitude_chegada"
+                            Default: =ThisItem.latitude_chegada
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,latitude_chegada)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, latitude_chegada)
+                            Required: =false
+                            Update: =DataCardValue3.Text
+                            Visible: =false
+                            Width: =300
+                            X: =0
+                            Y: =9
+                            ZIndex: =1
+
+                            DataCardKey3 As label:
+                                AutoHeight: =true
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue3 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Location.Latitude
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage3 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue3.Y + DataCardValue3.Height
+                                ZIndex: =3
+
+                            StarVisible3 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey3.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey3.Y
+                                ZIndex: =4
+
+                        longitude_chegada_DataCard1 As typedDataCard.textualEditCard:
+                            BorderStyle: =BorderStyle.Solid
+                            DataField: ="longitude_chegada"
+                            Default: =ThisItem.longitude_chegada
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,longitude_chegada)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, longitude_chegada)
+                            Required: =false
+                            Update: =DataCardValue4.Text
+                            Visible: =false
+                            Width: =300
+                            X: =1
+                            Y: =9
+                            ZIndex: =1
+
+                            DataCardKey4 As label:
+                                AutoHeight: =true
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue4 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Location.Longitude
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage4 As label:
+                                AutoHeight: =true
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue4.Y + DataCardValue4.Height
+                                ZIndex: =3
+
+                            StarVisible4 As label:
+                                Align: =Align.Center
+                                Height: =DataCardKey4.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey4.Y
+                                ZIndex: =4
+
+                        data_viagem_DataCard2_1 As typedDataCard.dateEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="data_viagem"
+                            Default: =ThisItem.data_viagem
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,data_viagem)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue10_2.SelectedDate
+                            Visible: =true
+                            Width: =600
+                            WidthFit: =false
+                            X: =0
+                            Y: =1
+                            ZIndex: =2
+
+                            DataCardKey10_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="DATA DA VIAGEM"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue10_2 As datepicker:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                CalendarHeaderFill: =App.Theme.Colors.Primary
+                                DefaultDate: =Parent.Default
+                                DisplayMode: =Parent.DisplayMode
+                                EndYear: =Year(Today())+100
+                                Font: =Font.Arial
+                                HoverDateFill: =App.Theme.Colors.Lighter70
+                                IsEditable: =true
+                                maximumHeight: =1136
+                                maximumWidth: =640
+                                PaddingBottom: =0
+                                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                SelectedDateFill: =App.Theme.Colors.Primary
+                                Size: =12
+                                StartYear: =1899
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey10_2.Y + DataCardKey10_2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage10_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue10_2.Y + DataCardValue10_2.Height
+                                ZIndex: =3
+
+                            StarVisible10_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey10_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey10_2.Y
+                                ZIndex: =4
+
+                        centro_custo_viagem_DataCard4_1 As typedDataCard.allowedValuesStringEditCard:
+                            AllowedValues: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.AllowedValues, centro_custo_viagem)
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="centro_custo_viagem"
+                            Default: =ThisItem.centro_custo_viagem
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,centro_custo_viagem)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue22_1.Selected.referencia
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =1
+                            Y: =2
+                            ZIndex: =4
+
+                            DataCardKey24_1 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="CENTRO DE CUSTO"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue22_1 As dropdown:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Items: =ShowColumns(sigd_contratos, referencia)
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey24_1.Y + DataCardKey24_1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage24_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue22_1.Y + DataCardValue22_1.Height
+                                ZIndex: =3
+
+                            StarVisible24_1 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey24_1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey24_1.Y
+                                ZIndex: =4
+
+                        local_saida_DataCard2_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="local_saida"
+                            Default: =ThisItem.local_saida
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,local_saida)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, local_saida)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue12_2.Text
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =0
+                            Y: =3
+                            ZIndex: =5
+
+                            DataCardKey12_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="LOCAL SAÍDA"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue12_2 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey12_2.Y + DataCardKey12_2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage12_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue12_2.Y + DataCardValue12_2.Height
+                                ZIndex: =3
+
+                            StarVisible12_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey12_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey12_2.Y
+                                ZIndex: =4
+
+                        local_chegada_DataCard2_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="local_chegada"
+                            Default: =ThisItem.local_chegada
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,local_chegada)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, local_chegada)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue13_2.Text
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =1
+                            Y: =3
+                            ZIndex: =6
+
+                            DataCardKey13_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="LOCAL CHEGADA"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue13_2 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey13_2.Y + DataCardKey13_2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage13_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue13_2.Y + DataCardValue13_2.Height
+                                ZIndex: =3
+
+                            StarVisible13_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey13_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey13_2.Y
+                                ZIndex: =4
+
+                        odometro_inicial_DataCard2_1 As typedDataCard.numberEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="odometro_inicial"
+                            Default: =ThisItem.odometro_inicial
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,odometro_inicial)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =Value(DataCardValue15_2.Text)
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =0
+                            Y: =4
+                            ZIndex: =7
+
+                            DataCardKey15_1 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="ODÔMETRO INICIAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue15_2 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Format: =TextFormat.Number
+                                HintText: =""
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey15_1.Y + DataCardKey15_1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage15_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue15_2.Y + DataCardValue15_2.Height
+                                ZIndex: =3
+
+                            StarVisible15_1 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey15_1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey15_1.Y
+                                ZIndex: =4
+
+                        odometro_final_DataCard1_1 As typedDataCard.numberEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="odometro_final"
+                            Default: =ThisItem.odometro_final
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,odometro_final)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =Value(DataCardValue14_2.Text)
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =1
+                            Y: =4
+                            ZIndex: =8
+
+                            DataCardKey14_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="ODÔMETRO FINAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue14_2 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Format: =TextFormat.Number
+                                HintText: =""
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey14_2.Y + DataCardKey14_2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage14_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue14_2.Y + DataCardValue14_2.Height
+                                ZIndex: =3
+
+                            StarVisible14_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey14_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey14_2.Y
+                                ZIndex: =4
+
+                        img_odometro_inicial_DataCard1_1 As typedDataCard.addLargePictureCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="img_odometro_inicial"
+                            Default: =ThisItem.img_odometro_inicial
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,img_odometro_inicial)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =Image2_2.Image
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =0
+                            Y: =5
+                            ZIndex: =9
+
+                            DataCardKey19_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="IMAGEM ODÔMETRO INICIAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            Image2_2 As image:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =AddPicture2_2.Height
+                                Image: =If(IsBlank(AddPicture2_2.Media), Parent.Default, AddPicture2_2.Media)
+                                Tooltip: =Parent.DisplayName
+                                Width: =AddPicture2_2.Width
+                                X: =AddPicture2_2.X
+                                Y: =AddPicture2_2.Y
+                                ZIndex: =2
+
+                            AddPicture2_2 As addMedia:
+                                ChangePictureText: ="Alterar imagem"
+                                Font: =Font.Arial
+                                Height: =150
+                                PlaceholderText: ="Toque ou clique para adicionar uma imagem"
+                                Size: =12
+                                Text: ="Toque ou clique para adicionar uma imagem"
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey19_2.Y + DataCardKey19_2.Height + 5
+                                ZIndex: =3
+
+                            ErrorMessage19_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =Image2_2.Y + Image2_2.Height
+                                ZIndex: =4
+
+                            StarVisible19_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey19_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey19_2.Y
+                                ZIndex: =5
+
+                        img_odometro_final_DataCard1_1 As typedDataCard.addLargePictureCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="img_odometro_final"
+                            Default: =ThisItem.img_odometro_final
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,img_odometro_final)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =Image1_1.Image
+                            Visible: =true
+                            Width: =300
+                            WidthFit: =false
+                            X: =1
+                            Y: =5
+                            ZIndex: =10
+
+                            DataCardKey18_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="IMAGEM ODÔMETRO FINAL"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            Image1_1 As image:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =AddPicture1_2.Height
+                                Image: =If(IsBlank(AddPicture1_2.Media), Parent.Default, AddPicture1_2.Media)
+                                Tooltip: =Parent.DisplayName
+                                Width: =AddPicture1_2.Width
+                                X: =AddPicture1_2.X
+                                Y: =AddPicture1_2.Y
+                                ZIndex: =2
+
+                            AddPicture1_2 As addMedia:
+                                ChangePictureText: ="Alterar imagem"
+                                Font: =Font.Arial
+                                Height: =150
+                                PlaceholderText: ="Toque ou clique para adicionar uma imagem"
+                                Size: =12
+                                Text: ="Toque ou clique para adicionar uma imagem"
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey18_2.Y + DataCardKey18_2.Height + 5
+                                ZIndex: =3
+
+                            ErrorMessage18_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =Image1_1.Y + Image1_1.Height
+                                ZIndex: =4
+
+                            StarVisible18_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey18_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey18_2.Y
+                                ZIndex: =5
+
+                        observacao_DataCard1_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="observacao"
+                            Default: =ThisItem.observacao
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,observacao)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =149
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, observacao)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue18_1.Text
+                            Visible: =true
+                            Width: =600
+                            WidthFit: =false
+                            X: =0
+                            Y: =6
+                            ZIndex: =11
+
+                            DataCardKey17_2 As label:
+                                Align: =Align.Center
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Font: =Font.Arial
+                                FontWeight: =FontWeight.Semibold
+                                Height: =48
+                                Size: =12
+                                Text: ="OBSERVAÇÃO"
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue18_1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Parent.Default
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Font: =Font.Arial
+                                Height: =135
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                Mode: =TextMode.MultiLine
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =12
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey17_2.Y + DataCardKey17_2.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage17_2 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue18_1.Y + DataCardValue18_1.Height
+                                ZIndex: =3
+
+                            StarVisible17_2 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey17_2.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey17_2.Y
+                                ZIndex: =4
+
+                        id_referencia_condutor_DataCard1_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="id_referencia_condutor"
+                            Default: =ThisItem.id_referencia_condutor
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,id_referencia_condutor)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, id_referencia_condutor)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue23_1.Text
+                            Visible: =false
+                            Width: =300
+                            WidthFit: =false
+                            X: =0
+                            Y: =7
+                            ZIndex: =12
+
+                            DataCardKey25_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue23_1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =varUsuario.ID_Referencia
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey25_1.Y + DataCardKey25_1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage25_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue23_1.Y + DataCardValue23_1.Height
+                                ZIndex: =3
+
+                            StarVisible25_1 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey25_1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey25_1.Y
+                                ZIndex: =4
+
+                        id_contrato_condutor_DataCard1_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="id_contrato_condutor"
+                            Default: =ThisItem.id_contrato_condutor
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,id_contrato_condutor)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, id_contrato_condutor)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue24_1.Text
+                            Visible: =false
+                            Width: =300
+                            WidthFit: =false
+                            X: =1
+                            Y: =7
+                            ZIndex: =13
+
+                            DataCardKey26_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue24_1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =varUsuario.id_contrato
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey26_1.Y + DataCardKey26_1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage26_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue24_1.Y + DataCardValue24_1.Height
+                                ZIndex: =3
+
+                            StarVisible26_1 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey26_1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey26_1.Y
+                                ZIndex: =4
+
+                        latitude_saida_DataCard1_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="latitude_saida"
+                            Default: =ThisItem.latitude_saida
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,latitude_saida)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, latitude_saida)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue26_1.Text
+                            Visible: =false
+                            Width: =300
+                            WidthFit: =false
+                            X: =0
+                            Y: =8
+                            ZIndex: =14
+
+                            DataCardKey28_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue26_1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Location.Latitude
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey28_1.Y + DataCardKey28_1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage28_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue26_1.Y + DataCardValue26_1.Height
+                                ZIndex: =3
+
+                            StarVisible28_1 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey28_1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey28_1.Y
+                                ZIndex: =4
+
+                        longitude_saida_DataCard1_1 As typedDataCard.textualEditCard:
+                            AutoHeight: =true
+                            BorderStyle: =BorderStyle.Solid
+                            BorderThickness: =0
+                            ContentLanguage: =""
+                            DataField: ="longitude_saida"
+                            Default: =ThisItem.longitude_saida
+                            DisplayMode: =Parent.DisplayMode
+                            DisplayName: =DataSourceInfo([@sigd_frota_lancamentos],DataSourceInfo.DisplayName,longitude_saida)
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =50
+                            LayoutHeight: =0
+                            LayoutWidth: =0
+                            LayoutX: =0
+                            LayoutY: =0
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            MaxLength: =DataSourceInfo([@sigd_frota_lancamentos], DataSourceInfo.MaxLength, longitude_saida)
+                            minimumHeight: =20
+                            minimumWidth: =20
+                            Required: =false
+                            Update: =DataCardValue27_1.Text
+                            Visible: =false
+                            Width: =300
+                            WidthFit: =false
+                            X: =1
+                            Y: =8
+                            ZIndex: =15
+
+                            DataCardKey29_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =48
+                                Size: =21
+                                Text: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                Wrap: =false
+                                X: =30
+                                Y: =10
+                                ZIndex: =1
+
+                            DataCardValue27_1 As text:
+                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                Default: =Location.Longitude
+                                DelayOutput: =true
+                                DisplayMode: =Parent.DisplayMode
+                                Height: =70
+                                HintText: =""
+                                MaxLength: =Parent.MaxLength
+                                PaddingLeft: =5
+                                RadiusBottomLeft: =0
+                                RadiusBottomRight: =0
+                                RadiusTopLeft: =0
+                                RadiusTopRight: =0
+                                Size: =21
+                                Tooltip: =Parent.DisplayName
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardKey29_1.Y + DataCardKey29_1.Height + 5
+                                ZIndex: =2
+
+                            ErrorMessage29_1 As label:
+                                AutoHeight: =true
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(168, 0, 0, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =10
+                                Live: =Live.Assertive
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
+                                Size: =24
+                                Text: =Parent.Error
+                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                Width: =Parent.Width - 60
+                                X: =30
+                                Y: =DataCardValue27_1.Y + DataCardValue27_1.Height
+                                ZIndex: =3
+
+                            StarVisible29_1 As label:
+                                Align: =Align.Center
+                                BorderColor: =RGBA(0, 0, 0, 1)
+                                Color: =RGBA(0, 18, 107, 1)
+                                Height: =DataCardKey29_1.Height
+                                Size: =21
+                                Text: ="*"
+                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                Width: =30
+                                Wrap: =false
+                                Y: =DataCardKey29_1.Y
+                                ZIndex: =4
+
+                    Container6_12 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        FillPortions: =0
+                        Height: =40
+                        LayoutMinHeight: =112
+                        LayoutMinWidth: =250
+                        maximumHeight: =11360
+                        maximumWidth: =640
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                        ZIndex: =3
+
+                        Container14_1 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Height: =Parent.Height - Self.Y * 2
+                            LayoutGap: =20
+                            LayoutMode: =LayoutMode.Auto
+                            maximumHeight: =11360
+                            maximumWidth: =640
+                            PaddingLeft: =30
+                            PaddingRight: =30
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Width: =Parent.Width
+                            Y: =5
+                            ZIndex: =1
+
+                            Button3_2 As button:
+                                Color: =RGBA(45, 65, 93, 1)
+                                Fill: =RGBA(255, 255, 255, 1)
+                                FillPortions: =1
+                                Height: =Parent.Height - Self.Y * 2
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =0
+                                OnSelect: |-
+                                    =Navigate('Home Screen');
+                                    Set(varEditarViagem, false);
+                                Size: =12
+                                Text: ="↩️ VOLTAR"
+                                Width: =Parent.Width - Self.X * 2
+                                X: =40
+                                Y: =5
+                                ZIndex: =1
+
+                            Button3_3 As button:
+                                Color: =RGBA(45, 65, 93, 1)
+                                Fill: =RGBA(255, 255, 255, 1)
+                                FillPortions: =1
+                                Height: =Parent.Height - Self.Y * 2
+                                LayoutMinHeight: =70
+                                LayoutMinWidth: =0
+                                OnSelect: |
+                                    =SubmitForm(Form_lancamento_viagem_1);
+                                Size: =12
+                                Text: ="CONCLUIR ✅"
+                                Width: =Parent.Width - Self.X * 2
+                                X: =40
+                                Y: =5
+                                ZIndex: =2
+

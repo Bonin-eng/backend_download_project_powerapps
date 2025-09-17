@@ -1,0 +1,146 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpMenuLateral_1:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      FecharMenu:
+        PropertyKind: Output
+        DisplayName: Fechar Menu
+        Description: Se ativo minimiza o menu
+        DataType: Boolean
+      ListaDasTelas:
+        PropertyKind: Input
+        DisplayName: Lista das Telas
+        Description: Lista de todas as telas
+        DataType: Table
+        Default: =colTelas
+    Properties:
+      FecharMenu: =gblFecharMenu
+      Height: =800
+      Width: =If(cmpMenuLateral_1.FecharMenu = true, 95, 250)
+    Children:
+      - htmlFundo_1:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            Font: =Font.Arial
+            Height: =Parent.Height
+            HtmlText: |-
+              ="<div style='
+                  background-color; #2d415d;
+                  height: "&Self.Height-21&"px;
+                  border-radius: 0px 10px 0px 0px;
+                  margin: 10px 10px 10px 10px;
+                  box-shadow: 5px 5px 5px gray;'
+              ></div>"
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =Parent.Width
+      - Gallery3_1:
+          Control: Gallery@2.15.0
+          Variant: Vertical
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =Color.White
+            Height: =Parent.Height-Self.Y
+            Items: =cmpMenuLateral_1.ListaDasTelas
+            OnSelect: =
+            ShowScrollbar: =false
+            TabIndex: =
+            TemplateSize: =59
+            Width: =Parent.Width-Self.X-15
+            X: =15
+            Y: =81
+          Children:
+            - Separator2_2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  DisplayMode: =DisplayMode.View
+                  Fill: =RGBA(230, 230, 230, 1)
+                  Height: =1
+                  OnSelect: =Select(Parent)
+                  Width: =Parent.TemplateWidth-Parent.X
+                  Y: =54
+            - Label9_1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  Color: =RGBA(45, 65, 93, 1)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =4
+                  Font: =Font.Arial
+                  Height: =Parent.TemplateHeight
+                  PaddingLeft: =60
+                  Text: =ThisItem.NomeTela
+                  Visible: =Not(cmpMenuLateral_1.FecharMenu)
+                  Width: =Parent.TemplateWidth-Parent.X
+            - Icon3_1:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(166, 166, 166, 1)
+                  Color: =RGBA(45, 65, 93, 1)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(220, 220, 220, 1)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =If(App.ActiveScreen = ThisItem.Tela, RGBA(45,65,93,0.2), RGBA(0,0,0,0))
+                  FocusedBorderThickness: =4
+                  Height: =Parent.TemplateHeight
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                  HoverFill: =RGBA(204, 228, 246, 0.3)
+                  Icon: =ThisItem.Icon
+                  OnSelect: =If(Not(gblFecharMenu), Navigate(ThisItem.Tela), Set(gblFecharMenu, !gblFecharMenu))
+                  PaddingBottom: =10
+                  PaddingRight: =Self.Width-40
+                  PaddingTop: =10
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  Width: =Parent.TemplateWidth-Parent.X
+      - Label8_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            Color: =RGBA(45, 65, 93, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =4
+            Font: =Font.Arial
+            Text: ="Menu"
+            Visible: =Not(cmpMenuLateral_1.FecharMenu)
+            X: =70
+            Y: =12
+      - Icon2_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Color: =RGBA(45, 65, 93, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(220, 220, 220, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =4
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(gblFecharMenu, !gblFecharMenu)
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            TabIndex: =0
+            Width: =55
+            X: =15
+            Y: =12

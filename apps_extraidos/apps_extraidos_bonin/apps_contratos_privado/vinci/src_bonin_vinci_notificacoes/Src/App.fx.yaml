@@ -1,0 +1,133 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |
+        =// Carrega o cache local de todas as collections importantes, sempre garantindo estrutura
+        LoadData(colTelas, "CacheTelas", true
+        );
+        LoadData(Table(VarUsuario), "CacheUsuario", true
+        );
+        LoadData(VarUsuarioFoto, "CacheUsuarioFoto", true
+        );
+        LoadData(colDadosCidades, "CacheDadosCidades", true
+        );
+        LoadData(colDadosElementos, "CacheDadosElementos", true
+        );
+        
+        IfError(
+            LoadData(colDadosLista, "CacheDadosLista", true),
+            ClearCollect(colDadosLista, Filter(db_notificacoes, false))
+        );
+        IfError(
+            LoadData(colDadosListaContador, "CacheDadosListaContador", true),
+            ClearCollect(colDadosListaContador, ShowColumns(Filter(db_notificacoes, false), id_notificacao))
+        );
+        IfError(
+            LoadData(colComparacaoLista, "CacheListaComparacao", true),
+            // Se for só o campo ID_Referencia, pode usar ShowColumns
+            ClearCollect(colComparacaoLista, ShowColumns(Filter(db_notificacoes, false), id_notificacao))
+        );
+        IfError(
+            LoadData(colDadosOffline, "CacheDadosOffline", true),
+            ClearCollect(colDadosOffline, db_notificacoes)
+        );
+        
+        // Se online, atualiza dados e salva o cache
+        If(
+            Connection.Connected,
+        
+                // Salva as informações do usuário no cache
+                Set(VarUsuario, {Nome: Text(User().FullName), Email: Text(User().Email)});
+                SaveData(Table(VarUsuario), "CacheUsuario");
+        
+                Set(VarUsuarioFoto, Table({
+                    Foto: UsuáriosdoOffice365.UserPhoto(User().Email)
+                }));
+                SaveData(VarUsuarioFoto, "CacheUsuarioFoto");
+                
+                // Salva as telas no cache
+                ClearCollect(
+                colTelas,
+                    Table(
+                        {NomeTela: "Home", Tela: 'Home Screen', Icon: Icon.Hamburger},
+                        {NomeTela: "Contatos", Tela: 'Editar Notificação Screen', Icon: Icon.People},
+                        {NomeTela: "Nova Fiscalização", Tela: 'Nova Fiscalização Screen', Icon: Icon.AddDocument}
+                    ));
+                SaveData(colTelas, "CacheTelas");
+        
+                // Atualiza dados auxiliares (cidades)
+                ClearCollect(colDadosCidades, db_cidades_cadastradas);
+                SaveData(colDadosCidades, "CacheDadosCidades");
+        
+                // Atualiza dados auxiliares (elementos)
+                ClearCollect(colDadosElementos, db_tipo_elemento);
+                SaveData(colDadosElementos, "CacheDadosElementos");
+        
+                // Atualiza dados auxiliares (notificacoes)
+        
+                // Carrega lista principal do SharePoint em lotes
+                Set(VarLote, 1000);
+                Set(PrimeiraLinha, First(SortByColumns(db_notificacoes, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+                Set(UltimaLinha, First(SortByColumns(db_notificacoes, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+                Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+                ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+                ClearCollect(colDadosLista, Filter(db_notificacoes, false));
+        
+                ForAll(
+                    SeqLotes As item,
+                    With(
+                        {
+                            limInf: item.Value * VarLote + PrimeiraLinha,
+                            limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                        },
+                        Collect(
+                            colDadosLista,
+                            Filter(
+                                db_notificacoes,
+                                ID_Referencia >= limInf && ID_Referencia <= limSup
+                            )
+                        )
+                    )
+                );
+                SaveData(colDadosLista, "CacheDadosLista");
+        
+                ClearCollect(colDadosListaContador, ShowColumns(colDadosLista, id_notificacao));
+                SaveData(colDadosListaContador, "CacheDadosListaContador");
+        
+                // Atualiza collection de IDs únicos
+                ClearCollect(
+                    colComparacaoLista,
+                    ShowColumns(colDadosLista, id_notificacao)
+                );
+                SaveData(colComparacaoLista, "CacheListaComparacao");
+        
+                // MARCA como "DUPLICADO" todo item do offline cujo id_notificacao já está no SharePoint (não remove ainda!)
+                ForAll(
+                    colDadosOffline As item,
+                    If(
+                        !IsBlank(LookUp(colComparacaoLista, id_notificacao = item.id_notificacao)),
+                        Patch(
+                            colDadosOffline,
+                            LookUp(colDadosOffline, id_notificacao = item.id_notificacao),
+                            { StatusSync: "DUPLICADO", MensagemSync: "Já existe no SharePoint." }
+                        )
+                    )
+                );
+                SaveData(colDadosOffline, "CacheDadosOffline");
+        
+                If(
+                    CountRows(colDadosOffline) = 0,
+                    Notify("⚠️ Nenhum dado carregado no modo offline", NotificationType.Warning)
+                )
+            ,
+                // Se offline: só usa os dados carregados do cache acima
+                Blank()
+        )
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

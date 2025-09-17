@@ -1,0 +1,234 @@
+Screen2 As screen:
+    Fill: =Color.White
+    LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+    OnVisible: |
+        =// 1. Buscar o(s) colaborador(es) relacionado(s) ao usuário logado
+        ClearCollect(
+            colRegistroColaborador,
+            Filter(
+                bgv_viajantes,
+                email = User().Email
+            ).ID_Referencia
+        );
+        // 2. Buscar todos os registros de viagens feitos por esse(s) colaborador(es)
+        Clear(colRegistroViagens);
+        ForAll(
+            colRegistroColaborador As ref,
+            ForAll(
+                Filter(bgv_viagens, ID_Referencia = ref.ID_Referencia) As viagem,
+                If(
+                    IsBlank(
+                        LookUp(
+                            colRegistroViagens,
+                            ID = viagem.ID
+                        )
+                    ),
+                    Collect(colRegistroViagens, viagem)
+                )
+            )
+        )
+
+    app_cpn_bonin_2 As app_cpn_bonin:
+
+    ctn_dados_2 As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        Height: =app_cpn_bonin_2.Referencia_Height
+        RadiusBottomLeft: =app_cpn_bonin_2.Referencia_RadiusBottomLeft
+        RadiusBottomRight: =app_cpn_bonin_2.Referencia_RadiusBottomRight
+        RadiusTopLeft: =app_cpn_bonin_2.Referencia_RadiusTopLeft
+        RadiusTopRight: =app_cpn_bonin_2.Referencia_RadiusTopRight
+        Width: =app_cpn_bonin_2.Referencia_Width
+        X: =app_cpn_bonin_2.Eixo_X
+        Y: =app_cpn_bonin_2.Eixo_Y
+        ZIndex: =2
+
+        glr_historico As gallery.variableTemplateHeightGallery:
+            BorderColor: =App.Theme.Colors.Darker40
+            DelayItemLoading: =true
+            Height: =Parent.Height
+            Items: =SortByColumns(colRegistroViagens, "data_inicio", SortOrder.Descending)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =280
+            Width: =Parent.Width
+            ZIndex: =1
+
+            ctn_historico As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Light
+                Fill: =RGBA(144, 157, 175, 1)
+                Height: =htmltxt_historico.Height + If(htmltxt_historico_viajantes_1.Visible, htmltxt_historico_viajantes_1.Height, 0)
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                Width: =Parent.Width
+                ZIndex: =4
+
+                htmltxt_historico_viajantes_1 As htmlViewer:
+                    AutoHeight: =true
+                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                    Font: =App.Theme.Font
+                    Height: =50
+                    HtmlText: =First(colResumoVisualizacao).HtmlCompleto
+                    OnSelect: =
+                    Size: =13
+                    Visible: =varHistoricoExpandido = ThisItem.ID_Referencia
+                    Width: =Parent.Width
+                    Y: =htmltxt_historico.Y + htmltxt_historico.Height
+                    ZIndex: =1
+
+                htmltxt_historico As htmlViewer:
+                    AutoHeight: =true
+                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                    Font: =App.Theme.Font
+                    Height: =151
+                    HtmlText: |
+                        ="<div style='width:100%; font-family:Segoe UI; font-size:12px; color:#2d415d; padding:8px; border-bottom:1px solid white;'>
+                        
+                          <!-- Linha 1: Motivo + Descrição do Motivo + Status -->
+                          <div style='display:flex; gap:20px; flex-wrap:wrap; align-items:center; margin-bottom:2px; justify-content:space-between;'>
+                        
+                            <!-- Motivo -->
+                            <div style='flex:1; font-size:12px; font-weight:bold;'>
+                              " & LookUp(bgv_tipos_motivo, ID_Referencia = ThisItem.motivo_id, motivo) & "
+                            </div>
+                        
+                            <!-- Descrição do Motivo -->
+                            <div style='flex:1;'>
+                              <strong>Descrição do Motivo:</strong> " & ThisItem.descricao_motivo_viagem & "
+                            </div>
+                        
+                            <!-- Observação -->
+                            <div style='flex:1;'>
+                              <strong>Observação:</strong> " & ThisItem.observacao & "
+                            </div>
+                        
+                            <!-- Observação -->
+                            <div style='flex:1;'>
+                              <strong>Centro de Custo:</strong> " & ThisItem.id_contrato & " | " & LookUp(sigd_contratos, ID_Contrato = ThisItem.id_contrato, referencia) & "
+                            </div>
+                        
+                            <!-- Status como badge -->
+                            <div style='flex:1; text-align:right;'>
+                              <span style='display:inline-block; background-color:#e8eaf6; color:#1a237e; font-size:11px; padding:4px 8px; border-radius:12px; font-weight:bold;'>
+                                " & ThisItem.status & "
+                              </span>
+                            </div>
+                        
+                          </div>
+                        
+                          <!-- Linha 2: Início, Fim, Fora do Prazo, etc. -->
+                          <div style='display:flex; gap:20px; flex-wrap:wrap; line-height:1.2em;'>
+                            <div style='flex:1'><strong>Início:</strong> " & ThisItem.data_inicio & "</div>
+                            <div style='flex:1'><strong>Fim:</strong> " & ThisItem.data_fim & "</div>
+                            <div style='flex:1'><strong>Adiantamento:</strong> " & If(ThisItem.valor_adiantamento>0, Text(Value(ThisItem.valor_adiantamento), "[$-pt-BR]R$ #.##0,00"), Text(Value(0), "[$-pt-BR]R$ #.##0,00")) & "</div>
+                            <div style='flex:1'><strong>Fora do Prazo:</strong> " & If(ThisItem.solicitado_fora_do_prazo, "⚠️", "➖") & "</div>
+                            <div style='flex:1'><strong>Aluguel de Veículo:</strong> " & If(ThisItem.tipo_transporte_veiculo, "✔️", "✖️") & "</div>
+                            <div style='flex:1'><strong>Transporte Rodoviário:</strong> " & If(ThisItem.tipo_transporte_rodoviario, "✔️", "✖️") & "</div>
+                            <div style='flex:1'><strong>Transporte Aéreo:</strong> " & If(ThisItem.tipo_transporte_aereo, "✔️", "✖️") & "</div>
+                          </div>
+                        
+                        </div>"
+                    OnSelect: =
+                    PaddingBottom: =0
+                    PaddingTop: =0
+                    Size: =13
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                icn_expandir As icon.ChevronDown:
+                    BorderColor: =App.Theme.Colors.Darker40
+                    Color: =App.Theme.Colors.Darker30
+                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                    DisabledColor: =RGBA(244, 244, 244, 1)
+                    Height: =24
+                    Icon: |
+                        =If(varHistoricoExpandido = ThisItem.ID_Referencia, Icon.ChevronUp, Icon.ChevronDown)
+                    OnSelect: |
+                        =UpdateContext({
+                            varHistoricoExpandido: If(varHistoricoExpandido = ThisItem.ID_Referencia, Blank(), ThisItem.ID_Referencia),
+                            colRegistroRoteiros: Filter(bgv_roteiros, ID_Referencia = ThisItem.ID_Referencia),
+                            colRegistroViajantes: Filter(bgv_viajantes, ID_Referencia = ThisItem.ID_Referencia)
+                        });
+                        ClearCollect(
+                            colResumoVisualizacao,
+                            {
+                                ID_Referencia: ThisItem.ID_Referencia,
+                                HtmlCompleto:
+                                    "<div style='display:flex; gap:10px; font-family:Segoe UI;'>" &
+                        
+                                        // 👤 Viajantes
+                                        "<div style='flex:1; background-color:#f8f9fa; padding:10px; border-radius:6px;'>" &
+                                            "<div style='font-weight:bold; font-size:16px; color:#2d415d; text-align:center;'>👤 Viajantes</div>" &
+                                            Concat(
+                                                Filter(bgv_viajantes, ID_Referencia = ThisItem.ID_Referencia),
+                                                "<div style='font-size:12px; color:#2d415d; padding:5px 0; border-bottom:1px solid #e0e0e0;'>" &
+                                                    "<div style='font-weight:bold; margin-bottom:4px;'>" & nome & "</div>" &
+                                                    "<div style='display:flex; flex-wrap:wrap; justify-content:space-between;'>" &
+                                                        "<div style='flex: 1 1 33%;'>📧 " & email & "</div>" &
+                                                        "<div style='flex: 1 1 20%;'>📞 " & telefone & "</div>" &
+                                                        "<div style='flex: 1 1 46%;'>🏷️ Centro de Custo: " & centro_de_custo & "</div>" &
+                                                    "</div>" &
+                                                "</div>"
+                                            ) &
+                                        "</div>" &
+                        
+                                        // 🚌 Locomoções
+                                        "<div style='flex:1; background-color:#f8f9fa; padding:10px; border-radius:6px;'>" &
+                                            "<div style='font-weight:bold; font-size:16px; color:#2d415d; text-align:center;'>🚌 Locomoções</div>" &
+                                            Concat(
+                                                Filter(bgv_roteiros, ID_Referencia = ThisItem.ID_Referencia, LookUp(ColTiposOrcamento, ID_Referencia = tipo_orcamento_id).tipo_orcamento = "Locomoção"),
+                                                With(
+                                                    {
+                                                        tipoItem: LookUp(ColTiposOrcamento, ID_Referencia = tipo_orcamento_id, tipo_item)
+                                                    },
+                                                    "<div style='font-size:12px; color:#2d415d; padding:5px 0; border-bottom:1px solid #e0e0e0;'>" &
+                                                        "<div><strong>🚙 Tipo:</strong> " & tipoItem & "</div>" &
+                                                        "<div style='display:flex; flex-wrap:wrap; justify-content:space-between;'>" &
+                                                            "<div style='flex: 1 1 50%;'>🗓️ " & If(tipoItem = "Locação de Veículo", "Retirada:", "Partida:") & " " & Text(data_origem, "[$-pt-BR]dd/mm/yyyy") & "</div>" &
+                                                            "<div style='flex: 1 1 50%;'>🗓️ " & If(tipoItem = "Locação de Veículo", "Devolução:", "Chegada:") & " " & Text(data_destino, "[$-pt-BR]dd/mm/yyyy") & "</div>" &
+                                                        "</div>" &
+                                                        "<div style='display:flex; flex-wrap:wrap; justify-content:space-between;'>" &
+                                                            If(
+                                                                tipoItem = "Locação de Veículo",
+                                                                "<div style='flex: 1 1 50%;'>📍 Local de Retirada: " & uf_origem & " - " & local_origem & "</div>" &
+                                                                "<div style='flex: 1 1 50%;'>📍 Local de Devolução: " & uf_destino & " - " & local_destino & "</div>",
+                                                                "<div style='flex: 1 1 50%;'>📍 Origem: " & uf_origem & " - " & local_origem & "</div>" &
+                                                                "<div style='flex: 1 1 50%;'>📍 Destino: " & uf_destino & " - " & local_destino & "</div>"
+                                                            ) &
+                                                        "</div>" &
+                                                    "</div>"
+                                                )
+                                            ) &
+                                        "</div>" &
+                        
+                                        // 🏨 Hospedagens
+                                        "<div style='flex:1; background-color:#f8f9fa; padding:10px; border-radius:6px;'>" &
+                                            "<div style='font-weight:bold; font-size:16px; color:#2d415d; text-align:center;'>🏨 Hospedagens</div>" &
+                                            Concat(
+                                                Filter(bgv_roteiros, ID_Referencia = ThisItem.ID_Referencia, LookUp(ColTiposOrcamento, ID_Referencia = tipo_orcamento_id).tipo_orcamento = "Hospedagem"),
+                                                With(
+                                                    {
+                                                        tipoItem: LookUp(ColTiposOrcamento, ID_Referencia = tipo_orcamento_id, tipo_item)
+                                                    },
+                                                    "<div style='font-size:12px; color:#2d415d; padding:5px 0;'>
+                                                        <strong>🏠 Tipo:</strong> " & tipoItem & "
+                                                    </div>
+                                                    <div style='display: flex; gap: 5px; flex-wrap: wrap; padding: 5px 0;'> 
+                                                        <div style='flex: 1 1 50%; font-size:12px;'>🗓️ Checkin: " & data_origem & " &nbsp;&nbsp;&nbsp; 🗓️ Checkout: " & data_destino & "</div>
+                                                        <div style='flex: 1 1 50%; font-size:12px;'>📍 Endereço de Referência: " & endereco_da_hospedagem & "</div>
+                                                    </div>
+                                                    <div style='border-bottom:1px solid #e0e0e0; margin-top:2px;'></div>"
+                                                )
+                                            ) &
+                                        "</div>" &
+                        
+                                    "</div>"
+                            }
+                        )
+                    Width: =24
+                    X: =Parent.Width - Self.Width - 15
+                    Y: =htmltxt_historico.Height - Self.Height
+                    ZIndex: =3
+

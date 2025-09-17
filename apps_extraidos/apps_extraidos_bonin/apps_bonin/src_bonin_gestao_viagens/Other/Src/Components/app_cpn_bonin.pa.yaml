@@ -1,0 +1,352 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  app_cpn_bonin:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      Eixo_X:
+        PropertyKind: Output
+        DisplayName: Eixo_X
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Eixo_Y:
+        PropertyKind: Output
+        DisplayName: Eixo_Y
+        Description: Uma propriedade personalizada
+        DataType: Number
+      EntradaMenu:
+        PropertyKind: Input
+        DisplayName: EntradaMenu
+        Description: Uma propriedade personalizada
+        DataType: Boolean
+        Default: =gblFecharMenu
+      FecharMenu:
+        PropertyKind: Output
+        DisplayName: Fechar Menu
+        Description: Se ativo minimiza o menu
+        DataType: Boolean
+      ListaDasTelas:
+        PropertyKind: Input
+        DisplayName: Lista das Telas
+        Description: Lista de todas as telas
+        DataType: Table
+        Default: =colTelas
+      ListaIcones:
+        PropertyKind: Input
+        DisplayName: Lista Icones
+        Description: Uma propriedade personalizada
+        DataType: Table
+        Default: =ColLogo
+      Referencia_Cabecalho_Height:
+        PropertyKind: Output
+        DisplayName: Referencia_Cabecalho_Height
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_Height:
+        PropertyKind: Output
+        DisplayName: Referencia_Height
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusBottomLeft:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusBottomLeft
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusBottomRight:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusBottomRight
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusTopLeft:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusTopLeft
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_RadiusTopRight:
+        PropertyKind: Output
+        DisplayName: Referencia_RadiusTopRight
+        Description: Uma propriedade personalizada
+        DataType: Number
+      Referencia_Width:
+        PropertyKind: Output
+        DisplayName: Referencia_Width
+        Description: Uma propriedade personalizada
+        DataType: Number
+    Properties:
+      Eixo_X: =ctn_conteudo.X
+      Eixo_Y: =ctn_conteudo.Y
+      FecharMenu: =gblFecharMenu
+      Fill: =RGBA(87, 107, 134, 1)
+      Height: =918
+      Referencia_Cabecalho_Height: =ctn_cabecalho.Height
+      Referencia_Height: =ctn_conteudo.Height
+      Referencia_RadiusBottomLeft: =10
+      Referencia_RadiusBottomRight: =10
+      Referencia_RadiusTopLeft: =10
+      Referencia_RadiusTopRight: =10
+      Referencia_Width: =ctn_conteudo.Width
+      Width: =1920
+    Children:
+      - ctn_conteudo:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(180, 196, 219, 1)
+            Height: =Parent.Height - Self.Y
+            RadiusBottomLeft: =0
+            RadiusBottomRight: |+
+              =0
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =ctn_cabecalho.Width
+            X: =ctn_cabecalho.X
+            Y: =ctn_cabecalho.Y + ctn_cabecalho.Height + 10
+      - ctn_cabecalho:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =RGBA(45, 65, 93, 1)
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(45, 65, 93, 1)
+            Height: =40
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: |+
+              =0
+            RadiusTopRight: |+
+              =0
+            Width: =Parent.Width - Self.X - 10
+            X: =ctn_min.X + ctn_min.Width + 10
+          Children:
+            - HtmlText1:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  Font: =Font.'Open Sans'
+                  Height: =Parent.Height
+                  HtmlText: |+
+                    ="<div style='
+                      width: 100%;
+                      height: 100%;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      font-family: Segoe UI;
+                      font-weight: bold;
+                      font-size: 24px;
+                      color: white;
+                      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+                      margin-top: 2px;
+                    '>
+                      " & Upper(LookUp(app_cpn_bonin.ListaDasTelas, Tela.Name = App.ActiveScreen.Name, NomeTela)) & "
+                    </div>"
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12.56
+                  Width: =1813.76
+      - ctn_max:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =ctn_conteudo.X
+          Children:
+            - ctn_min:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(45, 65, 93, 1)
+                  Height: =Parent.Height
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: |+
+                    =0
+
+                  RadiusTopRight: |
+                    =10
+                  Width: =If(gblFecharMenu = true || IsBlank(gblFecharMenu), 70, 220)
+                Children:
+                  - lbl_nome:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisplayMode: =DisplayMode.View
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: |
+                          =Left(User().FullName, Find(" ", User().FullName) - 1)
+                        Width: =Parent.Width
+                        Y: =img_colab.Y + img_colab.Height + 5
+                  - img_colab:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        BorderThickness: =2
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =img_bonin_menor.Height + 20
+                        HoverBorderColor: =
+                        HoverFill: =
+                        Image: =UsuáriosdoOffice365.UserPhoto(User().Email)
+                        ImagePosition: =ImagePosition.Fill
+                        PressedBorderColor: =
+                        PressedFill: =
+                        RadiusBottomLeft: =90
+                        RadiusBottomRight: =90
+                        RadiusTopLeft: =90
+                        RadiusTopRight: =90
+                        TabIndex: =-2
+                        Width: =img_bonin_menor.Width + 20
+                        X: =(Parent.Width- Self.Width)/2
+                        Y: =90
+                  - img_bonin_menor:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        Height: =40
+                        HoverBorderColor: =
+                        Image: =LookUp(app_cpn_bonin.ListaIcones, Nome = "logo_menor", SVG)
+                        OnSelect: =Set(gblFecharMenu, false)
+                        PressedBorderColor: =
+                        TabIndex: =2
+                        Visible: =app_cpn_bonin.FecharMenu = true || IsBlank(gblFecharMenu)
+                        Width: =40
+                        X: =15
+                        Y: =Self.X
+                  - img_bonin:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        Height: =57.0932108725332
+                        HoverBorderColor: =
+                        Image: =LookUp(app_cpn_bonin.ListaIcones, Nome = "logo", SVG)
+                        OnSelect: =Set(gblFecharMenu, true)
+                        PressedBorderColor: =
+                        TabIndex: =2
+                        Visible: =!img_bonin_menor.Visible
+                        Width: =188
+                        X: =15
+                        Y: =Self.X
+            - gpj_glr_itens:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  FocusedBorderThickness: =1
+                  Height: =Parent.Height - Self.Y
+                  Items: =app_cpn_bonin.ListaDasTelas
+                  NavigationStep: =0
+                  OnSelect: =
+                  ShowScrollbar: =false
+                  TabIndex: =
+                  TemplatePadding: =0
+                  TemplateSize: =61
+                  Width: =ctn_conteudo.X
+                  WrapCount: =0
+                  Y: =lbl_nome.Y + lbl_nome.Height + 10
+                Children:
+                  - Container2:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(180, 196, 219, 1)
+                        BorderThickness: =2
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(87, 107, 133, 1)
+                        Height: =icn_item.Height
+                        RadiusBottomLeft: =Self.Height/2
+                        RadiusTopLeft: =Self.Height/2
+                        Visible: =ThisItem.Tela.Name = App.ActiveScreen.Name
+                        Width: =ctn_conteudo.X
+                        X: =icn_item.X - 15
+                        Y: =Img.Y
+                  - Label9_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =Parent.TemplateHeight
+                        PaddingLeft: =60
+                        Size: =10.62
+                        Text: =ThisItem.NomeTela
+                        Visible: =Not(app_cpn_bonin.FecharMenu || IsBlank(gblFecharMenu))
+                        Width: =Parent.TemplateWidth - Parent.X - Self.X - 10
+                  - icn_item:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(255, 255, 255, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =0
+                        Height: =Parent.TemplateHeight
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Icon: =ThisItem.Icon
+                        OnSelect: =Navigate(ThisItem.Tela)
+                        PaddingRight: =Self.Width-30
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Width: =Parent.TemplateWidth-Parent.X - Self.X
+                        X: =20
+                  - Img:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.TemplateHeight
+                        HoverBorderColor: =
+                        HoverFill: =
+                        Image: =ThisItem.Icon
+                        OnSelect: =Navigate(ThisItem.Tela, ScreenTransition.Fade)
+                        PaddingRight: =Self.Width- 50
+                        PressedBorderColor: =
+                        PressedFill: =
+                        TabIndex: =2
+                        Tooltip: =ThisItem.NomeTela
+                        Width: =Parent.TemplateWidth-Parent.X - Self.X
+                        X: =10

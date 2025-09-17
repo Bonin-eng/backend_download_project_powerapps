@@ -1,0 +1,636 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Configuração Screen:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+    Children:
+      - app_cpn_vincy_notificacoes_4:
+          Control: CanvasComponent
+          ComponentName: app_cpn_vincy_notificacoes
+          Properties:
+            ButtonHeight: =50
+            ButtonHeightSUB: =40
+            ButtonRadius: =0
+            Fill: =RGBA(0, 68, 137, 1)
+            Height: =918
+            HoverFill: ="#EBEAEA33"
+            ListaDasTelas: =colTelas
+            ListaIcones: =ColLogo
+            OnSelect: =
+            Width: =1920
+      - cControleDotUnidade_1:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height - Self.Y - 10
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - Self.X - 20
+            X: =240
+            Y: =120
+          Children:
+            - Container17_8:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =20
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.Width
+                Children:
+                  - Container8_21:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(0, 68, 137, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width / 2
+                      Children:
+                        - Container7_27:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(0, 68, 137, 1)
+                              FillPortions: =0
+                              Height: =80
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width
+                            Children:
+                              - Label1_119:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    Size: =11
+                                    Text: ="ID"
+                                    Width: =100
+                              - Label1_120:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    Size: =11
+                                    Text: ="ELEMENTO"
+                                    Width: =200
+                              - Label1_121:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.Arial
+                                    Size: =11
+                                    Text: ="CONFIGURAÇÕES"
+                                    Width: =300
+                              - Container16_24:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =10
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    PaddingTop: =10
+                                    Width: =100
+                                  Children:
+                                    - Icon2_8:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(255, 255, 255, 1)
+                                          Icon: =Icon.Add
+                                          OnSelect: |-
+                                            =UpdateContext({locPP_DotUnidadeSelect: Blank()});
+                                            ClearCollect(colIdCargos, db_tipo_elemento);
+                                            Set(criar_lancamento, true);
+                                            NewForm(Form_DotUnidade_1);
+                        - galContratos_15:
+                            Control: Gallery@2.15.0
+                            Variant: VariableHeight
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Fill: =RGBA(0, 68, 137, 1)
+                              Height: =Parent.Height - Self.X
+                              Items: =db_tipo_elemento
+                              ShowScrollbar: =false
+                              TemplateSize: =60
+                              Width: =Parent.Width - Self.X * 2
+                            Children:
+                              - Container6_15:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Height: =Parent.TemplateHeight
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.Width - Parent.X - 10
+                                  Children:
+                                    - Container7_28:
+                                        Control: GroupContainer@1.3.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =Parent.Height
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =10
+                                          LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                          Width: =Parent.Width
+                                        Children:
+                                          - Label1_122:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.Arial
+                                                Size: =10
+                                                Text: =ThisItem.id_elemento
+                                                Width: =100
+                                          - Label1_123:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.Arial
+                                                Size: =10
+                                                Text: =ThisItem.elemento
+                                                Width: =200
+                                          - Container16_25:
+                                              Control: GroupContainer@1.3.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =50
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =5
+                                                PaddingLeft: =70
+                                                PaddingRight: =70
+                                                PaddingTop: =5
+                                                Width: =300
+                                              Children:
+                                                - Icon1_16:
+                                                    Control: Classic/Icon@2.5.0
+                                                    Properties:
+                                                      BorderColor: =RGBA(0, 18, 107, 1)
+                                                      Color: =RGBA(45, 65, 93, 1)
+                                                      Height: =64 - Parent.PaddingTop * 2
+                                                      Icon: =Icon.Edit
+                                                      OnSelect: |-
+                                                        =UpdateContext({locPP_DotUnidadeSelect: ThisItem});
+                                                      Tooltip: ="EDITAR"
+                                                      Width: =64 - Parent.PaddingTop * 2
+                                                - Icon1_17:
+                                                    Control: Classic/Icon@2.5.0
+                                                    Properties:
+                                                      BorderColor: =RGBA(0, 18, 107, 1)
+                                                      Color: =RGBA(45, 65, 93, 1)
+                                                      Height: =64 - Parent.PaddingTop * 2
+                                                      Icon: =Icon.Erase
+                                                      OnSelect: |-
+                                                        =Set(varCargoObraDelet, ThisItem);
+
+                                                        // 1. Busca os registros que devem ser excluídos em coleções temporárias
+                                                        RemoveIf(db_tipo_elemento, ID = varCargoObraDelet.ID);
+
+                                                        // 2. Notificação de sucesso
+                                                        Notify("Chamado e registros relacionados excluídos com sucesso!", NotificationType.Success);
+                                                      Tooltip: ="APAGAR"
+                                                      Width: =64 - Parent.PaddingTop * 2
+                                          - Container16_26:
+                                              Control: GroupContainer@1.3.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =10
+                                                PaddingLeft: =10
+                                                PaddingRight: =10
+                                                PaddingTop: =10
+                                                Width: =100
+                  - Container9_27:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(0, 68, 137, 1)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =5
+                        PaddingBottom: =5
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                      Children:
+                        - Container10_35:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(219, 219, 219, 1)
+                              FillPortions: =0
+                              Height: =40
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                            Children:
+                              - Label1_124:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =Parent.Height
+                                    Size: =12
+                                    Text: |-
+                                      =If(IsBlank(locPP_DotUnidadeSelect), "CRIANDO NOVA UNIDADE PARA CARGO DE CONTATO DE OBRA",
+                                      "EDITANDO CARGO DE CONTATO DE OBRA || " & locPP_DotUnidadeSelect.elemento)
+                                    Width: =Parent.Width - Self.X
+                                    Wrap: =false
+                        - Container11_27:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(219, 219, 219, 1)
+                              FillPortions: =0
+                              Height: =450
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                            Children:
+                              - Form_DotUnidade_1:
+                                  Control: Form@2.4.4
+                                  Variant: Classic
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    DataSource: =db_tipo_elemento
+                                    DefaultMode: =If(IsBlank(locPP_DotUnidadeSelect), FormMode.New, FormMode.Edit)
+                                    Height: =Parent.Height
+                                    Item: =locPP_DotUnidadeSelect
+                                    NumberOfColumns: =2
+                                    OnSuccess: |-
+                                      =ResetForm(Form_DotUnidade_1);
+                                      UpdateContext({locPP_DotUnidadeSelect: Blank()});
+                                    Width: =Parent.Width
+                                    X: '=0   '
+                                  Children:
+                                    - id_elemento_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="id_elemento"
+                                          Default: =ThisItem.id_elemento
+                                          DisplayName: =DataSourceInfo([@db_tipo_elemento],DataSourceInfo.DisplayName,id_elemento)
+                                          MaxLength: =DataSourceInfo([@db_tipo_elemento], DataSourceInfo.MaxLength, id_elemento)
+                                          Required: =false
+                                          Update: =DataCardValue21.Text
+                                          Width: =405
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey21:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Align: =Align.Center
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =RGBA(50, 49, 48, 1)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: ="ID ELEMENTO"
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - DataCardValue21:
+                                              Control: Classic/TextInput@2.3.2
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =RGBA(50, 49, 48, 1)
+                                                Default: =Parent.Default
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Segoe UI'
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                MaxLength: =Parent.MaxLength
+                                                PaddingLeft: =5
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =DataCardKey21.Y + DataCardKey21.Height + 5
+                                          - ErrorMessage21:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =RGBA(168, 0, 0, 1)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =DataCardValue21.Y + DataCardValue21.Height
+                                          - StarVisible21:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =RGBA(50, 49, 48, 1)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =DataCardKey21.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =DataCardKey21.Y
+                                    - elemento_DataCard1:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(245, 245, 245, 1)
+                                          DataField: ="elemento"
+                                          Default: =ThisItem.elemento
+                                          DisplayName: =DataSourceInfo([@db_tipo_elemento],DataSourceInfo.DisplayName,elemento)
+                                          MaxLength: =DataSourceInfo([@db_tipo_elemento], DataSourceInfo.MaxLength, elemento)
+                                          Required: =false
+                                          Update: =DataCardValue22.Text
+                                          Width: =405
+                                          X: =1
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey22:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Align: =Align.Center
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =RGBA(50, 49, 48, 1)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: ="ELEMENTO"
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - DataCardValue22:
+                                              Control: Classic/TextInput@2.3.2
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =RGBA(50, 49, 48, 1)
+                                                Default: =Parent.Default
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Segoe UI'
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                MaxLength: =Parent.MaxLength
+                                                PaddingLeft: =5
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =DataCardKey22.Y + DataCardKey22.Height + 5
+                                          - ErrorMessage22:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =RGBA(168, 0, 0, 1)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =DataCardValue22.Y + DataCardValue22.Height
+                                          - StarVisible22:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =RGBA(50, 49, 48, 1)
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =DataCardKey22.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =DataCardKey22.Y
+                        - Container10_36:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(219, 219, 219, 1)
+                              FillPortions: =0
+                              Height: =40
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                            Children:
+                              - Button2_51:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =ColorFade(Self.Fill, -15%)
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    Fill: =RGBA(237, 237, 237, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Normal
+                                    Height: =Parent.Height - Self.Y * 2
+                                    HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(45, 65, 93, 1)
+                                    OnSelect: |-
+                                      =UpdateContext({locPP_DotUnidadeSelect: Blank()});
+                                    PressedBorderColor: =Self.Fill
+                                    PressedColor: =Self.Fill
+                                    PressedFill: =Self.Color
+                                    Size: =12
+                                    Text: ="FECHAR"
+                                    X: =5
+                                    Y: =5
+                              - Button2_52:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =ColorFade(Self.Fill, -15%)
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    Fill: =RGBA(237, 237, 237, 1)
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Normal
+                                    Height: =Parent.Height - Self.Y * 2
+                                    HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(45, 65, 93, 1)
+                                    OnSelect: =SubmitForm(Form_DotUnidade_1);
+                                    PressedBorderColor: =Self.Fill
+                                    PressedColor: =Self.Fill
+                                    PressedFill: =Self.Color
+                                    Size: =12
+                                    Text: =If(criar_lancamento, "CRIAR", "SALVAR")
+                                    X: =Parent.Width - Self.Width - 5
+                                    Y: =5
+      - Label1_5:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 68, 137, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Semibold
+            Height: =100
+            Size: =18
+            Text: ="SISTEMA DE NOTIFICAÇÕES BONIN || VINCI HIGHWAYS - CADASTRO DE TIPO DE ELEMENTO "
+            Width: =Parent.Width - Self.X - 10
+            Wrap: =false
+            X: =230

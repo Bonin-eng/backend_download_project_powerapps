@@ -1,0 +1,85 @@
+{
+  "1c683e28-5e87-48aa-b601-d200c3cded4a": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1746/1.0.1746.4174/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://boninengenharialtda.sharepoint.com/sites/6.0CONTROLADORIA-06.01-FINANCEIRO": {
+        "dataSources": {
+          "dbRecibo_Compra": {
+            "tableName": "c1241157-bff1-4474-a5da-4c684741ba1f"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "dbRecibo_Compra"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "1c683e28-5e87-48aa-b601-d200c3cded4a"
+  },
+  "205817ac-4555-4a23-afa1-189ef85d4c26": {
+    "connectionRef": {
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1751/1.0.1751.4216/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365"
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "6caa3542-46e8-4c29-a19c-c7a50dda538a"
+    ],
+    "id": "205817ac-4555-4a23-afa1-189ef85d4c26"
+  },
+  "6caa3542-46e8-4c29-a19c-c7a50dda538a": {
+    "connectionRef": {
+      "displayName": "Fluxos lógicos",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1745/1.0.1745.4169/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "205817ac-4555-4a23-afa1-189ef85d4c26": {
+          "value": "shared_office365_1"
+        },
+        "workflowDisplayName": {
+          "value": "Bonin - Envio de Recibo"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "d73e2b64-0db2-4130-8b0f-bf2658243873"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_office365_1": {
+          "value": "205817ac-4555-4a23-afa1-189ef85d4c26"
+        },
+        "workflowDisplayName": {
+          "value": "Bonin - Envio de Recibo"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "d73e2b64-0db2-4130-8b0f-bf2658243873"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "Bonin-EnviodeRecibo"
+    ],
+    "dependencies": {
+      "shared_office365_1": "205817ac-4555-4a23-afa1-189ef85d4c26"
+    },
+    "dependents": [],
+    "id": "6caa3542-46e8-4c29-a19c-c7a50dda538a"
+  }
+}

@@ -1,0 +1,177 @@
+"'Tela Inicial Screen' As screen":
+    Fill: =RGBA(45, 65, 93, 1)
+
+    Container1 As groupContainer.manualLayoutContainer:
+        Height: =Parent.Height
+        Width: =Parent.Width
+        ZIndex: =1
+
+        Container2 As groupContainer.verticalAutoLayoutContainer:
+            Height: =Parent.Height - Self.Y * 2
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width - Self.X * 2
+            X: =10
+            Y: =10
+            ZIndex: =3
+
+            TableNameLabel1 As label:
+                Align: =Align.Center
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(45, 65, 93, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =100
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =25
+                Text: ="LANÇAMENTO DE RECIBOS"
+                Width: =Parent.Width - Self.X * 2 
+                X: =20
+                Y: =20
+                ZIndex: =1
+
+            Container3_1 As groupContainer.manualLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =10
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =2
+
+            Container5 As groupContainer.manualLayoutContainer:
+                FillPortions: =0
+                Height: =50
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                Width: =Parent.Width - Self.X * 2
+                X: =20
+                Y: =130
+                ZIndex: =3
+
+                Button1 As button:
+                    Color: =RGBA(45, 65, 93, 1)
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Font: =Font.Arial
+                    Height: =50
+                    HoverFill: =ColorFade(RGBA(122, 111, 150, 1), -20%)
+                    OnSelect: |-
+                        =Navigate('Form Lançamento Screen');
+                        NewForm(Form_LancamentoKM); 
+                        UpdateContext({ newMode: true });
+                    Size: =20
+                    Text: ="NOVO LANÇAMENTO"
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                NewRecordAddIcon1 As icon:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    Color: =RGBA(45, 65, 93, 1)
+                    DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                    DisabledColor: =RGBA(225, 223, 221, 1)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    FocusedBorderThickness: =4
+                    Height: =50
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverColor: =RGBA(16, 110, 190, 1)
+                    HoverFill: =RGBA(0, 0, 0, 0)
+                    Icon: =Icon.Add
+                    OnSelect: |-
+                        =Navigate('Form Lançamento Screen');
+                        NewForm(Form_LancamentoKM); 
+                        UpdateContext({ newMode: true });
+                    PaddingBottom: =10
+                    PaddingLeft: =10
+                    PaddingRight: =10
+                    PaddingTop: =10
+                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                    PressedColor: =RGBA(16, 110, 190, 1)
+                    PressedFill: =RGBA(0, 0, 0, 0)
+                    Width: =80
+                    ZIndex: =2
+
+            Container3_2 As groupContainer.manualLayoutContainer:
+                BorderStyle: =BorderStyle.None
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =10
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                ZIndex: =4
+
+            "RecordsGallery1 As gallery.'BrowseLayout_Flexible_SocialFeed_ver5.0'":
+                BorderColor: =RGBA(245, 245, 245, 1)
+                Default: =CurrentItem
+                DelayItemLoading: =true
+                Fill: =RGBA(250, 250, 250, 1)
+                Items: =colLancamentosMensais
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =0
+                LoadingSpinner: =LoadingSpinner.Data
+                OnSelect: |-
+                    =UpdateContext({ itemSelected: true, CurrentItem: ThisItem });
+                    Navigate('Form Edição Screen');
+                TemplateFill: =If(ThisItem.IsSelected, RGBA(230, 230, 230, 1), RGBA(0, 0, 0, 0))
+                TemplatePadding: =0
+                TemplateSize: =120
+                ZIndex: =5
+
+                Gallery_Nome_Consudor As label:
+                    DisabledColor: =RGBA(161, 159, 157, 1)
+                    Font: =Font.Arial
+                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                    Height: =58
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =12
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =15
+                    TabIndex: =0
+                    Text: =ThisItem.Title
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =495
+                    X: =110
+                    Y: =10
+                    ZIndex: =5
+
+                Icon1 As icon.Cars:
+                    Height: =Parent.TemplateHeight - Self.Y * 2
+                    Icon: =Icon.Money
+                    OnSelect: =Select(Parent)
+                    Width: =Self.Height
+                    X: =10
+                    Y: =10
+                    ZIndex: =6
+
+                Gallery_Nome_Consudor_1 As label:
+                    DisabledColor: =RGBA(161, 159, 157, 1)
+                    Font: =Font.Arial
+                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                    Height: =42
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =12
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =15
+                    TabIndex: =0
+                    Text: |-
+                        =Concatenate("COMPRA: ", ThisItem.Compra)
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =495
+                    X: =110
+                    Y: =68
+                    ZIndex: =7
+

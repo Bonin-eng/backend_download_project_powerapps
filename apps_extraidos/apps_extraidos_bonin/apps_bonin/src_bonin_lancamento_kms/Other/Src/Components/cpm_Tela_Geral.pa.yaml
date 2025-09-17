@@ -1,0 +1,114 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cpm_Tela_Geral:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      ListaDasTelas:
+        PropertyKind: Input
+        DisplayName: Lista das Telas
+        Description: Uma propriedade personalizada
+        DataType: Table
+        Default: =colTelas
+    Properties:
+      Height: =1136
+    Children:
+      - Container1_1:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - Container4_1:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(237, 237, 237, 0.8)
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - Container5_1:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =60
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width - Self.X * 2
+                        X: =10
+            - Gallery1:
+                Control: Gallery@2.15.0
+                Variant: Horizontal
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(45, 65, 93, 1)
+                  FillPortions: =0
+                  Height: =60
+                  Items: =cpm_Tela_Geral.ListaDasTelas
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =10
+                  TemplateSize: |-
+                    =Parent.Width/4
+                     - 12
+                  Transition: =Transition.Push
+                  Width: =Parent.Width
+                  WrapCount: =0
+                  Y: =979
+                Children:
+                  - Container3_2:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =Parent.TemplateHeight- 3
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - Icon3:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              BorderColor: =RGBA(166, 166, 166, 1)
+                              Color: =RGBA(45, 65, 93, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(220, 220, 220, 1)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              Fill: =If(App.ActiveScreen = ThisItem.Tela, RGBA(45,65,93,0.2), RGBA(0,0,0,0))
+                              FocusedBorderThickness: =4
+                              Height: =Parent.Height
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                              HoverFill: =RGBA(204, 228, 246, 0.3)
+                              Icon: =ThisItem.Icon
+                              OnSelect: =If(Not(gblFecharMenu), Navigate(ThisItem.Tela, ScreenTransition.UnCover), Set(gblFecharMenu, !gblFecharMenu))
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =Parent.Width

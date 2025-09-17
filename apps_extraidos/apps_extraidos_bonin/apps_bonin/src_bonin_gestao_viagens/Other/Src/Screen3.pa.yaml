@@ -1,0 +1,954 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen3:
+    Properties:
+      LoadingSpinnerColor: =RGBA(45, 65, 93, 1)
+      OnVisible: |+
+        =// 1. Buscar o(s) colaborador(es) relacionado(s) ao usuário logado
+        ClearCollect(
+            colRegistroGestor,
+            Filter(
+                bgv_viajantes,
+                id_gestor = LookUp(sigd_colaboradores, email = User().Email, ID_Referencia)
+            ).ID_Referencia
+        );
+        // 2. Buscar todos os registros de viagens feitos por esse(s) colaborador(es)
+        Clear(colRegistroViagens);
+        ForAll(
+            colRegistroGestor As ref,
+            ForAll(
+                Filter(bgv_viagens, ID_Referencia = ref.ID_Referencia) As viagem,
+                If(
+                    IsBlank(
+                        LookUp(
+                            colRegistroViagens,
+                            ID_Referencia = viagem.ID_Referencia
+                        )
+                    ),
+                    Collect(colRegistroViagens, viagem)
+                )
+            )
+        )
+
+
+    Children:
+      - app_cpn_bonin_3:
+          Control: CanvasComponent
+          ComponentName: app_cpn_bonin
+          Properties:
+            EntradaMenu: =gblFecharMenu
+            Fill: =RGBA(87, 107, 134, 1)
+            Height: =918
+            ListaDasTelas: =colTelas
+            ListaIcones: =ColLogo
+            Width: =1920
+      - ctn_dados_3:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =app_cpn_bonin_3.Referencia_Height
+            RadiusBottomLeft: =app_cpn_bonin_3.Referencia_RadiusBottomLeft
+            RadiusBottomRight: =app_cpn_bonin_3.Referencia_RadiusBottomRight
+            RadiusTopLeft: =app_cpn_bonin_3.Referencia_RadiusTopLeft
+            RadiusTopRight: =app_cpn_bonin_3.Referencia_RadiusTopRight
+            Width: =app_cpn_bonin_3.Referencia_Width
+            X: =app_cpn_bonin_3.Eixo_X
+            Y: =app_cpn_bonin_3.Eixo_Y
+          Children:
+            - glr_historico_1:
+                Control: Gallery@2.15.0
+                Variant: VariableHeight
+                Properties:
+                  Height: =Parent.Height
+                  Items: =SortByColumns(colRegistroViagens, "data_inicio", SortOrder.Descending)
+                  TemplatePadding: =0
+                  Width: =Parent.Width
+                Children:
+                  - Gallery1:
+                      Control: Gallery@2.15.0
+                      Variant: VariableHeight
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        Height: =CountRows(Self.AllItems) * 210
+                        Items: =ColItemViagem_ORC
+                        ShowScrollbar: =false
+                        TemplateSize: =205
+                        Visible: =CountRows(Gallery1.AllItems)>0 && varHistoricoExpandido = ThisItem.ID_Referencia && IsEmpty(Filter(ColItemViagem_ORC, referencia_1 = Blank()))
+                        Width: =Parent.Width
+                        X: |
+                          =0
+                        Y: =Container18.Y + Container18.Height
+                      Children:
+                        - HtmlText3:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              Height: =205
+                              HtmlText: "=  // Orçamento Locomoção Aérea\n  If(\n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Aéreo - Ida\" || \n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Aéreo - Volta\",\n    \"<div style='font-family:Segoe UI; font-size:12px; color:#2d415d; display:flex; gap:6px; flex-wrap:wrap; width:100%; justify-content:flex-start;'>\n      <!-- Card Orçamento 1 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px; '>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>✈️ \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_1&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 1</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Embarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).DataHoraEmbarque)&\"</div>\n            <div style='flex:1;'><strong>Aeroporto:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_1).AeroportoEmbarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Desembarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).DataHoraDesembarque)&\"</div>\n            <div style='flex:1;'><strong>Aeroporto:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_1).AeroportoDesembarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Quantidade:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).Quantidade)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor Passagem: ⚠️\",\"Valor Passagem:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_1,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 2 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>✈️ \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_2&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 2</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Embarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).DataHoraEmbarque)&\"</div>\n            <div style='flex:1;'><strong>Aeroporto:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_2).AeroportoEmbarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Desembarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).DataHoraDesembarque)&\"</div>\n            <div style='flex:1;'><strong>Aeroporto:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_2).AeroportoDesembarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Quantidade:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).Quantidade)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor Passagem: ⚠️\",\"Valor Passagem:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_2,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n      \n      <!-- Card Orçamento 3 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\" &\n      If(!IsBlank(ThisItem.referencia_3),\n        \"<div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>✈️ \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_3&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 3</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Embarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).DataHoraEmbarque)&\"</div>\n            <div style='flex:1;'><strong>Aeroporto:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_3).AeroportoEmbarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Desembarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).DataHoraDesembarque)&\"</div>\n            <div style='flex:1;'><strong>Aeroporto:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_3).AeroportoDesembarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Quantidade:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).Quantidade)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor Passagem: ⚠️\",\"Valor Passagem:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_3,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\") &\n      \"</div>\n    </div>\",\n\n// Orçamento Locomoção Rodoviária\nIf(\n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Ida\" || \n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Volta\",\n    \"<div style='font-family:Segoe UI; font-size:12px; color:#2d415d; display:flex; gap:6px; flex-wrap:wrap; width:100%; justify-content:flex-start;'>\n      \n      <!-- Card Orçamento 3 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F68C \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_1&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 1</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Embarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).DataHoraEmbarque)&\"</div>\n            <div style='flex:1;'><strong>Rodoviária:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_1).RodoviariaEmbarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Desembarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).DataHoraDesembarque)&\"</div>\n            <div style='flex:1;'><strong>Rodoviária:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_1).RodoviariaDesembarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Quantidade:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).Quantidade)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor Passagem: ⚠️\",\"Valor Passagem:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_1,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 2 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F68C \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_2&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 2</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Embarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).DataHoraEmbarque)&\"</div>\n            <div style='flex:1;'><strong>Rodoviária:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_2).RodoviariaEmbarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Desembarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).DataHoraDesembarque)&\"</div>\n            <div style='flex:1;'><strong>Rodoviária:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_2).RodoviariaDesembarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Quantidade:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).Quantidade)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor Passagem: ⚠️\",\"Valor Passagem:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_2,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 3 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\" &\n      If(!IsBlank(ThisItem.referencia_3),\n        \"<div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F68C \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_3&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 3</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Embarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).DataHoraEmbarque)&\"</div>\n            <div style='flex:1;'><strong>Rodoviária:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_3).RodoviariaEmbarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Desembarque:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).DataHoraDesembarque)&\"</div>\n            <div style='flex:1;'><strong>Rodoviária:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_3).RodoviariaDesembarque&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Quantidade:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).Quantidade)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor Passagem: ⚠️\",\"Valor Passagem:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_3,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\") &\n      \"</div>\n    </div>\",\n\n// Orçamento Locação de Veículo\n\nIf(\n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Locação de Veículo\",\n    \"<div style='font-family:Segoe UI; font-size:12px; color:#2d415d; display:flex; gap:6px; flex-wrap:wrap; width:100%; justify-content:flex-start;'>\n      <!-- Card Orçamento 1 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F697 \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_1&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 1</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Retirada:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).DataHoraRetirada)&\"</div>\n            <div style='flex:1;'><strong>Local de Retirada:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_1).EnderecoRetirada&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Devolução:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).DataHoraDevolucao)&\"</div>\n            <div style='flex:1;'><strong>Local de Devolução:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_1).EnderecoDevolucao&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Diárias:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).Diarias)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor da Diária: ⚠️\",\"Valor da Diária:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_1,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 2 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F697 \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_2&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 2</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Retirada:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).DataHoraRetirada)&\"</div>\n            <div style='flex:1;'><strong>Local de Retirada:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_2).EnderecoRetirada&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Devolução:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).DataHoraDevolucao)&\"</div>\n            <div style='flex:1;'><strong>Local de Devolução:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_2).EnderecoDevolucao&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Diárias:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).Diarias)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor da Diária: ⚠️\",\"Valor da Diária:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_2,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 3 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\" &\n      If(!IsBlank(ThisItem.referencia_3),\n        \"<div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F697 \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_3&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 3</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Retirada:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).DataHoraRetirada)&\"</div>\n            <div style='flex:1;'><strong>Local de Retirada:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_3).EnderecoRetirada&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Devolução:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).DataHoraDevolucao)&\"</div>\n            <div style='flex:1;'><strong>Local de Devolução:</strong><br>\"&ParseJSON(ThisItem.dados_gerais_orcamento_3).EnderecoDevolucao&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Diárias:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).Diarias)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor da Diária: ⚠️\",\"Valor da Diária:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_3,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\") &\n      \"</div>\n    </div>\",\n\n// Orçamento Hospedagem (Hotel/Airbnb)\nIf(\n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Hotel\" ||\n    LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Airbnb\",\n    \"<div style='font-family:Segoe UI; font-size:12px; color:#2d415d; display:flex; gap:6px; flex-wrap:wrap; width:100%; justify-content:flex-start;'>\n\n      <!-- Card Orçamento 1 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"1\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F3E8 \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_1&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 1</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Checkin</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).Checkin)&\"</div>\n            <div style='flex:1;'><strong>Checkout:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_1).Checkout)&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Café da Manhã</strong><br>\"&If(!IsBlank(ParseJSON(ThisItem.dados_gerais_orcamento_1).CafeDaManha), If(ParseJSON(ThisItem.dados_gerais_orcamento_1).CafeDaManha,\"Sim\",\"Não\"))&\"</div>\n            <div style='flex:1;'><strong>Distância do Destino:</strong><br>\"&Text(ParseJSON(ThisItem.dados_gerais_orcamento_1).KMDistanciaDestino,\"[$-pt-BR]#.##0,00\")&\" Km\"&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Diárias:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).Diarias)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor da Diária: ⚠️\",\"Valor da Diária:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_1,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 2 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"2\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\n        <div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F3E8 \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_2&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 2</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Checkin</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).Checkin)&\"</div>\n            <div style='flex:1;'><strong>Checkout:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_2).Checkout)&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Café da Manhã</strong><br>\"&If(!IsBlank(ParseJSON(ThisItem.dados_gerais_orcamento_2).CafeDaManha), If(ParseJSON(ThisItem.dados_gerais_orcamento_2).CafeDaManha,\"Sim\",\"Não\"))&\"</div>\n            <div style='flex:1;'><strong>Distância do Destino:</strong><br>\"&Text(ParseJSON(ThisItem.dados_gerais_orcamento_2).KMDistanciaDestino,\"[$-pt-BR]#.##0,00\")&\" Km\"&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Diárias:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).Diarias)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor da Diária: ⚠️\",\"Valor da Diária:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_2,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\n      </div>\n\n      <!-- Card Orçamento 3 -->\n      <div style='\n    flex:1;\n    /* Troca o fundo se selecionado */\n    background-color:\"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#e8ebef\",\"#f8f9fa\")&\";\n    padding:8px;\n    border-radius:6px;\n    box-shadow:0 1px 4px rgba(0,0,0,0.10);\n    min-height:180px;\n    display:flex;\n    flex-direction:column;\n    justify-content:space-between;\n    /* Sempre mostra barra à esquerda, azul se selecionado, transparente senão */\n    border-left:16px solid \"&If(LookUp(colOrcamentosSelecionados, ID_Referencia=ThisItem.ID_Referencia).n_orcamento_aprovado=\"3\",\"#2d415d\",\"transparent\")&\";\n    transition: background 0.2s, border-color 0.2s;\n'>\" &\n      If(!IsBlank(ThisItem.referencia_3),\n        \"<div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\U0001F3E8 \"&LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>\"&ThisItem.referencia_3&\"</div>\n            <div style='flex:1; font-weight:bold; font-size:13px; color:#1a237e;'>Orçamento 3</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Checkin</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).Checkin)&\"</div>\n            <div style='flex:1;'><strong>Checkout:</strong><br>\"&DateTimeValue(ParseJSON(ThisItem.dados_gerais_orcamento_3).Checkout)&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:0.49;'><strong>Café da Manhã</strong><br>\"&If(!IsBlank(ParseJSON(ThisItem.dados_gerais_orcamento_3).CafeDaManha), If(ParseJSON(ThisItem.dados_gerais_orcamento_3).CafeDaManha,\"Sim\",\"Não\"))&\"</div>\n            <div style='flex:1;'><strong>Distância do Destino:</strong><br>\"&Text(ParseJSON(ThisItem.dados_gerais_orcamento_3).KMDistanciaDestino,\"[$-pt-BR]#.##0,00\")&\" Km\"&\"</div>\n          </div>\n          <div style='display:flex; gap:6px; margin:5px;'>\n            <div style='flex:1;'><strong>Diárias:</strong><br>\"&Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).Diarias)&\"</div>\n            <div style='\"&\"flex:1; \"&If(\n              !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n              Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n              \"background-color:rgba(255,0,0,0.18); border-left:4px solid #e53935; padding-left:6px;' title='Valor acima do permitido pela política'\",\n              \"'\")&\"'>\n              <strong>\"&If(\n                !IsBlank(LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor))&&\n                Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria)>LookUp(sigd_politicas_viagens, tipo_orcamento_id=Text(ThisItem.id_tipo_orcamento), Valor),\n                \"Valor da Diária: ⚠️\",\"Valor da Diária:\")&\"</strong><br>R$ \"&Text(Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria),\"[$-pt-BR]#.##0,00\")&\"\n            </div>\n            <div style='flex:1;'><strong>Total:</strong><br>R$ \"&Text(ThisItem.orcamento_3,\"[$-pt-BR]#.##0,00\")&\"</div>\n          </div>\n        </div>\n        <div style='margin:5px; display:flex; justify-content:center;'>\n          <div style='background-color:#2d415d; color:#fff; border-radius:4px; padding:8px 0; width:88%; font-weight:bold; font-size:13px; box-shadow:0 1px 2px rgba(30,30,60,0.08); text-align:center; cursor:pointer;'>✅ Aprovar este orçamento</div>\n        </div>\") &\n      \"</div>\n\n    </div>\"\n))))"
+                              OnSelect: =Select(Parent)
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =15
+                              PaddingTop: =0
+                              Width: =Parent.Width - 10
+                        - Container12:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Height: =35
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width
+                              Y: =HtmlText3.Height - Self.Height - 20
+                            Children:
+                              - Container15:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =35
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =10
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Button1:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =
+                                          BorderStyle: =BorderStyle.None
+                                          Color: =
+                                          DisabledColor: =RGBA(0, 0, 0, 0)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          DisplayMode: =If(IsBlank(LookUp(sigd_viagens_orcamento, ID = ThisItem.ID, n_orcamento_aprovado)), DisplayMode.Edit, DisplayMode.Disabled)
+                                          Fill: =RGBA(53, 61, 63, 0)
+                                          Height: =Parent.Height
+                                          HoverBorderColor: =
+                                          HoverFill: =
+                                          OnSelect: "=// Aprovação do Orçamento 1 – lógica adaptada para todos os tipos de orçamento\nIf(\n    // Caso seja um orçamento aéreo (ida ou volta)\n    LookUp(bgv_tipos_orcamentos, ID_Referencia = ThisItem.id_tipo_orcamento, tipo_item) = \"Aéreo - Ida\" ||\n    LookUp(bgv_tipos_orcamentos, ID_Referencia = ThisItem.id_tipo_orcamento, tipo_item) = \"Aéreo - Volta\",\n    \n    UpdateIf(\n        colOrcamentosSelecionados,\n        ID_Referencia = ThisItem.ID_Referencia,\n        {\n            n_orcamento_aprovado: \"1\",\n            valores_politica_aplicada_gestor:\n                // 1º: Se NÃO existe política, libera para o gestor (true)\n                If(\n                    IsBlank(\n                        LookUp(\n                            sigd_politicas_viagens,\n                            tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                            Valor\n                        )\n                    ),\n                    true,\n                    // 2º: Se existe política, compara valor\n                    If(\n                        Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem) <=\n                        LookUp(\n                            sigd_politicas_viagens,\n                            tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                            Valor\n                        ),\n                        true,\n                        // 3º: Valor acima do permitido: mostra alerta e retorna false\n                        Notify(\n                            \"Valor do orçamento excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                            NotificationType.Warning,\n                            4000\n                        ),\n                        false\n                    )\n                )\n        }\n    ),\n    \n    // Caso seja orçamento rodoviário (ida ou volta)\n    If(\n        LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Ida\" ||\n        LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Volta\",\n        \n        UpdateIf(\n            colOrcamentosSelecionados,\n            ID_Referencia = ThisItem.ID_Referencia,\n            {\n                n_orcamento_aprovado: \"1\",\n                valores_politica_aplicada_gestor:\n                    If(\n                        IsBlank(\n                            LookUp(\n                                sigd_politicas_viagens,\n                                tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                Valor\n                            )\n                        ),\n                        true,\n                        If(\n                            Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorPassagem) <=\n                            LookUp(\n                                sigd_politicas_viagens,\n                                tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                Valor\n                            ),\n                            true,\n                            Notify(\n                                \"Valor do orçamento excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                NotificationType.Warning,\n                                4000\n                            ),\n                            false\n                        )\n                    )\n            }\n        ),\n        \n        // Caso seja locação de veículo\n        If(\n            LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Locação de Veículo\",\n            \n            UpdateIf(\n                colOrcamentosSelecionados,\n                ID_Referencia = ThisItem.ID_Referencia,\n                {\n                    n_orcamento_aprovado: \"1\",\n                    valores_politica_aplicada_gestor:\n                        If(\n                            IsBlank(\n                                LookUp(\n                                    sigd_politicas_viagens,\n                                    tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                    Valor\n                                )\n                            ),\n                            true,\n                            If(\n                                Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria) <=\n                                LookUp(\n                                    sigd_politicas_viagens,\n                                    tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                    Valor\n                                ),\n                                true,\n                                Notify(\n                                    \"Valor da diária do veículo excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                    NotificationType.Warning,\n                                    4000\n                                ),\n                                false\n                            )\n                        )\n                }\n            ),\n            \n            // Caso seja hotel ou airbnb\n            If(\n                LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Hotel\" ||\n                LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Airbnb\",\n                \n                UpdateIf(\n                    colOrcamentosSelecionados,\n                    ID_Referencia = ThisItem.ID_Referencia,\n                    {\n                        n_orcamento_aprovado: \"1\",\n                        valores_politica_aplicada_gestor:\n                            If(\n                                IsBlank(\n                                    LookUp(\n                                        sigd_politicas_viagens,\n                                        tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                        Valor\n                                    )\n                                ),\n                                true,\n                                If(\n                                    Value(ParseJSON(ThisItem.dados_gerais_orcamento_1).ValorDiaria) <=\n                                    LookUp(\n                                        sigd_politicas_viagens,\n                                        tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                        Valor\n                                    ),\n                                    true,\n                                    Notify(\n                                        \"Valor da diária excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                        NotificationType.Warning,\n                                        4000\n                                    ),\n                                    false\n                                )\n                            )\n                    }\n                )\n            )\n        )\n    )\n);\n\n// Ao final, atualiza o contexto para contar quantos itens ainda não foram aprovados\nUpdateContext(\n    {\n        NumItensOrcamentoNPreenchido: CountRows(\n            Filter(\n                colOrcamentosSelecionados,\n                n_orcamento_aprovado = Blank()\n            )\n        )\n    }\n)\n"
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          PressedBorderColor: =
+                                          PressedFill: =
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Size: =10
+                                          Text: =
+                                          Width: =Parent.Width - 100
+                                          X: =Parent.Width/2 - Self.Width/2 - 2.5
+                              - Container15_1:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =35
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =10
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Button1_1:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Color: =
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(0, 0, 0, 0)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          DisplayMode: =If(IsBlank(LookUp(sigd_viagens_orcamento, ID = ThisItem.ID, n_orcamento_aprovado)), DisplayMode.Edit, DisplayMode.Disabled)
+                                          Fill: =RGBA(53, 61, 63, 0)
+                                          Height: =Parent.Height
+                                          HoverBorderColor: =
+                                          HoverColor: =
+                                          HoverFill: =
+                                          OnSelect: "=// Aprovação do Orçamento 1 – lógica adaptada para todos os tipos de orçamento\nIf(\n    // Caso seja um orçamento aéreo (ida ou volta)\n    LookUp(bgv_tipos_orcamentos, ID_Referencia = ThisItem.id_tipo_orcamento, tipo_item) = \"Aéreo - Ida\" ||\n    LookUp(bgv_tipos_orcamentos, ID_Referencia = ThisItem.id_tipo_orcamento, tipo_item) = \"Aéreo - Volta\",\n    \n    UpdateIf(\n        colOrcamentosSelecionados,\n        ID_Referencia = ThisItem.ID_Referencia,\n        {\n            n_orcamento_aprovado: \"2\",\n            valores_politica_aplicada_gestor:\n                // 1º: Se NÃO existe política, libera para o gestor (true)\n                If(\n                    IsBlank(\n                        LookUp(\n                            sigd_politicas_viagens,\n                            tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                            Valor\n                        )\n                    ),\n                    true,\n                    // 2º: Se existe política, compara valor\n                    If(\n                        Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem) <=\n                        LookUp(\n                            sigd_politicas_viagens,\n                            tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                            Valor\n                        ),\n                        true,\n                        // 3º: Valor acima do permitido: mostra alerta e retorna false\n                        Notify(\n                            \"Valor do orçamento excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                            NotificationType.Warning,\n                            4000\n                        ),\n                        false\n                    )\n                )\n        }\n    ),\n    \n    // Caso seja orçamento rodoviário (ida ou volta)\n    If(\n        LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Ida\" ||\n        LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Volta\",\n        \n        UpdateIf(\n            colOrcamentosSelecionados,\n            ID_Referencia = ThisItem.ID_Referencia,\n            {\n                n_orcamento_aprovado: \"2\",\n                valores_politica_aplicada_gestor:\n                    If(\n                        IsBlank(\n                            LookUp(\n                                sigd_politicas_viagens,\n                                tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                Valor\n                            )\n                        ),\n                        true,\n                        If(\n                            Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorPassagem) <=\n                            LookUp(\n                                sigd_politicas_viagens,\n                                tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                Valor\n                            ),\n                            true,\n                            Notify(\n                                \"Valor do orçamento excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                NotificationType.Warning,\n                                4000\n                            ),\n                            false\n                        )\n                    )\n            }\n        ),\n        \n        // Caso seja locação de veículo\n        If(\n            LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Locação de Veículo\",\n            \n            UpdateIf(\n                colOrcamentosSelecionados,\n                ID_Referencia = ThisItem.ID_Referencia,\n                {\n                    n_orcamento_aprovado: \"2\",\n                    valores_politica_aplicada_gestor:\n                        If(\n                            IsBlank(\n                                LookUp(\n                                    sigd_politicas_viagens,\n                                    tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                    Valor\n                                )\n                            ),\n                            true,\n                            If(\n                                Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria) <=\n                                LookUp(\n                                    sigd_politicas_viagens,\n                                    tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                    Valor\n                                ),\n                                true,\n                                Notify(\n                                    \"Valor da diária do veículo excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                    NotificationType.Warning,\n                                    4000\n                                ),\n                                false\n                            )\n                        )\n                }\n            ),\n            \n            // Caso seja hotel ou airbnb\n            If(\n                LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Hotel\" ||\n                LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Airbnb\",\n                \n                UpdateIf(\n                    colOrcamentosSelecionados,\n                    ID_Referencia = ThisItem.ID_Referencia,\n                    {\n                        n_orcamento_aprovado: \"2\",\n                        valores_politica_aplicada_gestor:\n                            If(\n                                IsBlank(\n                                    LookUp(\n                                        sigd_politicas_viagens,\n                                        tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                        Valor\n                                    )\n                                ),\n                                true,\n                                If(\n                                    Value(ParseJSON(ThisItem.dados_gerais_orcamento_2).ValorDiaria) <=\n                                    LookUp(\n                                        sigd_politicas_viagens,\n                                        tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                        Valor\n                                    ),\n                                    true,\n                                    Notify(\n                                        \"Valor da diária excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                        NotificationType.Warning,\n                                        4000\n                                    ),\n                                    false\n                                )\n                            )\n                    }\n                )\n            )\n        )\n    )\n);\n\n// Ao final, atualiza o contexto para contar quantos itens ainda não foram aprovados\nUpdateContext(\n    {\n        NumItensOrcamentoNPreenchido: CountRows(\n            Filter(\n                colOrcamentosSelecionados,\n                n_orcamento_aprovado = Blank()\n            )\n        )\n    }\n)\n"
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          PressedBorderColor: =
+                                          PressedColor: =
+                                          PressedFill: =
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Size: =10
+                                          Text: =
+                                          Width: =Parent.Width - 100
+                                          X: =Parent.Width/2 - Self.Width/2 - 2.5
+                              - Container15_2:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =35
+                                    LayoutMinHeight: =10
+                                    LayoutMinWidth: =10
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Button1_2:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Color: =
+                                          DisabledColor: =RGBA(0, 0, 0, 0)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          DisplayMode: =If(IsBlank(LookUp(sigd_viagens_orcamento, ID = ThisItem.ID, n_orcamento_aprovado)), DisplayMode.Edit, DisplayMode.Disabled)
+                                          Fill: =RGBA(53, 61, 63, 0)
+                                          Height: |
+                                            =Parent.Height
+                                          HoverBorderColor: =
+                                          HoverColor: =
+                                          HoverFill: =
+                                          OnSelect: "=// Aprovação do Orçamento 1 – lógica adaptada para todos os tipos de orçamento\nIf(\n    // Caso seja um orçamento aéreo (ida ou volta)\n    LookUp(bgv_tipos_orcamentos, ID_Referencia = ThisItem.id_tipo_orcamento, tipo_item) = \"Aéreo - Ida\" ||\n    LookUp(bgv_tipos_orcamentos, ID_Referencia = ThisItem.id_tipo_orcamento, tipo_item) = \"Aéreo - Volta\",\n    \n    UpdateIf(\n        colOrcamentosSelecionados,\n        ID_Referencia = ThisItem.ID_Referencia,\n        {\n            n_orcamento_aprovado: \"3\",\n            valores_politica_aplicada_gestor:\n                // 1º: Se NÃO existe política, libera para o gestor (true)\n                If(\n                    IsBlank(\n                        LookUp(\n                            sigd_politicas_viagens,\n                            tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                            Valor\n                        )\n                    ),\n                    true,\n                    // 2º: Se existe política, compara valor\n                    If(\n                        Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem) <=\n                        LookUp(\n                            sigd_politicas_viagens,\n                            tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                            Valor\n                        ),\n                        true,\n                        // 3º: Valor acima do permitido: mostra alerta e retorna false\n                        Notify(\n                            \"Valor do orçamento excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                            NotificationType.Warning,\n                            4000\n                        ),\n                        false\n                    )\n                )\n        }\n    ),\n    \n    // Caso seja orçamento rodoviário (ida ou volta)\n    If(\n        LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Ida\" ||\n        LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Rodoviário - Volta\",\n        \n        UpdateIf(\n            colOrcamentosSelecionados,\n            ID_Referencia = ThisItem.ID_Referencia,\n            {\n                n_orcamento_aprovado: \"3\",\n                valores_politica_aplicada_gestor:\n                    If(\n                        IsBlank(\n                            LookUp(\n                                sigd_politicas_viagens,\n                                tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                Valor\n                            )\n                        ),\n                        true,\n                        If(\n                            Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorPassagem) <=\n                            LookUp(\n                                sigd_politicas_viagens,\n                                tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                Valor\n                            ),\n                            true,\n                            Notify(\n                                \"Valor do orçamento excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                NotificationType.Warning,\n                                4000\n                            ),\n                            false\n                        )\n                    )\n            }\n        ),\n        \n        // Caso seja locação de veículo\n        If(\n            LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Locação de Veículo\",\n            \n            UpdateIf(\n                colOrcamentosSelecionados,\n                ID_Referencia = ThisItem.ID_Referencia,\n                {\n                    n_orcamento_aprovado: \"3\",\n                    valores_politica_aplicada_gestor:\n                        If(\n                            IsBlank(\n                                LookUp(\n                                    sigd_politicas_viagens,\n                                    tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                    Valor\n                                )\n                            ),\n                            true,\n                            If(\n                                Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria) <=\n                                LookUp(\n                                    sigd_politicas_viagens,\n                                    tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                    Valor\n                                ),\n                                true,\n                                Notify(\n                                    \"Valor da diária do veículo excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                    NotificationType.Warning,\n                                    4000\n                                ),\n                                false\n                            )\n                        )\n                }\n            ),\n            \n            // Caso seja hotel ou airbnb\n            If(\n                LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Hotel\" ||\n                LookUp(bgv_tipos_orcamentos, ID_Referencia=ThisItem.id_tipo_orcamento, tipo_item)=\"Airbnb\",\n                \n                UpdateIf(\n                    colOrcamentosSelecionados,\n                    ID_Referencia = ThisItem.ID_Referencia,\n                    {\n                        n_orcamento_aprovado: \"3\",\n                        valores_politica_aplicada_gestor:\n                            If(\n                                IsBlank(\n                                    LookUp(\n                                        sigd_politicas_viagens,\n                                        tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                        Valor\n                                    )\n                                ),\n                                true,\n                                If(\n                                    Value(ParseJSON(ThisItem.dados_gerais_orcamento_3).ValorDiaria) <=\n                                    LookUp(\n                                        sigd_politicas_viagens,\n                                        tipo_orcamento_id = Text(ThisItem.id_tipo_orcamento),\n                                        Valor\n                                    ),\n                                    true,\n                                    Notify(\n                                        \"Valor da diária excede o permitido pela política. Será necessária a aprovação do Diretor Operacional.\",\n                                        NotificationType.Warning,\n                                        4000\n                                    ),\n                                    false\n                                )\n                            )\n                    }\n                )\n            )\n        )\n    )\n);\n\n// Ao final, atualiza o contexto para contar quantos itens ainda não foram aprovados\nUpdateContext(\n    {\n        NumItensOrcamentoNPreenchido: CountRows(\n            Filter(\n                colOrcamentosSelecionados,\n                n_orcamento_aprovado = Blank()\n            )\n        )\n    }\n)\n"
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          PressedBorderColor: =
+                                          PressedColor: =
+                                          PressedFill: =
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Size: =10
+                                          Text: =
+                                          Visible: =!IsBlank(ThisItem.referencia_3)
+                                          Width: =Parent.Width - 100
+                                          X: =Parent.Width/2 - Self.Width/2 - 2.5
+                  - Container18:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =30
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =CountRows(Gallery1.AllItems)>0 && varHistoricoExpandido = ThisItem.ID_Referencia && IsEmpty(Filter(ColItemViagem_ORC, referencia_1 = Blank()))
+                        Width: =Parent.Width
+                        Y: =htmltxt_historico_viajantes_3.Y + htmltxt_historico_viajantes_3.Height
+                      Children:
+                        - Container19:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutMinHeight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                        - Container22:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutMinHeight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                        - Container20:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutMinHeight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - ButtonCanvas2:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    DisplayMode: =If(IsEmpty(Filter(ColItemViagem_ORC, n_orcamento_aprovado <> Blank())), DisplayMode.Edit, DisplayMode.Disabled)
+                                    Height: =25
+                                    Icon: ="Money"
+                                    OnSelect: |-
+                                      =UpdateContext({VarPopUpReorcamento: true})
+                                    Text: ="Solicitar Reorçamento"
+                                    Width: =Parent.Width
+                                    Y: =Parent.Height/2 - Self.Height/2
+                        - Container21:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutMinHeight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - ButtonCanvas3:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    BasePaletteColor: =RGBA(156, 220, 79, 1)
+                                    DisplayMode: =If(!IsBlank(NumItensOrcamentoNPreenchido) && NumItensOrcamentoNPreenchido = 0 && OrcamentoPreenchido = 0 , DisplayMode.Edit, DisplayMode.Disabled)
+                                    Height: =25
+                                    Icon: ="Save"
+                                    OnSelect: |+
+                                      =If(IsEmpty(Filter(colOrcamentosSelecionados, valores_politica_aplicada_gestor = false)),
+                                      // Envia para o banco todos os itens aprovados pelo gestor
+                                      ForAll(
+                                          colOrcamentosSelecionados As itemSel,
+                                          Patch(
+                                              sigd_viagens_orcamento,
+                                              LookUp(sigd_viagens_orcamento, ID_Referencia = itemSel.ID_Referencia),
+                                              {
+                                                  n_orcamento_aprovado: itemSel.n_orcamento_aprovado,
+                                                  valores_politica_aplicada_gestor: itemSel.valores_politica_aplicada_gestor
+                                              }
+                                          )
+                                      );
+
+                                      // Exibe uma notificação de sucesso ao usuário
+                                      Notify(
+                                          "Orçamento aprovado com sucesso!",
+                                          NotificationType.Success,
+                                          4000
+                                      );
+                                      Patch(bgv_viagens, LookUp(bgv_viagens, ID_Referencia = First(colOrcamentosSelecionados).id_viagem), {status: "Compra em andamento pelo facilities"});
+                                      Clear(colOrcamentosSelecionados);
+                                      UpdateContext({NumItensOrcamentoNPreenchido: Blank()});
+                                      ClearCollect(ColItemViagem_ORC, Filter(sigd_viagens_orcamento, id_viagem = ThisItem.ID_Referencia, ativo = true));
+                                      ClearCollect(
+                                          colOrcamentosSelecionados,
+                                          ForAll(
+                                              ColItemViagem_ORC,
+                                              {
+                                                  ID_Referencia: ID_Referencia,
+                                                  id_viagem: id_viagem,
+                                                  n_orcamento_aprovado: n_orcamento_aprovado,
+                                                  valores_politica_aplicada_gestor: valores_politica_aplicada_gestor
+                                              }
+                                          )
+                                      );
+                                      // 1. Buscar o(s) colaborador(es) relacionado(s) ao usuário logado
+                                      ClearCollect(
+                                          colRegistroGestor,
+                                          Filter(
+                                              bgv_viajantes,
+                                              id_gestor = LookUp(sigd_colaboradores, email = User().Email, ID_Referencia)
+                                          ).ID_Referencia
+                                      );
+                                      // 2. Buscar todos os registros de viagens feitos por esse(s) colaborador(es)
+                                      Clear(colRegistroViagens);
+                                      ForAll(
+                                          colRegistroGestor As ref,
+                                          Collect(
+                                              colRegistroViagens,
+                                              Filter(
+                                                  bgv_viagens,
+                                                  ID_Referencia = ref.ID_Referencia
+                                              )
+                                          )
+                                      )
+                                      ,
+                                      // Envia para o banco todos os itens aprovados pelo gestor
+                                      ForAll(
+                                          colOrcamentosSelecionados As itemSel,
+                                          Patch(
+                                              sigd_viagens_orcamento,
+                                              LookUp(sigd_viagens_orcamento, ID_Referencia = itemSel.ID_Referencia),
+                                              {
+                                                  n_orcamento_aprovado: itemSel.n_orcamento_aprovado,
+                                                  valores_politica_aplicada_gestor: itemSel.valores_politica_aplicada_gestor
+                                              }
+                                          )
+                                      );
+
+                                      // Exibe uma notificação de sucesso ao usuário
+                                      Notify(
+                                          "Orçamento aprovado com sucesso!",
+                                          NotificationType.Success,
+                                          4000
+                                      );
+                                      Patch(bgv_viagens, LookUp(bgv_viagens, ID_Referencia = First(colOrcamentosSelecionados).id_viagem), {status: "Cotação enviada para aprovação do diretor"});
+                                      Clear(colOrcamentosSelecionados);
+                                      UpdateContext({NumItensOrcamentoNPreenchido: Blank()})
+                                      );
+                                      ClearCollect(ColItemViagem_ORC, Filter(sigd_viagens_orcamento, id_viagem = ThisItem.ID_Referencia, ativo = true));
+                                      ClearCollect(
+                                          colOrcamentosSelecionados,
+                                          ForAll(
+                                              ColItemViagem_ORC,
+                                              {
+                                                  ID_Referencia: ID_Referencia,
+                                                  id_viagem: id_viagem,
+                                                  n_orcamento_aprovado: n_orcamento_aprovado,
+                                                  valores_politica_aplicada_gestor: valores_politica_aplicada_gestor
+                                              }
+                                          )
+                                      );
+                                      // 1. Buscar o(s) colaborador(es) relacionado(s) ao usuário logado
+                                      ClearCollect(
+                                          colRegistroGestor,
+                                          Filter(
+                                              bgv_viajantes,
+                                              id_gestor = LookUp(sigd_colaboradores, email = User().Email, ID_Referencia)
+                                          ).ID_Referencia
+                                      );
+                                      // 2. Buscar todos os registros de viagens feitos por esse(s) colaborador(es)
+                                      Clear(colRegistroViagens);
+                                      ForAll(
+                                          colRegistroGestor As ref,
+                                          Collect(
+                                              colRegistroViagens,
+                                              Filter(
+                                                  bgv_viagens,
+                                                  ID_Referencia = ref.ID_Referencia
+                                              )
+                                          )
+                                      )
+
+                                    Text: ="Finalizar Aprovação"
+                                    Width: =Parent.Width
+                                    Y: =Parent.Height/2 - Self.Height/2
+                        - Container23:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutMinHeight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                        - Container24:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutMinHeight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                  - htmltxt_historico_viajantes_3:
+                      Control: HtmlViewer@2.1.0
+                      Properties:
+                        AutoHeight: =true
+                        Height: =50
+                        HtmlText: |
+                          ="<div style='
+                              font-family:Segoe UI;
+                              font-size:16px;
+                              font-weight:bold;
+                              color:#1a237e;
+                              background-color:#f8f9fa;
+                              border-radius:6px;
+                              box-shadow:0 1px 4px rgba(0,0,0,0.10);
+                              padding:8px;
+                              margin-top:5px;
+                              margin-left:5px;
+                              margin-right:20px;
+                              width:auto;
+                              display:flex;
+                              align-items:center;
+                              justify-content:center;
+                              gap:6px;
+                              letter-spacing:0.5px;
+                          '>
+                              " & "Dados do orçamento" & "
+                          </div>"
+                        OnSelect: =
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Visible: =CountRows(Gallery1.AllItems)>0 && varHistoricoExpandido = ThisItem.ID_Referencia && IsEmpty(Filter(ColItemViagem_ORC, referencia_1 = Blank() || referencia_1 = ""))
+                        Width: =Parent.Width
+                        Y: =ctn_historico_1.Y + ctn_historico_1.Height
+                  - ctn_historico_1:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =htmltxt_historico_1.Y + htmltxt_historico_1.Height + If(htmltxt_historico_viajantes_2.Visible, htmltxt_historico_viajantes_2.Height, 0)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =varHistoricoExpandido = ThisItem.ID_Referencia || IsBlank(varHistoricoExpandido)
+                        Width: =Parent.Width
+                      Children:
+                        - htmltxt_historico_viajantes_2:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Height: =270
+                              HtmlText: |+
+                                =//First(colResumoVisualizacao).HtmlCompleto
+                                "<div style='
+                                    font-family:Segoe UI;
+                                    font-size:16px;
+                                    font-weight:bold;
+                                    color:#1a237e;
+                                    background-color:#f8f9fa;
+                                    border-radius:6px;
+                                    box-shadow:0 1px 4px rgba(0,0,0,0.10);
+                                    padding:8px;
+                                    margin-top:5px;
+                                    margin-left:5px;
+                                    margin-right:20px;
+                                    width:auto;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    gap:6px;
+                                    letter-spacing:0.5px;
+                                '>
+                                    " & "Dados da solicitação" & "
+                                </div>"
+                                 &
+                                // Linha dos 3 cards, como já estava:
+                                 "<div style='display:flex; gap:6px; margin-top:5px; margin-left:5px; margin-right:20px; font-family:Segoe UI;'>" &
+                                    // 👤 Viajantes
+                                 "<div style='flex:1; background-color:#f8f9fa; padding:10px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.10);'>" & "<div style='font-weight:bold; font-size:16px; color:#2d415d; text-align:center;'>👤 Viajantes</div>" & Concat(
+                                            Filter(
+                                                bgv_viajantes,
+                                                ID_Referencia = ThisItem.ID_Referencia
+                                            ),
+                                            "<div style='font-size:12px; color:#2d415d; padding:5px 0; border-bottom:1px solid #e0e0e0;'>" & "<div style='font-weight:bold; margin:5px;'>" & nome & "</div>" & "<div style='display:flex; flex-wrap:wrap; justify-content:space-between;'>" & "<div style='flex: 1 1 33%;'>📧 " & email & "</div>" & "<div style='flex: 1 1 20%;'>📞 " & telefone & "</div>" & "<div style='flex: 1 1 46%;'>🏷️ Centro de Custo: " & centro_de_custo & "</div>" & "</div>" & "</div>"
+                                        ) & "</div>" &
+                                    // 🚌 Locomoções
+                                 "<div style='flex:1; background-color:#f8f9fa; padding:10px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.10);'>" & "<div style='font-weight:bold; font-size:16px; color:#2d415d; text-align:center;'>🚌 Locomoções</div>" & Concat(
+                                            Filter(
+                                                bgv_roteiros,
+                                                ID_Referencia = ThisItem.ID_Referencia, LookUp(
+                                                    ColTiposOrcamento,
+                                                    ID_Referencia = tipo_orcamento_id
+                                                ).tipo_orcamento = "Locomoção"
+                                            ),
+                                            With(
+                                                {
+                                                    tipoItem: LookUp(
+                                                        ColTiposOrcamento,
+                                                        ID_Referencia = tipo_orcamento_id,
+                                                        tipo_item
+                                                    )
+                                                },
+                                                "<div style='font-size:12px; color:#2d415d; padding:5px 0; border-bottom:1px solid #e0e0e0;'>" & "<div><strong>🚙 Tipo:</strong> " & tipoItem & "</div>" & "<div style='display:flex; flex-wrap:wrap; justify-content:space-between;'>" & "<div style='flex: 1 1 50%;'>🗓️ " & If(
+                                                    tipoItem = "Locação de Veículo",
+                                                    "Retirada:",
+                                                    "Partida:"
+                                                ) & " " & Text(
+                                                    data_origem,
+                                                    "[$-pt-BR]dd/mm/yyyy"
+                                                ) & "</div>" & "<div style='flex: 1 1 50%;'>🗓️ " & If(
+                                                    tipoItem = "Locação de Veículo",
+                                                    "Devolução:",
+                                                    "Chegada:"
+                                                ) & " " & Text(
+                                                    data_destino,
+                                                    "[$-pt-BR]dd/mm/yyyy"
+                                                ) & "</div>" & "</div>" & "<div style='display:flex; flex-wrap:wrap; justify-content:space-between;'>" & If(
+                                                    tipoItem = "Locação de Veículo",
+                                                    "<div style='flex: 1 1 50%;'>📍 Local de Retirada: " & uf_origem & " - " & local_origem & "</div>" & "<div style='flex: 1 1 50%;'>📍 Local de Devolução: " & uf_destino & " - " & local_destino & "</div>",
+                                                    "<div style='flex: 1 1 50%;'>📍 Origem: " & uf_origem & " - " & local_origem & "</div>" & "<div style='flex: 1 1 50%;'>📍 Destino: " & uf_destino & " - " & local_destino & "</div>"
+                                                ) & "</div>" & "</div>"
+                                            )
+                                        ) & "</div>" &
+                                    // 🏨 Hospedagens
+                                 "<div style='flex:1; background-color:#f8f9fa; padding:10px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.10);'>" & "<div style='font-weight:bold; font-size:16px; color:#2d415d; text-align:center;'>🏨 Hospedagens</div>" & Concat(
+                                            Filter(
+                                                bgv_roteiros,
+                                                ID_Referencia = ThisItem.ID_Referencia, LookUp(
+                                                    ColTiposOrcamento,
+                                                    ID_Referencia = tipo_orcamento_id
+                                                ).tipo_orcamento = "Hospedagem"
+                                            ),
+                                            With(
+                                                {
+                                                    tipoItem: LookUp(
+                                                        ColTiposOrcamento,
+                                                        ID_Referencia = tipo_orcamento_id,
+                                                        tipo_item
+                                                    )
+                                                },
+                                                "<div style='font-size:12px; color:#2d415d; padding:6px 0;'>
+                                                    <strong>🏠 Tipo:</strong> " & tipoItem & "
+                                                </div>
+                                                <div style='display: flex; gap: 6px; flex-wrap: wrap; padding: 6px 0;'> 
+                                                    <div style='flex: 1 1 50%; font-size:12px;'>🗓️ Checkin: " & data_origem & " &nbsp;&nbsp;&nbsp; 🗓️ Checkout: " & data_destino & "</div>
+                                                    <div style='flex: 1 1 50%; font-size:12px;'>📍 Endereço de Referência: " & endereco_da_hospedagem & "</div>
+                                                </div>
+                                                <div style='border-bottom:1px solid #e0e0e0; margin:5px;'></div>"
+                                            )
+                                        ) & "</div>" & "</div>"
+                              OnSelect: =
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Visible: =varHistoricoExpandido = ThisItem.ID_Referencia
+                              Width: =Parent.Width
+                              Y: =htmltxt_historico_1.Y + htmltxt_historico_1.Height
+                        - htmltxt_historico_1:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AutoHeight: =true
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =151
+                              HtmlText: |
+                                ="<div style='
+                                    width:auto;
+                                    background-color:#f8f9fa;
+                                    border-radius:6px;
+                                    box-shadow:0 1px 4px rgba(0,0,0,0.10);
+                                    font-family:Segoe UI;
+                                    font-size:12px;
+                                    color:#2d415d;
+                                    margin-top:5px;
+                                    margin-left:5px;
+                                    margin-right:20px;
+                                    padding-right:20px;
+                                    border:1px solid #e0e0e0;
+                                '>
+
+                                    <!-- Linha 1: Motivo + Descrição + Status -->
+                                    <div style='display:flex; flex-wrap:wrap; justify-content:space-between; align-items:left; margin-bottom:5px;'>
+                                      <div style='flex:0.3; font-size:12px; font-weight:bold;'>
+                                        " & LookUp(bgv_tipos_motivo, ID_Referencia = ThisItem.motivo_id, motivo) & "
+                                      </div>
+                                      <div style='flex:0.74'>
+                                        <strong>Descrição do Motivo:</strong> " & ThisItem.descricao_motivo_viagem & "
+                                      </div>
+                                    </div>
+
+                                    <!-- Linha 2: Motivo + Descrição + Status -->
+                                    <div style='display:flex; flex-wrap:wrap; justify-content:space-between; align-items:left; margin-bottom:5px;'>
+                                      <div style='flex:0.3'>
+                                        <strong>Observação:</strong> " & ThisItem.observacao & "
+                                      </div>
+                                      <div style='flex:0.59'>
+                                        <strong>Centro de Custo:</strong> " & ThisItem.id_contrato & " | " & LookUp(sigd_contratos, ID_Contrato = ThisItem.id_contrato, referencia) & "
+                                      </div>
+                                      <div style='flex-shrink:0;'>
+                                        <span style='display:inline-block; background-color:#e8eaf6; color:#1a237e; font-size:11px; padding:4px 8px; border-radius:12px; font-weight:bold; margin-left:10px;  margin-right:30px; white-space:nowrap;'>
+                                          " & ThisItem.status & "
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                  <!-- Linha 2: Início, Fim, Adiantamento, Fora do Prazo, etc. -->
+                                  <div style='
+                                      display:flex;
+                                      flex-wrap:wrap;
+                                      align-items:center;
+                                      margin:5px;
+                                      width:100%;
+                                  '>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Início:</span> " & ThisItem.data_inicio & "</div>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Fim:</span> " & ThisItem.data_fim & "</div>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Adiantamento:</span> " & If(ThisItem.valor_adiantamento>0, Text(Value(ThisItem.valor_adiantamento), "[$-pt-BR]R$ #.##0,00"), Text(Value(0), "[$-pt-BR]R$ #.##0,00")) & "</div>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Fora do Prazo:</span> " & If(ThisItem.solicitado_fora_do_prazo, "⚠️", "➖") & "</div>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Aluguel de Veículo:</span> " & If(ThisItem.tipo_transporte_veiculo, "✔️", "✖️") & "</div>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Transp. Rodoviário:</span> " & If(ThisItem.tipo_transporte_rodoviario, "✔️", "✖️") & "</div>
+                                    <div style='flex:1;'><span style='font-weight:bold;'>Transp. Aéreo:</span> " & If(ThisItem.tipo_transporte_aereo, "✔️", "✖️") & "</div>
+                                  </div>
+
+                                </div>"
+                              OnSelect: =
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Width: =Parent.Width
+                        - icn_expandir_1:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Height: =24
+                              Icon: |+
+                                =If(varHistoricoExpandido = ThisItem.ID_Referencia, Icon.ChevronUp, Icon.ChevronDown)
+                              OnSelect: |-
+                                =//Verifica se o item está expandido
+                                UpdateContext({varHistoricoExpandido: If(varHistoricoExpandido = ThisItem.ID_Referencia, Blank(), ThisItem.ID_Referencia)});
+
+                                //Coleta as informações de todos os orçamentos desta viagem
+                                If(!IsBlank(Filter(sigd_viagens_orcamento, id_viagem = ThisItem.ID_Referencia, ativo = true)),
+                                ClearCollect(ColItemViagem_ORC_completo,  Filter(sigd_viagens_orcamento, id_viagem = ThisItem.ID_Referencia, ativo = true)));
+
+                                //Separa os orçamentos que precisam de seleção
+                                ClearCollect(ColItemViagem_ORC, Filter(ColItemViagem_ORC_completo, !IsBlank(referencia_1)));
+
+                                //Conta quantos itens não estão aprovados
+                                UpdateContext({NumItensOrcamentoNPreenchido: CountRows(Filter(ColItemViagem_ORC,n_orcamento_aprovado = Blank() || n_orcamento_aprovado = ""))});
+
+                                //Conta quantos itens estão aprovados
+                                UpdateContext({OrcamentoPreenchido: CountRows(Filter(ColItemViagem_ORC, n_orcamento_aprovado <> Blank()))});
+
+                                //Cria uma coleção com os itens
+                                ClearCollect(colOrcamentosSelecionados, ForAll(ColItemViagem_ORC,
+                                {
+                                    ID_Referencia: ID_Referencia,
+                                    id_viagem: id_viagem,
+                                    n_orcamento_aprovado: n_orcamento_aprovado,
+                                    valores_politica_aplicada_gestor: valores_politica_aplicada_gestor
+                                }));
+                              Width: =24
+                              X: =Parent.Width - Self.Width - 45
+                              Y: =htmltxt_historico_1.Height - Self.Height
+      - Container25:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 0.8)
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =VarPopUpReorcamento
+            Width: =Parent.Width
+          Children:
+            - HtmlText4:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  AutoHeight: =true
+                  HtmlText: |-
+                    ="<div style='
+                        max-width: 420px;
+                        border: 1px solid #fbc02d;
+                        border-radius: 12px;
+                        box-shadow: 0 2px 16px rgba(44, 65, 93, 0.15);
+                        padding: 24px;
+                        background-color: #fffde7;
+                        font-family: Segoe UI, Arial, sans-serif;
+                        color: #1a237e;
+                        text-align: center;
+                    '>
+                        <div style='font-size: 34px; margin-bottom: 10px;'>⚠️</div>
+                        <h3 style='
+                            margin: 0 0 10px 0;
+                            font-size: 19px;
+                            font-weight: bold;
+                            color: #e65100;
+                        '>
+                            Solicitar reorçamento de todos os itens?
+                        </h3>
+                        <div style='
+                            font-size: 14px;
+                            margin-bottom: 28px;
+                            color: #2d415d;
+                            line-height: 1.45;
+                        '>
+                            Todos os orçamentos já realizados serão <b>descartados</b> e o processo será reiniciado pelo Facilities.<br>
+                            <span style='color: #c62828; font-weight:600;'>Essa ação não poderá ser desfeita.</span>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <div style='display: flex; gap: 18px; justify-content: center;'>
+                            <div style='
+                                flex: 1 1 40%;
+                                background: #e65100;
+                                color: #fff;
+                                padding: 12px 0;
+                                border-radius: 8px;
+                                font-size: 15px;
+                                font-weight: bold;
+                                cursor: pointer;
+                                transition: background 0.2s;
+                                box-shadow: 0 1px 4px rgba(44,65,93,0.09);
+                                user-select: none;
+                            '>
+                                Sim, solicitar reorçamento
+                            </div>
+                            <div style='
+                                flex: 1 1 40%;
+                                background: #ececec;
+                                color: #2d415d;
+                                padding: 12px 0;
+                                border-radius: 8px;
+                                font-size: 15px;
+                                font-weight: bold;
+                                cursor: pointer;
+                                transition: background 0.2s;
+                                box-shadow: 0 1px 4px rgba(44,65,93,0.08);
+                                user-select: none;
+                            '>
+                                Não, cancelar
+                            </div>
+                        </div>
+                    </div>"
+                  Width: =430
+                  X: =Parent.Width/2 - Self.Width/2
+                  Y: =Parent.Height/2 - Self.Height/2
+            - Button3:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 0)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(255, 255, 255, 0)
+                  Height: =62
+                  HoverBorderColor: =
+                  HoverColor: =
+                  HoverFill: =
+                  OnSelect: |-
+                    =UpdateContext({VarPopUpReorcamento: false})
+                  PressedBorderColor: =
+                  PressedColor: =
+                  PressedFill: =
+                  Text: =
+                  Width: =174
+                  X: |+
+                    =Button2.X + Button2.Width + 21
+
+                  Y: |+
+                    =HtmlText4.Y + HtmlText4.Height - Self.Height - 34
+            - Button2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(255, 255, 255, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 0)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(255, 255, 255, 0)
+                  FontWeight: =FontWeight.Bold
+                  Height: =62
+                  HoverBorderColor: =
+                  HoverColor: =
+                  HoverFill: =
+                  OnSelect: |-
+                    =If(IsBlank(TextInput1.Text), Notify("Por favor, descreva o motivo do reorçamento", NotificationType.Information, 3000),
+
+                    // 1. Atualiza todos os itens da collection para inativos e marca o reorçamento solicitado
+                    ForAll(
+                        ColItemViagem_ORC As itemSel,
+                        Patch(
+                            sigd_viagens_orcamento,
+                            LookUp(sigd_viagens_orcamento, ID_Referencia = itemSel.ID_Referencia),
+                            {
+                                ativo: false,
+                                solicitado_reorcamento_gestor: true,
+                                observacao_reorcamento: TextInput1.Text
+                            }
+                        )
+                    );
+
+                    // 2. Cria novos itens baseados nos existentes, com os campos resetados
+                    ForAll(
+                        ColItemViagem_ORC,
+                        Patch(
+                            sigd_viagens_orcamento,
+                            Defaults(sigd_viagens_orcamento),
+                            {
+                                id_viagem: ThisRecord.id_viagem,
+                                id_roteiro: ThisRecord.id_roteiro,
+                                tipo_orcamento: ThisRecord.tipo_orcamento,
+                                id_tipo_orcamento: ThisRecord.id_tipo_orcamento,
+                                valores_politica_aplicada_facilities: true,
+                                valores_politica_aplicada_gestor: true,
+                                ativo: true
+                            }
+                        )
+                    );
+                    Patch(bgv_viagens, LookUp(bgv_viagens, ID_Referencia = First(ColItemViagem_ORC).id_viagem), {status: "Reorçamento solicitado pelo gestor"});
+
+                    // 3. Notificação de sucesso
+                    Notify(
+                        "Reorçamento solicitado! Todos os itens foram reiniciados para o Facilities.",
+                        NotificationType.Success,
+                        4000
+                    );
+                    UpdateContext({VarPopUpReorcamento: false});
+                    //UpdateContext({ColItemViagem_ORC: Blank()})
+                    )
+                  PressedBorderColor: =
+                  PressedColor: =
+                  PressedFill: =
+                  Text: =
+                  Width: =174
+                  X: =HtmlText4.X + 31
+                  Y: =HtmlText4.Y + HtmlText4.Height - Self.Height - 34
+            - Label1:
+                Control: Label@2.5.1
+                Properties:
+                  AutoHeight: =true
+                  Color: =RGBA(80, 80, 80, 1)
+                  PaddingBottom: =0
+                  PaddingTop: =2
+                  Size: =10
+                  Text: =255 - Len(TextInput1.Text) & " caracteres restantes"
+                  Width: =TextInput1.Width
+                  X: =TextInput1.X
+                  Y: =TextInput1.Y + TextInput1.Height
+            - TextInput1:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderThickness: =1
+                  Default: =
+                  FocusedBorderThickness: =1
+                  Height: =80
+                  HintText: ="Indique o motivo do reorçamento"
+                  MaxLength: =255
+                  Mode: =TextMode.MultiLine
+                  PaddingLeft: =5
+                  Size: =11
+                  Width: =350
+                  X: =HtmlText4.X + HtmlText4.Width/2 - Self.Width/2
+                  Y: =HtmlText4.Y + HtmlText4.Height/2 - Self.Height/2 + 30

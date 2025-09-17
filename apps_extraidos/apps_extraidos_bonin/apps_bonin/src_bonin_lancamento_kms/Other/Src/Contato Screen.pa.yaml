@@ -1,0 +1,350 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Contato Screen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: =ClearCollect(colDepartamentos, Filter(sigd_departamentos, ID_Referencia = "DIN-DEPART-D5DA8CE-300725" || ID_Referencia = "DIN-DEPART-5577DA2-220725"))
+    Children:
+      - cpm_Tela_Geral_4:
+          Control: CanvasComponent
+          ComponentName: cpm_Tela_Geral
+          Properties:
+            Height: =1136
+            ListaDasTelas: =colTelas
+      - Container2_3:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height - 70
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =10
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - Self.X * 2
+            X: =10
+          Children:
+            - Container6_13:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =60
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - Label1_18:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Semibold
+                        Height: =60
+                        Size: =16
+                        Text: ="CONTATOS NA BONIN"
+                        Width: =Parent.Width - Self.X
+                        Wrap: =false
+            - Container9_3:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  BorderColor: =RGBA(45, 65, 93, 1)
+                  BorderThickness: =2
+                  DropShadow: =DropShadow.Semilight
+                  Fill: =RGBA(45, 65, 93, 1)
+                  Height: =Parent.Height - Self.Y * 2
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.Width - Self.X * 2
+                  Y: =10
+                Children:
+                  - Gallery3_6:
+                      Control: Gallery@2.15.0
+                      Variant: VariableHeight
+                      Properties:
+                        BorderColor: =
+                        Height: =Parent.Height - Self.Y
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  colDepartamentos,
+                                  IsBlank(TextInput1_18.Selected.ID_Referencia) || ID_Referencia = TextInput1_18.Selected.ID_Referencia),
+                              "departamento",
+                              SortOrder.Ascending)
+                        ShowScrollbar: =false
+                        TemplateSize: =120
+                        Width: =Parent.Width
+                        Y: =90
+                      Children:
+                        - Gallery1_3:
+                            Control: Gallery@2.15.0
+                            Variant: VariableHeight
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Height: |-
+                                =If(varQuantidadeItens = 0,
+                                Self.AllItemsCount * 30 * 2 + (35 * varQuantidadeItens),
+                                Self.AllItemsCount * 35 * 2 + (35 * varQuantidadeItens + 20))
+                              Items: |-
+                                =SortByColumns(
+                                    Filter(sigd_colaboradores, 
+                                    id_contrato = "C.2.0000",
+                                    id_departamento = ThisItem.ID_Referencia),
+                                    "nome",
+                                    SortOrder.Ascending)
+                              ShowScrollbar: =false
+                              TemplatePadding: =10
+                              TemplateSize: =50
+                              Visible: =varExpandido = ThisItem.ID_Referencia
+                              Width: =Parent.TemplateWidth-Self.X
+                              X: =1
+                              Y: =120
+                            Children:
+                              - Container7_4:
+                                  Control: GroupContainer@1.3.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.Semilight
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Height: =Gallery1_3.TemplateHeight
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =589
+                                  Children:
+                                    - htmltxt_historico_2:
+                                        Control: HtmlViewer@2.1.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Fill: =RGBA(214, 223, 238, 1)
+                                          Font: =Font.'Open Sans'
+                                          Height: =Gallery1_3.TemplateHeight
+                                          HtmlText: |
+                                            ="<div style='width:100%; font-family:Arial; font-size:15px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+
+                                              <!-- Nome -->
+                                              <div style='font-size:15px; font-weight:bold; margin-bottom:2px;'>
+                                                " & Concatenate(ThisItem.nome) & "
+                                              </div>
+
+                                            <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                              <div style='font-size:12px; display:flex; gap:5px; margin-top:5px; flex-wrap:wrap; margin-bottom:2px'>
+                                                <div style='width:170px'><strong>Telefone:</strong> " & ThisItem.telefone & "</div>
+                                                <div style='width:350px'><strong>E-mail:</strong> " & ThisItem.email & "</div>
+
+                                              </div>
+                                            </div>"
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Width: =Parent.Width
+                                    - Image4:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Height: =40
+                                          Image: ='icons8-microsoft-teams-2019-144'
+                                          OnSelect: |-
+                                            =Launch(
+                                                "msteams://teams.microsoft.com/l/chat/0/0?users=" & Lower(ThisItem.email)
+                                            )
+                                          Width: =90
+                                          X: =Parent.Width - Self.Width
+                                          Y: =5
+                                    - Image6:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Height: =40
+                                          Image: =call_16799567
+                                          OnSelect: |-
+                                            =Launch(
+                                                "tel:" &
+                                                Substitute(
+                                                    Substitute(
+                                                        Substitute(
+                                                            Substitute(ThisItem.telefone, " ", ""), // ThisItem.Telefone refere-se à coluna 'Telefone' do item atual na galeria
+                                                        "(", ""),
+                                                    ")", ""),
+                                                "-", "")
+                                            )
+                                          Width: =90
+                                          X: =450
+                                          Y: =5
+                        - Container34_6:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Height: =Parent.TemplateHeight
+                              PaddingLeft: =20
+                              PaddingRight: =20
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =Parent.Width - 10
+                            Children:
+                              - HtmlText1_4:
+                                  Control: HtmlViewer@2.1.0
+                                  Properties:
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Font: =Font.'Open Sans'
+                                    Height: =Parent.Height
+                                    HtmlText: |
+                                      ="<div style='width:100%; font-family:Arial; font-size:15px; color:#2d415d; padding:5px; border-bottom:1px solid white;'>
+
+                                        <!-- Nome -->
+                                        <div style='font-size:18px; font-weight:bold; margin-bottom:2px;'>
+                                          " & ThisItem.departamento & "
+                                        </div>
+
+                                      <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                        <div style='font-size:14px; display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; margin-bottom:2px'>
+                                          <div style='width:600px'><strong>Contratada:</strong> " & ThisItem.departamento & "</div>
+                                        </div>
+                                      <!-- Linha 1: SEI, Contratada, CNPJ Contratada, Data Assinatura -->
+                                        <div style='font-size:14px; display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; margin-bottom:2px'>
+                                          <div style='width:170px'><strong>Status:</strong> " & ThisItem.departamento & "</div>
+                                        </div>
+                                      </div>"
+                                    Width: =Parent.Width
+                              - icoSeta_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    DisabledBorderColor: =
+                                    DisabledColor: =RGBA(202, 202, 202, 1)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    DisplayMode: =If(!IsEmpty(Filter(sigd_departamentos, ID_Referencia = ThisItem.ID_Referencia)), DisplayMode.Edit, DisplayMode.Disabled)
+                                    FocusedBorderThickness: =0
+                                    Height: |
+                                      =50
+                                    HoverColor: =ColorFade(Self.Color, 10%)
+                                    HoverFill: =
+                                    Icon: =If(varExpandido = ThisItem.ID_Referencia, Icon.ChevronDown, Icon.ChevronRight)
+                                    OnSelect: |-
+                                      =Set(varVisualizarEdicaoOrcamento, false);
+                                      Set(varPopupConfirmacaoExclusao,false);
+                                      Set(varPopupConfirmacaoAcao,false);
+                                      UpdateContext({varExpandido: If(varExpandido = ThisItem.ID_Referencia, Blank(), ThisItem.ID_Referencia)});
+                                      Set(varQuantidadeItens, 0);
+                                      UpdateContext({varHistoricoExpandido: Blank()});
+
+                                      Set(teste, ThisItem.ID_Referencia);
+
+                                      If(Self.Icon = Icon.ChevronRight, 
+                                          Set(varBordaOrcamento, true), Set(varBordaOrcamento, false))
+                                    PaddingBottom: =10
+                                    PaddingRight: =Self.Width-Self.Height
+                                    PaddingTop: =10
+                                    Width: =55
+                                    X: '=Parent.Width - Self.Width '
+                                    Y: =70
+                  - Container10_5:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(45, 65, 93, 1)
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(45, 65, 93, 1)
+                        Height: =70
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                        Y: =10
+                      Children:
+                        - Container5_12:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              Height: =80
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: =0
+                              PaddingBottom: =5
+                              PaddingLeft: =5
+                              PaddingRight: =5
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =260
+                            Children:
+                              - Label1_42:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(45, 65, 93, 1)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Size: =13
+                                    Text: |-
+                                      ="📓 DEPARTAMENTO "
+                                    Width: =100
+                              - TextInput1_18:
+                                  Control: Classic/ComboBox@2.4.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderColor: =RGBA(45, 65, 93, 1)
+                                    ChevronBackground: =RGBA(45, 65, 93, 1)
+                                    ChevronDisabledBackground: =RGBA(255, 255, 255, 1)
+                                    ChevronFill: =RGBA(255, 255, 255, 1)
+                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                                    DisabledColor: =RGBA(255, 255, 255, 1)
+                                    DisplayFields: =["departamento"]
+                                    Fill: =RGBA(45, 65, 93, 1)
+                                    FillPortions: =1
+                                    Font: =Font.Arial
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =Parent.Height
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(45, 65, 93, 1)
+                                    InputTextPlaceholder: =
+                                    Items: =ShowColumns(colDepartamentos, departamento, ID_Referencia)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnChange: =
+                                    OnSelect: =
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(0, 18, 107, 1)
+                                    SearchFields: =["ID_Referencia"]
+                                    SelectMultiple: =false
+                                    SelectionColor: =RGBA(255, 255, 255, 1)
+                                    SelectionFill: =RGBA(45, 65, 93, 1)
+                                    Size: =12
+                                    Width: =Parent.Width

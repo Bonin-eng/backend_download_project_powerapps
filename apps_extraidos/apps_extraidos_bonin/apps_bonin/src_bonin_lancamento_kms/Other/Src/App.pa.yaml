@@ -1,0 +1,26 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    OnStart: |-
+      =Set(VarTemporizadorInicio, true);
+
+      Set(varUsuario, LookUp(sigd_colaboradores, email = User().Email));
+
+      Set(varAcessoNegado, IsBlank(varUsuario.email));
+
+      ClearCollect(
+              colTelas,
+                  Table(
+                      {NomeTela: "Home", Tela: 'Home Screen', Icon: Icon.Hamburger},
+                      {NomeTela: "Lançamento", Tela: 'Lançamento KM Screen', Icon: Icon.Cars},
+                      {NomeTela: "Contatos", Tela: 'Contato Screen', Icon: Icon.People},
+                      {NomeTela: "Edição", Tela: 'Perfil Screen', Icon: Icon.AddDocument}
+                  ));
+    Theme: =PowerAppsTheme

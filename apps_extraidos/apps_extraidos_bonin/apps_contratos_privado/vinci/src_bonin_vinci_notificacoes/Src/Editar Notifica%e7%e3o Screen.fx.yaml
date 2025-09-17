@@ -1,0 +1,1836 @@
+"'Editar Notificação Screen' As screen":
+
+    cpm_Tela_Geral_3 As cpm_Tela_Geral:
+
+    Container2_4 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - 60
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        maximumHeight: =11360
+        maximumWidth: =640
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X * 2
+        X: =10
+        ZIndex: =2
+
+        Container6_11 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =1
+
+            Label1_15 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =60
+                Size: =16
+                Text: ="NOTIFICAÇÃO DE ÁREA"
+                Width: =Parent.Width - Self.X
+                Wrap: =false
+                ZIndex: =1
+
+        Container6_15 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            Height: =300
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            ZIndex: =2
+
+            Container7_6 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =Parent.Height
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                Y: =10
+                ZIndex: =1
+
+                Form1 As form:
+                    AcceptsFocus: =false
+                    DataSource: =db_notificacoes
+                    Height: =Parent.Height - 10
+                    Item: =varNotificacaoSelect
+                    NumberOfColumns: =2
+                    OnReset: =true
+                    OnSuccess: |-
+                        =Set(varContratoEdit, false);
+                        Set(varContratoSelect, false);
+                    Width: =Parent.Width
+                    X: =0   
+                    ZIndex: =1
+
+                    id_notificacao_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="id_notificacao"
+                        Default: =ThisItem.id_notificacao
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,id_notificacao)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, id_notificacao)
+                        Required: =false
+                        Update: =DataCardValue4.Text
+                        Width: =620
+                        X: =0
+                        Y: =0
+                        ZIndex: =1
+
+                        DataCardKey4 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="NOTIFICAÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue4 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage4 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue4.Y + DataCardValue4.Height
+                            ZIndex: =3
+
+                        StarVisible4 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey4.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey4.Y
+                            ZIndex: =4
+
+                    nome_local_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="nome_local"
+                        Default: =ThisItem.nome_local
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,nome_local)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, nome_local)
+                        Required: =false
+                        Update: =DataCardValue1.Text
+                        Width: =620
+                        X: =0
+                        Y: =1
+                        ZIndex: =1
+
+                        DataCardKey1 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="DESCRIÇÃO DO LOCAL"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue1 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage1 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue1.Y + DataCardValue1.Height
+                            ZIndex: =3
+
+                        StarVisible1 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey1.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey1.Y
+                            ZIndex: =4
+
+                    uf_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="uf"
+                        Default: =ThisItem.uf
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,uf)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, uf)
+                        Required: =false
+                        Update: =DataCardValue5.Text
+                        Width: =310
+                        X: =0
+                        Y: =2
+                        ZIndex: =1
+
+                        UF As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="UF"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue5 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =UF.Y + UF.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage5 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue5.Y + DataCardValue5.Height
+                            ZIndex: =3
+
+                        StarVisible5 As label:
+                            Align: =Align.Center
+                            Height: =UF.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =UF.Y
+                            ZIndex: =4
+
+                    rodovia_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="rodovia"
+                        Default: =ThisItem.rodovia
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,rodovia)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, rodovia)
+                        Required: =false
+                        Update: =DataCardValue6.Text
+                        Width: =310
+                        X: =1
+                        Y: =2
+                        ZIndex: =1
+
+                        DataCardKey6 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="RODOVIA"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue6 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage6 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue6.Y + DataCardValue6.Height
+                            ZIndex: =3
+
+                        StarVisible6 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey6.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey6.Y
+                            ZIndex: =4
+
+                    km_DataCard1 As typedDataCard.numberEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="km"
+                        Default: =ThisItem.km
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,km)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =Value(DataCardValue7.Text)
+                        Width: =310
+                        X: =0
+                        Y: =3
+                        ZIndex: =1
+
+                        DataCardKey7 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="KM"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue7 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            Format: =TextFormat.Number
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage7 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue7.Y + DataCardValue7.Height
+                            ZIndex: =3
+
+                        StarVisible7 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey7.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey7.Y
+                            ZIndex: =4
+
+                    km_avanco_DataCard1 As typedDataCard.numberEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="km_avanco"
+                        Default: =ThisItem.km_avanco
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,km_avanco)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =Value(DataCardValue8.Text)
+                        Width: =310
+                        X: =1
+                        Y: =3
+                        ZIndex: =1
+
+                        DataCardKey8 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="KM DE AVANÇO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue8 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            Format: =TextFormat.Number
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage8 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue8.Y + DataCardValue8.Height
+                            ZIndex: =3
+
+                        StarVisible8 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey8.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey8.Y
+                            ZIndex: =4
+
+                    sentido_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="sentido"
+                        Default: =ThisItem.sentido
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,sentido)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, sentido)
+                        Required: =false
+                        Update: =DataCardValue9.Text
+                        Width: =310
+                        X: =0
+                        Y: =4
+                        ZIndex: =1
+
+                        DataCardKey9 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="SENTIDO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue9 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage9 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue9.Y + DataCardValue9.Height
+                            ZIndex: =3
+
+                        StarVisible9 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey9.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey9.Y
+                            ZIndex: =4
+
+                    id_elemento_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="id_elemento"
+                        Default: =ThisItem.id_elemento
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,id_elemento)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, id_elemento)
+                        Required: =false
+                        Update: =DataCardValue10.Selected.id_elemento
+                        Width: =310
+                        X: =1
+                        Y: =4
+                        ZIndex: =1
+
+                        DataCardKey10 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="ELEMENTO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        ErrorMessage10 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue10.Y + DataCardValue10.Height
+                            ZIndex: =3
+
+                        StarVisible10 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey10.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey10.Y
+                            ZIndex: =4
+
+                        DataCardValue10 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            ChevronBackground: =RGBA(245, 245, 245, 1)
+                            ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                            ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                            ChevronFill: =RGBA(50, 49, 48, 1)
+                            ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                            ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                            Color: =RGBA(50, 49, 48, 1)
+                            DefaultSelectedItems: =[LookUp(db_tipo_elemento, id_elemento = varNotificacaoSelect.id_elemento)]
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(161, 159, 157, 1)
+                            DisabledFill: =RGBA(242, 242, 241, 0)
+                            DisplayFields: =["elemento"]
+                            Fill: =RGBA(245, 245, 245, 1)
+                            Font: =Font.Arial
+                            HoverBorderColor: =RGBA(16, 110, 190, 1)
+                            HoverColor: =RGBA(50, 49, 48, 1)
+                            HoverFill: =RGBA(245, 245, 245, 1)
+                            InputTextPlaceholder: ="Localizar itens"
+                            Items: =ShowColumns(colDadosElementos, id_elemento, elemento)
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            PressedBorderColor: =RGBA(16, 110, 190, 1)
+                            PressedFill: =RGBA(0, 120, 212, 1)
+                            SearchFields: =["elemento"]
+                            SearchItems: =Search(ShowColumns(db_tipo_elemento,id_elemento,elemento),DataCardValue10.SearchText,elemento)
+                            SelectionFill: =RGBA(0, 120, 212, 1)
+                            SelectMultiple: =false
+                            Size: =12
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                            ZIndex: =5
+
+                    acao_necessaria_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="acao_necessaria"
+                        Default: =ThisItem.acao_necessaria
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,acao_necessaria)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, acao_necessaria)
+                        Required: =false
+                        Update: =DataCardValue11.Selected.Value
+                        Width: =310
+                        X: =0
+                        Y: =5
+                        ZIndex: =1
+
+                        DataCardKey11 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="AÇÃO NECESSÁRIA"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        ErrorMessage11 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue11.Y + DataCardValue11.Height
+                            ZIndex: =3
+
+                        StarVisible11 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey11.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey11.Y
+                            ZIndex: =4
+
+                        DataCardValue11 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            ChevronBackground: =RGBA(245, 245, 245, 1)
+                            ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                            ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                            ChevronFill: =RGBA(50, 49, 48, 1)
+                            ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                            ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                            Color: =RGBA(50, 49, 48, 1)
+                            DefaultSelectedItems: =[Parent.Default]
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(161, 159, 157, 1)
+                            DisabledFill: =RGBA(242, 242, 241, 0)
+                            DisplayFields: =["Value"]
+                            Fill: =RGBA(245, 245, 245, 1)
+                            Font: =Font.Arial
+                            HoverBorderColor: =RGBA(16, 110, 190, 1)
+                            HoverColor: =RGBA(50, 49, 48, 1)
+                            HoverFill: =RGBA(245, 245, 245, 1)
+                            InputTextPlaceholder: ="Localizar itens"
+                            Items: =["Notificar", "Notificado", "Fora da faixa de domínio", "Retirado"]
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            PressedBorderColor: =RGBA(16, 110, 190, 1)
+                            PressedFill: =RGBA(0, 120, 212, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Search(["Notificar","Notificado","Fora da faixa de domínio","Retirado"],DataCardValue11.SearchText,Value)
+                            SelectionFill: =RGBA(0, 120, 212, 1)
+                            SelectMultiple: =false
+                            Size: =12
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                            ZIndex: =5
+
+                    tipo_notificacao_id_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="tipo_notificacao_id"
+                        Default: =ThisItem.tipo_notificacao_id
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,tipo_notificacao_id)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, tipo_notificacao_id)
+                        Required: =false
+                        Update: =DataCardValue12.Selected.Value
+                        Width: =310
+                        X: =1
+                        Y: =5
+                        ZIndex: =1
+
+                        DataCardKey12 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="TIPO NOTIFICAÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        ErrorMessage12 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue12.Y + DataCardValue12.Height
+                            ZIndex: =3
+
+                        StarVisible12 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey12.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey12.Y
+                            ZIndex: =4
+
+                        DataCardValue12 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            ChevronBackground: =RGBA(245, 245, 245, 1)
+                            ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                            ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                            ChevronFill: =RGBA(50, 49, 48, 1)
+                            ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                            ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                            Color: =RGBA(50, 49, 48, 1)
+                            DefaultSelectedItems: |
+                                =Table({Value: If(DataCardValue10.Selected.id_elemento = "6", "AC", "OC")})
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(161, 159, 157, 1)
+                            DisabledFill: =RGBA(242, 242, 241, 0)
+                            DisplayFields: =["Value"]
+                            Fill: =RGBA(245, 245, 245, 1)
+                            Font: =Font.Arial
+                            HoverBorderColor: =RGBA(16, 110, 190, 1)
+                            HoverColor: =RGBA(50, 49, 48, 1)
+                            HoverFill: =RGBA(245, 245, 245, 1)
+                            InputTextPlaceholder: ="Localizar itens"
+                            Items: =["OC", "AC"]
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            PressedBorderColor: =RGBA(16, 110, 190, 1)
+                            PressedFill: =RGBA(0, 120, 212, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Search(["OC","AC"],DataCardValue12.SearchText,Value)
+                            SelectionFill: =RGBA(0, 120, 212, 1)
+                            SelectMultiple: =false
+                            Size: =12
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                            ZIndex: =5
+
+                    n_ocupacao_DataCard1 As typedDataCard.numberEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="n_ocupacao"
+                        Default: =ThisItem.n_ocupacao
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,n_ocupacao)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =Value(DataCardValue13.Text)
+                        Width: =310
+                        X: =0
+                        Y: =6
+                        ZIndex: =1
+
+                        DataCardKey13 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="Nº DA OCUPAÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue13 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            Format: =TextFormat.Number
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey13.Y + DataCardKey13.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage13 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue13.Y + DataCardValue13.Height
+                            ZIndex: =3
+
+                        StarVisible13 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey13.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey13.Y
+                            ZIndex: =4
+
+                    data_notificacao_DataCard1 As typedDataCard.dateEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="data_notificacao"
+                        Default: =ThisItem.data_notificacao
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,data_notificacao)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =DataCardValue14.SelectedDate
+                        Width: =310
+                        X: =1
+                        Y: =6
+                        ZIndex: =1
+
+                        DataCardKey14 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="DATA DA NOTIFICAÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue14 As datepicker:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            DefaultDate: =If(IsBlank(Parent.Default), Today(), Parent.Default)
+                            DisplayMode: =Parent.DisplayMode
+                            EndYear: =Year(Today())+100
+                            Font: =Font.Arial
+                            IsEditable: =true
+                            PaddingBottom: =0
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            Size: =12
+                            StartYear: =1899
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey14.Y + DataCardKey14.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage14 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue14.Y + DataCardValue14.Height
+                            ZIndex: =3
+
+                        StarVisible14 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey14.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey14.Y
+                            ZIndex: =4
+
+                    latitude_inicial_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="latitude_inicial"
+                        Default: =ThisItem.latitude_inicial
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,latitude_inicial)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, latitude_inicial)
+                        Required: =false
+                        Update: =DataCardValue15.Text
+                        Visible: =true
+                        Width: =310
+                        X: =0
+                        Y: =7
+                        ZIndex: =1
+
+                        DataCardKey15 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="LATITUDE INICIAL"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue15 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey15.Y + DataCardKey15.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage15 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue15.Y + DataCardValue15.Height
+                            ZIndex: =3
+
+                        StarVisible15 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey15.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey15.Y
+                            ZIndex: =4
+
+                    longitude_inicial_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="longitude_inicial"
+                        Default: =ThisItem.longitude_inicial
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,longitude_inicial)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, longitude_inicial)
+                        Required: =false
+                        Update: =DataCardValue17.Text
+                        Visible: =true
+                        Width: =310
+                        X: =1
+                        Y: =7
+                        ZIndex: =1
+
+                        DataCardKey17 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="LONGITUDE INICIAL"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue17 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage17 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue17.Y + DataCardValue17.Height
+                            ZIndex: =3
+
+                        StarVisible17 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey17.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey17.Y
+                            ZIndex: =4
+
+                    latitude_registro_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="latitude_registro"
+                        Default: =ThisItem.latitude_registro
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,latitude_registro)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, latitude_registro)
+                        Required: =false
+                        Update: =DataCardValue16.Text
+                        Visible: =true
+                        Width: =310
+                        X: =0
+                        Y: =8
+                        ZIndex: =1
+
+                        DataCardKey16 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="LATITUDE REGISTRO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue16 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Location.Latitude
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey16.Y + DataCardKey16.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage16 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue16.Y + DataCardValue16.Height
+                            ZIndex: =3
+
+                        StarVisible16 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey16.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey16.Y
+                            ZIndex: =4
+
+                    longitude_registro_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="longitude_registro"
+                        Default: =ThisItem.longitude_registro
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,longitude_registro)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, longitude_registro)
+                        Required: =false
+                        Update: =DataCardValue18.Text
+                        Visible: =true
+                        Width: =310
+                        X: =1
+                        Y: =8
+                        ZIndex: =1
+
+                        DataCardKey18 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="LONGITUDE REGISTRO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue18 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Location.Latitude
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage18 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue18.Y + DataCardValue18.Height
+                            ZIndex: =3
+
+                        StarVisible18 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey18.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey18.Y
+                            ZIndex: =4
+
+                    status_DataCard1 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="status"
+                        Default: =ThisItem.status
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,status)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        MaxLength: =DataSourceInfo([@db_notificacoes], DataSourceInfo.MaxLength, status)
+                        Required: =false
+                        Update: =DataCardValue20.Selected.Value
+                        Width: =620
+                        X: =0
+                        Y: =9
+                        ZIndex: =1
+
+                        DataCardKey20 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="STATUS DA NOTIFICAÇÃO"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        ErrorMessage20 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue20.Y + DataCardValue20.Height
+                            ZIndex: =3
+
+                        StarVisible20 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey20.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey20.Y
+                            ZIndex: =4
+
+                        DataCardValue20 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            ChevronBackground: =RGBA(245, 245, 245, 1)
+                            ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                            ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                            ChevronFill: =RGBA(50, 49, 48, 1)
+                            ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                            ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                            Color: =RGBA(50, 49, 48, 1)
+                            DefaultSelectedItems: =[Parent.Default]
+                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                            DisabledColor: =RGBA(161, 159, 157, 1)
+                            DisabledFill: =RGBA(242, 242, 241, 0)
+                            DisplayFields: =["Value"]
+                            Fill: =RGBA(245, 245, 245, 1)
+                            Font: =Font.Arial
+                            HoverBorderColor: =RGBA(16, 110, 190, 1)
+                            HoverColor: =RGBA(50, 49, 48, 1)
+                            HoverFill: =RGBA(245, 245, 245, 1)
+                            InputTextPlaceholder: ="Localizar itens"
+                            Items: =["Concluída", "Tramitada", "Interesse em Regularizar", "Não teve interesse em Regularizar"]
+                            PaddingBottom: =10
+                            PaddingLeft: =10
+                            PaddingRight: =10
+                            PaddingTop: =10
+                            PressedBorderColor: =RGBA(16, 110, 190, 1)
+                            PressedFill: =RGBA(0, 120, 212, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Search(["Concluída","Tramitada","Interesse em Regularizar","Não teve interesse em Regularizar"],DataCardValue20.SearchText,Value)
+                            SelectionFill: =RGBA(0, 120, 212, 1)
+                            SelectMultiple: =false
+                            Size: =12
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                            ZIndex: =5
+
+                    ID_Referencia_DataCard1 As typedDataCard.numberEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="ID_Referencia"
+                        Default: =ThisItem.ID_Referencia
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@db_notificacoes],DataSourceInfo.DisplayName,ID_Referencia)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =50
+                        Required: =false
+                        Update: =Value(DataCardValue3.Text)
+                        Visible: =false
+                        Width: =310
+                        X: =0
+                        Y: =10
+                        ZIndex: =1
+
+                        DataCardKey3 As label:
+                            Align: =Align.Center
+                            AutoHeight: =true
+                            Font: =Font.Arial
+                            FontWeight: =FontWeight.Semibold
+                            Height: =48
+                            Size: =14
+                            Text: ="REFERÊNCIA"
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =30
+                            Y: =10
+                            ZIndex: =1
+
+                        DataCardValue3 As text:
+                            Align: =Align.Center
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            Font: =Font.Arial
+                            Format: =TextFormat.Number
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Size: =12
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                            ZIndex: =2
+
+                        ErrorMessage3 As label:
+                            AutoHeight: =true
+                            Height: =10
+                            Live: =Live.Assertive
+                            PaddingBottom: =0
+                            PaddingLeft: =0
+                            PaddingRight: =0
+                            PaddingTop: =0
+                            Size: =24
+                            Text: =Parent.Error
+                            Visible: =Parent.DisplayMode=DisplayMode.Edit
+                            Width: =Parent.Width - 60
+                            X: =30
+                            Y: =DataCardValue3.Y + DataCardValue3.Height
+                            ZIndex: =3
+
+                        StarVisible3 As label:
+                            Align: =Align.Center
+                            Height: =DataCardKey3.Height
+                            Size: =21
+                            Text: ="*"
+                            Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                            Width: =30
+                            Wrap: =false
+                            Y: =DataCardKey3.Y
+                            ZIndex: =4
+
+        Container6_14 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =100
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =3
+
+            Container7_5 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =85
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                Y: =10
+                ZIndex: =1
+
+                Button1 As button:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(161, 159, 157, 1)
+                    DisabledFill: =RGBA(242, 242, 241, 0)
+                    Fill: =RGBA(0, 65, 132, 1)
+                    Font: =Font.Arial
+                    Height: =Parent.Height/2
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverFill: =RGBA(16, 110, 190, 1)
+                    OnSelect: |-
+                        =// Calcula o último índice do lote offline
+                        Set(varUltimoIndiceLote, 
+                            If(
+                                CountRows(colDadosOffline) > 0,
+                                Max(colDadosOffline, IndiceLote),
+                                0
+                            )
+                        );
+                        
+                        // Para cada número de 1 a 20, cria um registro de teste único e sequencial
+                        With(
+                            {
+                                novoRegistro: Patch(
+                                    Form1.Updates, Form1.Updates,
+                                    {
+                                        IndiceLote: varUltimoIndiceLote + 1,
+                                        StatusSync: "PENDENTE",
+                                        MensagemSync: "",
+                                        DataCriacao: Date(Year(Now()), Month(Now()), Day(Now()))
+                                    }
+                                )
+                            },
+                            // Verifica duplicidade e adiciona ao offline, ou marca como duplicado
+                            If(
+                                IsBlank(LookUp(colComparacaoLista, id_notificacao = novoRegistro.id_notificacao)) && 
+                                IsBlank(LookUp(colDadosOffline, id_notificacao = novoRegistro.id_notificacao)),
+                                    Collect(colDadosOffline, novoRegistro);
+                                    Collect(colComparacaoLista, {id_notificacao: novoRegistro.id_notificacao});
+                                    Collect(colDadosLista, novoRegistro), // Aqui é somente para o usuário identificar que o item foi lançado, porém ele ainda está armazenado somente no cache do dispositivo
+                                If(
+                                    !IsBlank(LookUp(colComparacaoLista, id_notificacao = novoRegistro.id_notificacao)) && 
+                                    IsBlank(LookUp(colDadosOffline, id_notificacao = novoRegistro.id_notificacao)),
+                                    Patch(colDadosOffline, Defaults(colDadosOffline), novoRegistro, {IndiceLote: varUltimoIndiceLote + 1, StatusSync: "PENDENTE", MensagemSync: ""});
+                                    UpdateIf(colDadosLista,  id_notificacao = novoRegistro.id_notificacao, novoRegistro)
+                                    ,
+                                    Patch(colDadosOffline,LookUp(colDadosOffline, id_notificacao = novoRegistro.id_notificacao), novoRegistro, { StatusSync: "PENDENTE", MensagemSync: ""});
+                                    UpdateIf(colDadosLista, id_notificacao = novoRegistro.id_notificacao, novoRegistro)
+                                )
+                            )
+                        );
+                        
+                        // Salva as collections modificadas
+                        SaveData(colDadosOffline, "CacheDadosOffline");
+                        SaveData(colComparacaoLista, "CacheListaComparacao");
+                        
+                        // Limpa e reseta o formulário e o ComboBox
+                        ResetForm(Form1);
+                        
+                        // Se estiver online, já sincroniza automaticamente
+                        If(
+                            Connection.Connected,
+                                Select(btn_sinc);
+                                Notify("Registros de teste salvos e sincronizados automaticamente!", NotificationType.Success)
+                            ,
+                                Notify("Registros de teste salvos localmente! Sincronize depois para enviar ao SharePoint.", NotificationType.Information)
+                        );
+                        
+                        Navigate(LookUp(colTelas, NomeTela = "Home").Tela);
+                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(16, 110, 190, 1)
+                    Text: ="SALVAR"
+                    Width: =Parent.Width/1.5
+                    X: =Parent.Width/2 - Self.Width/2
+                    Y: =Parent.Height/2 - Self.Height/2
+                    ZIndex: =1
+
+        Container6_16 As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =125
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            maximumHeight: =11360
+            maximumWidth: =640
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =false
+            ZIndex: =4
+
+            Container7_7 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Semilight
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =110
+                maximumHeight: =11360
+                maximumWidth: =640
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =Parent.Width - Self.X * 2
+                Y: =10
+                ZIndex: =1
+
+                btn_sinc As button:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(161, 159, 157, 1)
+                    DisabledFill: =RGBA(242, 242, 241, 0)
+                    Fill: =RGBA(0, 120, 212, 1)
+                    Font: =Font.'Segoe UI'
+                    Height: =Parent.Height/2
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverFill: =RGBA(16, 110, 190, 1)
+                    OnSelect: |
+                        =// 1. Salva o cache local ANTES da sincronização (precaução extra)
+                        Concurrent(
+                            SaveData(colDadosOffline, "CacheDadosOffline"),
+                            SaveData(colDadosLista, "CacheDadosLista"),
+                            SaveData(colComparacaoLista, "CacheListaComparacao")
+                        );
+                        
+                        // 2. Limpa coleções temporárias de itens sincronizados/erros
+                        Clear(colItensSincronizados);
+                        Clear(colItensErroSync);
+                        
+                        // 3. Sincroniza até 50 pendentes por vez, SE houver algum
+                        If(
+                            CountRows(Filter(colDadosOffline, StatusSync = "PENDENTE" || StatusSync = "ERRO")) = 0,
+                            Notify("Nenhum item pendente para sincronizar!", NotificationType.Information)
+                        ,
+                            ForAll(
+                                FirstN(Filter(colDadosOffline, StatusSync = "PENDENTE"), 50) As item,
+                                If(
+                                    Connection.Connected,
+                                    IfError(
+                                        If(
+                                            IsBlank(LookUp(db_notificacoes, id_notificacao = item.id_notificacao)),
+                                            // Criar novo registro
+                                            With(
+                                                {
+                                                    registroNovo: Patch(
+                                                        db_notificacoes,
+                                                        Defaults(db_notificacoes),
+                                                        DropColumns(item, IndiceLote, StatusSync, MensagemSync, DataCriacao)
+                                                    )
+                                                },
+                                                Patch(
+                                                    db_notificacoes,
+                                                    registroNovo,
+                                                    {ID_Referencia: registroNovo.ID}
+                                                );
+                                                Patch(
+                                                    colDadosOffline,
+                                                    LookUp(colDadosOffline, id_notificacao = item.id_notificacao),
+                                                    { StatusSync: "ENVIADO", MensagemSync: "Enviado com sucesso", ID_Referencia: registroNovo.ID }
+                                                );
+                                                Collect(
+                                                    colItensSincronizados,
+                                                    {
+                                                        id_notificacao: item.id_notificacao,
+                                                        ID_Referencia: registroNovo.ID
+                                                    }
+                                                )
+                                            ),
+                                            // Já existe: atualizar
+                                            With(
+                                                {
+                                                    registroExistente: LookUp(db_notificacoes, id_notificacao = item.id_notificacao)
+                                                },
+                                                Patch(
+                                                    db_notificacoes,
+                                                    registroExistente,
+                                                    DropColumns(item, IndiceLote, StatusSync, MensagemSync, DataCriacao), {ID_Referencia: registroExistente.ID}
+                                                );
+                                                Patch(
+                                                    colDadosOffline,
+                                                    LookUp(colDadosOffline, id_notificacao = item.id_notificacao),
+                                                    {
+                                                        StatusSync: "ENVIADO",
+                                                        MensagemSync: "Atualizado com sucesso",
+                                                        ID_Referencia: registroExistente.ID
+                                                    }
+                                                );
+                                                Collect(
+                                                    colItensSincronizados,
+                                                    {
+                                                        id_notificacao: item.id_notificacao,
+                                                        ID_Referencia: registroExistente.ID
+                                                    }
+                                                )
+                                            )
+                                        ),
+                                        // Em caso de erro:
+                                        Patch(
+                                            colDadosOffline,
+                                            LookUp(colDadosOffline, id_notificacao = item.id_notificacao),
+                                            { StatusSync: "ERRO", MensagemSync: "Falha ao sincronizar. Revise dados obrigatórios ou conexão." }
+                                        );
+                                        Collect(
+                                            colItensErroSync,
+                                            {
+                                                id_notificacao: item.id_notificacao,
+                                                MensagemSync: "Falha ao sincronizar. Revise dados obrigatórios ou conexão."
+                                            }
+                                        )
+                                    )
+                                )
+                            );
+                            
+                            // Notificações de sucesso/erro após o ForAll
+                            If(
+                                CountRows(colItensSincronizados) > 0,
+                                    Notify("Sincronização finalizada! " & CountRows(colItensSincronizados) & " item(ns) enviados/atualizados no SharePoint.", NotificationType.Success)
+                                ,
+                                If(
+                                    CountRows(colItensErroSync) > 0,
+                                        Notify("Alguns registros apresentaram erro e não foram enviados. Revise a lista de pendentes.", NotificationType.Error)
+                                    ,
+                                        Notify("Nenhum item foi sincronizado! Verifique se há dados pendentes.", NotificationType.Warning)
+                                )
+                            )
+                        );
+                        
+                        // Carrega lista principal do SharePoint em lotes
+                        Set(VarLote, 1000);
+                        Set(PrimeiraLinha, First(SortByColumns(db_notificacoes, "ID_Referencia", SortOrder.Ascending)).ID_Referencia);
+                        Set(UltimaLinha, First(SortByColumns(db_notificacoes, "ID_Referencia", SortOrder.Descending)).ID_Referencia);
+                        Set(QtdLotes, RoundUp((UltimaLinha - PrimeiraLinha + 1) / VarLote, 0));
+                        ClearCollect(SeqLotes, Sequence(QtdLotes, 0));
+                        ClearCollect(colDadosLista, Filter(db_notificacoes, false));
+                        
+                        ForAll(
+                            SeqLotes As item,
+                            With(
+                                {
+                                    limInf: item.Value * VarLote + PrimeiraLinha,
+                                    limSup: (item.Value + 1) * VarLote + PrimeiraLinha - 1
+                                },
+                                Collect(
+                                    colDadosLista,
+                                    Filter(
+                                        db_notificacoes,
+                                                ID_Referencia >= limInf && ID_Referencia <= limSup
+                                    )
+                                )
+                            )
+                        );
+                        SaveData(colDadosLista, "CacheDadosLista");
+                        
+                        // 4. REMOVE do cache TODOS os ENVIADO e DUPLICADO, sempre!
+                        RemoveIf(colDadosOffline, StatusSync = "ENVIADO" || StatusSync = "DUPLICADO");
+                        SaveData(colDadosOffline, "CacheDadosOffline");
+                        
+                        // 5. Salva os caches principais novamente, se necessário
+                        Concurrent(
+                            SaveData(colDadosOffline, "CacheDadosOffline"),
+                            SaveData(colDadosLista, "CacheDadosLista"),
+                            SaveData(colComparacaoLista, "CacheListaComparacao")
+                        );
+                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(16, 110, 190, 1)
+                    Size: =11
+                    Text: ="Sincronizar"
+                    Width: =Parent.Width/2
+                    X: =Parent.Width/2 - Self.Width/2
+                    Y: =Parent.Height/2 - Self.Height/2
+                    ZIndex: =1
+

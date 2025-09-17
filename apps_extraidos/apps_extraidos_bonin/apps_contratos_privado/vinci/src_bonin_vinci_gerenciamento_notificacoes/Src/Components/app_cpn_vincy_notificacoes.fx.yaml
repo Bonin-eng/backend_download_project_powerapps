@@ -1,0 +1,354 @@
+app_cpn_vincy_notificacoes As CanvasComponent:
+    OnSelect():
+        ThisProperty:
+            Default: =
+    ButtonHeight: =50
+    ButtonHeightSUB: =40
+    ButtonRadius: =0
+    Eixo_X: =ctn_conteudo.X
+    Eixo_Y: =ctn_conteudo.Y
+    FecharMenu: =false
+    Fill: =RGBA(0, 68, 137, 1)
+    Height: =918
+    HoverFill: |-
+        ="#EBEAEA33"
+    ListaDasTelas: =colTelas
+    ListaIcones: =ColLogo
+    Referencia_Cabecalho_Height: =ctn_cabecalho.Height
+    Referencia_Height: =ctn_conteudo.Height
+    Referencia_RadiusBottomLeft: =10
+    Referencia_RadiusBottomRight: =10
+    Referencia_RadiusTopLeft: =10
+    Referencia_RadiusTopRight: =10
+    Referencia_Width: =ctn_conteudo.Width
+    Width: =1920
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    ctn_conteudo As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(128, 225, 240, 1)
+        Height: =Parent.Height - Self.Y
+        RadiusBottomRight: |
+            =0
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Width: =ctn_cabecalho.Width
+        X: =ctn_cabecalho.X
+        Y: =ctn_cabecalho.Y + ctn_cabecalho.Height + 10
+        ZIndex: =5
+
+    ctn_cabecalho As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(45, 65, 93, 1)
+        DropShadow: =DropShadow.Semilight
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =100
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: |
+            =0
+        RadiusTopRight: |
+            =0
+        Width: =Parent.Width - Self.X - 10
+        X: =ctn_min.X + ctn_min.Width + 10
+        ZIndex: =6
+
+    ctn_max As groupContainer.manualLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        Height: =Parent.Height
+        Width: =ctn_conteudo.X
+        ZIndex: =8
+
+        ctn_min As groupContainer.manualLayoutContainer:
+            DropShadow: =DropShadow.Regular
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
+            RadiusBottomRight: =10
+            RadiusTopLeft: |+
+                =0
+                
+            RadiusTopRight: |
+                =10
+            Width: =220
+            ZIndex: =1
+
+            lbl_nome As label:
+                Align: =Align.Center
+                AutoHeight: =true
+                BorderColor: =RGBA(0, 18, 107, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =DisplayMode.View
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Bold
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =Left(User().FullName, Find(" ", User().FullName) - 1)
+                Width: =Parent.Width
+                Y: =img_colab.Y + img_colab.Height + 5
+                ZIndex: =2
+
+            img_colab As image:
+                BorderColor: =RGBA(255, 255, 255, 1)
+                BorderThickness: =2
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                Fill: =RGBA(45, 65, 93, 1)
+                Height: =img_bonin_menor.Height + 20
+                HoverBorderColor: =
+                HoverFill: =
+                Image: =UsuáriosdoOffice365.UserPhoto(User().Email)
+                ImagePosition: =ImagePosition.Fill
+                PressedBorderColor: =
+                PressedFill: =
+                RadiusBottomLeft: =90
+                RadiusBottomRight: =90
+                RadiusTopLeft: =90
+                RadiusTopRight: =90
+                TabIndex: =-2
+                Width: =img_bonin_menor.Width + 20
+                X: =(Parent.Width- Self.Width)/2
+                Y: =90
+                ZIndex: =3
+
+            img_bonin_menor As image:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Height: =40
+                HoverBorderColor: =
+                Image: =LookUp(app_cpn_vincy_notificacoes.ListaIcones, Nome = "logo_menor", SVG)
+                OnSelect: =Set(gblFecharMenu, false)
+                PressedBorderColor: =
+                TabIndex: =2
+                Visible: =false
+                Width: =40
+                X: =15
+                Y: =Self.X
+                ZIndex: =4
+
+        gpj_glr_itens As gallery.variableTemplateHeightGallery:
+            '#CopilotOverlayLabel': ="Filtrada"
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DelayItemLoading: =true
+            Height: =Parent.Height - Self.Y
+            Items: =app_cpn_vincy_notificacoes.ListaDasTelas
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =61
+            Width: =ctn_conteudo.X
+            Y: =lbl_nome.Y + lbl_nome.Height + 10
+            ZIndex: =2
+
+            galSubMenu_8 As gallery.galleryVertical:
+                '#CopilotOverlayLabel': ="Filtrada"
+                BorderColor: =RGBA(0, 18, 107, 1)
+                DelayItemLoading: =true
+                Height: =Self.AllItemsCount*Self.TemplateHeight+20
+                Items: =ThisItem.SubMenu
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplatePadding: =0
+                TemplateSize: =app_cpn_vincy_notificacoes.ButtonHeightSUB
+                Visible: =varShowSubMenu && ThisItem.NomeTela = varItemMenuClicked.NomeTela && Self.AllItemsCount>0
+                Width: =Parent.TemplateWidth-Self.X-2+20
+                Y: =app_cpn_vincy_notificacoes.ButtonHeight+10
+                ZIndex: =2
+
+                Container2_7 As groupContainer.manualLayoutContainer:
+                    BorderColor: =RGBA(180, 196, 219, 1)
+                    BorderThickness: =2
+                    Fill: =RGBA(128, 225, 240, 1)
+                    Height: =btnSubMenu_8.Height
+                    RadiusBottomLeft: =Self.Height/2
+                    RadiusBottomRight: =4
+                    RadiusTopLeft: =Self.Height/2
+                    RadiusTopRight: =4
+                    Visible: =ThisItem.Tela = App.ActiveScreen
+                    Width: =ctn_conteudo.X
+                    X: =10
+                    Y: =Img.Y
+                    ZIndex: =2
+
+                Label9_3 As label:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    Color: =RGBA(0, 0, 0, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(0, 0, 0, 0)
+                    FocusedBorderThickness: =1
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Semibold
+                    Height: =Parent.TemplateHeight
+                    PaddingLeft: =40
+                    Size: =10.62
+                    Text: =ThisItem.NomeTela
+                    Width: =ctn_conteudo.X - 20 
+                    X: =10
+                    ZIndex: =3
+
+                btnSubMenu_8 As button:
+                    Align: =Align.Left
+                    DisabledBorderColor: =RGBA(235, 234, 234, 20)
+                    DisabledColor: =RGBA(235, 234, 234, 20)
+                    DisabledFill: =RGBA(235, 234, 234, 20)
+                    Fill: =Color.Transparent
+                    FontWeight: =FontWeight.Semibold
+                    Height: =app_cpn_vincy_notificacoes.ButtonHeightSUB
+                    HoverBorderColor: =Self.HoverFill
+                    HoverFill: =ColorValue(app_cpn_vincy_notificacoes.HoverFill)
+                    OnSelect: |-
+                        =Set(varFillSelectedMenu,gpj_glr_itens.Selected);
+                        Set(varItemMenuClicked,gpj_glr_itens.Selected);
+                        Set(varItemSubMenuClicked,ThisItem);
+                        
+                        Navigate(ThisItem.Tela);
+                        app_cpn_vincy_notificacoes.OnSelect()
+                    PressedBorderColor: =Self.PressedFill
+                    PressedColor: =Self.Color
+                    PressedFill: =ColorFade(Self.Fill, -30%)
+                    RadiusTopLeft: =If(app_cpn_vincy_notificacoes.ButtonRadius=0,2,app_cpn_vincy_notificacoes.ButtonRadius)
+                    Size: =10
+                    Text: =
+                    Width: =ctn_conteudo.X - 20 
+                    X: =10
+                    ZIndex: =4
+
+            Container2_5 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(0, 66, 133, 1)
+                BorderThickness: =2
+                Fill: =RGBA(128, 225, 240, 1)
+                Height: =icn_item.Height
+                RadiusBottomLeft: =Self.Height/2
+                RadiusBottomRight: =4
+                RadiusTopLeft: =Self.Height/2
+                RadiusTopRight: =4
+                Visible: =ThisItem.Tela.Name = App.ActiveScreen.Name
+                Width: =ctn_conteudo.X
+                X: =icn_item.X - 15
+                Y: =Img.Y
+                ZIndex: =3
+
+            Label9_1 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =1
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Height: =Parent.TemplateHeight
+                PaddingLeft: =60
+                Size: =10.62
+                Text: =ThisItem.NomeTela
+                Width: =Parent.TemplateWidth - Parent.X - Self.X - 10
+                ZIndex: =4
+
+            icn_item As icon:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(255, 255, 255, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderColor: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =0
+                Height: =Parent.TemplateHeight
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =ThisItem.Icon
+                OnSelect: =Navigate(ThisItem.Tela)
+                PaddingRight: =Self.Width-30
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                Width: =Parent.TemplateWidth-Parent.X - Self.X
+                X: =20
+                ZIndex: =5
+
+            Img As image:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                Height: =Parent.TemplateHeight
+                HoverBorderColor: =
+                HoverFill: =
+                Image: =ThisItem.Icon
+                OnSelect: |-
+                    =With({TemSubMenu:!IsEmpty(ThisItem.SubMenu) && !IsBlank(ThisItem.SubMenu)},
+                        If(TemSubMenu,
+                            Set(varExpandedMenu,true);
+                            Set(varTargetScreen, ThisItem.Tela); // <- Captura da tela
+                            If(varItemMenuClicked.NomeTela=ThisItem.NomeTela && varShowSubMenu,
+                                Set(varShowSubMenu,false)
+                                ,
+                                Set(varShowSubMenu,true)
+                            )
+                            ,
+                            Set(varShowSubMenu,false); //close sub menu
+                            Set(varFillSelectedMenu,ThisItem); //fill menu item selected
+                            Set(varTargetScreen, ThisItem.Tela), // <- Captura da tela
+                            Navigate(ThisItem.Tela) //go to page 
+                        )
+                        ;
+                    
+                        Set(varItemMenuClicked,ThisItem); //menu item clicked
+                        Set(varItemSubMenuClicked,Blank()); //clear sub menu item
+                        Set(varTargetScreen, ThisItem.Tela); // <- Captura da tela
+                        Navigate(ThisItem.Tela);
+                    
+                        app_cpn_vincy_notificacoes.OnSelect() //run any action
+                    )
+                PaddingRight: =Self.Width- 50
+                PressedBorderColor: =
+                PressedFill: =
+                TabIndex: =2
+                Tooltip: =ThisItem.NomeTela
+                Width: =Parent.TemplateWidth-Parent.X - Self.X
+                X: =10
+                ZIndex: =6
+
+        Image2 As image:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =4
+            Height: =53
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            Image: ='Logo Azul PNG 2 (1)'
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Width: =220
+            Y: =14
+            ZIndex: =3
+
+    Image5 As image:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =4
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Image: ='logo-rodape'
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        Width: =220
+        X: =1690
+        ZIndex: =9
+
